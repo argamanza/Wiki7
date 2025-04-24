@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mediawiki:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./images:/var/www/html/images
+      - ./LocalSettings.php:/var/www/html/LocalSettings.php
+    environment:
+      - MEDIAWIKI_DB_TYPE=mysql
+      - MEDIAWIKI_DB_HOST=db
+      - MEDIAWIKI_DB_USER=wikiuser
+      - MEDIAWIKI_DB_PASSWORD=secret
+      - MEDIAWIKI_DB_NAME=wikidb
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.5
+    restart: always
+    environment:
+      - MYSQL_DATABASE=wikidb
+      - MYSQL_USER=wikiuser
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
