@@ -6,6 +6,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as path from 'path';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
+import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 
 export class Wiki7CdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -57,7 +58,7 @@ export class Wiki7CdkStack extends cdk.Stack {
       taskRole,
     });
     
-    taskDefinition.addContainer('MediaWikiContainer', {
+    const container = taskDefinition.addContainer('MediaWikiContainer', {
       image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../../docker'), {
         platform: Platform.LINUX_AMD64,
       }),
@@ -71,6 +72,12 @@ export class Wiki7CdkStack extends cdk.Stack {
         MEDIAWIKI_DB_USER: 'wikiuser',
         MEDIAWIKI_DB_PASSWORD: 'secret',
       },
+    });
+    
+    // Add port mapping
+    container.addPortMappings({
+      containerPort: 80,
+      protocol: ecs.Protocol.TCP,
     });
 
     // Create security group for the MediaWiki Fargate service
@@ -91,5 +98,39 @@ export class Wiki7CdkStack extends cdk.Stack {
         subnetType: ec2.SubnetType.PUBLIC, // will be behind an ALB anyway
       },
     });
+
+    const albSecurityGroup = new ec2.SecurityGroup(this, 'Wiki7ALBSecurityGroup', {
+      vpc,
+      description: 'Allow inbound HTTP from anywhere to ALB',
+      allowAllOutbound: true,
+    });
+    
+    albSecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), 'Allow HTTP traffic from anywhere');
+
+    // Application Load Balancer
+    const alb = new elbv2.ApplicationLoadBalancer(this, 'Wiki7ALB', {
+      vpc,
+      internetFacing: true,
+      securityGroup: albSecurityGroup,
+      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+      loadBalancerName: 'Wiki7ALB',
+    });
+
+    // Listener for port 80
+    const listener = alb.addListener('Listener', {
+      port: 80,
+      open: true,
+    });
+
+    // Attach ECS service to ALB
+    listener.addTargets('Wiki7EcsTargets', {
+      port: 80,
+      targets: [fargateService],
+      healthCheck: {
+        path: '/',
+        healthyHttpCodes: '200-399',
+      },
+    });
+  
   }
 }

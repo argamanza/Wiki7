@@ -41,9 +41,9 @@ Your Wiki7 project aims to create a fan-driven wiki for Hapoel Beer Sheva FC, wi
 
 ### Phase 1: Environment Setup & Planning
 - [x] Set up initial GitHub repository with clear directory structure
-- [ ] Create a minimal Docker setup for local MediaWiki development
-- [ ] Design initial AWS infrastructure diagram (VPC, RDS, ECS, S3, Route 53, etc.)
-- [ ] Manually deploy a basic version of each core service to understand configurations and needs
+- [x] Create a minimal Docker setup for local MediaWiki development
+- [x] Design initial AWS infrastructure diagram (VPC, RDS, ECS, S3, Route 53, etc.)
+- [x] Manually deploy a basic version of each core service to understand configurations and needs
 
 ### Phase 2: Infrastructure as Code (IaC)
 - [ ] Build CDK templates for core services: VPC, RDS, ECS services, S3 buckets, CloudFront distribution
