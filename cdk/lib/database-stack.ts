@@ -46,5 +46,8 @@ export class DatabaseStack extends Construct {
       backupRetention: cdk.Duration.days(7),
       databaseName: 'wikidb',
     });
+    
+    // Allow MediaWiki ECS service to connect to RDS
+    this.dbInstance.connections.allowFrom(mediawikiSecurityGroup, ec2.Port.tcp(3306), 'Allow MediaWiki to connect to RDS');
   }
 }

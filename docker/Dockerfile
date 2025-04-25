@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy LocalSettings.php (uncomment if bundling in image for prod)
-# COPY LocalSettings.php /var/www/html/LocalSettings.php
+COPY LocalSettings.php /var/www/html/LocalSettings.php
 
 # Set a working directory explicitly (not required, but nice to be explicit)
 WORKDIR /var/www/html

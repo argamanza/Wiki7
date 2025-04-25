@@ -8,6 +8,8 @@ import * as path from 'path';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
 
 interface ApplicationStackProps {
   vpc: ec2.Vpc;
@@ -39,6 +41,18 @@ export class ApplicationStack extends Construct {
     );
 
     dbSecret.grantRead(taskRole);
+
+    // Create S3 bucket for MediaWiki storage
+    const mediawikiStorageBucket = new s3.Bucket(this, 'Wiki7StorageBucket', {
+        bucketName: `wiki7-storage`,
+        encryption: s3.BucketEncryption.S3_MANAGED,
+        blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+        versioned: true,
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
+    });
+    
+    // Grant ECS task role access to S3
+    mediawikiStorageBucket.grantReadWrite(taskRole);
 
     // Log Group for container logs
     const logGroup = new logs.LogGroup(this, 'Wiki7LogGroup', {
@@ -80,7 +94,7 @@ export class ApplicationStack extends Construct {
       desiredCount: 1,
       assignPublicIp: true,
       securityGroups: [mediawikiSecurityGroup],
-      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
 
     // ALB Security Group
