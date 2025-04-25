@@ -7,6 +7,8 @@ import * as logs from 'aws-cdk-lib/aws-logs';
 import * as path from 'path';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as rds from 'aws-cdk-lib/aws-rds';
 
 export class Wiki7CdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -130,6 +132,52 @@ export class Wiki7CdkStack extends cdk.Stack {
         path: '/',
         healthyHttpCodes: '200-399',
       },
+    });
+
+    // Create a secret for the RDS database credentials
+    const dbSecret = new secretsmanager.Secret(this, 'Wiki7DBSecret', {
+      generateSecretString: {
+        secretStringTemplate: JSON.stringify({ username: 'wikiuser' }),
+        generateStringKey: 'password',
+        excludePunctuation: true,
+        includeSpace: false,
+      },
+      description: 'Database credentials for Wiki7 MediaWiki database',
+    });
+
+    // Security group for RDS (controls who can connect)
+    const dbSecurityGroup = new ec2.SecurityGroup(this, 'Wiki7DBSecurityGroup', {
+      vpc,
+      description: 'Allow access to MariaDB from MediaWiki ECS service',
+      allowAllOutbound: true,
+    });
+
+    // Allow only the Fargate Service security group to connect to the DB on port 3306
+    dbSecurityGroup.addIngressRule(
+      mediawikiSG,
+      ec2.Port.tcp(3306),
+      'Allow MediaWiki ECS Service to access database'
+    );
+
+    // Create the RDS database instance
+    const dbInstance = new rds.DatabaseInstance(this, 'Wiki7Database', {
+      engine: rds.DatabaseInstanceEngine.mariaDb({ version: rds.MariaDbEngineVersion.VER_10_5 }),
+      vpc,
+      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }, // Only private subnets
+      securityGroups: [dbSecurityGroup],
+      credentials: rds.Credentials.fromSecret(dbSecret),
+      multiAz: false, // Single AZ for cost (can be changed later)
+      allocatedStorage: 20, // GB
+      maxAllocatedStorage: 100, // Allow it to grow if needed
+      instanceType: ec2.InstanceType.of(
+        ec2.InstanceClass.BURSTABLE3,
+        ec2.InstanceSize.MICRO
+      ), // Cheap, good for dev
+      publiclyAccessible: false, // No direct public access
+      removalPolicy: cdk.RemovalPolicy.DESTROY, // Auto-delete in dev (be careful in prod!)
+      deletionProtection: false,
+      backupRetention: cdk.Duration.days(7), // 7 days backup
+      databaseName: 'wikidb',
     });
   
   }
