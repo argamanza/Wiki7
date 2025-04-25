@@ -5,6 +5,7 @@ import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as path from 'path';
+import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
 export class Wiki7CdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -31,7 +32,7 @@ export class Wiki7CdkStack extends cdk.Stack {
     // ECS cluster within the VPC
     const cluster = new ecs.Cluster(this, 'Wiki7Cluster', {
       vpc,
-      containerInsightsV2: ecs.ContainerInsights.ENHANCED,
+      containerInsightsV2: ecs.ContainerInsights.ENABLED,
     });
 
     // IAM role used by ECS tasks (application-level permissions)
@@ -57,7 +58,9 @@ export class Wiki7CdkStack extends cdk.Stack {
     });
     
     taskDefinition.addContainer('MediaWikiContainer', {
-      image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../../docker')),
+      image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../../docker'), {
+        platform: Platform.LINUX_AMD64,
+      }),
       logging: ecs.LogDriver.awsLogs({
         logGroup,
         streamPrefix: 'mediawiki',
@@ -67,6 +70,25 @@ export class Wiki7CdkStack extends cdk.Stack {
         MEDIAWIKI_DB_NAME: 'wikidb',
         MEDIAWIKI_DB_USER: 'wikiuser',
         MEDIAWIKI_DB_PASSWORD: 'secret',
+      },
+    });
+
+    // Create security group for the MediaWiki Fargate service
+    const mediawikiSG = new ec2.SecurityGroup(this, 'MediaWikiServiceSG', {
+      vpc,
+      description: 'Allow inbound traffic from ALB to MediaWiki',
+      allowAllOutbound: true,
+    });
+
+    // Create the Fargate service
+    const fargateService = new ecs.FargateService(this, 'MediaWikiService', {
+      cluster,
+      taskDefinition,
+      assignPublicIp: true, // so it can receive traffic directly via ALB
+      desiredCount: 1,
+      securityGroups: [mediawikiSG],
+      vpcSubnets: {
+        subnetType: ec2.SubnetType.PUBLIC, // will be behind an ALB anyway
       },
     });
   }
