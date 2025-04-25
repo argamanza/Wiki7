@@ -7,6 +7,7 @@ services:
       - "8080:80"
     volumes:
       - ./images:/var/www/html/images
+      # Uncomment for local dev only:
       # - ./LocalSettings.php:/var/www/html/LocalSettings.php
     environment:
       - MEDIAWIKI_DB_TYPE=mysql
