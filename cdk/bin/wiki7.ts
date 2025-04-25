@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
-import { Wiki7CdkStack } from '../lib/cdk-stack';
+import { Wiki7CdkStack } from '../lib/wiki7-cdk-stack';
 
 const app = new cdk.App();
 new Wiki7CdkStack(app, 'Wiki7CdkStack', {

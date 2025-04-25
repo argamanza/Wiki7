@@ -1,14 +1,20 @@
-# Welcome to your CDK TypeScript project
+# Wiki7 Infrastructure (CDK Project)
 
-This is a blank project for CDK development with TypeScript.
+This project defines the AWS infrastructure for the **Wiki7 MediaWiki site** using the AWS Cloud Development Kit (CDK) in TypeScript.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+---
 
-## Useful commands
+## Project Structure
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+```plaintext
+wiki7-cdk/
+├── bin/
+│   └── wiki7.ts                # CDK App entry point
+├── lib/
+│   ├── wiki7-cdk-stack.ts       # Master stack orchestrating the components
+│   ├── network-stack.ts         # VPC and Security Groups
+│   ├── database-stack.ts        # Secrets Manager and RDS database
+│   └── application-stack.ts     # ECS Cluster, Fargate Service, Load Balancer
+├── cdk.json
+├── package.json
+└── tsconfig.json
