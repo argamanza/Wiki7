@@ -79,6 +79,7 @@ export class ApplicationStack extends Construct {
         MEDIAWIKI_DB_NAME: 'wikidb',
         MEDIAWIKI_DB_USER: 'wikiuser',
         MEDIAWIKI_DB_PASSWORD: dbSecret.secretValueFromJson('password').unsafeUnwrap(),
+        WIKI_ENV: 'production'
       },
     });
 

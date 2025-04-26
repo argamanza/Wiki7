@@ -7,14 +7,15 @@ services:
       - "8080:80"
     volumes:
       - ./images:/var/www/html/images
-      # Uncomment for local dev only:
-      # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+      - ./skins:/var/www/html/skins
+      - ./LocalSettings.php:/var/www/html/LocalSettings.php
     environment:
       - MEDIAWIKI_DB_TYPE=mysql
       - MEDIAWIKI_DB_HOST=db
       - MEDIAWIKI_DB_USER=wikiuser
       - MEDIAWIKI_DB_PASSWORD=secret
       - MEDIAWIKI_DB_NAME=wikidb
+      - WIKI_ENV=production
     depends_on:
       - db
 
