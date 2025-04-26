@@ -8,7 +8,6 @@ services:
     volumes:
       - ./images:/var/www/html/images
       - ./skins:/var/www/html/skins
-      - ./LocalSettings.php:/var/www/html/LocalSettings.php
     environment:
       - MEDIAWIKI_DB_TYPE=mysql
       - MEDIAWIKI_DB_HOST=db
@@ -29,6 +28,14 @@ services:
       - MYSQL_ROOT_PASSWORD=rootpass
     volumes:
       - db_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
 
 volumes:
   db_data:
