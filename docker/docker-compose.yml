@@ -15,7 +15,7 @@ services:
       - MEDIAWIKI_DB_USER=wikiuser
       - MEDIAWIKI_DB_PASSWORD=secret
       - MEDIAWIKI_DB_NAME=wikidb
-      - WIKI_ENV=production
+      - WIKI_ENV=dev
     depends_on:
       - db
 
