@@ -49,6 +49,18 @@ export class ApplicationStack extends Construct {
         blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
         versioned: true,
         removalPolicy: cdk.RemovalPolicy.RETAIN,
+
+        // Lifecycle rule to expire old versions after 7 days
+        lifecycleRules: [
+          {
+            id: 'ExpireOldVersions',
+            enabled: true,
+            noncurrentVersionExpiration: cdk.Duration.days(7),  // Keep old versions for 7 days
+            
+            // Delete markers expiration
+            expiredObjectDeleteMarker: true,
+          }
+        ],
     });
     
     // Grant ECS task role access to S3
@@ -78,10 +90,11 @@ export class ApplicationStack extends Construct {
         MEDIAWIKI_DB_HOST: dbInstance.dbInstanceEndpointAddress,
         MEDIAWIKI_DB_NAME: 'wikidb',
         MEDIAWIKI_DB_USER: 'wikiuser',
-        MEDIAWIKI_DB_PASSWORD: dbSecret.secretValueFromJson('password').unsafeUnwrap(),
         WIKI_ENV: 'production'
       },
     });
+
+    container.addSecret('MEDIAWIKI_DB_PASSWORD', ecs.Secret.fromSecretsManager(dbSecret, 'password'));
 
     container.addPortMappings({
       containerPort: 80,

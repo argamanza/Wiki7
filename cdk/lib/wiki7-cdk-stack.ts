@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { NetworkStack } from './network-stack'
 import { DatabaseStack } from './database-stack';
+import { BackupStack } from './backup-stack';
 import { ApplicationStack } from './application-stack';
 
 export class Wiki7CdkStack extends cdk.Stack {
@@ -15,6 +16,10 @@ export class Wiki7CdkStack extends cdk.Stack {
     const database = new DatabaseStack(this, 'Database', {
       vpc: network.vpc,
       mediawikiSecurityGroup: network.mediawikiSecurityGroup,
+    });
+
+    const backup = new BackupStack(this, 'Backup', {
+      dbInstance: database.dbInstance,
     });
 
     // Provision ECS cluster, task, service, ALB
