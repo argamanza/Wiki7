@@ -63,7 +63,9 @@ $wgGroupPermissions["*"]["edit"] = false; // Prevent anonymous edits
 
 ## Skins
 wfLoadSkin( 'Vector' );
-$wgDefaultSkin = 'vector';
+wfLoadSkin( 'Wiki7Skin' );
+
+$wgDefaultSkin = 'Vector';
 
 # Other available skins (commented out)
 // wfLoadSkin( 'MinervaNeue' );
@@ -98,7 +100,7 @@ $wgPingback = true; // Help MediaWiki devs by sending anonymous usage stats
 # Switches behavior based on WIKI_ENV ("production" vs development)
 
 if ( getenv('WIKI_ENV') === 'production' ) {
-    // Production mode
+	// Production mode
     $wgServer = "http://Wiki7Alb-2051510885.il-central-1.elb.amazonaws.com";
     $wgShowExceptionDetails = false; // Hide internal error details
     $wgDebugToolbar = false;          // Disable debug toolbar
@@ -122,3 +124,6 @@ if ( getenv('WIKI_ENV') === 'production' ) {
 }
 
 # --- End of environment-specific settings ---
+
+$wgShowExceptionDetails = true;
+$wgShowDBErrorBacktrace = true;

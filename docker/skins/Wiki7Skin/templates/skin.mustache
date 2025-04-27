@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="no-js" {{{html-user-language-attributes}}}>
+<head>
+    <meta charset="{{charset}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{{html-title-heading}}}
+    {{>headItems}}
+</head>
+<body {{body-attrs}}>
+    <div id="mw-wrapper" class="{{team-colors}}">
+        <header id="mw-header">
+            <div class="mw-header-container">
+                <div class="mw-header-logo">
+                    <a href="{{link-mainpage}}">
+                        <img src="{{link-logo}}" alt="{{site-name}}">
+                    </a>
+                </div>
+                <div class="mw-header-content">
+                    <h1 class="mw-wiki-title">{{site-name}}</h1>
+                    <div class="mw-header-tagline">{{msg-tagline}}</div>
+                    <div class="mw-header-team-info">
+                        <span class="team-nickname">{{team-nickname}}</span>
+                    </div>
+                </div>
+                <div class="mw-header-tools">
+                    {{#data-personal-menu}}
+                    {{>Menu}}
+                    {{/data-personal-menu}}
+                    
+                    {{#data-search-box}}
+                    <form {{{form-attributes}}}>
+                        <div class="mw-search-box">
+                            {{{html-input}}}
+                            {{{html-button-search}}}
+                            {{{html-button-go}}}
+                        </div>
+                    </form>
+                    {{/data-search-box}}
+                </div>
+            </div>
+            
+            {{#data-portlets-sidebar}}
+            <nav id="mw-navigation">
+                {{#data-portlets.data-main-menu}}
+                {{>Menu}}
+                {{/data-portlets.data-main-menu}}
+            </nav>
+            {{/data-portlets-sidebar}}
+        </header>
+        
+        <div id="content" class="mw-body">
+            <div class="mw-body-header">
+                {{{html-indicators}}}
+                {{{html-title}}}
+                {{#page-language-dir}}
+                <span id="siteSub" class="mw-body-tagline">{{msg-tagline}}</span>
+                {{/page-language-dir}}
+                
+                {{#data-portlets.data-namespaces}}
+                {{>Menu}}
+                {{/data-portlets.data-namespaces}}
+                
+                {{#data-portlets.data-variants}}
+                {{>Menu}}
+                {{/data-portlets.data-variants}}
+                
+                {{#data-portlets.data-views}}
+                {{>Menu}}
+                {{/data-portlets.data-views}}
+                
+                {{#data-portlets.data-actions}}
+                {{>Menu}}
+                {{/data-portlets.data-actions}}
+            </div>
+            
+            <div id="bodyContent" class="mw-body-content">
+                <div id="contentSub">{{{html-subtitle}}}</div>
+                <div id="contentSub2">{{html-undelete-link}}</div>
+                
+                {{{html-body-content}}}
+                
+                {{#data-portlets.data-jump-to-nav}}
+                {{>Menu}}
+                {{/data-portlets.data-jump-to-nav}}
+            </div>
+        </div>
+        
+        <div id="mw-panel">
+            {{#data-portlets.data-portable-infobox}}
+            {{>Menu}}
+            {{/data-portlets.data-portable-infobox}}
+            
+            {{#data-portlets-sidebar}}
+            {{#data-portlets-first}}
+            {{>Menu}}
+            {{/data-portlets-first}}
+            {{/data-portlets-sidebar}}
+        </div>
+        
+        <footer id="footer" role="contentinfo">
+            {{#data-footer}}
+            <div id="footer-content">
+                {{#data-info}}
+                <div id="footer-info">
+                    {{#array-items}}
+                    <div>{{{html}}}</div>
+                    {{/array-items}}
+                </div>
+                {{/data-info}}
+                
+                {{#data-places}}
+                <div id="footer-places">
+                    {{#array-items}}
+                    <div>{{{html}}}</div>
+                    {{/array-items}}
+                </div>
+                {{/data-places}}
+                
+                {{#data-icons}}
+                <div id="footer-icons">
+                    {{#array-items}}
+                    <div>{{{html}}}</div>
+                    {{/array-items}}
+                </div>
+                {{/data-icons}}
+            </div>
+            {{/data-footer}}
+            
+            <div id="footer-custom">
+                <div class="footer-team">
+                    <strong>{{team-name}}</strong> - Wiki7: The Hapoel Beer Sheva Fan Wiki
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{{#header-title}}
+<h3>{{{.}}}</h3>
+{{/header-title}}
+<div class="{{class}}">
+    <ul class="menu">
+        {{#is-portlet}}
+        {{#html-items}}
+        {{{.}}}
+        {{/html-items}}
+        {{^html-items}}
+        {{#array-items}}
+        <li id="{{id}}" {{{html-tooltip}}} class="{{class}} {{active}}">
+            <a href="{{href}}" {{#link-class}}class="{{.}}"{{/link-class}} {{{link-attributes}}}>
+                {{#icon}}<span class="mw-ui-icon-{{name}} mw-ui-icon"></span>{{/icon}}
+                <span class="menu-item-label">{{label}}</span>
+            </a>
+            {{#children}}
+            <div class="dropdown">
+                {{#array-items}}
+                <a href="{{href}}" {{#link-class}}class="{{.}}"{{/link-class}} {{{link-attributes}}}>
+                    {{#icon}}<span class="mw-ui-icon-{{name}} mw-ui-icon"></span>{{/icon}}
+                    <span>{{label}}</span>
+                </a>
+                {{/array-items}}
+            </div>
+            {{/children}}
+        </li>
+        {{/array-items}}
+        {{/html-items}}
+        {{/is-portlet}}
+    </ul>
+</div>

@@ -1,0 +1,33 @@
+{{#data-head}}{{! Conditional wrap to allow tests to not have this }}
+	<!-- metadata -->
+	<meta name="generator" content="{{msg-generator}}">
+	{{!
+	If I want to allow all attributes, I'm forced to do this verbose approach.
+	See https://github.com/WICG/trusted-types/issues/226
+	}}
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	{{#html-http-equiv}}<meta http-equiv="{{name}}" content="{{content}}"{{#if_fa_exists}} {{fa_name}}="{{fa_content}}"{{/if_fa_exists}}>{{/html-http-equiv}}
+	<meta name="robots" content="INDEX, FOLLOW">
+	<meta name="keywords" content="wiki7, hapoel, beer sheva, football, wiki">
+	<meta name="description" content="The Ultimate Hapoel Beer Sheva Fan Wiki">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+	<meta name="theme-color" content="#e30613">
+	
+	<!-- scripts -->
+	{{#data-head-scripts}}
+		{{! Only supporting the most basic script attributes for now }}
+		<script{{{script-src-attr}}}>{{{script-content}}}</script>
+	{{/data-head-scripts}}
+	
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&display=swap">
+	{{#data-styles}}
+		<link rel="stylesheet" href="{{url}}"{{#media}} media="{{.}}"{{/media}}>
+	{{/data-styles}}
+	
+	<!-- all other head elements -->
+	{{#html-user-language-attributes}}lang="{{html-user-language}}" dir="{{html-user-dir}}"{{/html-user-language-attributes}}
+	{{#data-head-items}}
+		{{{data-html}}}
+	{{/data-head-items}}
+{{/data-head}}

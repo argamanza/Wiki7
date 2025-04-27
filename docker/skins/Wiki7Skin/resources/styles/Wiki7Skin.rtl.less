@@ -1,0 +1,99 @@
+/* RTL (Right-to-Left) styles for Wiki7Skin */
+
+body {
+    direction: rtl;
+    unicode-bidi: embed;
+}
+
+/* Header adjustments */
+#mw-header {
+    .mw-header-logo {
+        margin-left: 1em;
+        margin-right: 0;
+    }
+    
+    .mw-search-box {
+        input[type="search"] {
+            border-radius: 0 3px 3px 0;
+        }
+        
+        button {
+            border-radius: 3px 0 0 3px;
+        }
+    }
+}
+
+/* Navigation adjustments */
+#mw-navigation {
+    ul li {
+        float: right;
+        
+        .dropdown {
+            left: auto;
+            right: 0;
+        }
+    }
+}
+
+/* Content area adjustments */
+#content {
+    .mw-body-content {
+        ul, ol {
+            padding-right: 2em;
+            padding-left: 0;
+        }
+        
+        blockquote {
+            border-right: 3px solid @hapoel-red;
+            border-left: none;
+            padding-right: 1em;
+            padding-left: 0;
+        }
+    }
+}
+
+/* Panel/sidebar adjustments */
+#mw-panel {
+    border-right: 1px solid darken(@hapoel-light-gray, 5%);
+    border-left: none;
+}
+
+/* Special fixes for Hebrew fonts */
+body {
+    font-family: 'Alef', 'Arial', sans-serif;
+}
+
+/* Adjust input placeholder alignment */
+::-webkit-input-placeholder { text-align: right; }
+::-moz-placeholder { text-align: right; }
+:-ms-input-placeholder { text-align: right; }
+:-moz-placeholder { text-align: right; }
+
+/* Fix edit section links position */
+.mw-editsection {
+    margin-right: 0.5em;
+    margin-left: 0;
+    unicode-bidi: embed;
+}
+
+/* TOC adjustments */
+.toc {
+    text-align: right;
+    
+    ul {
+        padding-right: 1em;
+        padding-left: 0;
+    }
+}
+
+/* Footer adjustments */
+#footer .footer-info {
+    text-align: right;
+}
+
+/* Mobile nav adjustments */
+@media (max-width: 768px) {
+    .mw-nav-toggle {
+        float: left;
+    }
+}
