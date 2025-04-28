@@ -3,6 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as backup from 'aws-cdk-lib/aws-backup';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as events from 'aws-cdk-lib/aws-events';
+import * as kms from 'aws-cdk-lib/aws-kms';
 
 interface BackupStackProps {
   dbInstance: rds.IDatabaseInstance;
@@ -14,10 +15,18 @@ export class BackupStack extends Construct {
 
     const { dbInstance } = props;
 
-    // Create a backup vault
+    // Create a custom KMS key for backup encryption
+    const backupKey = new kms.Key(this, 'Wiki7BackupKey', {
+      enableKeyRotation: true,
+      alias: 'alias/wiki7-backup-key',
+      removalPolicy: cdk.RemovalPolicy.RETAIN, // Keep the key if stack is deleted
+    });
+
+    // Create a backup vault with encryption
     const backupVault = new backup.BackupVault(this, 'Wiki7BackupVault', {
       backupVaultName: 'wiki7-backup-vault',
-      removalPolicy: cdk.RemovalPolicy.RETAIN, // Ensure backups are retained if the stack is deleted
+      encryptionKey: backupKey,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
     // Create a backup plan
