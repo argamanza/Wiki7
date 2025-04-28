@@ -63,6 +63,7 @@ $wgGroupPermissions["*"]["edit"] = false; // Prevent anonymous edits
 
 ## Skins
 wfLoadSkin( 'Vector' );
+wfLoadSkin( 'Citizen' );
 wfLoadSkin( 'Wiki7Skin' );
 
 $wgDefaultSkin = 'Vector';
