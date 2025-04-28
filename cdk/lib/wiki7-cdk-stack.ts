@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { DnsStack } from './dns-stack';
+import { Wiki7CertificateStack } from './wiki7-certificate-stack';
 import { NetworkStack } from './network-stack'
 import { DatabaseStack } from './database-stack';
 import { BackupStack } from './backup-stack';
@@ -10,10 +11,21 @@ export class Wiki7CdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-      // Provision DNS (Route 53 Hosted Zone)
-      const dns = new DnsStack(this, 'Dns', {
-        domainName: 'wiki7.co.il',
-      });    
+    // Provision DNS (Route 53 Hosted Zone)
+    const dns = new DnsStack(this, 'Dns', {
+      domainName: 'wiki7.co.il',
+    });    
+
+    // Provision ACM Certificate (in us-east-1)
+    const certificateStack = new Wiki7CertificateStack(this, 'CertificateStack', {
+      domainName: 'wiki7.co.il',
+      hostedZone: dns.hostedZone,
+      env: {
+        account: this.account,
+        region: 'us-east-1',
+      },
+      crossRegionReferences: true,
+    });
 
     // Provision networking resources (VPC and SGs)
     const network = new NetworkStack(this, 'Network');
