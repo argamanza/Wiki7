@@ -19,6 +19,8 @@ interface ApplicationStackProps {
 }
 
 export class ApplicationStack extends Construct {
+  readonly alb: elbv2.ApplicationLoadBalancer;
+
   constructor(scope: Construct, id: string, props: ApplicationStackProps) {
     super(scope, id);
 
@@ -121,7 +123,7 @@ export class ApplicationStack extends Construct {
     albSecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), 'Allow HTTP traffic from anywhere');
 
     // Application Load Balancer
-    const alb = new elbv2.ApplicationLoadBalancer(this, 'Wiki7Alb', {
+    this.alb = new elbv2.ApplicationLoadBalancer(this, 'Wiki7Alb', {
       vpc,
       internetFacing: true,
       securityGroup: albSecurityGroup,
@@ -130,7 +132,7 @@ export class ApplicationStack extends Construct {
     });
 
     // Listener and Target Group
-    const listener = alb.addListener('Wiki7AlbListener', {
+    const listener = this.alb.addListener('Wiki7AlbListener', {
       port: 80,
       open: true,
     });
