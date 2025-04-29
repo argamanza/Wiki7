@@ -30,9 +30,10 @@ export class Wiki7CertificateStack extends cdk.Stack {
     
 
     this.certificate = new acm.Certificate(this, 'Wiki7Certificate', {
-      domainName: props.domainName,
+      domainName: props.domainName,  // 'wiki7.co.il'
+      subjectAlternativeNames: [`www.${props.domainName}`], // 'www.wiki7.co.il'
       validation: acm.CertificateValidation.fromDns(hostedZone),
-    });
+    });    
 
     new ssm.StringParameter(this, 'Wiki7CertificateArnParameter', {
       parameterName: '/wiki7/certificate/arn',

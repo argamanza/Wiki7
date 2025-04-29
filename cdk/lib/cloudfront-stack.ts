@@ -1,5 +1,4 @@
 import { Construct } from 'constructs';
-import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as route53 from 'aws-cdk-lib/aws-route53';
@@ -24,6 +23,26 @@ export class CloudFrontConstruct extends Construct {
       protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
     });
 
+    const redirectFunction = new cloudfront.Function(this, 'RedirectWwwToApexFunction', {
+      code: cloudfront.FunctionCode.fromInline(`
+        function handler(event) {
+          var request = event.request;
+          var host = request.headers.host.value;
+          if (host.startsWith('www.')) {
+            var redirect = 'https://' + host.substring(4) + request.uri;
+            return {
+              statusCode: 301,
+              statusDescription: 'Moved Permanently',
+              headers: {
+                location: { value: redirect }
+              }
+            };
+          }
+          return request;
+        }
+      `),
+    });    
+
     const distribution = new cloudfront.Distribution(this, 'Wiki7Distribution', {
       defaultBehavior: {
         origin: albOrigin,
@@ -31,14 +50,26 @@ export class CloudFrontConstruct extends Construct {
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
         originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER,
+        functionAssociations: [
+          {
+            function: redirectFunction,
+            eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+          },
+        ],
       },
-      domainNames: [domainName],
+      domainNames: [props.domainName, `www.${props.domainName}`],
       certificate,
     });
 
     new route53.ARecord(this, 'Wiki7ApexAlias', {
       zone: hostedZone,
       recordName: '',
+      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
+    });
+
+    new route53.ARecord(this, 'Wiki7WwwAlias', {
+      zone: props.hostedZone,
+      recordName: `www`,
       target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
     });
   }
