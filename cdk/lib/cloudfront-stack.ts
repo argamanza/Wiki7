@@ -41,7 +41,15 @@ export class CloudFrontConstruct extends Construct {
           return request;
         }
       `),
-    });    
+    });
+
+    const responseHeadersPolicy = new cloudfront.ResponseHeadersPolicy(this, 'NosniffHeaderPolicy', {
+      responseHeadersPolicyName: 'NosniffOnly',
+      comment: 'Adds X-Content-Type-Options nosniff header',
+      securityHeadersBehavior: {
+        contentTypeOptions: { override: true },
+      },
+    });
 
     const distribution = new cloudfront.Distribution(this, 'Wiki7Distribution', {
       defaultBehavior: {
@@ -50,6 +58,7 @@ export class CloudFrontConstruct extends Construct {
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
         originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER,
+        responseHeadersPolicy: responseHeadersPolicy,
         functionAssociations: [
           {
             function: redirectFunction,
@@ -57,7 +66,7 @@ export class CloudFrontConstruct extends Construct {
           },
         ],
       },
-      domainNames: [props.domainName, `www.${props.domainName}`],
+      domainNames: [domainName, `www.${domainName}`],
       certificate,
     });
 
@@ -68,8 +77,8 @@ export class CloudFrontConstruct extends Construct {
     });
 
     new route53.ARecord(this, 'Wiki7WwwAlias', {
-      zone: props.hostedZone,
-      recordName: `www`,
+      zone: hostedZone,
+      recordName: 'www',
       target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
     });
   }
