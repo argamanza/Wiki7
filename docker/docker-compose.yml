@@ -8,7 +8,6 @@ services:
     volumes:
       - ./images:/var/www/html/images
       - ./skins:/var/www/html/skins
-      - ./LocalSettings.php:/var/www/html/LocalSettings.php
     environment:
       - MEDIAWIKI_DB_TYPE=mysql
       - MEDIAWIKI_DB_HOST=db

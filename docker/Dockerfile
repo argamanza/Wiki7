@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /var/www/html
 
 # Copy LocalSettings.php
-# COPY LocalSettings.php /var/www/html/LocalSettings.php
+COPY LocalSettings.php /var/www/html/LocalSettings.php
 
 # Fix permissions
 RUN chown -R www-data:www-data /var/www/html

@@ -11,6 +11,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 ## Basic Site Settings
 $wgSitename = "ויקישבע"; // Wiki name
 $wgScriptPath = ""; // URL base path (empty = root)
+$wgMetaNamespace = 'ויקישבע';
 
 ## Resource Paths
 $wgResourceBasePath = $wgScriptPath;
@@ -26,7 +27,6 @@ $wgDBpassword = getenv('MEDIAWIKI_DB_PASSWORD'); // DB password via ENV
 $wgDBprefix = "";
 $wgDBssl = false;
 $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
-$wgSharedTables[] = "actor"; // Shared actor table if needed
 
 ## Email Settings
 $wgEnableEmail = true;
@@ -63,8 +63,8 @@ $wgGroupPermissions["*"]["edit"] = false; // Prevent anonymous edits
 
 ## Skins
 wfLoadSkin( 'Vector' );
-wfLoadSkin( 'Citizen' );
-wfLoadSkin( 'Wiki7Skin' );
+// wfLoadSkin( 'Citizen' );
+// wfLoadSkin( 'Wiki7Skin' );
 
 $wgDefaultSkin = 'Vector';
 
@@ -102,7 +102,7 @@ $wgPingback = true; // Help MediaWiki devs by sending anonymous usage stats
 
 if ( getenv('WIKI_ENV') === 'production' ) {
 	// Production mode
-    $wgServer = "http://Wiki7Alb-2051510885.il-central-1.elb.amazonaws.com";
+    $wgServer = "https://wiki7.co.il";
     $wgShowExceptionDetails = false; // Hide internal error details
     $wgDebugToolbar = false;          // Disable debug toolbar
     $wgCachePages = true;              // Enable page caching
@@ -110,6 +110,7 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     $wgMainCacheType = CACHE_ACCEL;    // Use object cache
     $wgParserCacheType = CACHE_ACCEL;
     $wgCacheDirectory = "/tmp";        // Use local tmp dir for cache if needed
+    $wgCookieSecure = true;
 } else {
     // Development mode
     $wgServer = "http://localhost:8080";
@@ -122,9 +123,8 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     $wgCacheDirectory = false;         // Disable file cache
     $wgDevelopmentWarnings = true;     // (optional) show PHP notices
     $wgDebugLogFile = "/tmp/mediawiki-debug.log"; // (optional) log debug to file
+    $wgShowExceptionDetails = true;
+    $wgShowDBErrorBacktrace = true;
 }
 
 # --- End of environment-specific settings ---
-
-$wgShowExceptionDetails = true;
-$wgShowDBErrorBacktrace = true;
