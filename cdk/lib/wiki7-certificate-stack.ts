@@ -5,7 +5,6 @@ import * as route53 from 'aws-cdk-lib/aws-route53';
 
 interface Wiki7CertificateStackProps extends cdk.StackProps {
   domainName: string;
-  hostedZone: route53.IHostedZone;
 }
 
 export class Wiki7CertificateStack extends cdk.Stack {
@@ -15,15 +14,24 @@ export class Wiki7CertificateStack extends cdk.Stack {
     super(scope, id, {
       ...props,
       env: {
-        region: 'us-east-1', // Force us-east-1 region
-        account: props.env?.account, // Keep the same AWS account
+        region: 'us-east-1',
+        account: props.env?.account,
       },
-      crossRegionReferences: true,
     });
+
+    const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
+      domainName: props.domainName,
+    });
+    
 
     this.certificate = new acm.Certificate(this, 'Wiki7Certificate', {
       domainName: props.domainName,
-      validation: acm.CertificateValidation.fromDns(props.hostedZone),
+      validation: acm.CertificateValidation.fromDns(hostedZone),
+    });
+
+    new cdk.CfnOutput(this, 'Wiki7CertificateArnExport', {
+      value: this.certificate.certificateArn,
+      exportName: 'Wiki7CertificateArn',
     });
   }
 }
