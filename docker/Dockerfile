@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /var/www/html
 
+# Copy .htaccess
+COPY .htaccess /var/www/html/.htaccess
+
 # Copy LocalSettings.php
 COPY LocalSettings.php /var/www/html/LocalSettings.php
 

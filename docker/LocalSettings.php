@@ -11,6 +11,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 ## Basic Site Settings
 $wgSitename = "ויקישבע"; // Wiki name
 $wgScriptPath = ""; // URL base path (empty = root)
+$wgArticlePath = "/$1";
 $wgMetaNamespace = 'ויקישבע';
 
 ## Resource Paths
@@ -111,6 +112,7 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     $wgParserCacheType = CACHE_ACCEL;
     $wgCacheDirectory = "/tmp";        // Use local tmp dir for cache if needed
     $wgCookieSecure = true;
+    $wgCanonicalServer = "https://wiki7.co.il";
 } else {
     // Development mode
     $wgServer = "http://localhost:8080";
