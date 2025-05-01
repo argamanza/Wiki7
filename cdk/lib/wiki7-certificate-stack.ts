@@ -54,7 +54,7 @@ export class Wiki7CertificateStack extends cdk.Stack {
       ],
       resources: [
         `arn:aws:ssm:${this.region}:${this.account}:parameter/wiki7/certificate/arn`,
-        `arn:aws:ssm:il-central-1:${this.account}:parameter/wiki7/certificate/arn`,
+        `arn:aws:ssm:${this.region}:${this.account}:parameter/wiki7/certificate/arn`,
       ],
     }));
 

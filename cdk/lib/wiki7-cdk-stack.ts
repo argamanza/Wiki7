@@ -2,8 +2,8 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as route53 from 'aws-cdk-lib/aws-route53';
-import { NetworkStack } from './network-stack';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
+import { NetworkStack } from './network-stack';
 import { DatabaseStack } from './database-stack';
 import { BackupStack } from './backup-stack';
 import { ApplicationStack } from './application-stack';
@@ -40,6 +40,7 @@ export class Wiki7CdkStack extends cdk.Stack {
       dbInstance: database.dbInstance,
       dbSecret: database.dbSecret,
       mediawikiSecurityGroup: network.mediawikiSecurityGroup,
+      domainName: 'wiki7.co.il' 
     });
 
     new CloudFrontConstruct(this, 'CloudFront', {
@@ -47,6 +48,7 @@ export class Wiki7CdkStack extends cdk.Stack {
       hostedZone: hostedZone,
       certificate: certificate,
       domainName: 'wiki7.co.il',
+      mediawikiStorageBucket: app.mediawikiStorageBucket,
     });
   }
 }

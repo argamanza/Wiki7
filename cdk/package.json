@@ -24,7 +24,7 @@
     "@aws-cdk/aws-ecs": "^1.203.0",
     "@aws-cdk/aws-iam": "^1.203.0",
     "@aws-cdk/aws-logs": "^1.203.0",
-    "aws-cdk-lib": "2.186.0",
-    "constructs": "^10.0.0"
+    "aws-cdk-lib": "^2.193.0",
+    "constructs": "^10.4.2"
   }
 }

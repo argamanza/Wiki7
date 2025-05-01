@@ -9,6 +9,8 @@ import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cr from 'aws-cdk-lib/custom-resources';
 import * as cdk from 'aws-cdk-lib';
 
 interface ApplicationStackProps {
@@ -16,15 +18,17 @@ interface ApplicationStackProps {
   dbInstance: rds.DatabaseInstance;
   dbSecret: secretsmanager.Secret;
   mediawikiSecurityGroup: ec2.SecurityGroup;
+  domainName: string;
 }
 
 export class ApplicationStack extends Construct {
   readonly alb: elbv2.ApplicationLoadBalancer;
+  readonly mediawikiStorageBucket: s3.Bucket;
 
   constructor(scope: Construct, id: string, props: ApplicationStackProps) {
     super(scope, id);
 
-    const { vpc, dbInstance, dbSecret, mediawikiSecurityGroup } = props;
+    const { vpc, dbInstance, dbSecret, mediawikiSecurityGroup, domainName } = props;
 
     // Create ECS Cluster
     const cluster = new ecs.Cluster(this, 'Wiki7Cluster', {
@@ -44,29 +48,153 @@ export class ApplicationStack extends Construct {
 
     dbSecret.grantRead(taskRole);
 
-    // Create S3 bucket for MediaWiki storage
-    const mediawikiStorageBucket = new s3.Bucket(this, 'Wiki7StorageBucket', {
-        bucketName: `wiki7-storage`,
-        encryption: s3.BucketEncryption.S3_MANAGED,
-        blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-        versioned: true,
-        removalPolicy: cdk.RemovalPolicy.RETAIN,
+    // Create S3 bucket for MediaWiki storage with date-based naming
+    const now = new Date();
+    const day = now.getDate().toString().padStart(2, '0');
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // +1 because months are 0-indexed
+    const year = now.getFullYear().toString().substring(2); // Get last 2 digits of year
 
-        // Lifecycle rule to expire old versions after 7 days
-        lifecycleRules: [
-          {
-            id: 'ExpireOldVersions',
-            enabled: true,
-            noncurrentVersionExpiration: cdk.Duration.days(7),  // Keep old versions for 7 days
-            
-            // Delete markers expiration
-            expiredObjectDeleteMarker: true,
-          }
-        ],
+    const dateSuffix = `${year}${month}${day}`;
+
+    this.mediawikiStorageBucket = new s3.Bucket(this, 'Wiki7StorageBucket', {
+      bucketName: `wiki7-storage-${dateSuffix}`,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      // When using CloudFront with OAC, you should block all public access
+      blockPublicAccess: new s3.BlockPublicAccess({
+        blockPublicAcls: false,       // Allow public ACLs
+        blockPublicPolicy: false,      // Allow public policies 
+        ignorePublicAcls: false,       // Honor public ACLs
+        restrictPublicBuckets: false   // Do not restrict public buckets
+      }),
+      objectOwnership: s3.ObjectOwnership.OBJECT_WRITER, // Allow ACLs
+      versioned: true,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+      cors: [
+        {
+          allowedMethods: [
+            s3.HttpMethods.GET,
+            s3.HttpMethods.HEAD,
+          ],
+          allowedOrigins: [
+            `https://${domainName}`, 
+            `https://www.${domainName}`
+          ], // Restrict to your domains
+          allowedHeaders: ['*'],
+          maxAge: 3000,
+        },
+      ],
+      lifecycleRules: [
+        {
+          id: 'ExpireOldVersions',
+          enabled: true,
+          noncurrentVersionExpiration: cdk.Duration.days(7),
+          expiredObjectDeleteMarker: true,
+        }
+      ],
     });
     
     // Grant ECS task role access to S3
-    mediawikiStorageBucket.grantReadWrite(taskRole);
+    this.mediawikiStorageBucket.grantReadWrite(taskRole);
+
+    // IAM policy for ECS task role
+    taskRole.addToPolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        's3:PutObject',
+        's3:PutObjectAcl', // Include this for MediaWiki AWS extension
+        's3:GetObject',
+        's3:DeleteObject',
+        's3:ListBucket',
+        's3:GetBucketLocation',
+      ],
+      resources: [
+        this.mediawikiStorageBucket.bucketArn,
+        `${this.mediawikiStorageBucket.bucketArn}/*`,
+      ],
+    })); 
+    
+    // Create a Lambda function to initialize S3 directories
+    const s3DirectoriesLambdaRole = new iam.Role(this, 'S3DirectoriesLambdaRole', {
+      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole')
+      ],
+    });
+    
+    // Add S3 permissions to the Lambda role
+    s3DirectoriesLambdaRole.addToPolicy(new iam.PolicyStatement({
+      actions: ['s3:PutObject'],
+      resources: [
+        `${this.mediawikiStorageBucket.bucketArn}/*`,
+      ],
+    }));
+    
+    // Create the Lambda function
+    const s3DirectoriesFunction = new lambda.Function(this, 'S3DirectoriesLambda', {
+      runtime: lambda.Runtime.PYTHON_3_11,
+      handler: 's3_directories.lambda_handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/s3-directories')),
+      timeout: cdk.Duration.seconds(30),
+      role: s3DirectoriesLambdaRole,
+    });
+    
+    // Create the custom resource to invoke the Lambda
+    new cr.AwsCustomResource(this, 'CreateS3Directories', {
+      onCreate: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: s3DirectoriesFunction.functionName,
+          Payload: JSON.stringify({
+            RequestType: 'Create',
+            ResourceProperties: {
+              BucketName: this.mediawikiStorageBucket.bucketName,
+              Directories: ['images', 'skins'],
+            },
+            ResponseURL: 'http://pre-signed-S3-url-for-response',
+          }),
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('S3DirectoriesResource'),
+      },
+      onUpdate: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: s3DirectoriesFunction.functionName,
+          Payload: JSON.stringify({
+            RequestType: 'Update',
+            ResourceProperties: {
+              BucketName: this.mediawikiStorageBucket.bucketName,
+              Directories: ['images', 'skins'],
+            },
+            ResponseURL: 'http://pre-signed-S3-url-for-response',
+          }),
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('S3DirectoriesResource'),
+      },
+      onDelete: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: s3DirectoriesFunction.functionName,
+          Payload: JSON.stringify({
+            RequestType: 'Delete',
+            ResourceProperties: {
+              BucketName: this.mediawikiStorageBucket.bucketName,
+              Directories: ['images', 'skins'],
+            },
+            ResponseURL: 'http://pre-signed-S3-url-for-response',
+          }),
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('S3DirectoriesResource'),
+      },
+      policy: cr.AwsCustomResourcePolicy.fromStatements([
+        new iam.PolicyStatement({
+          actions: ['lambda:InvokeFunction'],
+          resources: [s3DirectoriesFunction.functionArn],
+        }),
+      ]),
+    });
 
     // Log Group for container logs
     const logGroup = new logs.LogGroup(this, 'Wiki7LogGroup', {
@@ -92,7 +220,8 @@ export class ApplicationStack extends Construct {
         MEDIAWIKI_DB_HOST: dbInstance.dbInstanceEndpointAddress,
         MEDIAWIKI_DB_NAME: 'wikidb',
         MEDIAWIKI_DB_USER: 'wikiuser',
-        WIKI_ENV: 'production'
+        WIKI_ENV: 'production',
+        S3_BUCKET_NAME: this.mediawikiStorageBucket.bucketName,
       },
     });
 
@@ -144,6 +273,12 @@ export class ApplicationStack extends Construct {
         path: '/',
         healthyHttpCodes: '200-399',
       },
+    });
+    
+    // Output the S3 bucket name
+    new cdk.CfnOutput(this, 'MediaWikiStorageBucketName', {
+      value: this.mediawikiStorageBucket.bucketName,
+      description: 'S3 bucket name for MediaWiki storage',
     });
   }
 }

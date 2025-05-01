@@ -8,16 +8,20 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	exit;
 }
 
+##
 ## Basic Site Settings
+##
 $wgSitename = "ויקישבע"; // Wiki name
 $wgScriptPath = ""; // URL base path (empty = root)
-$wgArticlePath = "/$1";
-$wgMetaNamespace = 'ויקישבע';
+$wgArticlePath = "/$1"; // Pretty URLs
+$wgMetaNamespace = 'ויקישבע'; // Project namespace name
 
 ## Resource Paths
 $wgResourceBasePath = $wgScriptPath;
 
+##
 ## Database Settings
+##
 $wgDBtype = "mysql";
 $wgDBserver   = getenv('MEDIAWIKI_DB_HOST'); // DB server via ENV
 $wgDBname     = getenv('MEDIAWIKI_DB_NAME'); // DB name via ENV
@@ -26,56 +30,66 @@ $wgDBpassword = getenv('MEDIAWIKI_DB_PASSWORD'); // DB password via ENV
 
 # MySQL specific options
 $wgDBprefix = "";
-$wgDBssl = false;
+$wgDBssl = false; // Consider enabling SSL for production database connections
 $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 
+##
 ## Email Settings
+##
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; // Allow users to send emails to each other
 $wgEmergencyContact = "info@wiki7.co.il"; // System email contact
 $wgPasswordSender = "info@wiki7.co.il"; // Email sender address
-$wgEnotifUserTalk = false;
-$wgEnotifWatchlist = false;
+$wgEnotifUserTalk = false; // Email notification when talkpage changes
+$wgEnotifWatchlist = false; // Email notification for watchlist changes
 $wgEmailAuthentication = true; // Require email confirmation
 
+##
 ## Upload Settings
+##
 $wgEnableUploads = true;
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "/usr/bin/convert";
 
 # InstantCommons allows using images from Wikimedia Commons
-$wgUseInstantCommons = false;
+$wgUseInstantCommons = false; // Set to true if you want to use Wikimedia Commons images
 
+##
 ## Language and Localization
+##
 $wgLanguageCode = "he"; // Hebrew
 $wgLocaltimezone = "Asia/Jerusalem"; // Server timezone
 
+##
 ## Security Settings
+##
 $wgSecretKey = "137d670eceb1b6da8ecd51f3493aab7215e43ef79a9d27072655db73dfa2d3d5"; // Site secret
 $wgAuthenticationTokenVersion = "1";
 $wgUpgradeKey = "c23cfd79cbaf67f8"; // Upgrade key for web installer
 
-## Cache Settings (Overridden below per environment)
+##
+## Cache Settings
+##
 $wgMainCacheType = CACHE_ACCEL;
 $wgMemCachedServers = [];
 
+##
 ## Rights and Permissions
+##
 $wgGroupPermissions["*"]["edit"] = false; // Prevent anonymous edits
 
+##
 ## Skins
+##
 wfLoadSkin( 'Vector' );
 // wfLoadSkin( 'Citizen' );
 // wfLoadSkin( 'Wiki7Skin' );
 
 $wgDefaultSkin = 'Vector';
 
-# Other available skins (commented out)
-// wfLoadSkin( 'MinervaNeue' );
-// wfLoadSkin( 'MonoBook' );
-// wfLoadSkin( 'Timeless' );
-// wfLoadSkin( 'Vector' );
-
+##
 ## Extensions
+##
 wfLoadExtension( 'CategoryTree' );
 wfLoadExtension( 'Cite' );
 wfLoadExtension( 'ConfirmEdit' );
@@ -89,44 +103,107 @@ wfLoadExtension( 'Thanks' );
 wfLoadExtension( 'VisualEditor' );
 wfLoadExtension( 'WikiEditor' );
 
+##
 ## Logo
+##
 $wgLogos = [
 	'1x' => "$wgResourceBasePath/resources/assets/change-your-logo.svg",
 	'icon' => "$wgResourceBasePath/resources/assets/change-your-logo.svg",
 ];
 
-## Pingback
+##
+## Monitoring
+##
 $wgPingback = true; // Help MediaWiki devs by sending anonymous usage stats
 
-# --- Environment-specific settings ---
-# Switches behavior based on WIKI_ENV ("production" vs development)
+##
+## Environment-specific settings
+##
+# Switches behavior based on WIKI_ENV ("production" vs "development")
 
 if ( getenv('WIKI_ENV') === 'production' ) {
-	// Production mode
+    // Production mode
     $wgServer = "https://wiki7.co.il";
-    $wgShowExceptionDetails = false; // Hide internal error details
-    $wgDebugToolbar = false;          // Disable debug toolbar
-    $wgCachePages = true;              // Enable page caching
-    $wgEnableParserCache = true;       // Enable parsed output cache
-    $wgMainCacheType = CACHE_ACCEL;    // Use object cache
-    $wgParserCacheType = CACHE_ACCEL;
-    $wgCacheDirectory = "/tmp";        // Use local tmp dir for cache if needed
-    $wgCookieSecure = true;
     $wgCanonicalServer = "https://wiki7.co.il";
+    $wgCookieSecure = true; // Only transmit cookies over HTTPS
+    
+    // Error handling
+    $wgShowExceptionDetails = false; // Hide internal error details for security
+    $wgDebugToolbar = false; // Should be false in production for security
+    
+    // Caching settings
+    $wgCachePages = true; // Enable page caching
+    $wgEnableParserCache = true; // Enable parsed output cache
+    $wgMainCacheType = CACHE_ACCEL; // Use object cache
+    $wgParserCacheType = CACHE_ACCEL;
+    $wgCacheDirectory = "/tmp"; // Use local tmp dir for cache if needed
+    
+    // Resource paths
+    $wgLoadScript = 'https://wiki7.co.il/load.php';
+    $wgExtensionAssetsPath = 'https://wiki7.co.il/extensions';
+    $wgResourceBasePath = $wgScriptPath;
+    
+    // Logging
+    $wgDebugLogGroups['FileOperation'] = 'php://stderr'; // Log file operations to stderr
+    
+    // S3 for file storage - this requires AWS extension to be installed
+    if (getenv('S3_BUCKET_NAME')) {
+        # Load AWS extension
+        wfLoadExtension( 'AWS' );
+        
+        # Configure AWS extension
+        $wgAWSCredentials = [
+            'key'    => getenv('AWS_ACCESS_KEY_ID'),
+            'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+            'token'  => false
+        ];
+        
+        # S3 configuration
+        $wgAWSRegion = 'il-central-1';
+        $wgAWSBucketName = getenv('S3_BUCKET_NAME');
+        
+        # This is the key setting that fixes the regional endpoint issue
+        # It tells MediaWiki to serve files through your CloudFront/custom domain
+        $wgAWSBucketDomain = 'https://wiki7.co.il';
+        
+        # Subdirectory within the bucket where files are stored
+        $wgAWSBucketTopSubdirectory = "/images";
+        
+        # Set paths for direct S3 access (fallback if CloudFront is unavailable)
+        $wgUploadPath = 'https://' . $wgAWSBucketName . '.s3.il-central-1.amazonaws.com/images';
+        $wgStylePath = 'https://wiki7.co.il/skins';
+        
+        # You can add CloudWatch logging for S3 operations if needed
+        # $wgAWSLogging = true;
+    } else {
+        # Fall back to local file system if S3 bucket name is not provided
+        $wgUploadDirectory = '/var/www/html/images';
+        $wgUploadPath = 'https://wiki7.co.il/images';
+        $wgStylePath = 'https://wiki7.co.il/skins';
+    }
 } else {
     // Development mode
     $wgServer = "http://localhost:8080";
-    $wgShowExceptionDetails = true;    // Show full error stack traces
-    $wgDebugToolbar = true;            // Enable debug toolbar in UI
-    $wgCachePages = false;             // Disable page caching for live changes
-    $wgEnableParserCache = false;      // Disable parsed output cache
-    $wgMainCacheType = CACHE_NONE;     // No object caching
+    
+    // Error handling - verbose in development
+    $wgShowExceptionDetails = true; // Show full error stack traces
+    $wgShowDBErrorBacktrace = true; // Show DB error backtraces
+    $wgDebugToolbar = true; // Enable debug toolbar in UI
+    $wgDevelopmentWarnings = true; // Show PHP notices
+    
+    // Caching - disabled in development for easier debugging
+    $wgCachePages = false; // Disable page caching for live changes
+    $wgEnableParserCache = false; // Disable parsed output cache
+    $wgMainCacheType = CACHE_NONE; // No object caching
     $wgParserCacheType = CACHE_NONE;
-    $wgCacheDirectory = false;         // Disable file cache
-    $wgDevelopmentWarnings = true;     // (optional) show PHP notices
-    $wgDebugLogFile = "/tmp/mediawiki-debug.log"; // (optional) log debug to file
-    $wgShowExceptionDetails = true;
-    $wgShowDBErrorBacktrace = true;
+    $wgCacheDirectory = false; // Disable file cache
+    
+    // Logging
+    $wgDebugLogFile = "/tmp/mediawiki-debug.log"; // Log debug to file
+    
+    // Local file storage in development
+    $wgUploadDirectory = '/var/www/html/images';
+    $wgUploadPath = '/images';
 }
 
 # --- End of environment-specific settings ---
