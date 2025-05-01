@@ -45,6 +45,7 @@ export class DatabaseStack extends Construct {
       deletionProtection: false,
       backupRetention: cdk.Duration.days(7),
       databaseName: 'wikidb',
+      storageEncrypted: true,
     });
     
     // Allow MediaWiki ECS service to connect to RDS
