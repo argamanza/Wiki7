@@ -1,0 +1,31 @@
+/*
+ * Wiki7
+ *
+ * SkinStyles for Extension:Cargo
+ * Module: ext.cargo.pagevalues
+ * Version: REL1_39 b4c6314
+ *
+ * Date: 2023-01-03
+*/
+
+@import '../../../resources/mixins.less';
+
+// Disable sticky header since it collides with cargo sticky header
+#wiki7-page-header-sticky-sentinel {
+	display: none;
+}
+
+// Apply Wiki7 sticky header styles
+.cargo-pagevalues-tableinfo {
+	padding: var( --space-md ) 0;
+	font-size: var( --font-size-small );
+	color: var( --color-subtle );
+	background-color: transparent;
+	.mixin-wiki7-sticky-header;
+
+	// Tweak size to look more like other sticky header
+	h2 {
+		margin: 0;
+		font-size: var( --font-size-x-large );
+	}
+}

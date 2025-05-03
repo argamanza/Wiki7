@@ -1,0 +1,24 @@
+{{!
+	object data-page-languages
+	object data-page-variants
+	bool is-uls-ready
+}}
+<div class="wiki7-page-languages page-actions__item wiki7-dropdown">
+	<details class="wiki7-dropdown-details">
+		<summary
+			class="wiki7-dropdown-summary {{#is-uls-ready}}mw-interlanguage-selector{{/is-uls-ready}}"
+			title="{{msg-wiki7-languages-toggle}}"
+			aria-details="wiki7-languages__card"
+			data-counter-text="{{int-language-count}}">
+			<span class="wiki7-ui-icon mw-ui-icon-wikimedia-language"></span>
+			<span>{{msg-wiki7-languages-toggle}}</span>
+		</summary>
+	</details>
+	<aside id="wiki7-languages__card" class="wiki7-menu__card">
+		<div class="wiki7-menu__card-backdrop"></div>
+		<div class="wiki7-menu__card-content">
+			{{#data-portlets.data-languages}}{{>Menu}}{{/data-portlets.data-languages}}
+			{{#data-portlets.data-variants}}{{>Menu}}{{/data-portlets.data-variants}}
+		</div>
+	</aside>
+</div>

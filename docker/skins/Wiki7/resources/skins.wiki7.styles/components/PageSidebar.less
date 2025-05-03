@@ -1,0 +1,29 @@
+.wiki7-page-sidebar {
+	--size-icon: 1rem;
+
+	@media ( min-width: @min-width-breakpoint-desktop ) {
+		display: flex;
+		flex-direction: column;
+		grid-area: sidebar;
+		gap: var( --space-sm );
+		margin-top: var( --space-sm ); // align with first paragraph
+		contain: strict;
+	}
+
+	.wiki7-menu__heading,
+	.wiki7-menu .mw-list-item a {
+		padding-inline: var( --space-xs );
+	}
+
+	.wiki7-menu .mw-list-item a {
+		gap: var( --space-xs );
+		border-radius: var( --border-radius-base );
+	}
+}
+
+#wiki7-sidebar-lastmod {
+	@media ( max-width: @max-width-breakpoint-tablet ) {
+		// Duplicated with footer already
+		display: none;
+	}
+}

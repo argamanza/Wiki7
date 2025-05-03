@@ -1,0 +1,22 @@
+{{!
+	string msg-wiki7-usermenu-toggle The label used by the user menu button.
+}}
+<div class="wiki7-userMenu wiki7-header__item wiki7-dropdown">
+	<details class="wiki7-dropdown-details">
+		<summary
+			class="wiki7-dropdown-summary"
+			title="{{msg-wiki7-usermenu-toggle}}"
+			aria-details="wiki7-userMenu__card">
+			<span class="wiki7-ui-icon mw-ui-icon-wikimedia-userAvatar"></span>
+			<span>{{msg-wiki7-usermenu-toggle}}</span>
+		</summary>
+	</details>
+	<div id="wiki7-userMenu__card" class="wiki7-menu__card">
+		<div class="wiki7-menu__card-backdrop"></div>
+		<div class="wiki7-menu__card-content">
+			{{#data-user-info}}{{>UserInfo}}{{/data-user-info}}
+			{{#data-portlets.data-user-interface-preferences}}{{>Menu}}{{/data-portlets.data-user-interface-preferences}}
+			{{#data-portlets.data-user-menu}}{{>Menu}}{{/data-portlets.data-user-menu}}
+		</div>
+	</div>
+</div>

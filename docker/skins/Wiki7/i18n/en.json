@@ -1,0 +1,111 @@
+{
+	"@metadata": {
+		"authors": [
+			"[https://www.mediawiki.org/wiki/User:Alistair3149 Alistair3149]",
+			"[https://www.mediawiki.org/wiki/User:Octfx Octfx]"
+		]
+	},
+	"skinname-wiki7": "Wiki7",
+	"wiki7-skin-desc": "A beautiful, usable, responsive MediaWiki skin that makes extensions part of the cohesive experience. Initially created for the [https://starwiki7.tools/ Star Wiki7 Wiki].",
+	"wiki7-prefs-talkpage": "[[mw:Skin_talk:Wiki7|Discussion]]",
+	"wiki7.css": "/* All CSS here will be loaded for users of the Wiki7 skin */",
+	"wiki7.js": "/* All JavaScript here will be loaded for users of the Wiki7 skin */",
+	"wiki7-drawer-toggle": "Toggle menu",
+	"wiki7-usermenu-toggle": "Toggle personal menu",
+	"wiki7-preferences-toggle": "Toggle preferences menu",
+	"wiki7-search-poweredby": "Powered by $1",
+	"wiki7-search-poweredby-cirrussearch": "Elasticsearch",
+	"wiki7-search-poweredby-mediawiki": "MediaWiki",
+	"wiki7-search-toggle": "Toggle search",
+	"wiki7-search-keyhint-exit": "Exit search",
+	"wiki7-search-keyhint-open": "Open search",
+	"wiki7-search-keyhint-select": "Select item",
+	"wiki7-languages-toggle": "More languages",
+	"wiki7-actions-more-toggle": "More actions",
+	"wiki7-sitestats-articles-label": "articles",
+	"wiki7-sitestats-images-label": "files",
+	"wiki7-sitestats-users-label": "users",
+	"wiki7-sitestats-edits-label": "edits",
+	"wiki7-page-info-copyright": "Copyright",
+	"wiki7-page-info-credits": "Credits",
+	"wiki7-page-info-lastmod": "Last modified",
+	"wiki7-footer-desc": "Edit this text on [[MediaWiki:Wiki7-footer-desc]]",
+	"wiki7-footer-tagline": "Edit this text on [[MediaWiki:Wiki7-footer-tagline]]",
+	"wiki7-action-addsection": "Add topic",
+	"wiki7-jumptotop": "Back to top",
+	
+	"wiki7-search-advancedsearch": "Advanced search",
+	"wiki7-search-fulltext": "Search text",
+	"wiki7-search-mediasearch": "Search media",
+	"wiki7-search-editpage": "Edit or create page",
+	"wiki7-search-empty-desc": "Type to start searching",
+	"wiki7-search-noresults-title": "Uh oh! No results for $1",
+	"wiki7-search-noresults-desc": "Maybe try the options above?",
+
+	"wiki7-share": "Share this page",
+	"wiki7-share-copied": "URL copied to clipboard!",
+
+	"wiki7-tagline": "-",
+	"wiki7-tagline-ns-talk": "Discussion page of {{SUBJECTPAGENAME}}",
+	"wiki7-tagline-ns-project": "Information about {{SITENAME}}",
+	"wiki7-tagline-ns-file": "File on {{SITENAME}}",
+	"wiki7-tagline-ns-mediawiki": "MediaWiki interface page",
+	"wiki7-tagline-ns-template": "Template page",
+	"wiki7-tagline-ns-help": "Help page",
+	"wiki7-tagline-ns-category": "Category page",
+	"wiki7-tagline-user-regdate": "Joined $1",
+
+	"wiki7-theme-name": "Color",
+	"wiki7-theme-description": "Change the theme of the wiki",
+	"wiki7-theme-day-label": "Light",
+	"wiki7-theme-night-label": "Dark",
+	"wiki7-theme-os-label": "Auto",
+	"wiki7-theme-exclusion-notice": "This page is always in light mode.",
+
+	"wiki7-feature-autohide-navigation-name": "Automatically hide navigation",
+	"wiki7-feature-autohide-navigation-0-label": "Off",
+	"wiki7-feature-autohide-navigation-1-label": "On",
+
+	"wiki7-feature-pure-black-name": "Pure black mode",
+	"wiki7-feature-pure-black-0-label": "Off",
+	"wiki7-feature-pure-black-1-label": "On",
+
+	"wiki7-feature-custom-font-size-name": "Text",
+	"wiki7-feature-custom-font-size-small-label": "Small",
+	"wiki7-feature-custom-font-size-standard-label": "Standard",
+	"wiki7-feature-custom-font-size-large-label": "Large",
+
+	"wiki7-feature-custom-width-name": "Width",
+	"wiki7-feature-custom-width-standard-label": "Standard",
+	"wiki7-feature-custom-width-wide-label": "Wide",
+	"wiki7-feature-custom-width-full-label": "Full",
+
+	"wiki7-user-info-text-anon": "Your IP address will be publicly visible if you make any edits.",
+	"wiki7-user-info-text-temp": "This temporary account was created after an edit was made without an account on this browser and device.",
+
+	"wiki7-command-palette-heading-recent": "Recent",
+	"wiki7-command-palette-heading-related": "Related",
+
+	"wiki7-command-palette-keyhint-enter-select": "Select",
+	"wiki7-command-palette-keyhint-enter-open": "Open",
+	"wiki7-command-palette-keyhint-enter-search": "Search",
+	"wiki7-command-palette-keyhint-navigate": "Navigate",
+	"wiki7-command-palette-keyhint-exit": "Exit",
+	"wiki7-command-palette-keyhint-actions": "Actions",
+	"wiki7-command-palette-keyhint-return": "Return",
+
+	"wiki7-command-palette-type-page": "Page",
+	"wiki7-command-palette-type-fulltext-search": "Fulltext search",
+	"wiki7-command-palette-type-namespace": "Namespace",
+	"wiki7-command-palette-type-command": "Command",
+	"wiki7-command-palette-type-special-page": "Special page",
+	"wiki7-command-palette-type-menu-item": "Menu item",
+
+	"wiki7-command-palette-type-fulltext-search-description": "Search the full text of all pages",
+
+	"wiki7-command-palette-command-ns-label": "Namespace",
+	"wiki7-command-palette-command-ns-description": "Search for a page in a specific namespace",
+
+	"wiki7-command-palette-command-action-label": "Action",
+	"wiki7-command-palette-command-action-description": "Perform a specific action"
+}

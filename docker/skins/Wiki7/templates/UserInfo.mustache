@@ -1,0 +1,20 @@
+<div class="wiki7-userInfo">
+	<div class="wiki7-userInfo-title">
+		{{#title}}<div>{{.}}</div>{{/title}}
+		{{#data-user-page}}{{>Menu}}{{/data-user-page}}
+	</div>
+	<div class="wiki7-userInfo-text">
+		{{#text}}<div>{{.}}</div>{{/text}}
+		{{#data-user-groups}}
+			<ul class="wiki7-userInfo-usergroups">
+					{{#array-list-items}}{{>MenuListItem}}{{/array-list-items}}
+			</ul>
+		{{/data-user-groups}}
+	</div>
+	{{#data-user-edit}}
+		<div class="wiki7-userInfo-edits">
+			<div class="wiki7-userInfo-edits-count">{{count}}</div>
+			<div class="wiki7-userInfo-edits-label">{{label}}</div>
+		</div>
+	{{/data-user-edit}}
+</div>
