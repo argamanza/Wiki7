@@ -7,6 +7,7 @@ services:
       - "8080:80"
     volumes:
       - ./images:/var/www/html/images
+      - ./assets:/var/www/html/assets
       - ./skins:/var/www/html/skins
     environment:
       - MEDIAWIKI_DB_TYPE=mysql
