@@ -24,6 +24,8 @@ export class Wiki7CdkStack extends cdk.Stack {
     const certificateArn = ssm.StringParameter.valueForStringParameter(this, '/wiki7/certificate/arn');
     const certificate = acm.Certificate.fromCertificateArn(this, 'Wiki7Certificate', certificateArn);
 
+    const wafWebAclArn = ssm.StringParameter.valueForStringParameter(this, '/wiki7/waf-webacl/arn');
+
     const network = new NetworkStack(this, 'Network');
 
     const database = new DatabaseStack(this, 'Database', {
@@ -49,6 +51,7 @@ export class Wiki7CdkStack extends cdk.Stack {
       certificate: certificate,
       domainName: 'wiki7.co.il',
       mediawikiStorageBucket: app.mediawikiStorageBucket,
+      wafWebAclArn: wafWebAclArn,
     });
   }
 }

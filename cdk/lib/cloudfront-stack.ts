@@ -14,13 +14,14 @@ interface CloudFrontProps {
   certificate: acm.ICertificate;
   domainName: string;
   mediawikiStorageBucket: s3.Bucket;
+  wafWebAclArn: string;
 }
 
 export class CloudFrontConstruct extends Construct {
   constructor(scope: Construct, id: string, props: CloudFrontProps) {
     super(scope, id);
 
-    const { alb, hostedZone, certificate, domainName, mediawikiStorageBucket } = props;
+    const { alb, hostedZone, certificate, domainName, mediawikiStorageBucket, wafWebAclArn } = props;
 
     // ALB Origin
     const albOrigin = new origins.LoadBalancerV2Origin(alb, {
@@ -122,6 +123,7 @@ export class CloudFrontConstruct extends Construct {
       },
       domainNames: [domainName, `www.${domainName}`],
       certificate,
+      webAclId: wafWebAclArn,
     });
 
     // Create DNS records
