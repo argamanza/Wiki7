@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy": "cdk deploy --all --require-approval never",
+    "postdeploy": "aws s3 sync ../docker/assets s3://wiki7-storage/assets/ --delete"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

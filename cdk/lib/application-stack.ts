@@ -143,9 +143,8 @@ export class ApplicationStack extends Construct {
             RequestType: 'Create',
             ResourceProperties: {
               BucketName: this.mediawikiStorageBucket.bucketName,
-              Directories: ['images'],
+              Directories: ['assets', 'images'],
             },
-            ResponseURL: 'http://pre-signed-S3-url-for-response',
           }),
         },
         physicalResourceId: cr.PhysicalResourceId.of('S3DirectoriesResource'),
@@ -159,9 +158,8 @@ export class ApplicationStack extends Construct {
             RequestType: 'Update',
             ResourceProperties: {
               BucketName: this.mediawikiStorageBucket.bucketName,
-              Directories: ['images'],
+              Directories: ['assets', 'images'],
             },
-            ResponseURL: 'http://pre-signed-S3-url-for-response',
           }),
         },
         physicalResourceId: cr.PhysicalResourceId.of('S3DirectoriesResource'),
@@ -175,9 +173,8 @@ export class ApplicationStack extends Construct {
             RequestType: 'Delete',
             ResourceProperties: {
               BucketName: this.mediawikiStorageBucket.bucketName,
-              Directories: ['images'],
+              Directories: ['assets', 'images'],
             },
-            ResponseURL: 'http://pre-signed-S3-url-for-response',
           }),
         },
         physicalResourceId: cr.PhysicalResourceId.of('S3DirectoriesResource'),

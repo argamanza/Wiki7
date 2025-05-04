@@ -107,8 +107,8 @@ wfLoadExtension( 'WikiEditor' );
 ## Logo
 ##
 $wgLogos = [
-	'1x' => "$wgResourceBasePath/resources/assets/change-your-logo.svg",
-	'icon' => "$wgResourceBasePath/resources/assets/change-your-logo.svg",
+	'1x' => "$wgResourceBasePath/assets/logo.svg",
+	'icon' => "$wgResourceBasePath/assets/logo.svg",
 ];
 
 ##
