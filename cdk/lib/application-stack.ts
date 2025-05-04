@@ -12,6 +12,7 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import * as cdk from 'aws-cdk-lib';
+import {Tags} from "aws-cdk-lib";
 
 interface ApplicationStackProps {
   vpc: ec2.Vpc;
@@ -48,16 +49,9 @@ export class ApplicationStack extends Construct {
 
     dbSecret.grantRead(taskRole);
 
-    // Create S3 bucket for MediaWiki storage with date-based naming
-    const now = new Date();
-    const day = now.getDate().toString().padStart(2, '0');
-    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // +1 because months are 0-indexed
-    const year = now.getFullYear().toString().substring(2); // Get last 2 digits of year
-
-    const dateSuffix = `${year}${month}${day}`;
-
+    // Create S3 bucket for MediaWiki storage
     this.mediawikiStorageBucket = new s3.Bucket(this, 'Wiki7StorageBucket', {
-      bucketName: `wiki7-storage-${dateSuffix}`,
+      bucketName: `wiki7-storage`,
       encryption: s3.BucketEncryption.S3_MANAGED,
       // When using CloudFront with OAC, you should block all public access
       blockPublicAccess: new s3.BlockPublicAccess({
@@ -92,7 +86,7 @@ export class ApplicationStack extends Construct {
         }
       ],
     });
-    
+
     // Grant ECS task role access to S3
     this.mediawikiStorageBucket.grantReadWrite(taskRole);
 

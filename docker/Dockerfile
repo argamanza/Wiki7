@@ -26,5 +26,9 @@ COPY .htaccess /var/www/html/.htaccess
 # Copy LocalSettings.php
 COPY LocalSettings.php /var/www/html/LocalSettings.php
 
+# Copy skins
+COPY skins/Citizen/ /var/www/html/skins/Citizen/
+COPY skins/Wiki7/ /var/www/html/skins/Wiki7/
+
 # Fix permissions
 RUN chown -R www-data:www-data /var/www/html
