@@ -165,14 +165,13 @@ if ( getenv('WIKI_ENV') === 'production' ) {
         # This is the key setting that fixes the regional endpoint issue
         # It tells MediaWiki to serve files through your CloudFront/custom domain
         $wgAWSBucketDomain = 'https://wiki7.co.il';
-        
+
         # Subdirectory within the bucket where files are stored
         $wgAWSBucketTopSubdirectory = "/images";
         
         # Set paths for direct S3 access (fallback if CloudFront is unavailable)
         $wgUploadPath = 'https://' . $wgAWSBucketName . '.s3.il-central-1.amazonaws.com/images';
-        $wgStylePath = 'https://wiki7.co.il/skins';
-        
+
         # You can add CloudWatch logging for S3 operations if needed
         # $wgAWSLogging = true;
     } else {

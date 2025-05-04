@@ -80,7 +80,7 @@ export class CloudFrontConstruct extends Construct {
       },
     });
 
-    // Create cache policy for static content (images, skins)
+    // Create cache policy for static content (images)
     const staticContentCachePolicy = new cloudfront.CachePolicy(this, 'StaticContentCachePolicy', {
       cachePolicyName: 'Wiki7StaticContent',
       comment: 'Cache policy for Wiki7 static content',
@@ -112,14 +112,6 @@ export class CloudFrontConstruct extends Construct {
       },
       additionalBehaviors: {
         'images/*': {
-          origin: s3Origin,
-          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
-          cachePolicy: staticContentCachePolicy,
-          responseHeadersPolicy: responseHeadersPolicy,
-          compress: true,
-        },
-        'skins/*': {
           origin: s3Origin,
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
