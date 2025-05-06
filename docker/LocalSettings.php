@@ -85,7 +85,7 @@ wfLoadSkin( 'Vector' );
 wfLoadSkin( 'Citizen' );
 wfLoadSkin( 'Wiki7' );
 
-$wgDefaultSkin = 'Vector';
+$wgDefaultSkin = 'Wiki7';
 
 ##
 ## Extensions
@@ -203,6 +203,9 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     // Local file storage in development
     $wgUploadDirectory = '/var/www/html/images';
     $wgUploadPath = '/images';
+
+    // Resource loader debug
+    $wgResourceLoaderDebug = true;
 }
 
 # --- End of environment-specific settings ---
