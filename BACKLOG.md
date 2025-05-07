@@ -1,0 +1,3 @@
+# Feature and Fixes Backlog
+[ ] Font Selection in Preferences Menu
+[ ] More...

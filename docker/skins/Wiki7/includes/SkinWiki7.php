@@ -238,6 +238,13 @@ class SkinWiki7 extends SkinMustache {
 			) {
 				$options['bodyClasses'][] = 'wiki7-sections-enabled';
 			}
+
+            // HE fonts
+            // Load Hebrew fonts only for pages where the content language is Hebrew
+            // This ensures Roboto (which also supports Hebrew) doesn't override preferred fonts
+            if ( $title->getPageLanguage()->getCode() === 'he' && $config->get( 'Wiki7EnableHEFonts' ) === true ) {
+                $options['styles'][] = 'skins.wiki7.styles.fonts.he';
+            }
 		}
 
 		// CJK fonts

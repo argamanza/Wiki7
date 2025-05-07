@@ -59,6 +59,7 @@ $wgUseInstantCommons = false; // Set to true if you want to use Wikimedia Common
 ##
 $wgLanguageCode = "he"; // Hebrew
 $wgLocaltimezone = "Asia/Jerusalem"; // Server timezone
+$wgWiki7EnableHEFonts = true; // Enable Hebrew fonts
 
 ##
 ## Security Settings

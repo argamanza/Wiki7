@@ -133,6 +133,11 @@
 				"resources/skins.wiki7.styles.fonts.ar/index.less"
 			]
 		},
+		"skins.wiki7.styles.fonts.he": {
+			"styles": [
+				"resources/skins.wiki7.styles.fonts.he/index.less"
+			]
+		},
 		"skins.wiki7.scripts": {
 			"packageFiles": [
 				"resources/skins.wiki7.scripts/skin.js",
@@ -809,6 +814,12 @@
 			"value": false,
 			"description": "Enable included Noto Naskh Arabic for wikis that serve Arabic",
 			"descriptionmsg": "wiki7-config-enablearfonts",
+			"public": true
+		},
+		"EnableHEFonts": {
+			"value": false,
+			"description": "Enable included Hebrew fonts for wikis that serve Hebrew",
+			"descriptionmsg": "wiki7-config-enablehefonts",
 			"public": true
 		},
 		"EnablePreferences": {
