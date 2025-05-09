@@ -11,7 +11,7 @@
 	flex-direction: var( --header-direction );
 	gap: var( --space-xxs );
 	padding: ~'var( --space-xs ) max( env( safe-area-inset-right ), var( --space-xs ) ) max( env( safe-area-inset-bottom ), var( --space-xs ) ) max( env( safe-area-inset-left ), var( --space-xs ) )';
-	background-color: var( --color-surface-0 );
+	background-color: var( --color-progressive );
 	border-top: var( --border-width-base ) solid var( --border-color-base );
 
 	&__item {
@@ -63,6 +63,17 @@
 		// Disable default padding when menu item is used as header button
 		.wiki7-menu .mw-list-item & {
 			padding: 0;
+
+			.wiki7-ui-icon {
+				color: white;
+			}
+
+
+			&:hover {
+				.wiki7-ui-icon {
+					color: var(--color-progressive);
+				}
+			}
 		}
 	}
 
@@ -117,6 +128,16 @@
 			height: var( --header-button-size );
 			border-radius: var( --border-radius-base );
 			contain: strict;
+
+			.wiki7-ui-icon {
+				color: white;
+			}
+
+			&:hover {
+				.wiki7-ui-icon {
+					color: var(--color-progressive);
+				}
+			}
 		}
 	}
 }

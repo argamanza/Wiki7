@@ -7,18 +7,18 @@
  */
 .theme-base() {
 	// Hover and active states are calculated by a modifier of the lightness value (e.g. hover: +2%, active: -2%)
-	--delta-lightness-state-base: 4%;
+	--delta-lightness-state-base: 6%;
 	--delta-lightness-hover-state: calc( var( --delta-lightness-state-base ) * 1 );
 	--delta-lightness-active-state: calc( var( --delta-lightness-state-base ) * -1 );
-	--delta-lightness-surface-base: -2%;
+	--delta-lightness-surface-base: -1%;
 
 	/* Progressive color */
-	--color-progressive-oklch__l: 53.25%;
-	--color-progressive-oklch__c: 0.1679;
-	--color-progressive-oklch__h: 262.29;
+	--color-progressive-oklch__l: 53%;
+	--color-progressive-oklch__c: 0.2074;
+	--color-progressive-oklch__h: 22.32;
 
 	/* Surface color */
-	--color-surface-0-oklch__l: 96%;
+	--color-surface-0-oklch__l: 99%;
 	--color-surface-0-oklch__c: 0.01;
 	--color-surface-1-oklch__l: calc( var( --color-surface-0-oklch__l ) + var( --delta-lightness-surface-base ) );
 	--color-surface-1-oklch__c: 0.015;
