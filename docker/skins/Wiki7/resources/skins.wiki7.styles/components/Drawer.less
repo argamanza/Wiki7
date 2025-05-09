@@ -69,3 +69,12 @@
 		transform-origin: calc(100% - var(--space-xs)) top !important;
 	}
 }
+
+/* Override for theme switching when using skin classes instead of prefers-color-scheme */
+.skin-wiki7-dark .wiki7-drawer__logo img.mw-logo-icon {
+	content: url("/assets/logo-white.svg");
+}
+
+.skin-wiki7-light .wiki7-drawer__logo img.mw-logo-icon {
+	content: url("/assets/logo.svg");
+}
