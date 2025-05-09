@@ -141,3 +141,12 @@
 		overflow: hidden;
 	}
 }
+
+// Flip transform origin in RTL for top and bottom dropdowns separately
+.rtl {
+	// Default RTL case: open from bottom right (used by preferences/settings)
+	.wiki7-menu__card {
+		--transform-origin-offset-start: calc(100% - var(--space-xs));
+		--transform-origin-offset-end: 100%;
+	}
+}
