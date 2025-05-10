@@ -202,3 +202,63 @@
 		}
 	}
 }
+
+// Dark mode color fixes
+.skin-wiki7-dark {
+	.wiki7-header {
+		.wiki7-dropdown-summary  {
+			&:hover {
+				background-color: var(--background-color-button-quiet-menu--hover);
+			}
+			&:active {
+				background-color: var(--background-color-button-quiet-menu--active);
+			}
+		}
+
+		.wiki7-dropdown-details[open] > .wiki7-dropdown-summary {
+			background-color: var(--background-color-button-quiet-menu--active);
+			color: var(--color-progressive);
+
+			&:hover {
+				background-color: var(--background-color-button-quiet-menu--hover);
+			}
+			&:active {
+				background-color: var(--background-color-button-quiet-menu--active);
+			}
+
+			.wiki7-ui-icon {
+				color: var(--color-progressive--dark);
+			}
+		}
+
+		.mw-list-item {
+			a {
+				&:hover {
+					background-color: var( --background-color-button-quiet-menu--hover );
+				}
+
+				&:active {
+					background-color: var( --background-color-button-quiet-menu--active );
+				}
+			}
+		}
+
+		&__button {
+			&:hover {
+				background-color: var( --background-color-button-quiet-menu--hover );
+
+				.wiki7-header__buttonIcon {
+					opacity: var( --opacity-icon-base--hover );
+				}
+			}
+
+			&:active {
+				background-color: var( --background-color-button-quiet-menu--active );
+
+				.wiki7-header__buttonIcon {
+					opacity: var( --opacity-icon-base--selected );
+				}
+			}
+		}
+	}
+}
