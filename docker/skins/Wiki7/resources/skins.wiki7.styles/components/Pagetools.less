@@ -206,3 +206,13 @@
 		}
 	}
 }
+
+// RTL fix for page actions menu opening animation
+.rtl {
+	.page-actions {
+		.wiki7-menu__card {
+			--transform-origin-offset-start: 0%;             // left
+			--transform-origin-offset-end: 0%;               // also left for transform-origin
+		}
+	}
+}
