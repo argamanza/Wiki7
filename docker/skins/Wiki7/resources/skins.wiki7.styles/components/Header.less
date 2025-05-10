@@ -204,7 +204,7 @@
 }
 
 // Dark mode color fixes
-.skin-wiki7-dark {
+@media (prefers-color-scheme: dark) {
 	.wiki7-header {
 		.wiki7-dropdown-summary  {
 			&:hover {
@@ -231,14 +231,16 @@
 			}
 		}
 
-		.mw-list-item {
-			a {
-				&:hover {
-					background-color: var( --background-color-button-quiet-menu--hover );
-				}
+		.wiki7-header__inner {
+			.mw-list-item {
+				a {
+					&:hover {
+						background-color: var( --background-color-button-quiet-menu--hover );
+					}
 
-				&:active {
-					background-color: var( --background-color-button-quiet-menu--active );
+					&:active {
+						background-color: var( --background-color-button-quiet-menu--active );
+					}
 				}
 			}
 		}

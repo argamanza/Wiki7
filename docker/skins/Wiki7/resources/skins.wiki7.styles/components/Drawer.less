@@ -71,6 +71,12 @@
 }
 
 /* Override for theme switching when using skin classes instead of prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+	.wiki7-drawer__logo img.mw-logo-icon {
+		content: url("/assets/logo-white.svg");
+	}
+}
+
 .skin-wiki7-dark .wiki7-drawer__logo img.mw-logo-icon {
 	content: url("/assets/logo-white.svg");
 }
