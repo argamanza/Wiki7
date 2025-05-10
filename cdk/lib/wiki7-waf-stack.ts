@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import * as wafv2 from 'aws-cdk-lib/aws-wafv2';
 import {CrossRegionSsmSync} from "./cross-region-ssm-sync";
 import * as ssm from "aws-cdk-lib/aws-ssm";
+import * as logs from 'aws-cdk-lib/aws-logs';
 
 interface Wiki7WafStackProps extends cdk.StackProps {
 }
@@ -76,6 +77,7 @@ export class Wiki7WafStack extends cdk.Stack {
               excludedRules: [
                 { name: 'SizeRestrictions_BODY' }, // MediaWiki can have large POST bodies
                 { name: 'SizeRestrictions_QUERYSTRING' }, // Long query strings for searches
+                { name: 'CrossSiteScripting_BODY' }, // XSS rule for body (blocked image uploads)
               ],
             },
           },
@@ -238,6 +240,45 @@ export class Wiki7WafStack extends cdk.Stack {
           },
         },
       ],
+    });
+
+    // Create the log group
+    const wafLogGroup = new logs.LogGroup(this, 'WafLogGroup', {
+      logGroupName: 'aws-waf-logs-wiki7',
+      retention: logs.RetentionDays.ONE_WEEK,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+
+// Define the logging configuration
+    new wafv2.CfnLoggingConfiguration(this, 'Wiki7WafLogging', {
+      resourceArn: this.webAcl.attrArn,
+      logDestinationConfigs: [
+        cdk.Stack.of(this).formatArn({
+          service: 'logs',
+          region: 'us-east-1',
+          account: cdk.Stack.of(this).account,
+          resource: 'log-group',
+          resourceName: wafLogGroup.logGroupName,
+          arnFormat: cdk.ArnFormat.COLON_RESOURCE_NAME,
+        }),
+      ],
+      // Directly specify the loggingFilter property with correct casing
+      loggingFilter: {
+        DefaultBehavior: 'DROP',
+        Filters: [
+          {
+            Behavior: 'KEEP',
+            Requirement: 'MEETS_ALL',
+            Conditions: [
+              {
+                ActionCondition: {
+                  Action: 'BLOCK',
+                },
+              },
+            ],
+          },
+        ],
+      },
     });
 
     new ssm.StringParameter(this, 'Wiki7CertificateArnParameter', {
