@@ -2,3 +2,4 @@
 /.idea/
 
 /docker/images/*
+/data/data-pipeline/.idea/

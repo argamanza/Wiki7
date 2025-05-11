@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "data-pipeline"
+version = "0.1.0"
+description = ""
+authors = ["Tzahi Argaman <tzahi.argaman@cyberark.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

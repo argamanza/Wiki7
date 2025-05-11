@@ -1,0 +1,379 @@
+[
+  {
+    "id": "912586",
+    "name": "Niv Eliasi",
+    "position": "Goalkeeper",
+    "dateOfBirth": "2002-02-21",
+    "age": 23,
+    "nationality": [
+      "Israel"
+    ],
+    "height": 188,
+    "foot": "",
+    "joinedOn": "2021-07-21",
+    "signedFrom": "Hapoel Ramat haSharon U19",
+    "contract": "2028-06-30",
+    "marketValue": 1000000
+  },
+  {
+    "id": "112008",
+    "name": "Ofir Marciano",
+    "position": "Goalkeeper",
+    "dateOfBirth": "1989-10-07",
+    "age": 35,
+    "nationality": [
+      "Israel",
+      "Portugal"
+    ],
+    "height": 193,
+    "foot": "right",
+    "joinedOn": "2023-07-01",
+    "signedFrom": ": Ablöse free transfer",
+    "contract": "2026-06-30",
+    "marketValue": 150000
+  },
+  {
+    "id": "713303",
+    "name": "Ben Gordin",
+    "position": "Goalkeeper",
+    "dateOfBirth": "2003-01-12",
+    "age": 22,
+    "nationality": [
+      "Israel"
+    ],
+    "height": 190,
+    "foot": "right",
+    "joinedOn": "2024-07-01",
+    "signedFrom": "Hapoel Ramat Gan",
+    "contract": "2028-06-30",
+    "marketValue": 125000
+  },
+  {
+    "id": "341516",
+    "name": "Ponck",
+    "position": "Centre-Back",
+    "dateOfBirth": "1995-01-13",
+    "age": 30,
+    "nationality": [
+      "Cape Verde",
+      "Portugal"
+    ],
+    "height": 185,
+    "foot": "right",
+    "joinedOn": "2025-01-21",
+    "signedFrom": "Moreirense FC",
+    "contract": "2027-06-30",
+    "marketValue": 700000
+  },
+  {
+    "id": "468540",
+    "name": "Or Blorian",
+    "position": "Centre-Back",
+    "dateOfBirth": "2000-03-07",
+    "age": 25,
+    "nationality": [
+      "Israel",
+      "Portugal"
+    ],
+    "height": 188,
+    "foot": "",
+    "joinedOn": "2022-09-14",
+    "signedFrom": "Maccabi Petah Tikva",
+    "contract": "2026-06-30",
+    "marketValue": 600000
+  },
+  {
+    "id": "355395",
+    "name": "Matan Baltaxa",
+    "position": "Centre-Back",
+    "dateOfBirth": "1995-09-20",
+    "age": 29,
+    "nationality": [
+      "Israel",
+      "Poland"
+    ],
+    "height": 185,
+    "foot": "left",
+    "joinedOn": "2024-09-11",
+    "signedFrom": "Maccabi Tel Aviv",
+    "contract": "2026-06-30",
+    "marketValue": 500000
+  },
+  {
+    "id": "57814",
+    "name": "Miguel Vítor",
+    "position": "Centre-Back",
+    "dateOfBirth": "1989-06-30",
+    "age": 35,
+    "nationality": [
+      "Israel",
+      "Portugal"
+    ],
+    "height": 184,
+    "foot": "right",
+    "joinedOn": "2016-07-01",
+    "signedFrom": "PAOK Thessaloniki",
+    "contract": "2026-06-30",
+    "marketValue": 250000,
+    "status": "Team captain"
+  },
+  {
+    "id": "129771",
+    "name": "Eitan Tibi",
+    "position": "Centre-Back",
+    "dateOfBirth": "1987-11-16",
+    "age": 37,
+    "nationality": [
+      "Israel"
+    ],
+    "height": 185,
+    "foot": "right",
+    "joinedOn": "2021-07-01",
+    "signedFrom": "Maccabi Tel Aviv",
+    "contract": "2025-06-30",
+    "marketValue": 150000
+  },
+  {
+    "id": "171068",
+    "name": "Hélder Lopes",
+    "position": "Left-Back",
+    "dateOfBirth": "1989-01-04",
+    "age": 36,
+    "nationality": [
+      "Portugal"
+    ],
+    "height": 179,
+    "foot": "left",
+    "joinedOn": "2021-08-27",
+    "signedFrom": ": Ablöse free transfer",
+    "contract": "2025-06-30",
+    "marketValue": 250000
+  },
+  {
+    "id": "704071",
+    "name": "Guy Mizrahi",
+    "position": "Right-Back",
+    "dateOfBirth": "2001-03-30",
+    "age": 24,
+    "nationality": [
+      "Israel",
+      "Spain"
+    ],
+    "foot": "right",
+    "joinedOn": "2024-07-01",
+    "signedFrom": "Maccabi Netanya",
+    "contract": "2028-06-30",
+    "marketValue": 700000
+  },
+  {
+    "id": "520994",
+    "name": "Lucas Ventura",
+    "position": "Defensive Midfield",
+    "dateOfBirth": "1998-05-19",
+    "age": 26,
+    "nationality": [
+      "Brazil"
+    ],
+    "height": 180,
+    "foot": "right",
+    "joinedOn": "2024-09-02",
+    "signedFrom": "Portimonense SC",
+    "contract": "2027-06-30",
+    "marketValue": 1200000
+  },
+  {
+    "id": "482427",
+    "name": "Shai Elias",
+    "position": "Defensive Midfield",
+    "dateOfBirth": "1999-02-25",
+    "age": 26,
+    "nationality": [
+      "Israel",
+      "Portugal"
+    ],
+    "height": 185,
+    "foot": "right",
+    "joinedOn": "2022-07-01",
+    "signedFrom": ": Ablöse €700k",
+    "contract": "2026-06-30",
+    "marketValue": 500000
+  },
+  {
+    "id": "684998",
+    "name": "Kings Kangwa",
+    "position": "Central Midfield",
+    "dateOfBirth": "1999-04-06",
+    "age": 26,
+    "nationality": [
+      "Zambia"
+    ],
+    "height": 170,
+    "foot": "right",
+    "joinedOn": "2024-07-30",
+    "signedFrom": "Red Star Belgrade",
+    "contract": "2028-06-30",
+    "marketValue": 2500000
+  },
+  {
+    "id": "444018",
+    "name": "Eliel Peretz",
+    "position": "Central Midfield",
+    "dateOfBirth": "1996-11-18",
+    "age": 28,
+    "nationality": [
+      "Israel",
+      "Portugal"
+    ],
+    "height": 189,
+    "foot": "right",
+    "joinedOn": "2024-07-17",
+    "signedFrom": "Apollon Limassol",
+    "contract": "2027-06-30",
+    "marketValue": 1000000
+  },
+  {
+    "id": "129722",
+    "name": "Roei Gordana",
+    "position": "Central Midfield",
+    "dateOfBirth": "1990-07-06",
+    "age": 34,
+    "nationality": [
+      "Israel"
+    ],
+    "height": 176,
+    "foot": "right",
+    "joinedOn": "2021-07-01",
+    "signedFrom": "FC Ashdod",
+    "contract": "2025-06-30",
+    "marketValue": 200000
+  },
+  {
+    "id": "399361",
+    "name": "Dan Biton",
+    "position": "Attacking Midfield",
+    "dateOfBirth": "1995-07-20",
+    "age": 29,
+    "nationality": [
+      "Israel"
+    ],
+    "height": 175,
+    "foot": "left",
+    "joinedOn": "2024-09-18",
+    "signedFrom": "Maccabi Tel Aviv",
+    "contract": "2027-06-30",
+    "marketValue": 1500000
+  },
+  {
+    "id": "848641",
+    "name": "Yoan Stoyanov",
+    "position": "Attacking Midfield",
+    "dateOfBirth": "2001-05-22",
+    "age": 23,
+    "nationality": [
+      "Bulgaria",
+      "Israel"
+    ],
+    "height": 180,
+    "foot": "right",
+    "joinedOn": "2022-07-01",
+    "signedFrom": "Hapoel Kfar Saba",
+    "contract": "2028-06-30",
+    "marketValue": 900000
+  },
+  {
+    "id": "966005",
+    "name": "Amir Ganah",
+    "position": "Left Winger",
+    "dateOfBirth": "2004-07-09",
+    "age": 20,
+    "nationality": [
+      "Israel",
+      "Portugal"
+    ],
+    "foot": "right",
+    "joinedOn": "2023-07-01",
+    "signedFrom": "Hapoel Beer Sheva U19",
+    "contract": "2027-12-31",
+    "marketValue": 1200000
+  },
+  {
+    "id": "193830",
+    "name": "Iuri Medeiros",
+    "position": "Right Winger",
+    "dateOfBirth": "1994-07-10",
+    "age": 30,
+    "nationality": [
+      "Portugal"
+    ],
+    "height": 174,
+    "foot": "left",
+    "joinedOn": "2025-01-23",
+    "signedFrom": "Without Club",
+    "contract": "2027-06-30",
+    "marketValue": 3000000
+  },
+  {
+    "id": "701300",
+    "name": "Zahi Ahmed",
+    "position": "Second Striker",
+    "dateOfBirth": "2001-08-12",
+    "age": 23,
+    "nationality": [
+      "Israel"
+    ],
+    "height": 182,
+    "foot": "right",
+    "joinedOn": "2023-07-01",
+    "signedFrom": "Hapoel Acre",
+    "contract": "2027-06-30",
+    "marketValue": 350000
+  },
+  {
+    "id": "252661",
+    "name": "Arnold Garita",
+    "position": "Centre-Forward",
+    "dateOfBirth": "1995-06-18",
+    "age": 29,
+    "nationality": [
+      "Cameroon",
+      "France"
+    ],
+    "height": 186,
+    "foot": "right",
+    "joinedOn": "2024-08-07",
+    "signedFrom": "Al-Faisaly FC",
+    "marketValue": 700000
+  },
+  {
+    "id": "177249",
+    "name": "Alon Turgeman",
+    "position": "Centre-Forward",
+    "dateOfBirth": "1991-06-09",
+    "age": 33,
+    "nationality": [
+      "Israel"
+    ],
+    "height": 178,
+    "foot": "right",
+    "joinedOn": "2023-07-01",
+    "signedFrom": "Hapoel Haifa",
+    "contract": "2025-06-30",
+    "marketValue": 250000
+  },
+  {
+    "id": "807391",
+    "name": "Samir Farhud",
+    "position": "Centre-Forward",
+    "dateOfBirth": "2000-12-09",
+    "age": 24,
+    "nationality": [
+      "Israel",
+      "Armenia"
+    ],
+    "foot": "",
+    "joinedOn": "2024-07-01",
+    "signedFrom": "Hapoel Nof HaGalil",
+    "contract": "2028-06-30",
+    "marketValue": 200000
+  }
+]

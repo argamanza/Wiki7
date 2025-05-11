@@ -1,0 +1,5 @@
+services:
+  transfermarket-api:
+    build: transfermarkt-api
+    ports:
+      - "8000:8000"
