@@ -104,6 +104,8 @@ wfLoadExtension( 'Thanks' );
 wfLoadExtension( 'VisualEditor' );
 wfLoadExtension( 'WikiEditor' );
 
+wfLoadExtension( 'Cargo' );
+
 ##
 ## Logo
 ##

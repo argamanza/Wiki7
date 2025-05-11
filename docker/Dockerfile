@@ -26,6 +26,9 @@ COPY .htaccess /var/www/html/.htaccess
 # Copy LocalSettings.php
 COPY LocalSettings.php /var/www/html/LocalSettings.php
 
+# Copy extensions
+COPY extensions/Cargo/ /var/www/html/extensions/Cargo/
+
 # Copy skins
 COPY skins/Citizen/ /var/www/html/skins/Citizen/
 COPY skins/Wiki7/ /var/www/html/skins/Wiki7/

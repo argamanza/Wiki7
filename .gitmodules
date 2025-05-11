@@ -1,0 +1,3 @@
+[submodule "docker/extensions/Cargo"]
+	path = docker/extensions/Cargo
+	url = https://gerrit.wikimedia.org/r/mediawiki/extensions/Cargo
