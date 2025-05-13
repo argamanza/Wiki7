@@ -70,6 +70,12 @@ class TransfermarktBaseModel(BaseModel):
         else:
             value_str = v.lower().replace("€", "").replace("+", "").replace("'", "").strip()
 
+        # Handle dot as thousand separator for values like "2.230"
+        if "." in value_str:
+            parts = value_str.split(".")
+            if len(parts) == 2 and len(parts[1]) == 3 and parts[1].isdigit():
+                value_str = value_str.replace(".", "")
+
         if "k" in value_str:
             return int(float(value_str.replace("k", "")) * 1_000)
         elif "m" in value_str:
