@@ -3,3 +3,4 @@
 
 /docker/images/*
 /data/data-pipeline/.idea/
+/data/data-pipeline/data_pipeline/__pycache__/

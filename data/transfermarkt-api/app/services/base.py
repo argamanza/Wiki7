@@ -11,6 +11,8 @@ from requests import Response, TooManyRedirects
 from app.utils.utils import trim
 from app.utils.xpath import Pagination
 
+requests.packages.urllib3.disable_warnings()
+
 
 @dataclass
 class TransfermarktBase:
