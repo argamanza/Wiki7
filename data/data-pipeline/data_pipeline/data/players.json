@@ -17,7 +17,7 @@
     "signedFrom": "Hapoel Ramat haSharon U19",
     "contract": "2028-06-30",
     "marketValue": 1000000,
-    "updatedAt": "2025-05-13T09:22:40.495125",
+    "updatedAt": "2025-05-13T20:00:46.832779",
     "url": "https://www.transfermarkt.com/niv-eliasi/profil/spieler/912586",
     "description": "Niv Eliasi, 23, from Israel ➤ Hapoel Beer Sheva, since 2021 ➤ Goalkeeper ➤ Market value: €1.00m ➤ * Feb 21, 2002 in Sde Warburg, Israel",
     "nameInHomeCountry": "ניב אליאסי",
@@ -82,7 +82,7 @@
       }
     ],
     "ranking": {
-      "Worldwide": 7066,
+      "Worldwide": 7071,
       "Ligat ha'Al": 31,
       "H. Beer Sheva": 6,
       "Israel": 36,
@@ -194,6 +194,8 @@
         "clubId": "2976",
         "appearances": 8,
         "assists": 0,
+        "goalsConceded": 9,
+        "cleanSheets": 2,
         "minutesPlayed": 720
       },
       {
@@ -211,7 +213,9 @@
         "appearances": 25,
         "assists": 0,
         "redCards": 1,
-        "minutesPlayed": 2
+        "goalsConceded": 17,
+        "cleanSheets": 12,
+        "minutesPlayed": 2230
       },
       {
         "competitionId": "ECLQ",
@@ -220,6 +224,7 @@
         "clubId": "2976",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 5,
         "minutesPlayed": 180
       },
       {
@@ -229,6 +234,8 @@
         "clubId": "2976",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 1,
+        "cleanSheets": 1,
         "minutesPlayed": 180
       },
       {
@@ -238,6 +245,8 @@
         "clubId": "2976",
         "appearances": 8,
         "assists": 0,
+        "goalsConceded": 13,
+        "cleanSheets": 1,
         "minutesPlayed": 720
       },
       {
@@ -248,7 +257,9 @@
         "appearances": 22,
         "assists": 0,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 17,
+        "cleanSheets": 10,
+        "minutesPlayed": 1980
       },
       {
         "competitionId": "ECLQ",
@@ -265,6 +276,8 @@
         "appearances": 11,
         "assists": 0,
         "yellowCards": 1,
+        "goalsConceded": 19,
+        "cleanSheets": 3,
         "minutesPlayed": 945
       },
       {
@@ -350,7 +363,7 @@
     "signedFrom": ": Ablöse free transfer",
     "contract": "2026-06-30",
     "marketValue": 150000,
-    "updatedAt": "2025-05-13T09:24:11.711568",
+    "updatedAt": "2025-05-13T20:02:44.718784",
     "url": "https://www.transfermarkt.com/ofir-marciano/profil/spieler/112008",
     "description": "Ofir Marciano, 35, from Israel ➤ Hapoel Beer Sheva, since 2023 ➤ Goalkeeper ➤ Market value: €150k ➤ * Oct 7, 1989 in Ashdod, Israel",
     "nameInHomeCountry": "Ofir Meir Marciano - אופיר מאיר מרציאנו",
@@ -847,6 +860,8 @@
         "appearances": 4,
         "assists": 0,
         "yellowCards": 1,
+        "goalsConceded": 1,
+        "cleanSheets": 3,
         "minutesPlayed": 360
       },
       {
@@ -856,6 +871,8 @@
         "clubId": "2976",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 1,
+        "cleanSheets": 1,
         "minutesPlayed": 108
       },
       {
@@ -865,6 +882,8 @@
         "clubId": "2976",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 1,
+        "cleanSheets": 1,
         "minutesPlayed": 180
       },
       {
@@ -874,6 +893,8 @@
         "clubId": "2976",
         "appearances": 3,
         "assists": 0,
+        "goalsConceded": 2,
+        "cleanSheets": 2,
         "minutesPlayed": 300
       },
       {
@@ -883,6 +904,7 @@
         "clubId": "2976",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 8,
         "minutesPlayed": 180
       },
       {
@@ -892,6 +914,8 @@
         "clubId": "2976",
         "appearances": 4,
         "assists": 0,
+        "goalsConceded": 2,
+        "cleanSheets": 2,
         "minutesPlayed": 360
       },
       {
@@ -901,6 +925,8 @@
         "clubId": "2976",
         "appearances": 4,
         "assists": 0,
+        "goalsConceded": 3,
+        "cleanSheets": 2,
         "minutesPlayed": 360
       },
       {
@@ -932,6 +958,8 @@
         "appearances": 6,
         "assists": 0,
         "yellowCards": 1,
+        "goalsConceded": 9,
+        "cleanSheets": 1,
         "minutesPlayed": 540
       },
       {
@@ -941,7 +969,9 @@
         "clubId": "234",
         "appearances": 12,
         "assists": 0,
-        "minutesPlayed": 1
+        "goalsConceded": 12,
+        "cleanSheets": 4,
+        "minutesPlayed": 1080
       },
       {
         "competitionId": "NLP",
@@ -957,6 +987,8 @@
         "clubId": "234",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 3,
+        "cleanSheets": 1,
         "minutesPlayed": 98
       },
       {
@@ -973,6 +1005,8 @@
         "clubId": "903",
         "appearances": 4,
         "assists": 0,
+        "goalsConceded": 4,
+        "cleanSheets": 1,
         "minutesPlayed": 360
       },
       {
@@ -982,7 +1016,9 @@
         "clubId": "903",
         "appearances": 28,
         "assists": 0,
-        "minutesPlayed": 2
+        "goalsConceded": 24,
+        "cleanSheets": 12,
+        "minutesPlayed": 2487
       },
       {
         "competitionId": "SCP",
@@ -991,6 +1027,8 @@
         "clubId": "903",
         "appearances": 3,
         "assists": 0,
+        "goalsConceded": 4,
+        "cleanSheets": 1,
         "minutesPlayed": 270
       },
       {
@@ -1000,6 +1038,7 @@
         "clubId": "903",
         "appearances": 5,
         "assists": 0,
+        "goalsConceded": 9,
         "minutesPlayed": 480
       },
       {
@@ -1010,7 +1049,9 @@
         "appearances": 19,
         "assists": 0,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 32,
+        "cleanSheets": 5,
+        "minutesPlayed": 1665
       },
       {
         "competitionId": "SCP",
@@ -1019,6 +1060,7 @@
         "clubId": "903",
         "appearances": 2,
         "assists": 0,
+        "cleanSheets": 2,
         "minutesPlayed": 180
       },
       {
@@ -1028,6 +1070,8 @@
         "clubId": "903",
         "appearances": 5,
         "assists": 0,
+        "goalsConceded": 5,
+        "cleanSheets": 1,
         "minutesPlayed": 450
       },
       {
@@ -1037,7 +1081,9 @@
         "clubId": "903",
         "appearances": 15,
         "assists": 0,
-        "minutesPlayed": 1
+        "goalsConceded": 12,
+        "cleanSheets": 6,
+        "minutesPlayed": 1274
       },
       {
         "competitionId": "SFA",
@@ -1046,6 +1092,8 @@
         "clubId": "903",
         "appearances": 3,
         "assists": 0,
+        "goalsConceded": 3,
+        "cleanSheets": 1,
         "minutesPlayed": 191
       },
       {
@@ -1055,6 +1103,8 @@
         "clubId": "903",
         "appearances": 5,
         "assists": 0,
+        "goalsConceded": 11,
+        "cleanSheets": 1,
         "minutesPlayed": 450
       },
       {
@@ -1066,7 +1116,9 @@
         "assists": 0,
         "yellowCards": 1,
         "redCards": 1,
-        "minutesPlayed": 2
+        "goalsConceded": 31,
+        "cleanSheets": 9,
+        "minutesPlayed": 2534
       },
       {
         "competitionId": "SFA",
@@ -1075,6 +1127,7 @@
         "clubId": "903",
         "appearances": 1,
         "assists": 0,
+        "goalsConceded": 1,
         "minutesPlayed": 90
       },
       {
@@ -1084,6 +1137,7 @@
         "clubId": "903",
         "appearances": 4,
         "assists": 0,
+        "cleanSheets": 4,
         "minutesPlayed": 390
       },
       {
@@ -1093,7 +1147,9 @@
         "clubId": "903",
         "appearances": 21,
         "assists": 0,
-        "minutesPlayed": 1
+        "goalsConceded": 15,
+        "cleanSheets": 10,
+        "minutesPlayed": 1890
       },
       {
         "competitionId": "SFA",
@@ -1102,6 +1158,8 @@
         "clubId": "903",
         "appearances": 5,
         "assists": 0,
+        "goalsConceded": 5,
+        "cleanSheets": 2,
         "minutesPlayed": 380
       },
       {
@@ -1111,6 +1169,8 @@
         "clubId": "903",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 2,
+        "cleanSheets": 1,
         "minutesPlayed": 180
       },
       {
@@ -1120,6 +1180,7 @@
         "clubId": "29228",
         "appearances": 6,
         "assists": 0,
+        "goalsConceded": 12,
         "minutesPlayed": 540
       },
       {
@@ -1129,6 +1190,8 @@
         "clubId": "6105",
         "appearances": 7,
         "assists": 0,
+        "goalsConceded": 10,
+        "cleanSheets": 3,
         "minutesPlayed": 630
       },
       {
@@ -1138,7 +1201,9 @@
         "clubId": "6105",
         "appearances": 26,
         "assists": 0,
-        "minutesPlayed": 2
+        "goalsConceded": 41,
+        "cleanSheets": 7,
+        "minutesPlayed": 2340
       },
       {
         "competitionId": "ISPO",
@@ -1147,6 +1212,8 @@
         "clubId": "6105",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 2,
+        "cleanSheets": 1,
         "minutesPlayed": 210
       },
       {
@@ -1156,6 +1223,8 @@
         "clubId": "6105",
         "appearances": 5,
         "assists": 0,
+        "goalsConceded": 4,
+        "cleanSheets": 1,
         "minutesPlayed": 450
       },
       {
@@ -1165,7 +1234,9 @@
         "clubId": "6105",
         "appearances": 23,
         "assists": 0,
-        "minutesPlayed": 2
+        "goalsConceded": 33,
+        "cleanSheets": 6,
+        "minutesPlayed": 2070
       },
       {
         "competitionId": "ISPO",
@@ -1174,6 +1245,7 @@
         "clubId": "6105",
         "appearances": 1,
         "assists": 0,
+        "goalsConceded": 1,
         "minutesPlayed": 120
       },
       {
@@ -1184,6 +1256,8 @@
         "appearances": 6,
         "assists": 0,
         "yellowCards": 1,
+        "goalsConceded": 9,
+        "cleanSheets": 1,
         "minutesPlayed": 540
       },
       {
@@ -1194,7 +1268,9 @@
         "appearances": 26,
         "assists": 0,
         "yellowCards": 2,
-        "minutesPlayed": 2
+        "goalsConceded": 30,
+        "cleanSheets": 9,
+        "minutesPlayed": 2340
       },
       {
         "competitionId": "ISPO",
@@ -1203,6 +1279,7 @@
         "clubId": "6105",
         "appearances": 1,
         "assists": 0,
+        "goalsConceded": 2,
         "minutesPlayed": 90
       },
       {
@@ -1213,6 +1290,8 @@
         "appearances": 5,
         "assists": 0,
         "redCards": 1,
+        "goalsConceded": 6,
+        "cleanSheets": 1,
         "minutesPlayed": 383
       },
       {
@@ -1222,6 +1301,8 @@
         "clubId": "6105",
         "appearances": 3,
         "assists": 0,
+        "goalsConceded": 3,
+        "cleanSheets": 1,
         "minutesPlayed": 270
       },
       {
@@ -1232,7 +1313,9 @@
         "appearances": 30,
         "assists": 0,
         "yellowCards": 3,
-        "minutesPlayed": 2
+        "goalsConceded": 32,
+        "cleanSheets": 11,
+        "minutesPlayed": 2655
       },
       {
         "competitionId": "ISRA",
@@ -1241,6 +1324,8 @@
         "clubId": "6105",
         "appearances": 5,
         "assists": 0,
+        "goalsConceded": 3,
+        "cleanSheets": 2,
         "minutesPlayed": 450
       },
       {
@@ -1250,6 +1335,7 @@
         "clubId": "6105",
         "appearances": 1,
         "assists": 0,
+        "goalsConceded": 1,
         "minutesPlayed": 120
       },
       {
@@ -1259,6 +1345,8 @@
         "clubId": "6105",
         "appearances": 4,
         "assists": 0,
+        "goalsConceded": 6,
+        "cleanSheets": 1,
         "minutesPlayed": 360
       },
       {
@@ -1268,6 +1356,7 @@
         "clubId": "6105",
         "appearances": 1,
         "assists": 0,
+        "goalsConceded": 2,
         "minutesPlayed": 90
       },
       {
@@ -1277,6 +1366,7 @@
         "clubId": "6105",
         "appearances": 1,
         "assists": 0,
+        "cleanSheets": 1,
         "minutesPlayed": 1
       },
       {
@@ -1286,6 +1376,7 @@
         "clubId": "6105",
         "appearances": 1,
         "assists": 0,
+        "goalsConceded": 1,
         "minutesPlayed": 90
       },
       {
@@ -1445,7 +1536,7 @@
     "signedFrom": "Hapoel Ramat Gan",
     "contract": "2028-06-30",
     "marketValue": 125000,
-    "updatedAt": "2025-05-13T09:27:05.727024",
+    "updatedAt": "2025-05-13T20:05:40.189483",
     "url": "https://www.transfermarkt.com/ben-gordin/profil/spieler/713303",
     "description": "Ben Gordin, 22, from Israel ➤ Hapoel Beer Sheva, since 2024 ➤ Goalkeeper ➤ Market value: €125k ➤ * Jan 12, 2003 in , Israel",
     "nameInHomeCountry": "בן אנריקה גורדין ענברי",
@@ -1643,7 +1734,9 @@
         "appearances": 37,
         "assists": 0,
         "yellowCards": 3,
-        "minutesPlayed": 3
+        "goalsConceded": 43,
+        "cleanSheets": 11,
+        "minutesPlayed": 3330
       },
       {
         "competitionId": "ISPO",
@@ -1652,6 +1745,8 @@
         "clubId": "2785",
         "appearances": 2,
         "assists": 0,
+        "goalsConceded": 1,
+        "cleanSheets": 1,
         "minutesPlayed": 161
       },
       {
@@ -1661,6 +1756,8 @@
         "clubId": "2785",
         "appearances": 5,
         "assists": 0,
+        "goalsConceded": 5,
+        "cleanSheets": 2,
         "minutesPlayed": 450
       },
       {
@@ -1726,7 +1823,7 @@
     "signedFrom": "Moreirense FC",
     "contract": "2027-06-30",
     "marketValue": 700000,
-    "updatedAt": "2025-05-13T09:28:50.570659",
+    "updatedAt": "2025-05-13T20:08:21.818574",
     "url": "https://www.transfermarkt.com/ponck/profil/spieler/341516",
     "description": "Ponck, 30, from Cape Verde ➤ Hapoel Beer Sheva, since 2024 ➤ Centre-Back ➤ Market value: €700k ➤ * Jan 13, 1995 in Mindelo, Cape Verde",
     "fullName": "Carlos dos Santos Rodrigues",
@@ -1933,7 +2030,7 @@
       }
     ],
     "ranking": {
-      "Worldwide": 9888,
+      "Worldwide": 9885,
       "Ligat ha'Al": 51,
       "H. Beer Sheva": 9,
       "Cape Verde": 23,
@@ -2316,6 +2413,8 @@
         "clubId": "2976",
         "appearances": 5,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 329
       },
       {
@@ -2324,6 +2423,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -2333,6 +2434,8 @@
         "clubId": "2976",
         "appearances": 6,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 428
       },
       {
@@ -2341,6 +2444,8 @@
         "seasonId": "24/25",
         "clubId": "979",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 185
       },
       {
@@ -2349,6 +2454,8 @@
         "seasonId": "24/25",
         "clubId": "979",
         "appearances": 9,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 482
       },
       {
@@ -2357,6 +2464,8 @@
         "seasonId": "24/25",
         "clubId": "979",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -2366,7 +2475,9 @@
         "clubId": "979",
         "appearances": 15,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1028
       },
       {
         "competitionId": "POPO",
@@ -2375,6 +2486,8 @@
         "clubId": "979",
         "appearances": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 1
       },
       {
@@ -2384,7 +2497,9 @@
         "clubId": "3325",
         "appearances": 21,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1801
       },
       {
         "competitionId": "POCP",
@@ -2393,6 +2508,8 @@
         "clubId": "3325",
         "appearances": 2,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 154
       },
       {
@@ -2402,6 +2519,8 @@
         "clubId": "3325",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -2412,7 +2531,9 @@
         "appearances": 13,
         "assists": 1,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1170
       },
       {
         "competitionId": "TR1",
@@ -2421,6 +2542,8 @@
         "clubId": "6890",
         "appearances": 6,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 219
       },
       {
@@ -2429,6 +2552,8 @@
         "seasonId": "21/22",
         "clubId": "6890",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -2439,7 +2564,9 @@
         "appearances": 23,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1778
       },
       {
         "competitionId": "TRP",
@@ -2447,6 +2574,8 @@
         "seasonId": "20/21",
         "clubId": "6890",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 225
       },
       {
@@ -2455,6 +2584,8 @@
         "seasonId": "20/21",
         "clubId": "6890",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -2463,6 +2594,8 @@
         "seasonId": "20/21",
         "clubId": "6890",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 184
       },
       {
@@ -2472,6 +2605,8 @@
         "clubId": "6890",
         "appearances": 8,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 630
       },
       {
@@ -2482,7 +2617,9 @@
         "appearances": 22,
         "goals": 1,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1538
       },
       {
         "competitionId": "TRP",
@@ -2490,6 +2627,8 @@
         "seasonId": "19/20",
         "clubId": "6890",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -2498,6 +2637,8 @@
         "seasonId": "19/20",
         "clubId": "6890",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -2509,7 +2650,9 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2733
       },
       {
         "competitionId": "POPO",
@@ -2517,6 +2660,8 @@
         "seasonId": "18/19",
         "clubId": "3336",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 300
       },
       {
@@ -2525,13 +2670,17 @@
         "seasonId": "18/19",
         "clubId": "3336",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "POSU",
         "competitionName": "Supertaça",
         "seasonId": "18/19",
-        "clubId": "3336"
+        "clubId": "3336",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "POPO",
@@ -2540,6 +2689,8 @@
         "clubId": "3336",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 510
       },
       {
@@ -2550,7 +2701,9 @@
         "appearances": 29,
         "goals": 1,
         "yellowCards": 5,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2610
       },
       {
         "competitionId": "PO1",
@@ -2559,7 +2712,9 @@
         "clubId": "3325",
         "appearances": 27,
         "yellowCards": 3,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2267
       },
       {
         "competitionId": "POPO",
@@ -2569,6 +2724,8 @@
         "appearances": 6,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 529
       },
       {
@@ -2577,6 +2734,8 @@
         "seasonId": "16/17",
         "clubId": "3325",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -2586,6 +2745,8 @@
         "clubId": "10330",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 112
       },
       {
@@ -2595,6 +2756,8 @@
         "clubId": "2995",
         "appearances": 8,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 357
       },
       {
@@ -2603,6 +2766,8 @@
         "seasonId": "15/16",
         "clubId": "2995",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 105
       },
       {
@@ -2613,7 +2778,9 @@
         "appearances": 21,
         "assists": 1,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1829
       },
       {
         "competitionId": "POPO",
@@ -2621,6 +2788,8 @@
         "seasonId": "15/16",
         "clubId": "4294",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -2629,6 +2798,8 @@
         "seasonId": "15/16",
         "clubId": "4294",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -2639,14 +2810,19 @@
         "appearances": 40,
         "assists": 1,
         "yellowCards": 13,
+        "secondYellowCards": 2,
         "redCards": 1,
-        "minutesPlayed": 3
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 3413
       },
       {
         "competitionId": "POPO",
         "competitionName": "Taça de Portugal",
         "seasonId": "14/15",
-        "clubId": "4294"
+        "clubId": "4294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "POCP",
@@ -2654,6 +2830,8 @@
         "seasonId": "14/15",
         "clubId": "4294",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 213
       }
     ],
@@ -2745,7 +2923,7 @@
     "signedFrom": "Maccabi Petah Tikva",
     "contract": "2026-06-30",
     "marketValue": 600000,
-    "updatedAt": "2025-05-13T09:31:10.824536",
+    "updatedAt": "2025-05-13T20:11:14.032376",
     "url": "https://www.transfermarkt.com/or-blorian/profil/spieler/468540",
     "description": "Or Blorian, 25, from Israel ➤ Hapoel Beer Sheva, since 2022 ➤ Centre-Back ➤ Market value: €600k ➤ * Mar 7, 2000 in Petah Tikva, Israel",
     "nameInHomeCountry": "אור בלוריאן",
@@ -2859,12 +3037,12 @@
       }
     ],
     "ranking": {
-      "Worldwide": 11050,
+      "Worldwide": 11047,
       "Ligat ha'Al": 57,
       "H. Beer Sheva": 12,
       "Israel": 55,
       "Centre-Back": 1933,
-      "Year 2000": 1030
+      "Year 2000": 1033
     },
     "transfers": [
       {
@@ -3011,6 +3189,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 234
       },
       {
@@ -3020,6 +3200,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 157
       },
       {
@@ -3030,7 +3212,9 @@
         "appearances": 22,
         "assists": 2,
         "yellowCards": 7,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1742
       },
       {
         "competitionId": "ECLQ",
@@ -3039,6 +3223,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -3049,6 +3235,8 @@
         "appearances": 5,
         "yellowCards": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 420
       },
       {
@@ -3060,7 +3248,9 @@
         "goals": 3,
         "assists": 1,
         "yellowCards": 5,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2017
       },
       {
         "competitionId": "ISPO",
@@ -3068,6 +3258,8 @@
         "seasonId": "23/24",
         "clubId": "1017",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -3077,6 +3269,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 224
       },
       {
@@ -3086,13 +3280,17 @@
         "clubId": "2976",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 97
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "22/23",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISRA",
@@ -3100,6 +3298,8 @@
         "seasonId": "21/22",
         "clubId": "3785",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 15
       },
       {
@@ -3109,7 +3309,9 @@
         "clubId": "3785",
         "appearances": 22,
         "yellowCards": 12,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1856
       },
       {
         "competitionId": "ISPO",
@@ -3117,6 +3319,8 @@
         "seasonId": "21/22",
         "clubId": "3785",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 216
       },
       {
@@ -3125,6 +3329,8 @@
         "seasonId": "20/21",
         "clubId": "3785",
         "appearances": 10,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 832
       },
       {
@@ -3135,7 +3341,9 @@
         "appearances": 26,
         "goals": 1,
         "yellowCards": 2,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2251
       },
       {
         "competitionId": "ISPO",
@@ -3143,6 +3351,8 @@
         "seasonId": "20/21",
         "clubId": "3785",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 135
       },
       {
@@ -3151,6 +3361,8 @@
         "seasonId": "19/20",
         "clubId": "3785",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 361
       },
       {
@@ -3160,7 +3372,10 @@
         "clubId": "3785",
         "appearances": 16,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1299
       },
       {
         "competitionId": "19YL",
@@ -3169,6 +3384,8 @@
         "clubId": "76669",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       }
     ],
@@ -3210,7 +3427,7 @@
     "signedFrom": "Maccabi Tel Aviv",
     "contract": "2026-06-30",
     "marketValue": 500000,
-    "updatedAt": "2025-05-13T09:33:22.685007",
+    "updatedAt": "2025-05-13T20:13:30.578965",
     "url": "https://www.transfermarkt.com/matan-baltaxa/profil/spieler/355395",
     "description": "Matan Baltaxa, 29, from Israel ➤ Hapoel Beer Sheva, since 2024 ➤ Centre-Back ➤ Market value: €500k ➤ * Sep 20, 1995 in Shoham, Israel",
     "nameInHomeCountry": "מתן בלטקסה",
@@ -3664,6 +3881,8 @@
         "appearances": 6,
         "goals": 2,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 365
       },
       {
@@ -3672,6 +3891,9 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 4,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 230
       },
       {
@@ -3682,13 +3904,17 @@
         "appearances": 17,
         "goals": 2,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1149
       },
       {
         "competitionId": "ELQ",
         "competitionName": "Europa League Qualifying",
         "seasonId": "24/25",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "CLQ",
@@ -3696,6 +3922,8 @@
         "seasonId": "24/25",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 35
       },
       {
@@ -3704,6 +3932,8 @@
         "seasonId": "24/25",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -3712,6 +3942,8 @@
         "seasonId": "23/24",
         "clubId": "119",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 171
       },
       {
@@ -3721,6 +3953,8 @@
         "clubId": "119",
         "appearances": 3,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 215
       },
       {
@@ -3730,13 +3964,17 @@
         "clubId": "119",
         "appearances": 8,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 622
       },
       {
         "competitionId": "UCOL",
         "competitionName": "Conference L.",
         "seasonId": "23/24",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "A1",
@@ -3745,6 +3983,8 @@
         "clubId": "14",
         "appearances": 7,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 193
       },
       {
@@ -3753,13 +3993,17 @@
         "seasonId": "23/24",
         "clubId": "14",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "ECLQ",
         "competitionName": "UECL Quali",
         "seasonId": "23/24",
-        "clubId": "14"
+        "clubId": "14",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "A1EL",
@@ -3767,6 +4011,8 @@
         "seasonId": "22/23",
         "clubId": "14",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 24
       },
       {
@@ -3777,6 +4023,8 @@
         "appearances": 5,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 317
       },
       {
@@ -3785,6 +4033,8 @@
         "seasonId": "22/23",
         "clubId": "4383",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 399
       },
       {
@@ -3793,13 +4043,17 @@
         "seasonId": "22/23",
         "clubId": "14",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "ofb",
         "competitionName": "ÖFB-Cup",
         "seasonId": "22/23",
-        "clubId": "14"
+        "clubId": "14",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISRF",
@@ -3807,6 +4061,8 @@
         "seasonId": "21/22",
         "clubId": "119",
         "appearances": 7,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 299
       },
       {
@@ -3816,6 +4072,8 @@
         "clubId": "119",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 453
       },
       {
@@ -3826,6 +4084,8 @@
         "appearances": 14,
         "goals": 2,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 891
       },
       {
@@ -3834,6 +4094,8 @@
         "seasonId": "21/22",
         "clubId": "119",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 265
       },
       {
@@ -3842,13 +4104,17 @@
         "seasonId": "21/22",
         "clubId": "119",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 387
       },
       {
         "competitionId": "IRLP",
         "competitionName": "Aluf haAlufim",
         "seasonId": "21/22",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISPO",
@@ -3857,6 +4123,8 @@
         "clubId": "119",
         "appearances": 4,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 368
       },
       {
@@ -3866,6 +4134,8 @@
         "clubId": "119",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 450
       },
       {
@@ -3874,6 +4144,8 @@
         "seasonId": "20/21",
         "clubId": "119",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 114
       },
       {
@@ -3882,6 +4154,8 @@
         "seasonId": "20/21",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -3891,6 +4165,8 @@
         "clubId": "119",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 186
       },
       {
@@ -3899,6 +4175,8 @@
         "seasonId": "20/21",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -3908,6 +4186,8 @@
         "clubId": "9095",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 369
       },
       {
@@ -3916,6 +4196,8 @@
         "seasonId": "19/20",
         "clubId": "9095",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 330
       },
       {
@@ -3927,7 +4209,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 7,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2332
       },
       {
         "competitionId": "ELQ",
@@ -3935,13 +4219,17 @@
         "seasonId": "19/20",
         "clubId": "9095",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 135
       },
       {
         "competitionId": "CLQ",
         "competitionName": "Champions League Qu.",
         "seasonId": "19/20",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "IRLP",
@@ -3949,6 +4237,8 @@
         "seasonId": "19/20",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 76
       },
       {
@@ -3959,6 +4249,8 @@
         "appearances": 9,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 737
       },
       {
@@ -3967,6 +4259,8 @@
         "seasonId": "18/19",
         "clubId": "9095",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 480
       },
       {
@@ -3978,7 +4272,9 @@
         "goals": 2,
         "assists": 6,
         "yellowCards": 5,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2304
       },
       {
         "competitionId": "ISRA",
@@ -3986,6 +4282,8 @@
         "seasonId": "17/18",
         "clubId": "6025",
         "appearances": 7,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 359
       },
       {
@@ -3996,6 +4294,8 @@
         "appearances": 9,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 717
       },
       {
@@ -4005,19 +4305,25 @@
         "clubId": "6025",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "17/18",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR1",
         "competitionName": "Ligat ha'Al",
         "seasonId": "17/18",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR2",
@@ -4027,7 +4333,9 @@
         "appearances": 33,
         "goals": 6,
         "yellowCards": 4,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2588
       },
       {
         "competitionId": "ISPO",
@@ -4035,6 +4343,8 @@
         "seasonId": "16/17",
         "clubId": "262",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -4045,13 +4355,17 @@
         "appearances": 25,
         "goals": 1,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1394
       },
       {
         "competitionId": "ISRA",
         "competitionName": "Ligat ha'Al - Relegation round",
         "seasonId": "14/15",
-        "clubId": "262"
+        "clubId": "262",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR1",
@@ -4059,13 +4373,17 @@
         "seasonId": "14/15",
         "clubId": "262",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 1
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "14/15",
-        "clubId": "262"
+        "clubId": "262",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR2",
@@ -4073,13 +4391,17 @@
         "seasonId": "13/14",
         "clubId": "262",
         "appearances": 7,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 246
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "13/14",
-        "clubId": "262"
+        "clubId": "262",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       }
     ],
     "achievements": [
@@ -4212,7 +4534,7 @@
     "contract": "2026-06-30",
     "marketValue": 250000,
     "status": "Team captain",
-    "updatedAt": "2025-05-13T09:35:39.415518",
+    "updatedAt": "2025-05-13T20:16:02.974567",
     "url": "https://www.transfermarkt.com/miguel-vitor/profil/spieler/57814",
     "description": "Miguel Vítor, 35, from Israel ➤ Hapoel Beer Sheva, since 2016 ➤ Centre-Back ➤ Market value: €250k ➤ * Jun 30, 1989 in Torres Vedras, Portugal",
     "fullName": "Miguel Ângelo Leonardo Vítor",
@@ -4750,6 +5072,8 @@
         "appearances": 8,
         "goals": 2,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 720
       },
       {
@@ -4758,6 +5082,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 134
       },
       {
@@ -4768,7 +5094,9 @@
         "appearances": 14,
         "yellowCards": 5,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1165
       },
       {
         "competitionId": "ISPO",
@@ -4777,6 +5105,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 368
       },
       {
@@ -4787,6 +5117,8 @@
         "appearances": 6,
         "yellowCards": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 406
       },
       {
@@ -4797,7 +5129,9 @@
         "appearances": 21,
         "goals": 4,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1785
       },
       {
         "competitionId": "ECLQ",
@@ -4807,6 +5141,8 @@
         "appearances": 4,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -4817,6 +5153,8 @@
         "appearances": 7,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 526
       },
       {
@@ -4828,7 +5166,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1840
       },
       {
         "competitionId": "UCOL",
@@ -4837,6 +5177,8 @@
         "clubId": "2976",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 510
       },
       {
@@ -4847,6 +5189,8 @@
         "appearances": 6,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 570
       },
       {
@@ -4855,6 +5199,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -4864,6 +5210,8 @@
         "clubId": "2976",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 330
       },
       {
@@ -4875,6 +5223,8 @@
         "goals": 1,
         "yellowCards": 2,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 674
       },
       {
@@ -4886,7 +5236,9 @@
         "goals": 4,
         "assists": 1,
         "yellowCards": 11,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2140
       },
       {
         "competitionId": "ECLQ",
@@ -4895,6 +5247,8 @@
         "clubId": "2976",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 540
       },
       {
@@ -4905,6 +5259,8 @@
         "appearances": 9,
         "assists": 1,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 780
       },
       {
@@ -4915,13 +5271,17 @@
         "appearances": 17,
         "assists": 1,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1302
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "20/21",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "EL",
@@ -4930,6 +5290,8 @@
         "clubId": "2976",
         "appearances": 3,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -4939,6 +5301,8 @@
         "clubId": "2976",
         "appearances": 4,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 349
       },
       {
@@ -4948,6 +5312,8 @@
         "clubId": "2976",
         "appearances": 4,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 365
       },
       {
@@ -4958,6 +5324,8 @@
         "appearances": 6,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 512
       },
       {
@@ -4969,7 +5337,10 @@
         "goals": 2,
         "assists": 2,
         "yellowCards": 7,
-        "minutesPlayed": 1
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1974
       },
       {
         "competitionId": "ELQ",
@@ -4978,6 +5349,8 @@
         "clubId": "2976",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 445
       },
       {
@@ -4987,6 +5360,9 @@
         "clubId": "2976",
         "appearances": 7,
         "goals": 1,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 573
       },
       {
@@ -4996,6 +5372,8 @@
         "clubId": "2976",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 45
       },
       {
@@ -5004,6 +5382,8 @@
         "seasonId": "18/19",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 112
       },
       {
@@ -5014,13 +5394,17 @@
         "appearances": 7,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 457
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "17/18",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "EL",
@@ -5030,6 +5414,8 @@
         "appearances": 2,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 160
       },
       {
@@ -5038,6 +5424,8 @@
         "seasonId": "17/18",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 64
       },
       {
@@ -5048,6 +5436,8 @@
         "appearances": 4,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -5057,6 +5447,8 @@
         "clubId": "2976",
         "appearances": 8,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 636
       },
       {
@@ -5068,6 +5460,8 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 911
       },
       {
@@ -5078,6 +5472,8 @@
         "appearances": 6,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 495
       },
       {
@@ -5087,6 +5483,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 345
       },
       {
@@ -5096,6 +5494,8 @@
         "clubId": "1091",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -5108,7 +5508,9 @@
         "assists": 2,
         "yellowCards": 4,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1958
       },
       {
         "competitionId": "GRP",
@@ -5117,6 +5519,8 @@
         "clubId": "1091",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 450
       },
       {
@@ -5125,6 +5529,8 @@
         "seasonId": "15/16",
         "clubId": "1091",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 225
       },
       {
@@ -5134,6 +5540,8 @@
         "clubId": "1091",
         "appearances": 5,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 362
       },
       {
@@ -5143,6 +5551,8 @@
         "clubId": "1091",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -5153,7 +5563,10 @@
         "appearances": 29,
         "goals": 2,
         "yellowCards": 7,
-        "minutesPlayed": 2
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2568
       },
       {
         "competitionId": "GRP",
@@ -5162,6 +5575,8 @@
         "clubId": "1091",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -5170,13 +5585,17 @@
         "seasonId": "14/15",
         "clubId": "1091",
         "appearances": 6,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 540
       },
       {
         "competitionId": "ELQ",
         "competitionName": "Europa League Qualifying",
         "seasonId": "14/15",
-        "clubId": "1091"
+        "clubId": "1091",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "POGR",
@@ -5185,6 +5604,8 @@
         "clubId": "1091",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 275
       },
       {
@@ -5194,6 +5615,8 @@
         "clubId": "1091",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 291
       },
       {
@@ -5205,7 +5628,9 @@
         "goals": 4,
         "yellowCards": 4,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1652
       },
       {
         "competitionId": "EL",
@@ -5214,6 +5639,8 @@
         "clubId": "1091",
         "appearances": 4,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -5223,6 +5650,8 @@
         "clubId": "1091",
         "appearances": 4,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -5233,13 +5662,17 @@
         "appearances": 11,
         "goals": 3,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 990
       },
       {
         "competitionId": "EL",
         "competitionName": "Europa League",
         "seasonId": "12/13",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "PO1",
@@ -5247,25 +5680,33 @@
         "seasonId": "12/13",
         "clubId": "294",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 8
       },
       {
         "competitionId": "POPO",
         "competitionName": "Taça de Portugal",
         "seasonId": "12/13",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "POCP",
         "competitionName": "Allianz Cup",
         "seasonId": "12/13",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "CL",
         "competitionName": "UEFA Champions League",
         "seasonId": "12/13",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "PO1",
@@ -5274,6 +5715,8 @@
         "clubId": "294",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 124
       },
       {
@@ -5283,6 +5726,8 @@
         "clubId": "294",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 71
       },
       {
@@ -5291,6 +5736,8 @@
         "seasonId": "11/12",
         "clubId": "294",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -5299,6 +5746,8 @@
         "seasonId": "11/12",
         "clubId": "294",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 171
       },
       {
@@ -5310,7 +5759,9 @@
         "goals": 3,
         "yellowCards": 1,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1095
       },
       {
         "competitionId": "CGB",
@@ -5319,6 +5770,8 @@
         "clubId": "1003",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -5327,6 +5780,8 @@
         "seasonId": "09/10",
         "clubId": "294",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 102
       },
       {
@@ -5335,13 +5790,17 @@
         "seasonId": "09/10",
         "clubId": "294",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 188
       },
       {
         "competitionId": "POCP",
         "competitionName": "Allianz Cup",
         "seasonId": "09/10",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "POPO",
@@ -5350,13 +5809,17 @@
         "clubId": "294",
         "appearances": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 14
       },
       {
         "competitionId": "ELQ",
         "competitionName": "Europa League Qualifying",
         "seasonId": "09/10",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "PO1",
@@ -5366,7 +5829,10 @@
         "appearances": 16,
         "assists": 2,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1359
       },
       {
         "competitionId": "POCP",
@@ -5375,6 +5841,8 @@
         "clubId": "294",
         "appearances": 5,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 480
       },
       {
@@ -5383,13 +5851,17 @@
         "seasonId": "08/09",
         "clubId": "294",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "POPO",
         "competitionName": "Taça de Portugal",
         "seasonId": "08/09",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "PO2",
@@ -5398,6 +5870,8 @@
         "clubId": "3336",
         "appearances": 7,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 457
       },
       {
@@ -5407,13 +5881,17 @@
         "clubId": "3336",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "POCP",
         "competitionName": "Carlsberg Cup",
         "seasonId": "07/08",
-        "clubId": "294"
+        "clubId": "294",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "CL",
@@ -5421,6 +5899,8 @@
         "seasonId": "07/08",
         "clubId": "294",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 73
       },
       {
@@ -5430,6 +5910,8 @@
         "clubId": "294",
         "appearances": 2,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -5439,6 +5921,8 @@
         "clubId": "294",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       }
     ],
@@ -5760,7 +6244,7 @@
     "signedFrom": "Maccabi Tel Aviv",
     "contract": "2025-06-30",
     "marketValue": 150000,
-    "updatedAt": "2025-05-13T09:38:30.779079",
+    "updatedAt": "2025-05-13T20:18:49.694590",
     "url": "https://www.transfermarkt.com/eitan-tibi/profil/spieler/129771",
     "description": "Eitan Tibi, 37, from Israel ➤ Hapoel Beer Sheva, since 2021 ➤ Centre-Back ➤ Market value: €150k ➤ * Nov 16, 1987 in Jerusalem, Israel",
     "nameInHomeCountry": "איתן טיבי",
@@ -6282,7 +6766,9 @@
         "competitionId": "ISRF",
         "competitionName": "Ligat ha'Al -  Championship round",
         "seasonId": "24/25",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR1",
@@ -6290,6 +6776,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 6,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 277
       },
       {
@@ -6298,6 +6786,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 32
       },
       {
@@ -6307,6 +6797,9 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 344
       },
       {
@@ -6316,6 +6809,8 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 402
       },
       {
@@ -6324,6 +6819,9 @@
         "seasonId": "23/24",
         "clubId": "2976",
         "appearances": 8,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 700
       },
       {
@@ -6333,7 +6831,9 @@
         "clubId": "2976",
         "appearances": 17,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1027
       },
       {
         "competitionId": "ECLQ",
@@ -6341,6 +6841,8 @@
         "seasonId": "23/24",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -6351,6 +6853,8 @@
         "appearances": 9,
         "assists": 2,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 607
       },
       {
@@ -6359,7 +6863,9 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 16,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1106
       },
       {
         "competitionId": "ISPO",
@@ -6367,6 +6873,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -6375,6 +6883,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 390
       },
       {
@@ -6384,13 +6894,17 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 473
       },
       {
         "competitionId": "IRLP",
         "competitionName": "Aluf haAlufim",
         "seasonId": "22/23",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISPO",
@@ -6398,6 +6912,8 @@
         "seasonId": "21/22",
         "clubId": "2976",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 414
       },
       {
@@ -6408,6 +6924,8 @@
         "appearances": 6,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 454
       },
       {
@@ -6417,7 +6935,9 @@
         "clubId": "2976",
         "appearances": 16,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1242
       },
       {
         "competitionId": "ECLQ",
@@ -6425,6 +6945,8 @@
         "seasonId": "21/22",
         "clubId": "2976",
         "appearances": 6,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 540
       },
       {
@@ -6435,6 +6957,8 @@
         "appearances": 3,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -6444,6 +6968,9 @@
         "clubId": "119",
         "appearances": 6,
         "goals": 1,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 488
       },
       {
@@ -6453,7 +6980,9 @@
         "clubId": "119",
         "appearances": 20,
         "assists": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1766
       },
       {
         "competitionId": "EL",
@@ -6462,6 +6991,8 @@
         "clubId": "119",
         "appearances": 8,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 720
       },
       {
@@ -6471,6 +7002,8 @@
         "clubId": "119",
         "appearances": 5,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 450
       },
       {
@@ -6479,6 +7012,8 @@
         "seasonId": "20/21",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -6488,6 +7023,8 @@
         "clubId": "119",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -6498,13 +7035,17 @@
         "appearances": 26,
         "goals": 2,
         "yellowCards": 2,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2340
       },
       {
         "competitionId": "ELQ",
         "competitionName": "Europa League Qualifying",
         "seasonId": "19/20",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISRF",
@@ -6513,6 +7054,8 @@
         "clubId": "119",
         "appearances": 7,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 630
       },
       {
@@ -6521,6 +7064,8 @@
         "seasonId": "18/19",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -6529,6 +7074,8 @@
         "seasonId": "18/19",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 61
       },
       {
@@ -6538,6 +7085,8 @@
         "clubId": "119",
         "appearances": 8,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 720
       },
       {
@@ -6546,6 +7095,8 @@
         "seasonId": "17/18",
         "clubId": "119",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 194
       },
       {
@@ -6555,7 +7106,9 @@
         "clubId": "119",
         "appearances": 21,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1890
       },
       {
         "competitionId": "ISPO",
@@ -6563,6 +7116,8 @@
         "seasonId": "17/18",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -6572,6 +7127,8 @@
         "clubId": "119",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 285
       },
       {
@@ -6581,6 +7138,8 @@
         "clubId": "119",
         "appearances": 8,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 720
       },
       {
@@ -6590,6 +7149,8 @@
         "clubId": "119",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 510
       },
       {
@@ -6598,6 +7159,8 @@
         "seasonId": "16/17",
         "clubId": "119",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -6607,7 +7170,9 @@
         "clubId": "119",
         "appearances": 22,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1967
       },
       {
         "competitionId": "EL",
@@ -6616,6 +7181,8 @@
         "clubId": "119",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 450
       },
       {
@@ -6625,6 +7192,8 @@
         "clubId": "119",
         "appearances": 8,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 724
       },
       {
@@ -6633,6 +7202,8 @@
         "seasonId": "15/16",
         "clubId": "119",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 390
       },
       {
@@ -6641,6 +7212,8 @@
         "seasonId": "15/16",
         "clubId": "119",
         "appearances": 10,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 900
       },
       {
@@ -6650,7 +7223,9 @@
         "clubId": "119",
         "appearances": 21,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1890
       },
       {
         "competitionId": "CL",
@@ -6659,6 +7234,8 @@
         "clubId": "119",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 450
       },
       {
@@ -6667,6 +7244,8 @@
         "seasonId": "15/16",
         "clubId": "119",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -6675,6 +7254,8 @@
         "seasonId": "15/16",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -6683,6 +7264,8 @@
         "seasonId": "14/15",
         "clubId": "119",
         "appearances": 8,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 684
       },
       {
@@ -6692,6 +7275,8 @@
         "clubId": "119",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 315
       },
       {
@@ -6702,7 +7287,9 @@
         "appearances": 24,
         "goals": 1,
         "yellowCards": 1,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2160
       },
       {
         "competitionId": "ELQ",
@@ -6711,6 +7298,8 @@
         "clubId": "119",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -6719,6 +7308,8 @@
         "seasonId": "14/15",
         "clubId": "119",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -6727,6 +7318,8 @@
         "seasonId": "13/14",
         "clubId": "119",
         "appearances": 9,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 810
       },
       {
@@ -6736,7 +7329,9 @@
         "clubId": "119",
         "appearances": 25,
         "yellowCards": 4,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2203
       },
       {
         "competitionId": "EL",
@@ -6745,13 +7340,17 @@
         "clubId": "119",
         "appearances": 8,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 720
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "13/14",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "CLQ",
@@ -6760,6 +7359,8 @@
         "clubId": "119",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -6769,6 +7370,8 @@
         "clubId": "119",
         "appearances": 9,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 810
       },
       {
@@ -6779,7 +7382,9 @@
         "appearances": 25,
         "goals": 1,
         "yellowCards": 4,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2250
       },
       {
         "competitionId": "ISPO",
@@ -6787,13 +7392,17 @@
         "seasonId": "12/13",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
         "competitionId": "CLQ",
         "competitionName": "Champions League Qu.",
         "seasonId": "12/13",
-        "clubId": "6028"
+        "clubId": "6028",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISRF",
@@ -6801,6 +7410,8 @@
         "seasonId": "11/12",
         "clubId": "6028",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 221
       },
       {
@@ -6809,6 +7420,8 @@
         "seasonId": "11/12",
         "clubId": "6028",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -6818,7 +7431,9 @@
         "clubId": "6028",
         "appearances": 19,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1386
       },
       {
         "competitionId": "ISRF",
@@ -6826,6 +7441,8 @@
         "seasonId": "10/11",
         "clubId": "6028",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 135
       },
       {
@@ -6834,6 +7451,8 @@
         "seasonId": "10/11",
         "clubId": "6028",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 228
       },
       {
@@ -6842,6 +7461,9 @@
         "seasonId": "10/11",
         "clubId": "6028",
         "appearances": 5,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 332
       },
       {
@@ -6851,13 +7473,17 @@
         "clubId": "172",
         "appearances": 9,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 617
       },
       {
         "competitionId": "CCB",
         "competitionName": "Cofidis Cup",
         "seasonId": "10/11",
-        "clubId": "172"
+        "clubId": "172",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISRF",
@@ -6866,6 +7492,8 @@
         "clubId": "3793",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 327
       },
       {
@@ -6874,6 +7502,8 @@
         "seasonId": "09/10",
         "clubId": "3793",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 75
       },
       {
@@ -6884,7 +7514,9 @@
         "appearances": 16,
         "assists": 1,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1185
       },
       {
         "competitionId": "ISP1",
@@ -6892,6 +7524,8 @@
         "seasonId": "08/09",
         "clubId": "21535",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -6902,7 +7536,9 @@
         "appearances": 28,
         "goals": 4,
         "yellowCards": 2,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2493
       },
       {
         "competitionId": "ISPO",
@@ -6911,6 +7547,8 @@
         "clubId": "21535",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 210
       },
       {
@@ -6919,13 +7557,17 @@
         "seasonId": "06/07",
         "clubId": "3793",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 107
       },
       {
         "competitionId": "UEQ",
         "competitionName": "UEFA-Cup Qualifikation",
         "seasonId": "06/07",
-        "clubId": "3793"
+        "clubId": "3793",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       }
     ],
     "achievements": [
@@ -7139,7 +7781,7 @@
     "signedFrom": ": Ablöse free transfer",
     "contract": "2025-06-30",
     "marketValue": 250000,
-    "updatedAt": "2025-05-13T09:40:55.631627",
+    "updatedAt": "2025-05-13T20:21:07.426948",
     "url": "https://www.transfermarkt.com/helder-lopes/profil/spieler/171068",
     "description": "Hélder Lopes, 36, from Portugal ➤ Hapoel Beer Sheva, since 2021 ➤ Left-Back ➤ Market value: €250k ➤ * Jan 4, 1989 in Vila Nova de Gaia, Portugal",
     "fullName": "Hélder Lopes",
@@ -7586,6 +8228,8 @@
         "appearances": 8,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 699
       },
       {
@@ -7597,6 +8241,8 @@
         "goals": 1,
         "assists": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 236
       },
       {
@@ -7608,7 +8254,9 @@
         "goals": 4,
         "assists": 3,
         "yellowCards": 6,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2236
       },
       {
         "competitionId": "ECLQ",
@@ -7618,6 +8266,8 @@
         "appearances": 4,
         "goals": 3,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -7627,6 +8277,8 @@
         "clubId": "2976",
         "appearances": 5,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 480
       },
       {
@@ -7637,7 +8289,10 @@
         "appearances": 6,
         "goals": 2,
         "yellowCards": 1,
+        "secondYellowCards": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 511
       },
       {
@@ -7649,7 +8304,9 @@
         "goals": 5,
         "assists": 5,
         "yellowCards": 7,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2133
       },
       {
         "competitionId": "ECLQ",
@@ -7658,6 +8315,8 @@
         "clubId": "2976",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -7667,6 +8326,8 @@
         "clubId": "2976",
         "appearances": 9,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 791
       },
       {
@@ -7677,7 +8338,9 @@
         "appearances": 22,
         "goals": 4,
         "yellowCards": 10,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1828
       },
       {
         "competitionId": "UCOL",
@@ -7686,6 +8349,8 @@
         "clubId": "2976",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 433
       },
       {
@@ -7695,6 +8360,8 @@
         "clubId": "2976",
         "appearances": 6,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 570
       },
       {
@@ -7703,6 +8370,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -7713,6 +8382,8 @@
         "appearances": 4,
         "assists": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 400
       },
       {
@@ -7723,6 +8394,8 @@
         "appearances": 8,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 498
       },
       {
@@ -7733,7 +8406,9 @@
         "appearances": 20,
         "assists": 1,
         "yellowCards": 7,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1691
       },
       {
         "competitionId": "ECLQ",
@@ -7742,6 +8417,8 @@
         "clubId": "2441",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 110
       },
       {
@@ -7753,6 +8430,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 804
       },
       {
@@ -7762,6 +8441,8 @@
         "clubId": "2441",
         "appearances": 6,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 466
       },
       {
@@ -7771,7 +8452,9 @@
         "clubId": "2441",
         "appearances": 20,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1408
       },
       {
         "competitionId": "EL",
@@ -7779,13 +8462,17 @@
         "seasonId": "20/21",
         "clubId": "2441",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
         "competitionId": "ELQ",
         "competitionName": "Europa League Qualifying",
         "seasonId": "20/21",
-        "clubId": "2441"
+        "clubId": "2441",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "GRP",
@@ -7795,6 +8482,8 @@
         "appearances": 5,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 425
       },
       {
@@ -7805,6 +8494,8 @@
         "appearances": 8,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 720
       },
       {
@@ -7816,7 +8507,9 @@
         "goals": 1,
         "assists": 2,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1323
       },
       {
         "competitionId": "ELQ",
@@ -7826,6 +8519,8 @@
         "appearances": 3,
         "assists": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -7834,6 +8529,8 @@
         "seasonId": "18/19",
         "clubId": "2441",
         "appearances": 6,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 372
       },
       {
@@ -7844,6 +8541,8 @@
         "appearances": 3,
         "assists": 2,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 178
       },
       {
@@ -7855,7 +8554,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1366
       },
       {
         "competitionId": "GRP",
@@ -7866,6 +8567,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 350
       },
       {
@@ -7875,6 +8578,8 @@
         "clubId": "2441",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 450
       },
       {
@@ -7884,6 +8589,8 @@
         "clubId": "2441",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 151
       },
       {
@@ -7892,6 +8599,8 @@
         "seasonId": "17/18",
         "clubId": "2441",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -7902,7 +8611,9 @@
         "appearances": 15,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1231
       },
       {
         "competitionId": "CDR",
@@ -7910,6 +8621,8 @@
         "seasonId": "16/17",
         "clubId": "472",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 135
       },
       {
@@ -7920,13 +8633,17 @@
         "appearances": 31,
         "assists": 2,
         "yellowCards": 6,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2720
       },
       {
         "competitionId": "POCP",
         "competitionName": "Allianz Cup",
         "seasonId": "15/16",
-        "clubId": "2995"
+        "clubId": "2995",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "POPO",
@@ -7936,6 +8653,8 @@
         "appearances": 2,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -7947,7 +8666,10 @@
         "goals": 1,
         "assists": 4,
         "yellowCards": 8,
-        "minutesPlayed": 2
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2666
       },
       {
         "competitionId": "POPO",
@@ -7958,6 +8680,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -7968,7 +8692,9 @@
         "appearances": 19,
         "assists": 1,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1683
       },
       {
         "competitionId": "POCP",
@@ -7977,6 +8703,8 @@
         "clubId": "2995",
         "appearances": 3,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 256
       },
       {
@@ -7985,6 +8713,8 @@
         "seasonId": "13/14",
         "clubId": "2995",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -7993,6 +8723,8 @@
         "seasonId": "13/14",
         "clubId": "2995",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -8001,6 +8733,8 @@
         "seasonId": "13/14",
         "clubId": "2995",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -8010,7 +8744,9 @@
         "clubId": "1436",
         "appearances": 21,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1641
       },
       {
         "competitionId": "POCP",
@@ -8018,6 +8754,8 @@
         "seasonId": "12/13",
         "clubId": "1436",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 282
       },
       {
@@ -8026,6 +8764,8 @@
         "seasonId": "12/13",
         "clubId": "1436",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 46
       },
       {
@@ -8035,6 +8775,8 @@
         "clubId": "7179",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -8043,6 +8785,8 @@
         "seasonId": "10/11",
         "clubId": "3265",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       }
     ],
@@ -8187,7 +8931,7 @@
     "signedFrom": "Maccabi Netanya",
     "contract": "2028-06-30",
     "marketValue": 700000,
-    "updatedAt": "2025-05-13T09:43:33.420596",
+    "updatedAt": "2025-05-13T20:23:13.285697",
     "url": "https://www.transfermarkt.com/guy-mizrahi/profil/spieler/704071",
     "description": "Guy Mizrahi, 24, from Israel ➤ Hapoel Beer Sheva, since 2024 ➤ Right-Back ➤ Market value: €700k ➤ * Mar 30, 2001 in Petah Tikva, Israel",
     "nameInHomeCountry": "גיא מזרחי",
@@ -8296,12 +9040,12 @@
       }
     ],
     "ranking": {
-      "Worldwide": 9888,
+      "Worldwide": 9885,
       "Ligat ha'Al": 51,
       "H. Beer Sheva": 9,
       "Israel": 52,
-      "Right-Back": 734,
-      "Year 2001": 801
+      "Right-Back": 735,
+      "Year 2001": 799
     },
     "transfers": [
       {
@@ -8503,6 +9247,8 @@
         "clubId": "2976",
         "appearances": 7,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 467
       },
       {
@@ -8511,6 +9257,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 247
       },
       {
@@ -8521,7 +9269,9 @@
         "appearances": 26,
         "assists": 3,
         "yellowCards": 6,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2240
       },
       {
         "competitionId": "ECLQ",
@@ -8530,6 +9280,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -8539,6 +9291,8 @@
         "clubId": "5223",
         "appearances": 5,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 297
       },
       {
@@ -8548,6 +9302,8 @@
         "clubId": "5223",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 164
       },
       {
@@ -8558,7 +9314,9 @@
         "appearances": 18,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1185
       },
       {
         "competitionId": "ISRA",
@@ -8567,6 +9325,8 @@
         "clubId": "810",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 470
       },
       {
@@ -8578,7 +9338,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1178
       },
       {
         "competitionId": "ISPO",
@@ -8586,6 +9348,8 @@
         "seasonId": "22/23",
         "clubId": "810",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 2
       },
       {
@@ -8595,6 +9359,8 @@
         "clubId": "6028",
         "appearances": 4,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 341
       },
       {
@@ -8605,7 +9371,9 @@
         "appearances": 23,
         "assists": 1,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1845
       },
       {
         "competitionId": "ISPO",
@@ -8614,13 +9382,17 @@
         "clubId": "6028",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 210
       },
       {
         "competitionId": "ECLQ",
         "competitionName": "UECL Quali",
         "seasonId": "21/22",
-        "clubId": "119"
+        "clubId": "119",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISPO",
@@ -8631,6 +9403,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 435
       },
       {
@@ -8641,7 +9415,9 @@
         "appearances": 34,
         "assists": 1,
         "yellowCards": 5,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2840
       }
     ],
     "achievements": [],
@@ -8670,7 +9446,7 @@
     "signedFrom": "Portimonense SC",
     "contract": "2027-06-30",
     "marketValue": 1200000,
-    "updatedAt": "2025-05-13T09:45:43.101007",
+    "updatedAt": "2025-05-13T20:25:12.032446",
     "url": "https://www.transfermarkt.com/lucas-ventura/profil/spieler/520994",
     "description": "Lucas Ventura, 26, from Brazil ➤ Hapoel Beer Sheva, since 2024 ➤ Defensive Midfield ➤ Market value: €1.20m ➤ * May 19, 1998 in Leopoldina, Brazil",
     "nameInHomeCountry": "Lucas de Souza Ventura",
@@ -8802,11 +9578,11 @@
       }
     ],
     "ranking": {
-      "Worldwide": 6462,
+      "Worldwide": 6463,
       "Ligat ha'Al": 25,
       "H. Beer Sheva": 4,
       "Brazil": 563,
-      "Defensive Midfield": 574,
+      "Defensive Midfield": 573,
       "Year 1998": 580
     },
     "transfers": [
@@ -9009,6 +9785,8 @@
         "appearances": 8,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 692
       },
       {
@@ -9017,6 +9795,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 204
       },
       {
@@ -9027,7 +9807,9 @@
         "appearances": 22,
         "assists": 1,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1892
       },
       {
         "competitionId": "PO2",
@@ -9036,6 +9818,8 @@
         "clubId": "7378",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 248
       },
       {
@@ -9045,6 +9829,8 @@
         "clubId": "7378",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 163
       },
       {
@@ -9056,7 +9842,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 7,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1925
       },
       {
         "competitionId": "POPO",
@@ -9064,6 +9852,8 @@
         "seasonId": "23/24",
         "clubId": "7378",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -9072,6 +9862,8 @@
         "seasonId": "23/24",
         "clubId": "7378",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -9081,6 +9873,9 @@
         "clubId": "7378",
         "appearances": 13,
         "yellowCards": 4,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 565
       },
       {
@@ -9090,7 +9885,9 @@
         "clubId": "2035",
         "appearances": 21,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1033
       },
       {
         "competitionId": "BRSC",
@@ -9099,6 +9896,8 @@
         "clubId": "2035",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 25
       },
       {
@@ -9107,6 +9906,8 @@
         "seasonId": "2022",
         "clubId": "609",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 123
       },
       {
@@ -9116,19 +9917,25 @@
         "clubId": "609",
         "appearances": 19,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1385
       },
       {
         "competitionId": "BRCM",
         "competitionName": "Campeonato Mineiro",
         "seasonId": "2021",
-        "clubId": "609"
+        "clubId": "609",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "BRC",
         "competitionName": "Copa do Brasil",
         "seasonId": "2021",
-        "clubId": "609"
+        "clubId": "609",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "BRA3",
@@ -9137,6 +9944,8 @@
         "clubId": "17561",
         "appearances": 4,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 82
       },
       {
@@ -9146,6 +9955,8 @@
         "clubId": "17561",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 39
       },
       {
@@ -9154,13 +9965,17 @@
         "seasonId": "2020",
         "clubId": "17561",
         "appearances": 7,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 378
       },
       {
         "competitionId": "BRC",
         "competitionName": "Copa do Brasil",
         "seasonId": "2020",
-        "clubId": "17561"
+        "clubId": "17561",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "BRA3",
@@ -9168,6 +9983,9 @@
         "seasonId": "2019",
         "clubId": "17561",
         "appearances": 9,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 680
       },
       {
@@ -9176,6 +9994,8 @@
         "seasonId": "2018",
         "clubId": "8718",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 84
       },
       {
@@ -9184,6 +10004,8 @@
         "seasonId": "2018",
         "clubId": "609",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 4
       },
       {
@@ -9194,13 +10016,17 @@
         "appearances": 6,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 306
       },
       {
         "competitionId": "BRC",
         "competitionName": "Copa do Brasil",
         "seasonId": "2017",
-        "clubId": "609"
+        "clubId": "609",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "BRC2",
@@ -9208,6 +10034,8 @@
         "seasonId": "2017",
         "clubId": "609",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -9216,6 +10044,8 @@
         "seasonId": "2017",
         "clubId": "609",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 11
       }
     ],
@@ -9285,7 +10115,7 @@
     "signedFrom": ": Ablöse €700k",
     "contract": "2026-06-30",
     "marketValue": 500000,
-    "updatedAt": "2025-05-13T09:47:56.607761",
+    "updatedAt": "2025-05-13T20:27:39.551493",
     "url": "https://www.transfermarkt.com/shai-elias/profil/spieler/482427",
     "description": "Shai Elias, 26, from Israel ➤ Hapoel Beer Sheva, since 2022 ➤ Defensive Midfield ➤ Market value: €500k ➤ * Feb 25, 1999 in Herzliya, Israel",
     "nameInHomeCountry": "שי אליאס",
@@ -9566,6 +10396,8 @@
         "clubId": "2976",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 117
       },
       {
@@ -9574,6 +10406,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 150
       },
       {
@@ -9584,6 +10418,8 @@
         "appearances": 9,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 198
       },
       {
@@ -9593,6 +10429,8 @@
         "clubId": "2976",
         "appearances": 4,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 242
       },
       {
@@ -9601,6 +10439,8 @@
         "seasonId": "23/24",
         "clubId": "2976",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 245
       },
       {
@@ -9610,6 +10450,8 @@
         "clubId": "2976",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 142
       },
       {
@@ -9620,7 +10462,9 @@
         "appearances": 23,
         "yellowCards": 7,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1196
       },
       {
         "competitionId": "ECLQ",
@@ -9630,6 +10474,8 @@
         "appearances": 4,
         "goals": 1,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 314
       },
       {
@@ -9639,6 +10485,8 @@
         "clubId": "2976",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 106
       },
       {
@@ -9650,7 +10498,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1458
       },
       {
         "competitionId": "ISPO",
@@ -9658,6 +10508,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -9668,6 +10520,8 @@
         "appearances": 4,
         "assists": 1,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 327
       },
       {
@@ -9677,6 +10531,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 185
       },
       {
@@ -9685,6 +10541,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 45
       },
       {
@@ -9695,6 +10553,8 @@
         "appearances": 6,
         "yellowCards": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 495
       },
       {
@@ -9706,7 +10566,9 @@
         "goals": 2,
         "yellowCards": 9,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1690
       },
       {
         "competitionId": "ISPO",
@@ -9715,6 +10577,8 @@
         "clubId": "1017",
         "appearances": 4,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 318
       },
       {
@@ -9724,6 +10588,8 @@
         "clubId": "1017",
         "appearances": 4,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 285
       },
       {
@@ -9735,7 +10601,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 7,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1572
       },
       {
         "competitionId": "ISRA",
@@ -9743,6 +10611,8 @@
         "seasonId": "19/20",
         "clubId": "30062",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 84
       },
       {
@@ -9754,13 +10624,17 @@
         "assists": 1,
         "yellowCards": 5,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 810
       },
       {
         "competitionId": "ISR1",
         "competitionName": "Ligat ha'Al",
         "seasonId": "19/20",
-        "clubId": "1017"
+        "clubId": "1017",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISRA",
@@ -9768,6 +10642,8 @@
         "seasonId": "18/19",
         "clubId": "1017",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 25
       },
       {
@@ -9777,7 +10653,9 @@
         "clubId": "1017",
         "appearances": 19,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1143
       },
       {
         "competitionId": "ISPO",
@@ -9785,6 +10663,8 @@
         "seasonId": "18/19",
         "clubId": "1017",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 12
       },
       {
@@ -9794,6 +10674,9 @@
         "clubId": "1017",
         "appearances": 8,
         "yellowCards": 1,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 643
       },
       {
@@ -9802,6 +10685,8 @@
         "seasonId": "16/17",
         "clubId": "1017",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 58
       },
       {
@@ -9811,6 +10696,8 @@
         "clubId": "1017",
         "appearances": 7,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 388
       },
       {
@@ -9819,6 +10706,8 @@
         "seasonId": "16/17",
         "clubId": "1017",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 92
       }
     ],
@@ -9888,7 +10777,7 @@
     "signedFrom": "Red Star Belgrade",
     "contract": "2028-06-30",
     "marketValue": 2500000,
-    "updatedAt": "2025-05-13T09:51:12.836649",
+    "updatedAt": "2025-05-13T20:29:26.838645",
     "url": "https://www.transfermarkt.com/kings-kangwa/profil/spieler/684998",
     "description": "Kings Kangwa, 26, from Zambia ➤ Hapoel Beer Sheva, since 2024 ➤ Central Midfield ➤ Market value: €2.50m ➤ * Apr 6, 1999 in Kasama, Zambia",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/684998-1694785129.jpg?lm=1",
@@ -10038,7 +10927,7 @@
       }
     ],
     "ranking": {
-      "Worldwide": 3728,
+      "Worldwide": 3729,
       "Ligat ha'Al": 3,
       "H. Beer Sheva": 2,
       "Zambia": 4,
@@ -10265,6 +11154,8 @@
         "appearances": 8,
         "goals": 3,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 709
       },
       {
@@ -10274,6 +11165,8 @@
         "clubId": "2976",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 236
       },
       {
@@ -10285,7 +11178,9 @@
         "goals": 10,
         "assists": 7,
         "yellowCards": 4,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2213
       },
       {
         "competitionId": "ECLQ",
@@ -10293,6 +11188,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 116
       },
       {
@@ -10301,6 +11198,8 @@
         "seasonId": "23/24",
         "clubId": "601",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 204
       },
       {
@@ -10310,6 +11209,8 @@
         "clubId": "601",
         "appearances": 6,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 424
       },
       {
@@ -10318,6 +11219,8 @@
         "seasonId": "23/24",
         "clubId": "601",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 160
       },
       {
@@ -10326,13 +11229,17 @@
         "seasonId": "23/24",
         "clubId": "159",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 7
       },
       {
         "competitionId": "SERP",
         "competitionName": "Kup Srbije",
         "seasonId": "23/24",
-        "clubId": "159"
+        "clubId": "159",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "SER1",
@@ -10341,6 +11248,8 @@
         "clubId": "159",
         "appearances": 10,
         "assists": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 509
       },
       {
@@ -10351,6 +11260,8 @@
         "appearances": 5,
         "goals": 3,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 182
       },
       {
@@ -10362,6 +11273,8 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 321
       },
       {
@@ -10373,7 +11286,9 @@
         "goals": 6,
         "assists": 2,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1583
       },
       {
         "competitionId": "EL",
@@ -10381,6 +11296,9 @@
         "seasonId": "22/23",
         "clubId": "159",
         "appearances": 4,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 171
       },
       {
@@ -10391,6 +11309,8 @@
         "appearances": 4,
         "goals": 1,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 306
       },
       {
@@ -10402,7 +11322,10 @@
         "goals": 4,
         "assists": 5,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1512
       },
       {
         "competitionId": "RUP",
@@ -10412,6 +11335,8 @@
         "appearances": 3,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 201
       },
       {
@@ -10421,6 +11346,8 @@
         "clubId": "45035",
         "appearances": 1,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 45
       },
       {
@@ -10432,7 +11359,10 @@
         "goals": 1,
         "assists": 3,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1276
       },
       {
         "competitionId": "RUP",
@@ -10441,6 +11371,8 @@
         "clubId": "3729",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 117
       },
       {
@@ -10450,6 +11382,8 @@
         "clubId": "3729",
         "appearances": 8,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 435
       },
       {
@@ -10458,6 +11392,8 @@
         "seasonId": "19/20",
         "clubId": "3729",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 71
       }
     ],
@@ -10590,7 +11526,7 @@
     "signedFrom": "Apollon Limassol",
     "contract": "2027-06-30",
     "marketValue": 1000000,
-    "updatedAt": "2025-05-13T09:54:05.078858",
+    "updatedAt": "2025-05-13T20:31:49.076972",
     "url": "https://www.transfermarkt.com/eliel-peretz/profil/spieler/444018",
     "description": "Eliel Peretz, 28, from Israel ➤ Hapoel Beer Sheva, since 2024 ➤ Central Midfield ➤ Market value: €1.00m ➤ * Nov 18, 1996 in Bat Yam, Israel",
     "nameInHomeCountry": "אליאל פרץ",
@@ -10740,11 +11676,11 @@
       }
     ],
     "ranking": {
-      "Worldwide": 7066,
+      "Worldwide": 7071,
       "Ligat ha'Al": 31,
       "H. Beer Sheva": 6,
       "Israel": 36,
-      "Central Midfield": 875,
+      "Central Midfield": 876,
       "Year 1996": 535
     },
     "transfers": [
@@ -11014,6 +11950,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 463
       },
       {
@@ -11022,6 +11960,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 148
       },
       {
@@ -11034,7 +11974,9 @@
         "assists": 5,
         "yellowCards": 3,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1601
       },
       {
         "competitionId": "ECLQ",
@@ -11042,6 +11984,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 31
       },
       {
@@ -11053,6 +11997,8 @@
         "goals": 5,
         "assists": 5,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 758
       },
       {
@@ -11063,6 +12009,8 @@
         "appearances": 3,
         "yellowCards": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 76
       },
       {
@@ -11074,7 +12022,9 @@
         "goals": 3,
         "assists": 2,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1099
       },
       {
         "competitionId": "ISRA",
@@ -11084,6 +12034,8 @@
         "appearances": 6,
         "assists": 3,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 458
       },
       {
@@ -11096,6 +12048,8 @@
         "assists": 2,
         "yellowCards": 4,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 981
       },
       {
@@ -11104,6 +12058,8 @@
         "seasonId": "22/23",
         "clubId": "810",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 60
       },
       {
@@ -11116,7 +12072,9 @@
         "assists": 6,
         "yellowCards": 4,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1705
       },
       {
         "competitionId": "ofb",
@@ -11126,6 +12084,8 @@
         "appearances": 5,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 419
       },
       {
@@ -11137,6 +12097,8 @@
         "goals": 4,
         "assists": 3,
         "yellowCards": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 643
       },
       {
@@ -11146,6 +12108,8 @@
         "clubId": "4441",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 150
       },
       {
@@ -11155,6 +12119,8 @@
         "clubId": "4441",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 319
       },
       {
@@ -11166,6 +12132,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 457
       },
       {
@@ -11176,6 +12144,8 @@
         "appearances": 15,
         "goals": 8,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 966
       },
       {
@@ -11187,6 +12157,8 @@
         "goals": 1,
         "assists": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 698
       },
       {
@@ -11197,6 +12169,8 @@
         "appearances": 5,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 362
       },
       {
@@ -11208,7 +12182,9 @@
         "goals": 3,
         "assists": 3,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1155
       },
       {
         "competitionId": "ISRF",
@@ -11216,6 +12192,8 @@
         "seasonId": "17/18",
         "clubId": "9095",
         "appearances": 6,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 140
       },
       {
@@ -11226,6 +12204,8 @@
         "appearances": 16,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 350
       },
       {
@@ -11234,6 +12214,8 @@
         "seasonId": "17/18",
         "clubId": "9095",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 77
       },
       {
@@ -11242,6 +12224,8 @@
         "seasonId": "17/18",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 28
       },
       {
@@ -11251,6 +12235,8 @@
         "clubId": "119",
         "appearances": 3,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 205
       },
       {
@@ -11259,6 +12245,8 @@
         "seasonId": "16/17",
         "clubId": "119",
         "appearances": 6,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 175
       },
       {
@@ -11268,6 +12256,8 @@
         "clubId": "119",
         "appearances": 4,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 214
       },
       {
@@ -11277,6 +12267,8 @@
         "clubId": "119",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 8
       },
       {
@@ -11286,6 +12278,8 @@
         "clubId": "119",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 22
       },
       {
@@ -11295,6 +12289,8 @@
         "clubId": "119",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 98
       },
       {
@@ -11303,6 +12299,8 @@
         "seasonId": "15/16",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       }
     ],
@@ -11377,7 +12375,7 @@
     "signedFrom": "FC Ashdod",
     "contract": "2025-06-30",
     "marketValue": 200000,
-    "updatedAt": "2025-05-13T09:56:29.544433",
+    "updatedAt": "2025-05-13T22:34:30.146351",
     "url": "https://www.transfermarkt.com/roei-gordana/profil/spieler/129722",
     "description": "Roei Gordana, 34, from Israel ➤ Hapoel Beer Sheva, since 2021 ➤ Central Midfield ➤ Market value: €200k ➤ * Jul 6, 1990 in Tel Aviv, Israel",
     "nameInHomeCountry": "רועי גורדנה",
@@ -11847,6 +12845,8 @@
         "appearances": 3,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 50
       },
       {
@@ -11856,6 +12856,8 @@
         "clubId": "2976",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 139
       },
       {
@@ -11866,6 +12868,8 @@
         "appearances": 12,
         "assists": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 277
       },
       {
@@ -11876,6 +12880,8 @@
         "appearances": 4,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -11885,6 +12891,8 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 402
       },
       {
@@ -11894,6 +12902,8 @@
         "clubId": "2976",
         "appearances": 7,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 476
       },
       {
@@ -11905,7 +12915,9 @@
         "goals": 2,
         "assists": 2,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1409
       },
       {
         "competitionId": "ECLQ",
@@ -11914,6 +12926,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 212
       },
       {
@@ -11924,6 +12938,8 @@
         "appearances": 10,
         "assists": 2,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 827
       },
       {
@@ -11935,7 +12951,9 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1173
       },
       {
         "competitionId": "ISPO",
@@ -11943,6 +12961,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 15
       },
       {
@@ -11953,6 +12973,8 @@
         "appearances": 6,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 350
       },
       {
@@ -11961,6 +12983,8 @@
         "seasonId": "21/22",
         "clubId": "2976",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 300
       },
       {
@@ -11972,6 +12996,8 @@
         "assists": 1,
         "yellowCards": 3,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 627
       },
       {
@@ -11981,6 +13007,8 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 229
       },
       {
@@ -11990,6 +13018,9 @@
         "clubId": "6105",
         "appearances": 8,
         "yellowCards": 1,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 588
       },
       {
@@ -12000,6 +13031,8 @@
         "appearances": 3,
         "goals": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 300
       },
       {
@@ -12011,7 +13044,9 @@
         "goals": 4,
         "assists": 1,
         "yellowCards": 7,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2062
       },
       {
         "competitionId": "ISRA",
@@ -12022,6 +13057,8 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 512
       },
       {
@@ -12032,7 +13069,9 @@
         "appearances": 21,
         "goals": 1,
         "yellowCards": 7,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1603
       },
       {
         "competitionId": "ISPO",
@@ -12040,6 +13079,8 @@
         "seasonId": "19/20",
         "clubId": "6105",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 33
       },
       {
@@ -12051,6 +13092,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 566
       },
       {
@@ -12060,6 +13103,8 @@
         "clubId": "6105",
         "appearances": 6,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 503
       },
       {
@@ -12071,7 +13116,9 @@
         "goals": 3,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1105
       },
       {
         "competitionId": "KRC",
@@ -12079,6 +13126,8 @@
         "seasonId": "18/19",
         "clubId": "2362",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 250
       },
       {
@@ -12090,6 +13139,8 @@
         "goals": 6,
         "yellowCards": 2,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 464
       },
       {
@@ -12100,7 +13151,9 @@
         "appearances": 17,
         "goals": 1,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1085
       },
       {
         "competitionId": "ISPO",
@@ -12108,6 +13161,8 @@
         "seasonId": "17/18",
         "clubId": "9095",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 38
       },
       {
@@ -12117,6 +13172,8 @@
         "clubId": "9095",
         "appearances": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 85
       },
       {
@@ -12126,6 +13183,8 @@
         "clubId": "9095",
         "appearances": 4,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 360
       },
       {
@@ -12135,6 +13194,8 @@
         "clubId": "9095",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 370
       },
       {
@@ -12144,6 +13205,8 @@
         "clubId": "9095",
         "appearances": 5,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 402
       },
       {
@@ -12154,6 +13217,8 @@
         "appearances": 8,
         "assists": 1,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 502
       },
       {
@@ -12163,6 +13228,8 @@
         "clubId": "3785",
         "appearances": 7,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 418
       },
       {
@@ -12171,6 +13238,8 @@
         "seasonId": "15/16",
         "clubId": "3785",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 330
       },
       {
@@ -12179,6 +13248,8 @@
         "seasonId": "15/16",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 80
       },
       {
@@ -12188,6 +13259,8 @@
         "clubId": "2976",
         "appearances": 16,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 543
       },
       {
@@ -12196,6 +13269,8 @@
         "seasonId": "15/16",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 2
       },
       {
@@ -12206,6 +13281,8 @@
         "appearances": 10,
         "goals": 2,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 535
       },
       {
@@ -12215,6 +13292,8 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 344
       },
       {
@@ -12227,7 +13306,9 @@
         "assists": 3,
         "yellowCards": 2,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1194
       },
       {
         "competitionId": "ELQ",
@@ -12236,6 +13317,8 @@
         "clubId": "2976",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -12245,6 +13328,8 @@
         "clubId": "1017",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 27
       },
       {
@@ -12256,6 +13341,8 @@
         "goals": 2,
         "assists": 2,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 900
       },
       {
@@ -12265,6 +13352,8 @@
         "clubId": "1017",
         "appearances": 4,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 296
       },
       {
@@ -12273,6 +13362,8 @@
         "seasonId": "12/13",
         "clubId": "1017",
         "appearances": 7,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 319
       },
       {
@@ -12282,6 +13373,8 @@
         "clubId": "1017",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 121
       },
       {
@@ -12293,7 +13386,9 @@
         "assists": 3,
         "yellowCards": 5,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1159
       },
       {
         "competitionId": "EL",
@@ -12303,6 +13398,8 @@
         "appearances": 4,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 270
       },
       {
@@ -12313,6 +13410,8 @@
         "appearances": 5,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 454
       },
       {
@@ -12322,6 +13421,8 @@
         "clubId": "1017",
         "appearances": 6,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 487
       },
       {
@@ -12333,7 +13434,9 @@
         "goals": 2,
         "assists": 2,
         "yellowCards": 8,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1549
       },
       {
         "competitionId": "EL",
@@ -12341,6 +13444,9 @@
         "seasonId": "11/12",
         "clubId": "1017",
         "appearances": 3,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 172
       },
       {
@@ -12349,6 +13455,8 @@
         "seasonId": "11/12",
         "clubId": "1017",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 85
       },
       {
@@ -12357,6 +13465,8 @@
         "seasonId": "10/11",
         "clubId": "262",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 15
       },
       {
@@ -12366,6 +13476,8 @@
         "clubId": "262",
         "appearances": 4,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 256
       },
       {
@@ -12375,6 +13487,9 @@
         "clubId": "262",
         "appearances": 9,
         "yellowCards": 3,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 738
       },
       {
@@ -12385,6 +13500,8 @@
         "appearances": 2,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -12393,31 +13510,41 @@
         "seasonId": "10/11",
         "clubId": "1017",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "CLQ",
         "competitionName": "Champions League Qu.",
         "seasonId": "10/11",
-        "clubId": "1017"
+        "clubId": "1017",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISPO",
         "competitionName": "Gvia haMedina",
         "seasonId": "09/10",
-        "clubId": "1017"
+        "clubId": "1017",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "EL",
         "competitionName": "Europa League",
         "seasonId": "09/10",
-        "clubId": "1017"
+        "clubId": "1017",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ELQ",
         "competitionName": "Europa League Qualifying",
         "seasonId": "09/10",
-        "clubId": "1017"
+        "clubId": "1017",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR1",
@@ -12425,6 +13552,8 @@
         "seasonId": "08/09",
         "clubId": "1017",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 7
       }
     ],
@@ -12528,7 +13657,7 @@
     "signedFrom": "Maccabi Tel Aviv",
     "contract": "2027-06-30",
     "marketValue": 1500000,
-    "updatedAt": "2025-05-13T09:58:22.919544",
+    "updatedAt": "2025-05-14T07:05:02.004069",
     "url": "https://www.transfermarkt.com/dan-biton/profil/spieler/399361",
     "description": "Dan Biton, 29, from Israel ➤ Hapoel Beer Sheva, since 2024 ➤ Attacking Midfield ➤ Market value: €1.50m ➤ * Jul 20, 1995 in Be'er Sheva, Israel",
     "nameInHomeCountry": "דן ביטון",
@@ -12667,7 +13796,7 @@
       "Ligat ha'Al": 13,
       "H. Beer Sheva": 3,
       "Israel": 20,
-      "Attacking Midfield": 449,
+      "Attacking Midfield": 450,
       "Year 1995": 319
     },
     "transfers": [
@@ -12911,6 +14040,8 @@
         "goals": 4,
         "assists": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 700
       },
       {
@@ -12920,6 +14051,8 @@
         "clubId": "2976",
         "appearances": 4,
         "goals": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 276
       },
       {
@@ -12930,7 +14063,9 @@
         "appearances": 23,
         "goals": 5,
         "assists": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1839
       },
       {
         "competitionId": "ELQ",
@@ -12939,6 +14074,8 @@
         "clubId": "119",
         "appearances": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 28
       },
       {
@@ -12948,6 +14085,8 @@
         "clubId": "119",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 69
       },
       {
@@ -12956,6 +14095,8 @@
         "seasonId": "24/25",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 61
       },
       {
@@ -12965,6 +14106,8 @@
         "clubId": "119",
         "appearances": 7,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 339
       },
       {
@@ -12975,6 +14118,8 @@
         "appearances": 2,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 163
       },
       {
@@ -12986,7 +14131,9 @@
         "goals": 4,
         "assists": 5,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1189
       },
       {
         "competitionId": "UCOL",
@@ -12997,6 +14144,8 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 562
       },
       {
@@ -13008,6 +14157,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 495
       },
       {
@@ -13019,6 +14170,8 @@
         "goals": 1,
         "assists": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 625
       },
       {
@@ -13029,6 +14182,8 @@
         "appearances": 3,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 174
       },
       {
@@ -13037,6 +14192,8 @@
         "seasonId": "22/23",
         "clubId": "119",
         "appearances": 5,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 97
       },
       {
@@ -13045,6 +14202,8 @@
         "seasonId": "22/23",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 7
       },
       {
@@ -13053,6 +14212,8 @@
         "seasonId": "21/22",
         "clubId": "119",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 80
       },
       {
@@ -13064,7 +14225,9 @@
         "goals": 2,
         "assists": 7,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1318
       },
       {
         "competitionId": "UCOL",
@@ -13075,6 +14238,8 @@
         "goals": 1,
         "assists": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 293
       },
       {
@@ -13083,6 +14248,8 @@
         "seasonId": "21/22",
         "clubId": "119",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 11
       },
       {
@@ -13092,6 +14259,8 @@
         "clubId": "119",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 76
       },
       {
@@ -13102,6 +14271,8 @@
         "appearances": 5,
         "goals": 2,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 226
       },
       {
@@ -13112,7 +14283,9 @@
         "appearances": 23,
         "goals": 2,
         "assists": 8,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1298
       },
       {
         "competitionId": "EL",
@@ -13121,6 +14294,8 @@
         "clubId": "119",
         "appearances": 7,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 412
       },
       {
@@ -13130,6 +14305,8 @@
         "clubId": "119",
         "appearances": 5,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 395
       },
       {
@@ -13138,6 +14315,8 @@
         "seasonId": "20/21",
         "clubId": "31614",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 70
       },
       {
@@ -13147,6 +14326,8 @@
         "clubId": "31614",
         "appearances": 4,
         "goals": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 147
       },
       {
@@ -13155,6 +14336,8 @@
         "seasonId": "19/20",
         "clubId": "31614",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 35
       },
       {
@@ -13165,7 +14348,9 @@
         "appearances": 17,
         "goals": 2,
         "assists": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1096
       },
       {
         "competitionId": "BULP",
@@ -13173,6 +14358,8 @@
         "seasonId": "19/20",
         "clubId": "31614",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -13182,6 +14369,8 @@
         "clubId": "31614",
         "appearances": 4,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 253
       },
       {
@@ -13190,6 +14379,8 @@
         "seasonId": "19/20",
         "clubId": "31614",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 92
       },
       {
@@ -13198,6 +14389,8 @@
         "seasonId": "19/20",
         "clubId": "31614",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 29
       },
       {
@@ -13209,6 +14402,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 593
       },
       {
@@ -13220,7 +14415,10 @@
         "goals": 4,
         "assists": 4,
         "yellowCards": 2,
-        "minutesPlayed": 2
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2034
       },
       {
         "competitionId": "ISPO",
@@ -13229,6 +14427,8 @@
         "clubId": "6105",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 113
       },
       {
@@ -13238,6 +14438,8 @@
         "clubId": "6105",
         "appearances": 1,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -13249,7 +14451,9 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1236
       },
       {
         "competitionId": "ISPO",
@@ -13258,6 +14462,8 @@
         "clubId": "6105",
         "appearances": 4,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 348
       },
       {
@@ -13267,6 +14473,8 @@
         "clubId": "6105",
         "appearances": 7,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 550
       },
       {
@@ -13276,7 +14484,9 @@
         "clubId": "6105",
         "appearances": 20,
         "goals": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1252
       },
       {
         "competitionId": "ISPO",
@@ -13285,6 +14495,8 @@
         "clubId": "6105",
         "appearances": 4,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 420
       },
       {
@@ -13293,13 +14505,17 @@
         "seasonId": "16/17",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 17
       },
       {
         "competitionId": "IRLP",
         "competitionName": "Aluf haAlufim",
         "seasonId": "16/17",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISRF",
@@ -13307,6 +14523,8 @@
         "seasonId": "15/16",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 6
       },
       {
@@ -13316,6 +14534,8 @@
         "clubId": "2976",
         "appearances": 9,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 140
       },
       {
@@ -13325,13 +14545,17 @@
         "clubId": "2976",
         "appearances": 1,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
         "competitionId": "ISRF",
         "competitionName": "Ligat ha'Al -  Championship round",
         "seasonId": "14/15",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       }
     ],
     "achievements": [
@@ -13504,7 +14728,7 @@
     "signedFrom": "Hapoel Kfar Saba",
     "contract": "2028-06-30",
     "marketValue": 900000,
-    "updatedAt": "2025-05-13T10:00:34.188042",
+    "updatedAt": "2025-05-14T07:24:56.975256",
     "url": "https://www.transfermarkt.com/yoan-stoyanov/profil/spieler/848641",
     "description": "Yoan Stoyanov, 23, from Bulgaria ➤ Hapoel Beer Sheva, since 2022 ➤ Attacking Midfield ➤ Market value: €900k ➤ * May 22, 2001 in Plovdiv, Bulgaria",
     "nameInHomeCountry": "Йоан Стоянов",
@@ -13591,12 +14815,12 @@
       }
     ],
     "ranking": {
-      "Worldwide": 8087,
+      "Worldwide": 8086,
       "Ligat ha'Al": 40,
       "H. Beer Sheva": 8,
       "Bulgaria": 21,
-      "Attacking Midfield": 648,
-      "Year 2001": 652
+      "Attacking Midfield": 649,
+      "Year 2001": 653
     },
     "transfers": [
       {
@@ -13710,6 +14934,8 @@
         "clubId": "2976",
         "appearances": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 108
       },
       {
@@ -13721,7 +14947,9 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1137
       },
       {
         "competitionId": "ISPO",
@@ -13730,6 +14958,8 @@
         "clubId": "2976",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 202
       },
       {
@@ -13738,6 +14968,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 74
       },
       {
@@ -13747,6 +14979,8 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 375
       },
       {
@@ -13758,6 +14992,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 545
       },
       {
@@ -13769,7 +15005,9 @@
         "goals": 3,
         "assists": 2,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1702
       },
       {
         "competitionId": "ECLQ",
@@ -13778,6 +15016,8 @@
         "clubId": "2976",
         "appearances": 4,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 157
       },
       {
@@ -13788,6 +15028,8 @@
         "appearances": 7,
         "goals": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 620
       },
       {
@@ -13799,7 +15041,9 @@
         "goals": 3,
         "assists": 4,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1554
       },
       {
         "competitionId": "ISPO",
@@ -13808,6 +15052,8 @@
         "clubId": "30062",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 165
       },
       {
@@ -13816,6 +15062,8 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 16
       },
       {
@@ -13824,13 +15072,17 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 32
       },
       {
         "competitionId": "IRLP",
         "competitionName": "Aluf haAlufim",
         "seasonId": "22/23",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR2",
@@ -13841,7 +15093,9 @@
         "goals": 8,
         "assists": 7,
         "yellowCards": 5,
-        "minutesPlayed": 3
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 3070
       },
       {
         "competitionId": "ISPO",
@@ -13849,6 +15103,8 @@
         "seasonId": "21/22",
         "clubId": "7532",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -13858,6 +15114,8 @@
         "clubId": "7532",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 441
       },
       {
@@ -13867,6 +15125,8 @@
         "clubId": "7532",
         "appearances": 9,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 179
       },
       {
@@ -13875,6 +15135,8 @@
         "seasonId": "20/21",
         "clubId": "7532",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 47
       }
     ],
@@ -13904,7 +15166,7 @@
     "signedFrom": "Hapoel Beer Sheva U19",
     "contract": "2027-12-31",
     "marketValue": 1200000,
-    "updatedAt": "2025-05-13T10:03:04.954750",
+    "updatedAt": "2025-05-14T07:27:15.968765",
     "url": "https://www.transfermarkt.com/amir-ganah/profil/spieler/966005",
     "description": "Amir Ganah, 20, from Israel ➤ Hapoel Beer Sheva, since 2023 ➤ Left Winger ➤ Market value: €1.20m ➤ * Jul 9, 2004 in Be'er Sheva, Israel",
     "nameInHomeCountry": "אמיר גנאח",
@@ -13976,11 +15238,11 @@
       }
     ],
     "ranking": {
-      "Worldwide": 6462,
+      "Worldwide": 6463,
       "Ligat ha'Al": 25,
       "H. Beer Sheva": 4,
       "Israel": 32,
-      "Left Winger": 561,
+      "Left Winger": 560,
       "Year 2004": 323
     },
     "transfers": [
@@ -14057,6 +15319,8 @@
         "clubId": "2976",
         "appearances": 6,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 257
       },
       {
@@ -14067,6 +15331,8 @@
         "appearances": 4,
         "goals": 2,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 297
       },
       {
@@ -14077,7 +15343,10 @@
         "appearances": 22,
         "goals": 3,
         "assists": 2,
-        "minutesPlayed": 1
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1152
       },
       {
         "competitionId": "ECLQ",
@@ -14085,6 +15354,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 106
       },
       {
@@ -14094,6 +15365,8 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 345
       },
       {
@@ -14103,6 +15376,8 @@
         "clubId": "2976",
         "appearances": 10,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 446
       },
       {
@@ -14114,7 +15389,9 @@
         "goals": 3,
         "assists": 6,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1200
       },
       {
         "competitionId": "ECLQ",
@@ -14122,6 +15399,8 @@
         "seasonId": "23/24",
         "clubId": "2976",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 67
       },
       {
@@ -14130,19 +15409,25 @@
         "seasonId": "22/23",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 59
       },
       {
         "competitionId": "ISR1",
         "competitionName": "Ligat ha'Al",
         "seasonId": "22/23",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "UCOL",
         "competitionName": "Conference L.",
         "seasonId": "22/23",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       }
     ],
     "achievements": [],
@@ -14171,7 +15456,7 @@
     "signedFrom": "Without Club",
     "contract": "2027-06-30",
     "marketValue": 3000000,
-    "updatedAt": "2025-05-13T10:05:44.480507",
+    "updatedAt": "2025-05-14T07:29:28.356009",
     "url": "https://www.transfermarkt.com/iuri-medeiros/profil/spieler/193830",
     "description": "Iuri Medeiros, 30, from Portugal ➤ Hapoel Beer Sheva, since 2024 ➤ Right Winger ➤ Market value: €3.00m ➤ * Jul 10, 1994 in Horta, Portugal",
     "nameInHomeCountry": "Iuri José Picanço Medeiros",
@@ -14404,7 +15689,7 @@
       "Ligat ha'Al": 2,
       "H. Beer Sheva": 1,
       "Portugal": 105,
-      "Right Winger": 271,
+      "Right Winger": 270,
       "Year 1994": 141
     },
     "transfers": [
@@ -14912,6 +16197,8 @@
         "clubId": "2976",
         "appearances": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 213
       },
       {
@@ -14921,6 +16208,8 @@
         "clubId": "2976",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 70
       },
       {
@@ -14931,6 +16220,8 @@
         "appearances": 3,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 34
       },
       {
@@ -14942,7 +16233,9 @@
         "goals": 3,
         "assists": 3,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1874
       },
       {
         "competitionId": "UAEP",
@@ -14951,6 +16244,8 @@
         "clubId": "5432",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 282
       },
       {
@@ -14960,6 +16255,8 @@
         "clubId": "5432",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 208
       },
       {
@@ -14968,6 +16265,8 @@
         "seasonId": "22/23",
         "clubId": "1075",
         "appearances": 7,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 405
       },
       {
@@ -14979,7 +16278,9 @@
         "goals": 10,
         "assists": 6,
         "yellowCards": 5,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2086
       },
       {
         "competitionId": "UCOL",
@@ -14987,6 +16288,8 @@
         "seasonId": "22/23",
         "clubId": "1075",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 45
       },
       {
@@ -14995,6 +16298,8 @@
         "seasonId": "22/23",
         "clubId": "1075",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 148
       },
       {
@@ -15003,6 +16308,8 @@
         "seasonId": "22/23",
         "clubId": "1075",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 125
       },
       {
@@ -15013,6 +16320,9 @@
         "appearances": 11,
         "goals": 2,
         "assists": 4,
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 673
       },
       {
@@ -15024,7 +16334,9 @@
         "goals": 7,
         "assists": 6,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1430
       },
       {
         "competitionId": "POCP",
@@ -15033,6 +16345,8 @@
         "clubId": "1075",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 135
       },
       {
@@ -15042,6 +16356,8 @@
         "clubId": "1075",
         "appearances": 2,
         "assists": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 153
       },
       {
@@ -15052,6 +16368,8 @@
         "appearances": 4,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 154
       },
       {
@@ -15063,6 +16381,8 @@
         "goals": 5,
         "assists": 2,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 955
       },
       {
@@ -15071,6 +16391,8 @@
         "seasonId": "20/21",
         "clubId": "1075",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 97
       },
       {
@@ -15080,6 +16402,8 @@
         "clubId": "1075",
         "appearances": 6,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 268
       },
       {
@@ -15088,6 +16412,8 @@
         "seasonId": "19/20",
         "clubId": "4",
         "appearances": 9,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 369
       },
       {
@@ -15096,6 +16422,8 @@
         "seasonId": "19/20",
         "clubId": "4",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 187
       },
       {
@@ -15107,6 +16435,8 @@
         "goals": 3,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 645
       },
       {
@@ -15115,6 +16445,8 @@
         "seasonId": "18/19",
         "clubId": "255",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 75
       },
       {
@@ -15123,6 +16455,8 @@
         "seasonId": "18/19",
         "clubId": "252",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 111
       },
       {
@@ -15131,6 +16465,8 @@
         "seasonId": "18/19",
         "clubId": "252",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 59
       },
       {
@@ -15142,6 +16478,8 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 641
       },
       {
@@ -15150,6 +16488,8 @@
         "seasonId": "17/18",
         "clubId": "336",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 163
       },
       {
@@ -15160,6 +16500,8 @@
         "appearances": 6,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 128
       },
       {
@@ -15169,6 +16511,8 @@
         "clubId": "336",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 75
       },
       {
@@ -15177,6 +16521,8 @@
         "seasonId": "17/18",
         "clubId": "10949",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 70
       },
       {
@@ -15185,6 +16531,8 @@
         "seasonId": "17/18",
         "clubId": "336",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 3
       },
       {
@@ -15196,7 +16544,9 @@
         "goals": 7,
         "assists": 9,
         "yellowCards": 7,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2295
       },
       {
         "competitionId": "POPO",
@@ -15205,6 +16555,8 @@
         "clubId": "2503",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -15214,6 +16566,8 @@
         "clubId": "2503",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -15225,7 +16579,9 @@
         "goals": 8,
         "assists": 12,
         "yellowCards": 2,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2314
       },
       {
         "competitionId": "POCP",
@@ -15235,6 +16591,8 @@
         "appearances": 4,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 109
       },
       {
@@ -15244,6 +16602,8 @@
         "clubId": "979",
         "appearances": 1,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -15255,7 +16615,9 @@
         "goals": 3,
         "assists": 5,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1158
       },
       {
         "competitionId": "POCP",
@@ -15263,6 +16625,8 @@
         "seasonId": "14/15",
         "clubId": "8024",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 78
       },
       {
@@ -15274,13 +16638,17 @@
         "goals": 2,
         "assists": 3,
         "yellowCards": 5,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1183
       },
       {
         "competitionId": "POCP",
         "competitionName": "Allianz Cup",
         "seasonId": "14/15",
-        "clubId": "336"
+        "clubId": "336",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "PO2",
@@ -15292,7 +16660,9 @@
         "assists": 2,
         "yellowCards": 7,
         "redCards": 1,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2777
       },
       {
         "competitionId": "PO2",
@@ -15302,6 +16672,8 @@
         "appearances": 10,
         "assists": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 444
       }
     ],
@@ -15436,7 +16808,7 @@
     "signedFrom": "Hapoel Acre",
     "contract": "2027-06-30",
     "marketValue": 350000,
-    "updatedAt": "2025-05-13T10:08:23.910190",
+    "updatedAt": "2025-05-14T07:31:41.933195",
     "url": "https://www.transfermarkt.com/zahi-ahmed/profil/spieler/701300",
     "description": "Zahi Ahmed, 23, from Israel ➤ Hapoel Beer Sheva, since 2023 ➤ Second Striker ➤ Market value: €350k ➤ * Aug 12, 2001 in Abu Snan, Israel",
     "nameInHomeCountry": "זאהי אחמד",
@@ -15660,6 +17032,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 315
       },
       {
@@ -15669,6 +17043,8 @@
         "clubId": "2976",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 125
       },
       {
@@ -15681,6 +17057,8 @@
         "assists": 1,
         "yellowCards": 1,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 495
       },
       {
@@ -15691,6 +17069,8 @@
         "appearances": 3,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 172
       },
       {
@@ -15701,6 +17081,8 @@
         "appearances": 8,
         "goals": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 395
       },
       {
@@ -15712,7 +17094,9 @@
         "goals": 2,
         "assists": 2,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1772
       },
       {
         "competitionId": "ISPO",
@@ -15721,6 +17105,8 @@
         "clubId": "4769",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -15732,7 +17118,9 @@
         "goals": 13,
         "assists": 6,
         "yellowCards": 6,
-        "minutesPlayed": 3
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 3178
       },
       {
         "competitionId": "ISPO",
@@ -15740,6 +17128,8 @@
         "seasonId": "22/23",
         "clubId": "6025",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 83
       },
       {
@@ -15751,7 +17141,9 @@
         "goals": 5,
         "assists": 4,
         "yellowCards": 7,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2828
       },
       {
         "competitionId": "ISPO",
@@ -15761,6 +17153,8 @@
         "appearances": 2,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 165
       },
       {
@@ -15772,7 +17166,9 @@
         "goals": 6,
         "assists": 1,
         "yellowCards": 1,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2228
       },
       {
         "competitionId": "ISPO",
@@ -15780,6 +17176,8 @@
         "seasonId": "20/21",
         "clubId": "6025",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 10
       },
       {
@@ -15788,6 +17186,8 @@
         "seasonId": "19/20",
         "clubId": "6025",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 26
       }
     ],
@@ -15814,7 +17214,7 @@
     "joinedOn": "2024-08-07",
     "signedFrom": "Al-Faisaly FC",
     "marketValue": 700000,
-    "updatedAt": "2025-05-13T10:10:35.710941",
+    "updatedAt": "2025-05-14T07:34:28.227256",
     "url": "https://www.transfermarkt.com/arnold-garita/profil/spieler/252661",
     "description": "Arnold Garita, 29, from Cameroon ➤ Hapoel Beer Sheva, since 2024 ➤ Centre-Forward ➤ Market value: €700k ➤ * Jun 18, 1995 in Douala, Cameroon",
     "nameInHomeCountry": "Paul Arnold Garita",
@@ -15963,7 +17363,7 @@
       }
     ],
     "ranking": {
-      "Worldwide": 9888,
+      "Worldwide": 9885,
       "Ligat ha'Al": 51,
       "H. Beer Sheva": 9,
       "Cameroon": 58,
@@ -16286,6 +17686,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 8,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 219
       },
       {
@@ -16295,6 +17697,8 @@
         "clubId": "2976",
         "appearances": 3,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 179
       },
       {
@@ -16306,13 +17710,17 @@
         "goals": 5,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1086
       },
       {
         "competitionId": "ECLQ",
         "competitionName": "UECL Qualifiers",
         "seasonId": "24/25",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "SA2L",
@@ -16323,7 +17731,9 @@
         "goals": 12,
         "assists": 4,
         "yellowCards": 2,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2544
       },
       {
         "competitionId": "SAKC",
@@ -16333,6 +17743,8 @@
         "appearances": 2,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 159
       },
       {
@@ -16343,6 +17755,8 @@
         "appearances": 2,
         "goals": 2,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 180
       },
       {
@@ -16353,6 +17767,8 @@
         "appearances": 7,
         "goals": 3,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 540
       },
       {
@@ -16362,6 +17778,8 @@
         "clubId": "41278",
         "appearances": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 73
       },
       {
@@ -16373,7 +17791,10 @@
         "goals": 9,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 2
+        "secondYellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2378
       },
       {
         "competitionId": "FR3",
@@ -16384,7 +17805,9 @@
         "goals": 10,
         "assists": 3,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1720
       },
       {
         "competitionId": "FRC",
@@ -16393,6 +17816,8 @@
         "clubId": "2972",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 202
       },
       {
@@ -16402,6 +17827,8 @@
         "clubId": "18633",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 44
       },
       {
@@ -16413,7 +17840,9 @@
         "goals": 7,
         "assists": 1,
         "yellowCards": 4,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1185
       },
       {
         "competitionId": "FRC",
@@ -16421,6 +17850,8 @@
         "seasonId": "20/21",
         "clubId": "18633",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 45
       },
       {
@@ -16432,7 +17863,9 @@
         "goals": 4,
         "assists": 1,
         "yellowCards": 3,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1158
       },
       {
         "competitionId": "FRC",
@@ -16441,6 +17874,8 @@
         "clubId": "7042",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 225
       },
       {
@@ -16452,7 +17887,9 @@
         "goals": 9,
         "assists": 5,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1725
       },
       {
         "competitionId": "C3HF",
@@ -16460,6 +17897,8 @@
         "seasonId": "18/19",
         "clubId": "56578",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 67
       },
       {
@@ -16469,13 +17908,17 @@
         "clubId": "9202",
         "appearances": 2,
         "goals": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 168
       },
       {
         "competitionId": "CGB",
         "competitionName": "EFL Cup",
         "seasonId": "17/18",
-        "clubId": "698"
+        "clubId": "698",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "GB4",
@@ -16486,6 +17929,8 @@
         "goals": 2,
         "assists": 2,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 783
       },
       {
@@ -16494,6 +17939,8 @@
         "seasonId": "16/17",
         "clubId": "2262",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 188
       },
       {
@@ -16502,6 +17949,8 @@
         "seasonId": "16/17",
         "clubId": "698",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 24
       },
       {
@@ -16512,6 +17961,8 @@
         "appearances": 5,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 163
       },
       {
@@ -16521,6 +17972,8 @@
         "clubId": "1175",
         "appearances": 1,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 70
       },
       {
@@ -16532,6 +17985,8 @@
         "goals": 1,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 369
       },
       {
@@ -16542,6 +17997,8 @@
         "appearances": 3,
         "goals": 2,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 105
       },
       {
@@ -16552,6 +18009,8 @@
         "appearances": 8,
         "goals": 3,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 184
       },
       {
@@ -16561,6 +18020,8 @@
         "clubId": "1175",
         "appearances": 3,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 40
       },
       {
@@ -16570,6 +18031,8 @@
         "clubId": "1175",
         "appearances": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 33
       }
     ],
@@ -16611,7 +18074,7 @@
     "signedFrom": "Hapoel Haifa",
     "contract": "2025-06-30",
     "marketValue": 250000,
-    "updatedAt": "2025-05-13T10:13:03.492212",
+    "updatedAt": "2025-05-14T07:36:44.123200",
     "url": "https://www.transfermarkt.com/alon-turgeman/profil/spieler/177249",
     "description": "Alon Turgeman, 33, from Israel ➤ Hapoel Beer Sheva, since 2023 ➤ Centre-Forward ➤ Market value: €250k ➤ * Jun 9, 1991 in Hadera, Israel",
     "nameInHomeCountry": "אלון תורג'מן‎",
@@ -17089,6 +18552,8 @@
         "clubId": "2976",
         "appearances": 8,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 476
       },
       {
@@ -17098,6 +18563,8 @@
         "clubId": "2976",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 151
       },
       {
@@ -17109,7 +18576,9 @@
         "goals": 10,
         "assists": 2,
         "yellowCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1106
       },
       {
         "competitionId": "ECLQ",
@@ -17118,6 +18587,8 @@
         "clubId": "2976",
         "appearances": 4,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 301
       },
       {
@@ -17126,6 +18597,8 @@
         "seasonId": "23/24",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -17135,6 +18608,8 @@
         "clubId": "2976",
         "appearances": 8,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 470
       },
       {
@@ -17146,6 +18621,8 @@
         "goals": 5,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 946
       },
       {
@@ -17154,6 +18631,8 @@
         "seasonId": "23/24",
         "clubId": "2976",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 48
       },
       {
@@ -17163,6 +18642,8 @@
         "clubId": "810",
         "appearances": 6,
         "goals": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 367
       },
       {
@@ -17174,7 +18655,9 @@
         "goals": 4,
         "assists": 2,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1554
       },
       {
         "competitionId": "ISPO",
@@ -17182,6 +18665,8 @@
         "seasonId": "22/23",
         "clubId": "810",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 122
       },
       {
@@ -17191,6 +18676,8 @@
         "clubId": "810",
         "appearances": 6,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 531
       },
       {
@@ -17200,6 +18687,8 @@
         "clubId": "810",
         "appearances": 4,
         "redCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 265
       },
       {
@@ -17210,7 +18699,9 @@
         "appearances": 19,
         "goals": 10,
         "assists": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1596
       },
       {
         "competitionId": "ISRA",
@@ -17220,6 +18711,8 @@
         "appearances": 6,
         "goals": 2,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 491
       },
       {
@@ -17228,6 +18721,8 @@
         "seasonId": "20/21",
         "clubId": "810",
         "appearances": 7,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 416
       },
       {
@@ -17237,6 +18732,8 @@
         "clubId": "810",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 133
       },
       {
@@ -17246,6 +18743,8 @@
         "clubId": "14",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 110
       },
       {
@@ -17254,6 +18753,8 @@
         "seasonId": "20/21",
         "clubId": "14",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 8
       },
       {
@@ -17263,6 +18764,8 @@
         "clubId": "422",
         "appearances": 9,
         "goals": 6,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 621
       },
       {
@@ -17274,6 +18777,8 @@
         "goals": 3,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 349
       },
       {
@@ -17282,6 +18787,8 @@
         "seasonId": "19/20",
         "clubId": "14",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 58
       },
       {
@@ -17292,6 +18799,8 @@
         "appearances": 18,
         "goals": 6,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 743
       },
       {
@@ -17300,6 +18809,8 @@
         "seasonId": "18/19",
         "clubId": "4383",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 69
       },
       {
@@ -17310,6 +18821,8 @@
         "appearances": 1,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 76
       },
       {
@@ -17319,6 +18832,8 @@
         "clubId": "810",
         "appearances": 9,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 627
       },
       {
@@ -17329,6 +18844,8 @@
         "appearances": 6,
         "goals": 5,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 585
       },
       {
@@ -17340,7 +18857,9 @@
         "goals": 10,
         "assists": 3,
         "yellowCards": 3,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2052
       },
       {
         "competitionId": "ISPO",
@@ -17351,6 +18870,8 @@
         "goals": 2,
         "assists": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 458
       },
       {
@@ -17360,6 +18881,8 @@
         "clubId": "9095",
         "appearances": 7,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 415
       },
       {
@@ -17372,7 +18895,9 @@
         "assists": 1,
         "yellowCards": 5,
         "redCards": 1,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1955
       },
       {
         "competitionId": "ISRA",
@@ -17381,6 +18906,8 @@
         "clubId": "1017",
         "appearances": 6,
         "assists": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 223
       },
       {
@@ -17391,6 +18918,8 @@
         "appearances": 8,
         "goals": 1,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 522
       },
       {
@@ -17399,6 +18928,8 @@
         "seasonId": "15/16",
         "clubId": "1017",
         "appearances": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 210
       },
       {
@@ -17408,6 +18939,8 @@
         "clubId": "1064",
         "appearances": 7,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 357
       },
       {
@@ -17417,6 +18950,8 @@
         "clubId": "1064",
         "appearances": 5,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 107
       },
       {
@@ -17428,6 +18963,8 @@
         "goals": 2,
         "assists": 2,
         "yellowCards": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 904
       },
       {
@@ -17437,6 +18974,8 @@
         "clubId": "1064",
         "appearances": 2,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 149
       },
       {
@@ -17448,6 +18987,8 @@
         "goals": 4,
         "assists": 2,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 775
       },
       {
@@ -17459,7 +19000,9 @@
         "goals": 11,
         "assists": 3,
         "yellowCards": 6,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1998
       },
       {
         "competitionId": "ISPO",
@@ -17467,6 +19010,8 @@
         "seasonId": "13/14",
         "clubId": "1064",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 120
       },
       {
@@ -17477,6 +19022,8 @@
         "appearances": 4,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 242
       },
       {
@@ -17487,6 +19034,8 @@
         "appearances": 6,
         "goals": 3,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 436
       },
       {
@@ -17497,6 +19046,8 @@
         "appearances": 6,
         "goals": 2,
         "assists": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 284
       },
       {
@@ -17506,6 +19057,8 @@
         "clubId": "1064",
         "appearances": 3,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 182
       },
       {
@@ -17515,6 +19068,8 @@
         "clubId": "1064",
         "appearances": 15,
         "goals": 4,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 629
       },
       {
@@ -17525,6 +19080,8 @@
         "appearances": 5,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 249
       },
       {
@@ -17534,6 +19091,8 @@
         "clubId": "1064",
         "appearances": 6,
         "goals": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 320
       },
       {
@@ -17545,7 +19104,9 @@
         "goals": 4,
         "assists": 2,
         "yellowCards": 2,
-        "minutesPlayed": 1
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 1090
       },
       {
         "competitionId": "EL",
@@ -17553,6 +19114,8 @@
         "seasonId": "11/12",
         "clubId": "1064",
         "appearances": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 56
       },
       {
@@ -17562,6 +19125,8 @@
         "clubId": "262",
         "appearances": 2,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 126
       },
       {
@@ -17571,6 +19136,8 @@
         "clubId": "262",
         "appearances": 5,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 367
       },
       {
@@ -17580,6 +19147,8 @@
         "clubId": "262",
         "appearances": 11,
         "goals": 3,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 849
       },
       {
@@ -17588,6 +19157,8 @@
         "seasonId": "10/11",
         "clubId": "262",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       }
     ],
@@ -17708,7 +19279,7 @@
     "signedFrom": "Hapoel Nof HaGalil",
     "contract": "2028-06-30",
     "marketValue": 200000,
-    "updatedAt": "2025-05-13T10:15:30.827423",
+    "updatedAt": "2025-05-14T07:39:06.170885",
     "url": "https://www.transfermarkt.com/samir-farhud/profil/spieler/807391",
     "description": "Samir Farhud, 24, from Israel ➤ Hapoel Beer Sheva, since 2024 ➤ Centre-Forward ➤ Market value: €200k ➤ * Dec 9, 2000 in ,",
     "nameInHomeCountry": "סמיר פרהוד",
@@ -17945,7 +19516,9 @@
         "competitionId": "ISRF",
         "competitionName": "Ligat ha'Al -  Championship round",
         "seasonId": "24/25",
-        "clubId": "2976"
+        "clubId": "2976",
+        "goalsConceded": 0,
+        "cleanSheets": 0
       },
       {
         "competitionId": "ISR1",
@@ -17955,6 +19528,8 @@
         "appearances": 11,
         "assists": 2,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 191
       },
       {
@@ -17963,6 +19538,8 @@
         "seasonId": "24/25",
         "clubId": "2976",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 32
       },
       {
@@ -17974,7 +19551,9 @@
         "goals": 7,
         "assists": 2,
         "yellowCards": 5,
-        "minutesPlayed": 2
+        "goalsConceded": 0,
+        "cleanSheets": 0,
+        "minutesPlayed": 2644
       },
       {
         "competitionId": "ISPO",
@@ -17983,6 +19562,8 @@
         "clubId": "7000",
         "appearances": 4,
         "goals": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 315
       },
       {
@@ -17991,6 +19572,8 @@
         "seasonId": "22/23",
         "clubId": "89132",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 90
       },
       {
@@ -17999,6 +19582,8 @@
         "seasonId": "21/22",
         "clubId": "70178",
         "appearances": 13,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 67
       },
       {
@@ -18007,6 +19592,8 @@
         "seasonId": "21/22",
         "clubId": "70178",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 45
       },
       {
@@ -18017,6 +19604,8 @@
         "appearances": 10,
         "goals": 1,
         "yellowCards": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 267
       },
       {
@@ -18025,6 +19614,8 @@
         "seasonId": "20/21",
         "clubId": "554",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 61
       },
       {
@@ -18035,6 +19626,8 @@
         "appearances": 10,
         "goals": 1,
         "yellowCards": 2,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 142
       },
       {
@@ -18043,6 +19636,8 @@
         "seasonId": "20/21",
         "clubId": "7000",
         "appearances": 1,
+        "goalsConceded": 0,
+        "cleanSheets": 0,
         "minutesPlayed": 62
       }
     ],
