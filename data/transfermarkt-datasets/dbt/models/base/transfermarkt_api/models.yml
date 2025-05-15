@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: base_market_value_development
+    tests:
+      - unique:
+          column_name: player_id || date
+
+  - name: base_transfers
+    tests:
+      - unique:
+          column_name: player_id || transfer_date || from_club_id || to_club_id
