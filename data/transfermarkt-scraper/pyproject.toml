@@ -11,6 +11,8 @@ inflection = "^0.5.1"
 Protego = "^0.2.1"
 python-dateutil = "^2.8.2"
 scrapy = "^2.11.0"
+scrapy-fake-useragent = "^1.4.4"
+fake-useragent = "<1.2.0"
 
 [tool.poetry.dev-dependencies]
 

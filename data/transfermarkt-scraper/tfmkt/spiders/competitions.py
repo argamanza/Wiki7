@@ -12,59 +12,60 @@ class CompetitionsSpider(BaseSpider):
   international_competitions = {}
 
   def parse(self, response, parent):
-    """Parse confederations page. From this page we collect all
-    confederation's competitions urls
+      """Parse confederations page. From this page we collect all
+      confederation's competitions urls
+      @url https://www.transfermarkt.co.uk/wettbewerbe/europa
+      @returns requests 25 25
+      @cb_kwargs {"parent": {}}
+      """
+      self.logger.info(f"Scraping confederation page: {response.url}")
 
-    @url https://www.transfermarkt.co.uk/wettbewerbe/europa
-    @returns requests 25 25
-    @cb_kwargs {"parent": {}}
-    """
-    # uncommenting the two lines below will open a scrapy shell with the context of this request
-    # when you run the crawler. this is useful for developing new extractors
+      table_rows = response.css('table.items tbody tr.odd, table.items tbody tr.even')
 
-    # inspect_response(response, self)
-    # exit(1)
+      for row in table_rows:
+          country_image_url = row.xpath('td')[1].css('img::attr(src)').get()
+          country_name = row.xpath('td')[1].css('img::attr(title)').get()
+          country_code = (
+              row
+              .xpath('td')[0]
+              .xpath('table/tr/td')[1]
+              .xpath('a/@href').get()
+              .split('/')[-1]
+          )
 
-    table_rows = response.css('table.items tbody tr.odd, table.items tbody tr.even')
+          total_clubs = row.css('td:nth-of-type(3)::text').get()
+          total_players = row.css('td:nth-of-type(4)::text').get()
+          average_age = row.css('td:nth-of-type(5)::text').get()
+          foreigner_percentage = row.css('td:nth-of-type(6) a::text').get()
+          total_value = row.css('td:nth-of-type(8)::text').get()
 
-    for row in table_rows[0:]:
-      country_image_url = row.xpath('td')[1].css('img::attr(src)').get()
-      country_name = row.xpath('td')[1].css('img::attr(title)').get()
-      country_code = (
-          row
-            .xpath('td')[0]
-            .xpath('table/tr/td')[1]
-            .xpath('a/@href').get()
-            .split('/')[-1]
-        )
+          matches = re.search('([0-9]+)\.png', country_image_url, re.IGNORECASE)
+          country_id = matches.group(1)
 
-      total_clubs = row.css('td:nth-of-type(3)::text').get()
-      total_players = row.css('td:nth-of-type(4)::text').get()
-      average_age = row.css('td:nth-of-type(5)::text').get()
-      foreigner_percentage = row.css('td:nth-of-type(6) a::text').get()
+          href = "/wettbewerbe/national/wettbewerbe/" + country_id
 
-      total_value = row.css('td:nth-of-type(8)::text').get()
+          cb_kwargs = {
+              'base': {
+                  'parent': parent,
+                  'country_id': country_id,
+                  'country_name': country_name,
+                  'country_code': country_code,
+                  'total_clubs': total_clubs,
+                  'total_players': total_players,
+                  'average_age': average_age,
+                  'foreigner_percentage': foreigner_percentage,
+                  'total_value': total_value
+              }
+          }
 
-      matches = re.search('([0-9]+)\.png', country_image_url, re.IGNORECASE)
-      country_id = matches.group(1)
+          yield response.follow(self.base_url + href, self.parse_competitions, cb_kwargs=cb_kwargs)
 
-      href = "/wettbewerbe/national/wettbewerbe/" + country_id
+      # Add pagination support
+      next_page = response.css('li.tm-pagination__list-item--icon-next-page a::attr(href)').get()
+      if next_page:
+          self.logger.info(f"Following pagination to: {next_page}")
+          yield response.follow(next_page, self.parse, cb_kwargs={'parent': parent})
 
-      cb_kwargs = {
-        'base': {
-          'parent': parent,
-          'country_id': country_id,
-          'country_name': country_name,
-          'country_code': country_code,
-          'total_clubs': total_clubs,
-          'total_players': total_players,
-          'average_age': average_age,
-          'foreigner_percentage': foreigner_percentage,
-          'total_value': total_value
-        }
-      }
-
-      yield response.follow(self.base_url + href, self.parse_competitions, cb_kwargs=cb_kwargs)
 
   def parse_competitions(self, response, base):
     """Parse competitions from the country competitions page.
@@ -146,7 +147,7 @@ class CompetitionsSpider(BaseSpider):
 
         # international competitions are saved to the dynamic dict 'international_competitions' rather than "yielded"
         # this is to avoid emitting duplicated items for international competitions, since the same competitions
-        # appear in multiple country pages 
+        # appear in multiple country pages
         self.international_competitions[parameterized_tier] = {
           'type': 'competition',
           'href': competition_href_wo_season,

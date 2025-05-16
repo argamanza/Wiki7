@@ -16,7 +16,9 @@ EXTENSIONS = {
    'scrapy.extensions.closespider.CloseSpider': 500
 }
 DOWNLOADER_MIDDLEWARES = {
-   'scrapy.downloadermiddlewares.httpcache.HttpCacheMiddleware': 500
+   'scrapy.downloadermiddlewares.httpcache.HttpCacheMiddleware': 500,
+   'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+   'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
 }
 
 CLOSESPIDER_PAGECOUNT = 0
