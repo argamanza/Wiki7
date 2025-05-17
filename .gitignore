@@ -1,5 +1,6 @@
 /Wiki7.iml
 /.idea/
+/.archive/
 
 /docker/images/*
 /data/data-pipeline/.idea/
