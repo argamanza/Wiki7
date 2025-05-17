@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "transfermarkt-scraper"
+name = "wiki7-data"
 version = "0.1.0"
 description = ""
 authors = ["Tzahi Argaman <tzahi.argaman@cyberark.com>"]
@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-playwright = "^1.52.0"
+scrapy = "^2.13.0"
 
 
 [build-system]
