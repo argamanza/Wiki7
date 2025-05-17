@@ -12,7 +12,7 @@ class PlayerSpider(scrapy.Spider):
         api_key = self.settings.get("SCRAPERAPI_KEY")
 
         # Load player URLs from output of squad spider
-        with open("output/players.json", encoding="utf-8") as f:
+        with open("output/squad.json", encoding="utf-8") as f:
             players = json.load(f)
 
         for player in players:
@@ -33,11 +33,27 @@ class PlayerSpider(scrapy.Spider):
 
     def parse_profile(self, response):
         player = response.meta["player_data"]
+
         full_name = response.css("h1.spielerdaten-header__headline::text").get()
+
+        # Grab the info pairs
+        keys = response.css(
+            "div.spielerdatenundfakten span.info-table__content--regular::text"
+        ).getall()
+        values = response.css("div.spielerdatenundfakten span.info-table__content--bold").xpath("string()").getall()
+
+        # Clean up and build dictionary
+        facts = {}
+        for k, v in zip(keys, values):
+            key = k.strip().rstrip(":")  # Remove trailing colon
+            val = v.strip().replace("\xa0", " ") if v else None
+            facts[key] = val
 
         player.update({
             "full_name": full_name.strip() if full_name else None,
-            "profile_scraped_from": response.url
+            "profile_scraped_from": response.url,
+            "facts": facts
         })
 
         yield player
+
