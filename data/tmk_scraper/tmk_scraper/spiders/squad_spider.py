@@ -17,14 +17,16 @@ class SquadSpider(scrapy.Spider):
         rows = response.css("table.items > tbody > tr")
 
         for row in rows:
-            link = row.css("td.hauptlink a::attr(href)").get()
+            number = row.css("div.rn_nummer::text").get()
             name = row.css("td.hauptlink a::text").get()
+            link = row.css("td.hauptlink a::attr(href)").get()
 
             if link and name:
                 self.players_scraped += 1
                 yield {
                     "name": name.strip(),
                     "profile_url": response.urljoin(link.strip()),
+                    "number": number.strip(),
                     "season": self.season
                 }
 
