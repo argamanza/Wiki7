@@ -36,23 +36,31 @@ class PlayerSpider(scrapy.Spider):
 
         full_name = response.css("h1.spielerdaten-header__headline::text").get()
 
-        # Grab the info pairs
-        keys = response.css(
-            "div.spielerdatenundfakten span.info-table__content--regular::text"
-        ).getall()
+        # Extract facts table
+        keys = response.css("div.spielerdatenundfakten span.info-table__content--regular::text").getall()
         values = response.css("div.spielerdatenundfakten span.info-table__content--bold").xpath("string()").getall()
 
-        # Clean up and build dictionary
         facts = {}
         for k, v in zip(keys, values):
-            key = k.strip().rstrip(":")  # Remove trailing colon
+            key = k.strip().rstrip(":")
             val = v.strip().replace("\xa0", " ") if v else None
             facts[key] = val
 
+        # Extract positions
+        main_position = response.css("div.detail-position__box dd.detail-position__position::text").get()
+        position_divs = response.css("div.detail-position__box div.detail-position__position")
+        other_positions = position_divs.css("dd.detail-position__position::text").getall() if len(
+            position_divs) > 0 else []
+
+        # Update player with structured data
         player.update({
             "full_name": full_name.strip() if full_name else None,
             "profile_scraped_from": response.url,
-            "facts": facts
+            "facts": facts,
+            "positions": {
+                "main": main_position.strip() if main_position else None,
+                "other": [pos.strip() for pos in other_positions if pos.strip()]
+            }
         })
 
         yield player
