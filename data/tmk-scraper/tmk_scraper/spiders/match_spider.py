@@ -69,7 +69,7 @@ class MatchSpider(scrapy.Spider):
 
     def extract_from_graphic_field(self, response):
         team_players = {"home": [], "away": []}
-        lineup_boxes = response.css(".aufstellung-box")
+        lineup_boxes = response.css("div.box > div.large-6.columns")
 
         for idx, box in enumerate(lineup_boxes):
             team_key = "home" if idx == 0 else "away"
