@@ -32,25 +32,32 @@ class MatchSpider(scrapy.Spider):
     def parse_match_report(self, response):
         match = response.meta["match_data"]
 
-        if response.css(".formation-player-container"):
-            lineups = self.extract_from_graphic_field(response)
-        else:
-            lineups = self.extract_from_simple_table(response)
+        # Extract both formats
+        graphic_lineups = self.extract_from_graphic_field(response)
+        table_lineups = self.extract_from_simple_table(response)
+
+        # Prefer graphic if it exists; else fallback to table
+        home_lineup = graphic_lineups.get("home") or table_lineups.get("home")
+        away_lineup = graphic_lineups.get("away") or table_lineups.get("away")
 
         yield {
             **match,
             "report_scraped_from": response.url,
-            "home_lineup": lineups.get("home"),
-            "away_lineup": lineups.get("away")
+            "home_lineup": home_lineup,
+            "away_lineup": away_lineup,
         }
 
     def extract_from_simple_table(self, response):
-        lineup_boxes = response.css(".aufstellung-box")
         teams_data = {}
 
-        for idx, box in enumerate(lineup_boxes):
+        for box in response.css("div.aufstellung-box, div.large-6.columns"):
             team_name = box.css(".aufstellung-unterueberschrift-mannschaft a::text").get()
+            if not team_name:
+                continue
+
+            team_key = self.resolve_team_key(team_name, response)
             players_by_position = {}
+
             for row in box.css("table tr"):
                 position = row.css("td b::text").get()
                 names = row.css("td:nth-child(2) a::text").getall()
@@ -59,29 +66,59 @@ class MatchSpider(scrapy.Spider):
                 elif row.css("td:nth-child(1)::text").re(".*manager.*"):
                     players_by_position["manager"] = row.css("td:nth-child(2) a::text").get()
 
-            teams_data["home" if idx == 0 else "away"] = {
-                "team": team_name,
+            teams_data[team_key] = {
                 **players_by_position
             }
-        return teams_data
+
+        return {
+            key: val for key, val in teams_data.items() if val
+        }
 
     def extract_from_graphic_field(self, response):
-        team_players = {"home": [], "away": []}
-        lineup_boxes = response.css("div.box > div.large-6.columns")
+        team_players = {}
 
-        for idx, box in enumerate(lineup_boxes):
-            team_key = "home" if idx == 0 else "away"
-            player_containers = box.css(".formation-player-container")
+        for box in response.css("div.box > div.large-6.columns"):
+            team_name = box.css(".aufstellung-unterueberschrift-mannschaft a::text").get()
+            if not team_name:
+                continue
 
-            for player in player_containers:
-                name = player.css(".formation-number-name a::text").get(default="").strip()
+            team_key = self.resolve_team_key(team_name, response)
+
+            players = []
+            for player in box.css(".formation-player-container"):
+                name = player.css(".formation-number-name a::text").get()
+                if not name:
+                    continue
                 number = player.css(".tm-shirt-number::text").get(default="").strip()
                 is_captain = bool(player.css(".kapitaenicon-formation"))
-
-                team_players[team_key].append({
-                    "name": name,
+                players.append({
+                    "name": name.strip(),
                     "number": number,
                     "captain": is_captain
                 })
 
-        return team_players
+            team_players[team_key] = {
+                "team": team_name,
+                **({"players": players} if players else {})
+            }
+
+        return {
+            key: val.get("players") for key, val in team_players.items()
+        }
+
+    def resolve_team_key(self, team_name, response):
+        match = response.meta["match_data"]
+        home = match.get("home_team", "").lower()
+        away = match.get("away_team", "").lower()
+
+        if team_name.lower() in home:
+            return "home"
+        elif team_name.lower() in away:
+            return "away"
+        else:
+            # fallback: assign by appearance order
+            if "home" not in response.meta:
+                response.meta["home"] = team_name
+                return "home"
+            else:
+                return "away"
