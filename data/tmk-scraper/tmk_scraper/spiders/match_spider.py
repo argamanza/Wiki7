@@ -1,8 +1,6 @@
 import scrapy
 import json
 from scrapy.http import Request
-from pathlib import Path
-import re
 
 class MatchSpider(scrapy.Spider):
     name = "match"
@@ -34,7 +32,7 @@ class MatchSpider(scrapy.Spider):
     def parse_match_report(self, response):
         match = response.meta["match_data"]
 
-        if response.css(".aufstellung-spieler-container"):
+        if response.css(".formation-player-container"):
             lineups = self.extract_from_graphic_field(response)
         else:
             lineups = self.extract_from_simple_table(response)
@@ -73,52 +71,17 @@ class MatchSpider(scrapy.Spider):
 
         for idx, box in enumerate(lineup_boxes):
             team_key = "home" if idx == 0 else "away"
-            player_containers = box.css(".aufstellung-spieler-container")
+            player_containers = box.css(".formation-player-container")
 
             for player in player_containers:
-                name = player.css(".aufstellung-rueckennummer-name a::text").get(default="").strip()
+                name = player.css(".formation-number-name a::text").get(default="").strip()
                 number = player.css(".tm-shirt-number::text").get(default="").strip()
                 is_captain = bool(player.css(".kapitaenicon-formation"))
-
-                style = player.attrib.get("style", "")
-                top_match = re.search(r"top:\s*([\d.]+)%", style)
-                left_match = re.search(r"left:\s*([\d.]+)%", style)
-
-                top = float(top_match.group(1)) if top_match else None
-                left = float(left_match.group(1)) if left_match else None
-                position = self.guess_position_from_coordinates(top, left) if top is not None and left is not None else None
 
                 team_players[team_key].append({
                     "name": name,
                     "number": number,
-                    "captain": is_captain,
-                    "position": position
+                    "captain": is_captain
                 })
 
         return team_players
-
-    def guess_position_from_coordinates(self, top, left):
-        if top > 70:
-            return "GK"
-        if top > 60:
-            if left < 25:
-                return "LB"
-            elif left > 65:
-                return "RB"
-            else:
-                return "CB"
-        if top > 40:
-            if left < 30:
-                return "LM"
-            elif left > 70:
-                return "RM"
-            else:
-                return "CM"
-        if top > 25:
-            if left < 30:
-                return "LW"
-            elif left > 70:
-                return "RW"
-            else:
-                return "AM"
-        return "ST"
