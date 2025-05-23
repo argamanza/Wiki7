@@ -39,6 +39,7 @@ class MatchSpider(scrapy.Spider):
             "home_lineup": graphic_lineups.get("home") or table_lineups.get("home"),
             "away_lineup": graphic_lineups.get("away") or table_lineups.get("away"),
             "goals": self.extract_goals(response),
+            "penalties": self.extract_penalties(response),
         }
 
     def extract_goals(self, response):
@@ -126,3 +127,22 @@ class MatchSpider(scrapy.Spider):
             response.meta["home"] = name
             return "home"
         return "away"
+
+    def extract_penalties(self, response):
+        penalties = []
+        for li in response.css("#sb-elfmeterscheissen li"):
+            team = "home" if "sb-aktion-heim" in li.attrib.get("class", "") else "away"
+            result = li.css(".sb-aktion-uhr span::attr(title)").get()  # "Scored" or "Missed"
+            score = li.css(".sb-aktion-spielstand b::text").get()
+            player = li.css(".sb-aktion-aktion a::text").get()
+            club = li.css(".sb-aktion-wappen a::attr(title)").get()
+
+            penalties.append({
+                "team": team,
+                "result": result,
+                "score": score,
+                "player": player,
+                "club": club
+            })
+        return penalties
+    

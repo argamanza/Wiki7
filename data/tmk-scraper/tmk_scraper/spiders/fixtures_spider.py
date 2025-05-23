@@ -39,7 +39,13 @@ class FixturesSpider(scrapy.Spider):
             opponent = columns[6].css("a::text").get()
             system_of_play = columns[7].xpath("normalize-space()").get()
             attendance = columns[8].xpath("normalize-space()").get()
-            result = columns[9].css("a span::text").get()
+
+            result_element = columns[9].css("a span::text").getall()
+            if len(result_element) == 1:
+                result = result_element[0].strip()
+            else:
+                result = result_element[0].strip() + " (penalties)"
+
             match_report_relative = columns[9].css("a::attr(href)").get()
             match_report = urljoin(self.base_url, match_report_relative) if match_report_relative else None
 
