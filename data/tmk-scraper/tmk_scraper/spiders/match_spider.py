@@ -33,14 +33,22 @@ class MatchSpider(scrapy.Spider):
         graphic_lineups = self.extract_from_graphic_field(response)
         table_lineups = self.extract_from_simple_table(response)
 
-        yield {
+        data = {
             **match,
             "report_scraped_from": response.url,
             "home_lineup": graphic_lineups.get("home") or table_lineups.get("home"),
             "away_lineup": graphic_lineups.get("away") or table_lineups.get("away"),
             "goals": self.extract_goals(response),
-            "penalties": self.extract_penalties(response),
+            "substitutions": self.extract_substitutions(response),
+            "cards": self.extract_cards(response),
+            "manager_sanctions": self.extract_manager_sanctions(response),
         }
+
+        penalties = self.extract_penalties(response)
+        if penalties:
+            data["penalties"] = penalties
+
+        yield data
 
     def extract_goals(self, response):
         goals = []
@@ -129,10 +137,14 @@ class MatchSpider(scrapy.Spider):
         return "away"
 
     def extract_penalties(self, response):
+        items = response.css("#sb-elfmeterscheissen li")
+        if not items:
+            return None
+
         penalties = []
-        for li in response.css("#sb-elfmeterscheissen li"):
+        for li in items:
             team = "home" if "sb-aktion-heim" in li.attrib.get("class", "") else "away"
-            result = li.css(".sb-aktion-uhr span::attr(title)").get()  # "Scored" or "Missed"
+            result = li.css(".sb-aktion-uhr span::attr(title)").get()
             score = li.css(".sb-aktion-spielstand b::text").get()
             player = li.css(".sb-aktion-aktion a::text").get()
             club = li.css(".sb-aktion-wappen a::attr(title)").get()
@@ -145,4 +157,77 @@ class MatchSpider(scrapy.Spider):
                 "club": club
             })
         return penalties
-    
+
+    def extract_substitutions(self, response):
+        subs = []
+        for li in response.css("#sb-wechsel li"):
+            team = "home" if "sb-aktion-heim" in li.attrib.get("class", "") else "away"
+            style = li.css(".sb-aktion-uhr span::attr(style)").get()
+            extra_text = li.css(".sb-aktion-uhr span::text").re_first(r"\+(\d+)")
+            pos = self.parse_background_position(style) if style else None
+
+            subs.append({
+                "team": team,
+                "minute": self.estimate_minute_from_sprite(pos) if pos else None,
+                "extra_time": int(extra_text) if extra_text else None,
+                "sprite_position": f"{pos[0]}x{pos[1]}" if pos else None,
+                "player_in": li.css(".sb-aktion-wechsel-ein a::text").get(),
+                "player_out": li.css(".sb-aktion-wechsel-aus a::text").get(),
+                "reason": li.css(".sb-aktion-wechsel-aus span.hide-for-small::text").re_first(r"[A-Za-z]+")
+            })
+        return subs
+
+    def extract_cards(self, response):
+        cards = []
+        for li in response.css("#sb-karten li"):
+            team = "home" if "sb-aktion-heim" in li.attrib.get("class", "") else "away"
+            style = li.css(".sb-aktion-uhr span::attr(style)").get()
+            extra_text = li.css(".sb-aktion-uhr span::text").re_first(r"\+(\d+)")
+            pos = self.parse_background_position(style) if style else None
+
+            card_class = li.css(".sb-aktion-spielstand span::attr(class)").get()
+            card_type = None
+            if card_class:
+                if "sb-gelbrot" in card_class:
+                    card_type = "second_yellow"
+                elif "sb-rot" in card_class:
+                    card_type = "red"
+                elif "sb-gelb" in card_class:
+                    card_type = "yellow"
+
+            cards.append({
+                "team": team,
+                "minute": self.estimate_minute_from_sprite(pos) if pos else None,
+                "extra_time": int(extra_text) if extra_text else None,
+                "sprite_position": f"{pos[0]}x{pos[1]}" if pos else None,
+                "player": li.css(".sb-aktion-aktion a::text").get(),
+                "card": card_type,
+                "reason": li.css(".sb-aktion-aktion::text").re_first(r",\s*(.+)")
+            })
+        return cards
+
+    def extract_manager_sanctions(self, response):
+        sanctions = []
+        for li in response.css("#sb-sanktionen li"):
+            team = "home" if "sb-aktion-heim" in li.attrib.get("class", "") else "away"
+            style = li.css(".sb-aktion-uhr span::attr(style)").get()
+            extra_text = li.css(".sb-aktion-uhr span::text").re_first(r"\+(\d+)")
+            pos = self.parse_background_position(style) if style else None
+
+            sanction_class = li.css(".sb-aktion-spielstand span::attr(class)").get()
+            sanction = None
+            if sanction_class:
+                if "sb-rot" in sanction_class:
+                    sanction = "red"
+                elif "sb-gelb" in sanction_class:
+                    sanction = "yellow"
+
+            sanctions.append({
+                "team": team,
+                "minute": self.estimate_minute_from_sprite(pos) if pos else None,
+                "extra_time": int(extra_text) if extra_text else None,
+                "sprite_position": f"{pos[0]}x{pos[1]}" if pos else None,
+                "manager": li.css(".sb-aktion-aktion a::text").get(),
+                "sanction": sanction
+            })
+        return sanctions
