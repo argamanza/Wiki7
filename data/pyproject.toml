@@ -9,6 +9,11 @@ readme = "README.md"
 python = "^3.12"
 scrapy = "^2.13.0"
 scrapy-fake-useragent = "^1.4.4"
+pydantic = "^2.11.5"
+tqdm = "^4.67.1"
+python-dateutil = "^2.9.0.post0"
+pycountry = "^24.6.1"
+pyyaml = "^6.0.2"
 
 
 [build-system]

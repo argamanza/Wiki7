@@ -1,0 +1,170 @@
+erDiagram
+    %% Core Entities
+    PLAYER {
+        string id PK
+        string name
+        string nationality
+        date birth_date
+        string main_position
+        boolean current_squad
+        int current_jersey_number
+    }
+    
+    MANAGER {
+        string id PK
+        string name
+        string nationality
+        date birth_date
+        string current_position
+    }
+    
+    TEAM {
+        string id PK
+        string name
+        string city
+        string country
+        int founded
+    }
+    
+    COMPETITION {
+        string id PK
+        string name
+        string type
+        string country
+        int tier
+    }
+    
+    SEASON {
+        string id PK
+        int start_year
+        int end_year
+        int total_matches
+        int wins
+        int draws
+        int losses
+    }
+    
+    MATCH {
+        string id PK
+        string season_id FK
+        string competition_id FK
+        string opponent_id FK
+        date match_date
+        string venue
+        int home_goals
+        int away_goals
+        int attendance
+    }
+    
+    %% Relationship Entities
+    SQUAD_ENTRY {
+        string player_id FK
+        string season_id FK
+        int jersey_number
+        boolean loan_status
+        int appearances
+        int goals
+        int assists
+    }
+    
+    LINEUP_ENTRY {
+        string player_id FK
+        string match_id FK
+        int jersey_number
+        string position
+        boolean captain
+        boolean starter
+        int minutes_played
+    }
+    
+    MATCH_EVENT {
+        string id PK
+        string match_id FK
+        string player_id FK
+        string event_type
+        int minute
+        int extra_time
+        string team
+    }
+    
+    TRANSFER {
+        string player_id FK
+        string season
+        date transfer_date
+        string from_club
+        string to_club
+        string fee
+        boolean loan
+    }
+    
+    MARKET_VALUE {
+        string player_id FK
+        date value_date
+        decimal value
+        string currency
+        string club
+    }
+    
+    MANAGER_APPOINTMENT {
+        string manager_id FK
+        string role
+        date start_date
+        date end_date
+    }
+    
+    %% Statistics
+    PLAYER_STATISTICS {
+        string player_id FK
+        string period
+        int appearances
+        int goals
+        int assists
+        int yellow_cards
+        int red_cards
+        int minutes_played
+    }
+    
+    SEASON_SUMMARY {
+        string season_id FK
+        int total_matches
+        int wins
+        int draws
+        int losses
+        string top_scorer
+        string most_appearances
+    }
+    
+    %% Wiki Entities
+    WIKI_PAGE {
+        string title PK
+        string content_type
+        string entity_id
+        datetime last_updated
+    }
+    
+    %% Relationships
+    PLAYER ||--o{ SQUAD_ENTRY : "plays in season"
+    SEASON ||--o{ SQUAD_ENTRY : "contains players"
+    
+    PLAYER ||--o{ LINEUP_ENTRY : "appears in match"
+    MATCH ||--o{ LINEUP_ENTRY : "has lineup"
+    
+    PLAYER ||--o{ MATCH_EVENT : "participates in event"
+    MATCH ||--o{ MATCH_EVENT : "has events"
+    
+    PLAYER ||--o{ TRANSFER : "has transfers"
+    PLAYER ||--o{ MARKET_VALUE : "has market values"
+    
+    MANAGER ||--o{ MANAGER_APPOINTMENT : "has appointments"
+    
+    SEASON ||--o{ MATCH : "contains matches"
+    COMPETITION ||--o{ MATCH : "organizes matches"
+    TEAM ||--o{ MATCH : "plays against"
+    
+    PLAYER ||--o{ PLAYER_STATISTICS : "has statistics"
+    SEASON ||--|| SEASON_SUMMARY : "has summary"
+    
+    PLAYER ||--o{ WIKI_PAGE : "has page"
+    MATCH ||--o{ WIKI_PAGE : "has page"
+    SEASON ||--o{ WIKI_PAGE : "has page"
+    COMPETITION ||--o{ WIKI_PAGE : "has page"

@@ -26,7 +26,7 @@ class SquadSpider(scrapy.Spider):
             if name and link:
                 self.players_scraped += 1
                 yield {
-                    "name": name.strip(),
+                    "name_english": name.strip(),
                     "profile_url": response.urljoin(link.strip()),
                     "number": number.strip() if number else "-",
                     "season": self.season,
@@ -49,7 +49,7 @@ class SquadSpider(scrapy.Spider):
             if name and link:
                 self.players_scraped += 1
                 yield {
-                    "name": name.strip(),
+                    "name_english": name.strip(),
                     "profile_url": response.urljoin(link.strip()),
                     "number": "-",  # loan page doesn't include jersey number
                     "season": self.season,
