@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from data_pipeline.schemas import Player, MarketValue, Transfer
-from data_pipeline.helpers import is_all_hebrew, parse_birth_date, parse_countries
+from data_pipeline.helpers import is_all_hebrew, parse_birth_date, parse_countries, is_homegrown, is_retired
 from tqdm import tqdm
 from typing import List
 
@@ -27,10 +27,13 @@ def normalize_player(player) -> Player:
         name_english=player["name"],
         name_hebrew=name_hebrew,
         birth_date=parse_birth_date(facts.get("Date of birth/Age", "").split(" (")[0]),
+        birth_place=facts.get("Place of birth"),
         nationality=parse_countries(facts.get("Citizenship")),
         main_position=player.get("positions", {}).get("main"),
         current_squad=not player.get("loaned", False),
         current_jersey_number=None if player["number"] == "-" else int(player["number"]),
+        homegrown=is_homegrown(player),
+        retired=is_retired(player),
     )
 
 def normalize_transfers(player) -> List[Transfer]:
@@ -39,7 +42,7 @@ def normalize_transfers(player) -> List[Transfer]:
         Transfer(
             player_id=uid,
             season=tr["season"],
-            date=tr["date"],
+            transfer_date=tr["date"],
             from_club=tr["from"],
             to_club=tr["to"],
             fee=tr["fee"],

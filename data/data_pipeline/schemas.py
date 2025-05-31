@@ -5,7 +5,7 @@ from datetime import date
 class Transfer(BaseModel):
     player_id: str
     season: str
-    date: str
+    transfer_date: str
     from_club: str
     to_club: str
     fee: str
@@ -21,8 +21,11 @@ class Player(BaseModel):
     id: str  # Transfermarkt ID
     name_english: str
     name_hebrew: Optional[str]
-    birth_date: Optional[date]
     nationality: Optional[List[str]]
+    birth_date: Optional[date]
+    birth_place: Optional[str]
     main_position: Optional[str]
     current_squad: bool
     current_jersey_number: Optional[int]
+    homegrown: bool
+    retired: bool

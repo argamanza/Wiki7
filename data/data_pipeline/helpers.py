@@ -108,3 +108,19 @@ def _standardize_country_name(country_name: str) -> str:
     }
 
     return special_cases.get(name_lower, country_name.title())
+
+def is_homegrown(player: dict) -> bool:
+    youth_keywords = ["H. B. Sheva U19", "Hapoel Beer Sheva U19"]
+    transfers = player.get("transfers", [])
+    return any(
+        any(keyword in transfer.get("from", "") for keyword in youth_keywords)
+        for transfer in transfers
+    )
+
+def is_retired(player: dict) -> bool:
+    transfers = player.get("transfers", [])
+    for transfer in transfers:
+        to_club = transfer.get("to", "").lower()
+        if "retired" in to_club:
+            return True
+    return False
