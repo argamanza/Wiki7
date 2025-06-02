@@ -28,6 +28,8 @@ COPY LocalSettings.php /var/www/html/LocalSettings.php
 
 # Copy extensions
 COPY extensions/Cargo/ /var/www/html/extensions/Cargo/
+COPY extensions/PageSchemas/ /var/www/html/extensions/PageSchemas/
+COPY extensions/PageForms/ /var/www/html/extensions/PageForms/
 
 # Copy skins
 COPY skins/Citizen/ /var/www/html/skins/Citizen/

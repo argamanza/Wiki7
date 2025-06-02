@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/docker/extensions/Cargo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/docker/extensions/PageForms" vcs="Git" />
   </component>
 </project>

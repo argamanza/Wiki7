@@ -105,6 +105,8 @@ wfLoadExtension( 'VisualEditor' );
 wfLoadExtension( 'WikiEditor' );
 
 wfLoadExtension( 'Cargo' );
+wfLoadExtension( 'PageForms' );
+wfLoadExtension( 'PageSchemas' );
 
 ##
 ## Logo
