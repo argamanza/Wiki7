@@ -70,4 +70,3 @@ if __name__ == "__main__":
     task_def = get_latest_task_definition()
     _, subnets, sgs = get_service_and_network_config(cluster_arn)
     run_update_php(cluster_arn, task_def, subnets, sgs)
-    
