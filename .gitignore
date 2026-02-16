@@ -2,6 +2,4 @@
 /.archive/
 
 /docker/images/*
-/data/data-pipeline/data_pipeline/__pycache__/
-/data/data-pipeline/data_pipeline/data/
-/data/tmk-scraper/tmk_scraper/__pycache__/
+__pycache__/
