@@ -43,9 +43,84 @@
 **Issues found (full count):**
 - Skin: 47+ PHP issues, 13+ JS TODOs, 15+ CSS HACKs, 14 missing Hebrew translations
 - CDK: 7 critical security issues, 20+ best practice violations, 0 alarms/monitoring
-- Data pipeline: exposed API key, broken team matching logic, 6 missing error handlers
+- Data pipeline: exposed API key, broken team matching, **missing "last mile"** (no code imports data into wiki)
 - Docker: 6 critical issues, 10+ high-priority issues
 - Docs: 9+ missing critical files
+
+**Cost — current architecture is overkill:**
+- Current CDK architecture (ECS Fargate + RDS + ALB + NAT Gateway + WAF): **~$107-128/month**
+- Top cost drivers: NAT Gateway ($34-37), Fargate ($20-25), ALB ($18-22), RDS ($17-20)
+- For a personal project with ~100-1000 pageviews/day, this can run for **~$16-20/month**
+
+**Data pipeline — half-built:**
+- Scrapy spiders scrape Transfermarkt and normalize data to JSONL files
+- But there is **zero "last mile" code** — no mwclient, no pywikibot, no API integration
+- The data just sits as files. Nothing creates wiki pages from it.
+- Scrapy is overkill for a single team (1,800 lines of framework vs. ~180 lines of simple Python)
+- `docker-compose.yml` in `data/` references a non-existent `transfermarkt-api/` directory
+
+---
+
+## Cost Analysis & Architecture Decision
+
+*This is a personal project. It should be cheap but scalable if it grows.*
+
+### Current vs. Optimized Cost
+
+| Architecture | Monthly | Notes |
+|-------------|---------|-------|
+| **Current CDK** (Fargate+RDS+ALB+NAT+WAF) | ~$107-128 | Enterprise-grade, overkill |
+| **Quick wins** (remove NAT, use CF free plan) | ~$55-75 | Same architecture, less waste |
+| **Cost-conscious** (EC2+RDS, no NAT/ALB) | ~$35-50 | Managed DB, good middle ground |
+| **Minimal** (EC2+local MariaDB, CF free) | ~$16-20 | Cheapest viable production setup |
+
+### Biggest Savings (by component)
+
+| Component | Current Cost | Optimization | Savings |
+|-----------|-------------|-------------|---------|
+| **NAT Gateway** | $34-37/mo | Eliminate — move to public subnet | **$34-37** |
+| **ALB** | $18-22/mo | Eliminate — CloudFront direct to EC2/Fargate (VPC origins) | **$18-22** |
+| **WAF** | $14-16/mo | Use CloudFront flat-rate free plan (includes WAF with 5 rules) | **$14-16** |
+| **ECS Fargate** | $20-25/mo | Replace with t4g.small EC2 ($14/mo, more resources) | **$7-12** |
+| **RDS** | $17-20/mo | Run MariaDB on same EC2 (with automated S3 backups) | **$17-20** |
+| **Route 53** | $0.50/mo | Included in CloudFront flat-rate free plan | **$0.50** |
+
+### Recommended Architecture: "Cheap but Scalable"
+
+**Phase 1 target: ~$16-20/month**
+```
+CloudFront (free plan: CDN + WAF 5 rules + Route 53)
+    ↓
+t4g.small EC2 (2 vCPU, 2 GB RAM — $14/mo)
+    ├── MediaWiki + PHP-FPM + Nginx
+    ├── MariaDB (local, backed up to S3 daily)
+    └── 30 GB gp3 EBS ($2.70/mo)
+    ↓
+S3 bucket (media uploads, ~$0.15/mo)
+```
+
+**If traffic grows (>1000 pageviews/day), scale to ~$35-50/month:**
+- Move MariaDB to RDS db.t4g.micro (automated backups, point-in-time recovery)
+- Add CloudWatch alarms
+- Keep single EC2 — MediaWiki handles thousands of pageviews on 2 GB RAM
+
+**If traffic grows more (>10K/day), scale to ~$80-120/month:**
+- Add ALB + second EC2 instance
+- Upgrade RDS instance size
+- Add auto-scaling
+
+### CDK Plan Changes
+
+The CDK stacks need to be rewritten for the cost-conscious architecture:
+- [ ] **Remove**: NAT Gateway, ALB, WAF stack (replaced by CloudFront free plan)
+- [ ] **Simplify**: NetworkStack to public subnet only
+- [ ] **Replace**: ECS Fargate with EC2 Auto Scaling Group (min: 1, max: 2)
+- [ ] **Keep**: CloudFront, S3, Route 53, ACM Certificate
+- [ ] **Make optional**: RDS (can toggle between local MariaDB and RDS via config)
+- [ ] **Add**: Automated backup Lambda (mysqldump → S3) for when using local MariaDB
+- [ ] **Add**: S3 VPC Gateway Endpoint (free, reduces data transfer costs)
+- [ ] **Add**: CloudFront flat-rate free plan configuration
+- [ ] **Add**: Cost tags and AWS Budget alarm ($25/mo threshold)
 
 ---
 
@@ -323,64 +398,112 @@ Create `docs/TESTING.md`:
 - [ ] Validate qqq.json documentation strings
 - [ ] Run Banana Checker
 
-### 4.5 CDK Infrastructure Fixes (25+ items)
-**Reliability:**
-- [ ] Enable RDS Multi-AZ (`database-stack.ts:39`)
-- [ ] Increase to 2+ ECS tasks with auto-scaling (`application-stack.ts:230`)
-- [ ] Add 2 NAT gateways for HA (`network-stack.ts:15`)
-- [ ] Add ALB HTTPS listener with certificate
-- [ ] Set RDS preferred maintenance and backup windows
-- [ ] Extend backup retention to 30-90 days
-- [ ] Add cross-region backup replication
+### 4.5 CDK Infrastructure Rewrite (cost-conscious)
 
-**Monitoring (currently zero alarms):**
-- [ ] Create SNS topic for alert notifications
-- [ ] Add CloudWatch alarms: ECS CPU/memory, RDS CPU/connections/storage, ALB target health, CloudFront error rates, WAF block rates, Lambda errors
-- [ ] Enable ALB access logging to S3
-- [ ] Enable S3 access logging
-- [ ] Enable CloudFront access logging
-- [ ] Enable VPC Flow Logs
-- [ ] Enable CloudTrail
-- [ ] Add CloudWatch dashboard
+**Architecture change — from enterprise to personal project:**
+- [ ] Remove NAT Gateway — move compute to public subnet (saves ~$35/mo)
+- [ ] Remove ALB — use CloudFront VPC origins or direct-to-EC2 (saves ~$20/mo)
+- [ ] Remove separate WAF stack — use CloudFront flat-rate free plan's included WAF (saves ~$15/mo)
+- [ ] Replace ECS Fargate with EC2 Auto Scaling Group (t4g.small, min:1 max:2)
+- [ ] Make RDS optional — support local MariaDB with S3 backup as default
+- [ ] Add S3 VPC Gateway Endpoint (free, eliminates S3 NAT traffic)
+- [ ] Add automated backup Lambda (mysqldump → S3, daily cron via EventBridge)
+- [ ] Add AWS Budget alarm ($25/mo threshold with SNS notification)
 
-**Other:**
-- [ ] Add resource tags (Environment, Owner, CostCenter) to all resources
-- [ ] Fix KMS encryption for log groups
-- [ ] Remove deprecated CDK context flags in `cdk.json`
-- [ ] Fix hardcoded domain name — parameterize `wiki7.co.il`
-- [ ] Add RDS Proxy for connection pooling
-- [ ] Add AWS Config rules for compliance monitoring
-- [ ] Standardize log retention across all resources (90 days minimum)
+**Keep and fix:**
+- [ ] CloudFront distribution — switch to flat-rate free plan
+- [ ] S3 bucket — fix public access, restrict CORS headers
+- [ ] RDS stack — keep as optional module, fix deletion protection and removal policy
+- [ ] Set RDS preferred maintenance and backup windows (if RDS enabled)
+- [ ] Fix hardcoded domain — parameterize `wiki7.co.il`
+- [ ] Remove deprecated CDK context flags
+- [ ] Remove CDK v1 dependencies (critical — v1 is EOL)
+
+**Monitoring (proportional to project scale):**
+- [ ] Create SNS topic for alerts (email notification)
+- [ ] Add CloudWatch alarms: EC2 CPU >80%, disk >85%, CloudFront error rate >5%
+- [ ] Enable CloudFront access logging (free)
+- [ ] Add resource tags to all resources
+- [ ] Add cost allocation tags for tracking
+
+**Defer until traffic justifies cost:**
+- Multi-AZ RDS, RDS Proxy, VPC Flow Logs, CloudTrail, GuardDuty, Security Hub, AWS Config
 
 ### 4.6 CDK Lambda Fixes
 - [ ] `s3_directories.py`: Add environment validation, specific exception handling, request ID logging
 - [ ] `ssm_sync.py`: Add `WithDecryption=True`, region validation, retry logic, increase timeout
 - [ ] `run_update_task.py`: Use env var for region, add retry logic, validate task startup
 
-### 4.7 Data Pipeline Fixes (20+ items)
-**Critical:**
-- [ ] Fix broken `resolve_team_key()` in `match_spider.py` — references non-existent dict keys
-- [ ] Add file existence validation before spider execution (squad.json, fixtures.json dependencies)
+### 4.7 Data Pipeline — Evaluate & Rebuild
+
+**Current state: the pipeline is half-built and over-engineered.**
+
+The data pipeline scrapes Transfermarkt and normalizes player/match data to JSONL files, but:
+- There is **zero "last mile" code** — nothing imports data into MediaWiki
+- Scrapy is overkill for scraping a single team (~1,800 lines of framework boilerplate)
+- `items.py` and `pipelines.py` are empty boilerplate — Scrapy's pipeline features are unused
+- `docker-compose.yml` references a non-existent `transfermarkt-api/` directory
+- Spider execution order is manual with fragile file-based coupling (no orchestration)
+
+**Decision: simplify or keep Scrapy?**
+
+| Approach | Effort | Lines of Code | When it Makes Sense |
+|----------|--------|---------------|---------------------|
+| **Keep Scrapy, fix issues** | Low | ~1,800 | If expanding to multiple teams/leagues |
+| **Replace with simple scripts** | Medium | ~400 | If staying single-team (recommended for now) |
+
+**Recommended: replace with simple Python scripts + add the missing last mile.**
+
+**Step 1: Rewrite scraping (replace Scrapy)**
+- [ ] Create `data/scraper/scrape_squad.py` — requests + BeautifulSoup, ~50 lines
+- [ ] Create `data/scraper/scrape_players.py` — reads squad.json, enriches with profile/transfers, ~100 lines
+- [ ] Create `data/scraper/scrape_fixtures.py` — ~50 lines
+- [ ] Create `data/scraper/scrape_matches.py` — reads fixtures.json, parses match details, ~100 lines
+- [ ] Add `tenacity` for retry logic (replaces Scrapy's built-in retries)
+- [ ] Add `click` or `argparse` for CLI (team ID, season, output dir as params — not hardcoded)
+- [ ] Move ScraperAPI key to environment variable
+- [ ] Keep Pydantic schemas for data validation
+- [ ] Add proper logging (replace print statements)
+
+**Step 2: Keep and fix normalization pipeline**
+- [ ] Fix broken `resolve_team_key()` in match processing
+- [ ] Add file existence validation before processing
 - [ ] Add specific exception handling (replace bare `except Exception`)
+- [ ] Add Pydantic validators: non-empty `id`, jersey range (0-99)
+- [ ] Make all paths configurable (currently hardcoded relative paths)
 
-**Error handling:**
-- [ ] Add try-except for all file I/O operations
-- [ ] Add JSON parsing error handling in `generate_mapping_stub.py`
-- [ ] Add YAML validation in `apply_hebrew_mapping.py`
-- [ ] Add fallback/logging for missing fields in normalization
-- [ ] Add spider execution failure metrics
+**Step 3: Build the missing "last mile" — MediaWiki import**
+- [ ] Create `data/wiki_import/import_players.py` — uses `mwclient` to create/update player pages
+- [ ] Create `data/wiki_import/import_matches.py` — creates match report pages
+- [ ] Create `data/wiki_import/import_templates.py` — creates/updates Cargo table templates
+- [ ] Define wiki page templates (Mustache or Jinja2) for each page type:
+  - Player infobox page
+  - Season squad table
+  - Match report page
+  - Transfer history table
+- [ ] Create bot account in MediaWiki for automated edits
+- [ ] Add `$wgGroupPermissions['bot']['bot'] = true` to LocalSettings.php
+- [ ] Handle idempotency: check if page exists and data is unchanged before editing
+- [ ] Add dry-run mode to preview what would be created/changed
 
-**Code quality:**
-- [ ] Implement Scrapy Items instead of raw dicts (currently unused boilerplate in `items.py`)
-- [ ] Implement Scrapy Pipeline for validation/dedup (currently empty boilerplate in `pipelines.py`)
-- [ ] Add Pydantic validators: non-empty `id`, min-length `name_english`, jersey number range (0-99)
-- [ ] Fix CSS selectors for position extraction in `player_spider.py`
-- [ ] Add type hints to all spider methods
-- [ ] Add docstrings to all functions
-- [ ] Make team ID (2976) and base URL configurable
-- [ ] Fix hardcoded relative paths — use config or environment variables
+**Step 4: Orchestration**
+- [ ] Create `data/run_pipeline.py` — master script that chains: scrape → normalize → import
+- [ ] Add `--dry-run`, `--skip-scrape`, `--season` flags
+- [ ] Add simple logging and error summary
+- [ ] Create `Makefile` target: `make pipeline`
+- [ ] Future: schedule via GitHub Actions cron (weekly) or EventBridge Lambda
+
+**Step 5: Data quality**
 - [ ] Add data deduplication for transfers and market values
-- [ ] Add `.gitignore` entry for `output/` in data directory (currently missing from root gitignore)
+- [ ] Add Hebrew name validation (flag names that aren't Hebrew)
+- [ ] Add `.gitignore` entry for `data/output/`
+- [ ] Create sample/fixture data for testing
+
+**Legal note on Transfermarkt:**
+Scraping violates Transfermarkt's ToS. This is industry standard for fan wikis (Maccabipedia, Wikipedia football projects all do it), and enforcement risk is low for non-commercial projects. But:
+- [ ] Document the risk in `data/README.md`
+- [ ] Cache aggressively to minimize requests
+- [ ] If the wiki becomes commercial, switch to Football-Data.org API (~$4/month)
 
 ### 4.8 MediaWiki Configuration Fixes
 - [ ] Configure proper caching (currently CACHE_ACCEL with empty memcached = non-functional)
@@ -458,9 +581,12 @@ For each version: diff against Wiki7, categorize (auto-merge / manual / conflict
 - [ ] Update Python dependencies (boto3, etc.)
 
 ### 5.6 Data Pipeline Dependencies
-- [ ] Update Scrapy, Pydantic, and all Python packages to latest
-- [ ] Verify scraper still works with latest Transfermarkt site changes
-- [ ] Update Docker configuration for data pipeline
+- [ ] Update Pydantic, requests, BeautifulSoup to latest
+- [ ] Add `mwclient` for MediaWiki API integration (the missing last mile)
+- [ ] Add `tenacity` for retry logic
+- [ ] Verify scraper still works with latest Transfermarkt site structure
+- [ ] Remove Scrapy and related packages if rewrite is done
+- [ ] Update pyproject.toml with dev dependencies (pytest, ruff, mypy)
 
 ### 5.7 Docker & Build Modernization
 - [ ] Multi-stage Dockerfile (separate build from runtime)
@@ -497,13 +623,13 @@ For each version: diff against Wiki7, categorize (auto-merge / manual / conflict
 - [ ] Responsive breakpoints on real devices
 - [ ] RTL: test every page type, safe-area-insets, bidirectional content
 
-### 6.4 AWS Production Hardening
-- [ ] Enable GuardDuty for threat detection
-- [ ] Enable AWS Security Hub
-- [ ] Implement secrets rotation (RDS password, 30-90 day cycle)
-- [ ] Add cost monitoring (AWS Budgets, anomaly detection)
+### 6.4 AWS Production Hardening (cost-appropriate)
+- [ ] Add AWS Budget alarm ($25/mo with email alert)
+- [ ] Add Cost Anomaly Detection (free)
 - [ ] Create runbook for common operational tasks
-- [ ] Verify backup restore process works
+- [ ] Verify backup restore process works (test mysqldump → restore)
+- [ ] Set up automated weekly data pipeline run (GitHub Actions cron or EventBridge)
+- [ ] **Defer until justified by traffic:** GuardDuty, Security Hub, secrets rotation, CloudTrail
 
 ### 6.5 Final Documentation
 - [ ] `docs/DEPLOYMENT.md` — full AWS deployment guide with runbook
@@ -543,7 +669,7 @@ PHASE 4: Complete & Fix (test-first for each fix)
 ├── Agent M: Skin JS fixes
 ├── Agent N: Skin template/style/i18n fixes
 ├── Agent O: CDK infrastructure fixes + monitoring
-├── Agent P: Data pipeline fixes
+├── Agent P: Data pipeline rewrite + MediaWiki import (last mile)
 └── Agent Q: MediaWiki configuration fixes
 
 PHASE 5: Upgrades (highest risk — careful sequencing)
@@ -579,8 +705,10 @@ For every change:
 | MW 1.45 breaks skin | High | Test in Docker branch; keep 1.43 as fallback |
 | Extension incompatibility | Medium | Test independently before combining |
 | MariaDB migration data loss | High | Full backup; test migration on copy first |
-| Transfermarkt site changes break scrapers | Medium | CSS selectors are fragile; add integration tests with fixtures |
+| Transfermarkt site changes break scrapers | Medium | CSS selectors are fragile; add tests with saved HTML fixtures |
+| Transfermarkt blocks scraping | Low | Use cache, reduce request frequency, consider Football-Data.org API as fallback |
 | CDK deployment breaks production | High | `cdk diff` before deploy; rollback plan |
+| AWS costs exceed budget | Medium | CloudFront free plan, EC2 instead of Fargate, Budget alarm at $25/mo |
 | PHP 8.2 requirement (MW 1.45) | Medium | Verify Docker image PHP version |
 | Hebrew RTL regressions | Medium | Visual regression tests + manual review |
 
@@ -596,7 +724,7 @@ For every change:
 | **Skin (i18n)** | 0 | 0 | 14 | 14 |
 | **CDK Infrastructure** | 7 | 20+ | 15+ | 42+ |
 | **Docker/MediaWiki** | 6 | 10 | 9 | 25 |
-| **Data Pipeline** | 3 | 6 | 10+ | 19+ |
+| **Data Pipeline** | 1 (missing last mile) | 6 | 10+ | 17+ |
 | **Documentation** | 0 | 9 | 5 | 14 |
 | **TOTAL** | **20** | **96+** | **84+** | **200+** |
 
