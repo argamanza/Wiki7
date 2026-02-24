@@ -64,7 +64,7 @@ export class DatabaseStack extends Construct {
     // Create RDS instance
     this.dbInstance = new rds.DatabaseInstance(this, 'Wiki7Database', {
       engine: rds.DatabaseInstanceEngine.mariaDb({
-        version: rds.MariaDbEngineVersion.VER_10_5,
+        version: rds.MariaDbEngineVersion.VER_11_4,
       }),
       vpc,
       vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },

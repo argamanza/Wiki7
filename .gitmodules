@@ -1,8 +1,8 @@
 [submodule "docker/extensions/Cargo"]
 	path = docker/extensions/Cargo
 	url = https://gerrit.wikimedia.org/r/mediawiki/extensions/Cargo
-	branch = REL1_43
+	branch = REL1_45
 [submodule "docker/extensions/PageForms"]
 	path = docker/extensions/PageForms
 	url = https://gerrit.wikimedia.org/r/mediawiki/extensions/PageForms
-	branch = REL1_43
+	branch = REL1_45

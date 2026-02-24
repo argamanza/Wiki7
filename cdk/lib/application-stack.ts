@@ -100,7 +100,7 @@ export class ApplicationStack extends Construct {
       'dnf update -y',
       '',
       '# Install required packages',
-      'dnf install -y nginx php8.2-fpm php8.2-mysqlnd php8.2-xml php8.2-intl php8.2-gd php8.2-mbstring php8.2-json php8.2-opcache mariadb105-server mariadb105 aws-cli',
+      'dnf install -y nginx php8.2-fpm php8.2-mysqlnd php8.2-xml php8.2-intl php8.2-gd php8.2-mbstring php8.2-json php8.2-opcache mariadb114-server mariadb114 aws-cli',
       '',
       '# Enable and start MariaDB',
       'systemctl enable mariadb',

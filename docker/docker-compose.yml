@@ -39,7 +39,7 @@ services:
         max-file: "3"
 
   db:
-    image: mariadb:10.5
+    image: mariadb:11.4
     restart: always
     environment:
       - MYSQL_DATABASE=wikidb
