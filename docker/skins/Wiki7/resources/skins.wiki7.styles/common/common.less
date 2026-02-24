@@ -108,6 +108,26 @@ td {
 	.mixin-wiki7-screen-reader-only;
 }
 
+/* Skip to content link for keyboard navigation accessibility (v3.11.0+) */
+.wiki7-skip-link {
+	position: absolute;
+	top: -100%;
+	left: 0;
+	z-index: 1000;
+	padding: var( --space-xs ) var( --space-md );
+	font-size: var( --font-size-small );
+	color: var( --color-inverted-primary );
+	background-color: var( --color-progressive );
+	border-radius: 0 0 var( --border-radius-base ) 0;
+	opacity: 0;
+	transition: opacity 100ms, top 100ms;
+
+	&:focus {
+		top: 0;
+		opacity: 1;
+	}
+}
+
 .nowrap {
 	white-space: nowrap;
 }

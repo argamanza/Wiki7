@@ -56,7 +56,7 @@ class SkinHooks implements
 	use GetConfigTrait;
 
 	/**
-	 * Adds the inline theme switcher script to the page
+	 * Adds the inline theme switcher script to the page and resource hints
 	 *
 	 * @param OutputPage $out
 	 * @param Skin $skin
@@ -72,6 +72,45 @@ class SkinHooks implements
 			$script = Html::inlineScript( $script );
 			$script = RL\ResourceLoader::filter( 'minify-js', $script );
 			$out->addHeadItem( 'skin.wiki7.inline', $script );
+		}
+
+		// Add resource hints for improved performance (v3.10.0+)
+		if ( $this->getConfigValue( 'Wiki7EnableResourceHints', $out ) === true ) {
+			$this->addResourceHints( $out );
+		}
+
+		// Add performance mode class (v3.7.0+)
+		if ( $this->getConfigValue( 'Wiki7EnablePerformanceMode', $out ) === true ) {
+			$out->addHtmlClasses( 'wiki7-performance-mode' );
+		}
+
+		// Add header position class (v3.6.0+)
+		$headerPosition = $this->getConfigValue( 'Wiki7HeaderPosition', $out );
+		if ( $headerPosition === 'sidebar' ) {
+			$out->addHtmlClasses( 'wiki7-header-sidebar' );
+		}
+	}
+
+	/**
+	 * Add resource hints (preload, prefetch, preconnect) for performance
+	 * Introduced in Citizen v3.10.0
+	 *
+	 * @param OutputPage $out
+	 */
+	private function addResourceHints( OutputPage $out ): void {
+		// DNS prefetch for common external resources
+		$out->addLink( [
+			'rel' => 'dns-prefetch',
+			'href' => '//upload.wikimedia.org',
+		] );
+
+		// Preconnect for the same origin to speed up resource loading
+		$serverUrl = $this->getConfigValue( 'Server', $out );
+		if ( $serverUrl ) {
+			$out->addLink( [
+				'rel' => 'preconnect',
+				'href' => $serverUrl,
+			] );
 		}
 	}
 

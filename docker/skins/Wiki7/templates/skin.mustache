@@ -12,8 +12,9 @@
 
 {{>Header}}
 <div class="wiki7-page-container">
-	<div class="wiki7-sitenotice-container">{{{html-site-notice}}}</div>
-	<main class="mw-body {{#toc-enabled}}wiki7-toc-enabled{{/toc-enabled}}" id="content">
+	<a class="wiki7-skip-link" href="#content">{{msg-wiki7-skip-to-content}}</a>
+	<div class="wiki7-sitenotice-container" role="status">{{{html-site-notice}}}</div>
+	<main class="mw-body {{#toc-enabled}}wiki7-toc-enabled{{/toc-enabled}}" id="content" role="main">
 		{{>PageHeader}}
 		<div class="wiki7-body-container">
 			<div id="bodyContent" class="wiki7-body" aria-labelledby="firstHeading">

@@ -93,6 +93,24 @@
 	}
 }
 
+/* Performance mode - reduce animations and visual effects (v3.7.0+) */
+.wiki7-performance-mode {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.wiki7-header,
+	.wiki7-page-header,
+	.wiki7-toc {
+		backdrop-filter: none !important;
+	}
+}
+
 .wiki7-feature-autohide-navigation-clientpref-1 {
 	@media ( max-width: @max-width-breakpoint-tablet ) {
 		.wiki7-header,

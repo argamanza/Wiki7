@@ -39,12 +39,12 @@ trait GetConfigTrait {
 	 * @return mixed|null
 	 * @see SkinTemplate::getConfig()
 	 */
-	protected function getConfigValue( $key, $out = null ) {
+	protected function getConfigValue( string $key, ?OutputPage $out = null ) {
 		if ( isset( $this->out ) ) {
 			$out = $this->out;
 		}
 
-		if ( is_callable( [ $this, 'getOutput' ] ) ) {
+		if ( method_exists( $this, 'getOutput' ) ) {
 			$out = $this->getOutput();
 		}
 

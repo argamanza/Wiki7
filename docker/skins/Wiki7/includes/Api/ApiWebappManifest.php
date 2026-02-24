@@ -56,7 +56,7 @@ class ApiWebappManifest extends ApiBase {
 	 */
 	public function __construct(
 		ApiMain $main,
-		$moduleName
+		string $moduleName
 	) {
 		parent::__construct( $main, $moduleName );
 		$this->main = $main;
@@ -142,7 +142,7 @@ class ApiWebappManifest extends ApiBase {
 			if ( isset( $icon['src'] ) && !$this->isValidIconUrl( (string)$icon['src'] ) ) {
 				continue;
 			}
-			array_push( $icons, $icon );
+			$icons[] = $icon;
 		}
 		return $icons;
 	}

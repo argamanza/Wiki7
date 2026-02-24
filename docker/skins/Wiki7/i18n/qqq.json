@@ -38,6 +38,7 @@
 	"wiki7-footer-tagline": "Default text for the site footer tagline.",
 	"wiki7-action-addsection": "Used in the Wiki7 skin. See for example {{canonicalurl:Talk:Main_Page|useskin=vector}}\n{{Identical|Add topic}}. Same as vector-action-addsection in Vector skin.",
 	"wiki7-jumptotop": "Label for link to jump to top of page",
+	"wiki7-skip-to-content": "Label for the skip-to-content link used by keyboard and screen reader users to bypass navigation",
 	"wiki7-search-advancedsearch": "Label for AdvancedSearch button in search actions",
 	"wiki7-search-fulltext": "Label for fulltext button in search actions",
 	"wiki7-search-mediasearch": "Label for MediaSearch button in search actions",

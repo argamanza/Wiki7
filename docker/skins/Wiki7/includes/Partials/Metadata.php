@@ -34,12 +34,22 @@ final class Metadata extends Partial {
 	/**
 	 * Adds metadata to the output page
 	 */
-	public function addMetadata() {
+	public function addMetadata(): void {
 		// Theme color
 		$this->out->addMeta( 'theme-color', $this->getConfigValue( 'Wiki7ThemeColor' ) ?? '' );
 
 		// Generate webapp manifest
 		$this->addManifest();
+
+		// Add color-scheme meta tag for improved dark mode support (v3.5.0+)
+		$themeDefault = $this->getConfigValue( 'Wiki7ThemeDefault' ) ?? 'auto';
+		if ( $themeDefault === 'auto' ) {
+			$this->out->addMeta( 'color-scheme', 'light dark' );
+		} elseif ( $themeDefault === 'dark' ) {
+			$this->out->addMeta( 'color-scheme', 'dark light' );
+		} else {
+			$this->out->addMeta( 'color-scheme', 'light' );
+		}
 	}
 
 	/**
@@ -48,7 +58,7 @@ final class Metadata extends Partial {
 	 * * User has read access (i.e. not a private wiki)
 	 * Manifest link will be empty if wfExpandUrl throws an exception.
 	 */
-	private function addManifest() {
+	private function addManifest(): void {
 		if (
 			$this->getConfigValue( 'Wiki7EnableManifest' ) !== true ||
 			$this->getConfigValue( MainConfigNames::GroupPermissions )['*']['read'] !== true

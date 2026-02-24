@@ -42,7 +42,7 @@ final class Theme extends Partial {
 	 *
 	 * @param array &$options
 	 */
-	public function setSkinTheme( array &$options ) {
+	public function setSkinTheme( array &$options ): void {
 		$out = $this->out;
 
 		// Set theme to site theme
@@ -52,7 +52,7 @@ final class Theme extends Partial {
 		$out->addHtmlClasses( 'skin-wiki7-' . $theme );
 
 		// Add HTML class based on theme set
-		if ( CLIENTPREFS_THEME_MAP[ $theme ] ) {
+		if ( isset( CLIENTPREFS_THEME_MAP[ $theme ] ) ) {
 			$out->addHtmlClasses( 'skin-theme-clientpref-' . CLIENTPREFS_THEME_MAP[ $theme ] );
 		}
 	}

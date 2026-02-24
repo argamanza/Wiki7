@@ -1,4 +1,51 @@
 /**
+ * Lazy-load images that are below the fold using IntersectionObserver (v3.8.0+)
+ * This improves initial page load performance by deferring off-screen images
+ *
+ * @return {void}
+ */
+function initLazyLoading() {
+	// Skip if native lazy loading is sufficient or IntersectionObserver is unavailable
+	if ( !( 'IntersectionObserver' in window ) ) {
+		return;
+	}
+
+	const config = require( './config.json' );
+	if ( config.wgWiki7EnablePerformanceMode !== true ) {
+		return;
+	}
+
+	const lazyImages = document.querySelectorAll( '.mw-parser-output img[loading="lazy"]' );
+	if ( !lazyImages.length ) {
+		return;
+	}
+
+	const imageObserver = new IntersectionObserver( ( entries ) => {
+		entries.forEach( ( entry ) => {
+			if ( entry.isIntersecting ) {
+				const img = /** @type {HTMLImageElement} */ ( entry.target );
+				if ( img.dataset.src ) {
+					img.src = img.dataset.src;
+					delete img.dataset.src;
+				}
+				if ( img.dataset.srcset ) {
+					img.srcset = img.dataset.srcset;
+					delete img.dataset.srcset;
+				}
+				img.classList.remove( 'wiki7-lazy' );
+				imageObserver.unobserve( img );
+			}
+		} );
+	}, {
+		rootMargin: '200px 0px' // Start loading 200px before the image enters viewport
+	} );
+
+	lazyImages.forEach( ( img ) => {
+		imageObserver.observe( img );
+	} );
+}
+
+/**
  * @return {void}
  */
 function deferredTasks() {
@@ -9,6 +56,7 @@ function deferredTasks() {
 	setupObservers.main();
 	speculationRules.init();
 	registerServiceWorker();
+	initLazyLoading();
 
 	window.addEventListener( 'beforeunload', () => {
 		// Set up loading indicator
