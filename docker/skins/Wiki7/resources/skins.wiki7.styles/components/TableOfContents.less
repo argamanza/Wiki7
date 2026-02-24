@@ -11,13 +11,14 @@
 
 	&-contents,
 	&-list {
-		margin: 0 0 0 var( --space-xs );
+		margin: 0;
+		margin-inline-start: var( --space-xs );
 		list-style: none;
-		border-left: var( --border-width-thick ) solid var( --border-color-base );
+		border-inline-start: var( --border-width-thick ) solid var( --border-color-base );
 
 		.wiki7-toc-link {
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
+			border-start-start-radius: 0;
+			border-end-start-radius: 0;
 		}
 	}
 
@@ -39,7 +40,7 @@
 
 		&:has( + .wiki7-toc-toggle ) {
 			/* Make space for toggle */
-			margin-right: var( --wiki7-toc-toggle-size );
+			margin-inline-end: var( --wiki7-toc-toggle-size );
 		}
 
 		&:hover {
@@ -59,7 +60,7 @@
 	&-toggle {
 		position: absolute;
 		top: 0;
-		right: 0;
+		inset-inline-end: 0;
 		display: none;
 		width: var( --wiki7-toc-toggle-size );
 		height: var( --wiki7-toc-toggle-size );
@@ -71,11 +72,11 @@
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		left: 0;
+		inset-inline-start: 0;
 		flex-shrink: 0;
 		width: var( --border-width-thick );
 		margin-block: var( --space-xs );
-		margin-left: ~'calc( var( --border-width-thick ) * -1 )';
+		margin-inline-start: ~'calc( var( --border-width-thick ) * -1 )';
 	}
 
 	&-text {
@@ -215,7 +216,6 @@
 
 @media ( min-width: @min-width-breakpoint-desktop ) {
 	.wiki7-toc {
-		position: -webkit-sticky;
 		position: sticky;
 		top: var( --height-sticky-header );
 		max-height: ~'calc( 100vh - var( --height-sticky-header ) )';

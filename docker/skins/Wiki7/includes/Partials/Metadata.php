@@ -50,6 +50,40 @@ final class Metadata extends Partial {
 		} else {
 			$this->out->addMeta( 'color-scheme', 'light' );
 		}
+
+		// Add preload hints for critical resources (v3.13.0+)
+		$this->addPreloadHints();
+	}
+
+	/**
+	 * Adds <link rel="preload"> hints for critical fonts and styles
+	 * to improve initial page load performance.
+	 * Introduced in Wiki7 v3.13.0
+	 */
+	private function addPreloadHints(): void {
+		$skinPath = $this->out->getSkin()->getSkinName() === 'wiki7'
+			? $this->out->getConfig()->get( 'StylePath' ) . '/Wiki7'
+			: '';
+
+		if ( !$skinPath ) {
+			return;
+		}
+
+		// Preload the primary Latin font subset (most commonly needed)
+		$this->out->addLink( [
+			'rel' => 'preload',
+			'href' => $skinPath . '/resources/skins.wiki7.styles/fonts/RobotoFlex_latin.woff2',
+			'as' => 'font',
+			'type' => 'font/woff2',
+			'crossorigin' => 'anonymous',
+		] );
+
+		// Preload the main skin stylesheet for faster rendering
+		$this->out->addLink( [
+			'rel' => 'preload',
+			'href' => $skinPath . '/resources/skins.wiki7.styles/skin.less',
+			'as' => 'style',
+		] );
 	}
 
 	/**

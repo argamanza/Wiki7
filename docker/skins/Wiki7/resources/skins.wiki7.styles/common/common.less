@@ -112,7 +112,7 @@ td {
 .wiki7-skip-link {
 	position: absolute;
 	top: -100%;
-	left: 0;
+	inset-inline-start: 0;
 	z-index: 1000;
 	padding: var( --space-xs ) var( --space-md );
 	font-size: var( --font-size-small );
@@ -147,6 +147,7 @@ td {
 /*
  * Content
 */
+/* @noflip */
 .mw-body,
 .parsoid-body {
 	direction: ltr;
@@ -190,5 +191,103 @@ video {
 	.parsoid-body {
 		overflow-x: hidden; // fallback if clip is not supported
 		overflow-x: clip; // avoid breaking layout in smaller screen sizes
+	}
+}
+
+/* Accessibility: Focus-visible styles for all interactive elements (WCAG 2.1 AA) (v3.13.0+) */
+:focus-visible {
+	outline: 2px solid var( --color-progressive );
+	outline-offset: 2px;
+}
+
+/* Remove focus ring for mouse/pointer interactions */
+:focus:not( :focus-visible ) {
+	outline: none;
+}
+
+/* Ensure buttons, links, and form elements have visible focus indicators */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+	outline: 2px solid var( --color-progressive );
+	outline-offset: 2px;
+	border-radius: var( --border-radius-base );
+}
+
+/* Accessibility: Reduced motion for users who prefer it (WCAG 2.1 AA) (v3.13.0+) */
+@media ( prefers-reduced-motion: reduce ) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.wiki7-header,
+	.wiki7-page-header,
+	.wiki7-toc,
+	.wiki7-menu__card,
+	.wiki7-dropdown .wiki7-menu__card {
+		backdrop-filter: none !important;
+	}
+
+	@supports ( view-transition-name: none ) {
+		@view-transition {
+			navigation: none;
+		}
+	}
+}
+
+/* Accessibility: High contrast mode styles (WCAG 2.1 AA) (v3.13.0+) */
+@media ( prefers-contrast: more ) {
+	:root {
+		/* Increase border visibility */
+		--border-color-base: rgba( 0, 0, 0, 0.25 );
+		--border-color-subtle: rgba( 0, 0, 0, 0.15 );
+		--border-color-interactive: rgba( 0, 0, 0, 0.4 );
+		--border-width-base: 2px;
+
+		/* Increase text contrast */
+		--color-base-oklch__l: 12%;
+		--color-subtle-oklch__l: 25%;
+		--color-placeholder-oklch__l: 30%;
+
+		/* Stronger focus indicators */
+		--opacity-icon-base: 0.8;
+		--opacity-icon-base--hover: 0.9;
+	}
+
+	/* Ensure links are clearly distinguishable */
+	a {
+		text-decoration: underline;
+	}
+
+	/* Stronger focus styles in high contrast */
+	:focus-visible {
+		outline-width: 3px;
+		outline-offset: 3px;
+	}
+
+	/* Ensure form inputs have visible borders */
+	input,
+	select,
+	textarea {
+		border-width: 2px;
+	}
+
+	/* Dark theme high contrast adjustments */
+	.skin-theme-clientpref-night& {
+		--border-color-base: rgba( 255, 255, 255, 0.3 );
+		--border-color-subtle: rgba( 255, 255, 255, 0.2 );
+		--border-color-interactive: rgba( 255, 255, 255, 0.5 );
+		--color-base-oklch__l: 88%;
+		--color-subtle-oklch__l: 78%;
+		--color-placeholder-oklch__l: 68%;
 	}
 }
