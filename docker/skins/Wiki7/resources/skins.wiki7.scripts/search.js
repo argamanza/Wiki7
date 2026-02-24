@@ -161,8 +161,7 @@ function renderSearchClearButton( input ) {
 	let hasClearButton = false;
 
 	clearButton.classList.add( 'wiki7-search__clear', 'wiki7-search__formButton' );
-	// TODO: Add i18n for the message below
-	// clearButton.setAttribute( 'aria-label', 'Clear search input' );
+	clearButton.setAttribute( 'aria-label', mw.msg( 'wiki7-search-clear' ) );
 	clearIcon.classList.add( 'wiki7-ui-icon', 'mw-ui-icon-wikimedia-trash' );
 	clearButton.append( clearIcon );
 
