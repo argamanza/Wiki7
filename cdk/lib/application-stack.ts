@@ -54,13 +54,7 @@ export class ApplicationStack extends Construct {
       bucketName: `wiki7-storage`,
       encryption: s3.BucketEncryption.S3_MANAGED,
       // When using CloudFront with OAC, you should block all public access
-      blockPublicAccess: new s3.BlockPublicAccess({
-        blockPublicAcls: false,       // Allow public ACLs
-        blockPublicPolicy: false,      // Allow public policies 
-        ignorePublicAcls: false,       // Honor public ACLs
-        restrictPublicBuckets: false   // Do not restrict public buckets
-      }),
-      objectOwnership: s3.ObjectOwnership.OBJECT_WRITER, // Allow ACLs
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       versioned: true,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
       cors: [
@@ -73,7 +67,7 @@ export class ApplicationStack extends Construct {
             `https://${domainName}`, 
             `https://www.${domainName}`
           ], // Restrict to your domains
-          allowedHeaders: ['*'],
+          allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length'],
           maxAge: 3000,
         },
       ],
@@ -228,7 +222,7 @@ export class ApplicationStack extends Construct {
       cluster,
       taskDefinition,
       desiredCount: 1,
-      assignPublicIp: true,
+      assignPublicIp: false,
       securityGroups: [mediawikiSecurityGroup],
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });

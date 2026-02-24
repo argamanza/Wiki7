@@ -25,7 +25,7 @@ export class CloudFrontConstruct extends Construct {
 
     // ALB Origin
     const albOrigin = new origins.LoadBalancerV2Origin(alb, {
-      protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
+      protocolPolicy: cloudfront.OriginProtocolPolicy.HTTPS_ONLY,
     });
 
     // S3 Origin with OAC - using correct props

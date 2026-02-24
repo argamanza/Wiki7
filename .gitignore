@@ -3,3 +3,4 @@
 
 /docker/images/*
 __pycache__/
+.env

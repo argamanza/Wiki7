@@ -72,14 +72,18 @@ function searchResults() {
 			return html;
 		},
 		highlightTitle: function ( title, match ) {
+			const escapeHtml = ( str ) => str.replace( /[&<>"']/g, ( ch ) => ( {
+				'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#039;'
+			} )[ ch ] );
+			const safeTitle = escapeHtml( title );
 			if ( !match ) {
-				return title;
+				return safeTitle;
 			}
 			if ( !regexCache[ match ] ) {
 				regexCache[ match ] = new RegExp( mw.util.escapeRegExp( match ), 'i' );
 			}
 			const regex = regexCache[ match ];
-			return title.replace( regex, '<span class="wiki7-typeahead__highlight">$&</span>' );
+			return safeTitle.replace( regex, '<span class="wiki7-typeahead__highlight">$&</span>' );
 		},
 		getPlaceholderHTML: function ( queryValue, templates ) {
 			const data = {
