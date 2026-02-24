@@ -43,7 +43,7 @@ export class CrossRegionSsmSync extends Construct {
                 PARAMETER_NAME: props.parameterName,
             },
             role: syncRole,
-            timeout: cdk.Duration.seconds(30),
+            timeout: cdk.Duration.seconds(60),
         });
 
         new cr.AwsCustomResource(this, 'InvokeSSMSyncLambda', {
