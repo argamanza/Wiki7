@@ -6,9 +6,9 @@ A structured plan for building the Hapoel Beer Sheva fan wiki on MediaWiki with 
 
 ## Technical Stack
 
-- **MediaWiki 1.43.1** — content engine
+- **MediaWiki 1.45.1** — content engine
 - **Wiki7 skin** — custom skin based on Citizen v3.1.0
-- **MariaDB 10.5** — database (MySQL-compatible)
+- **MariaDB 11.4** — database (MySQL-compatible)
 - **Docker** — containerized development and production environments
 - **AWS CDK** — infrastructure as code (TypeScript)
 - **ECS Fargate** — container orchestration (planned migration to EC2)
@@ -85,4 +85,4 @@ The site is live at wiki7.co.il but content is sparse. The data pipeline (Scrapy
 2. Optimize AWS costs (remove NAT Gateway, consider EC2 over Fargate)
 3. Set up GitHub Actions CI/CD
 4. Build data import pipeline
-5. Upgrade MariaDB 10.5 (approaching EOL) to 11.4+ LTS
+5. Upgrade MariaDB 11.4 (approaching EOL) to 11.4+ LTS

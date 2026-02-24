@@ -4,7 +4,7 @@
 
 Wiki7 is a custom MediaWiki skin based on **Citizen v3.1.0**, built for the Hapoel Beer Sheva FC fan wiki at wiki7.co.il. It is a responsive, mobile-friendly skin that extends Citizen with custom branding, Hebrew RTL support, and team-specific features.
 
-- **MediaWiki requirement:** >= 1.43.0
+- **MediaWiki requirement:** >= 1.45.0
 - **License:** GPL-3.0-or-later
 - **Skin class:** `MediaWiki\Skins\Wiki7\SkinWiki7` (extends `SkinMustache`)
 - **Config prefix:** `wgWiki7` (all configuration keys are prefixed with this)

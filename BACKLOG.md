@@ -11,9 +11,9 @@ Categorized list of known issues, improvements, and planned work.
 - [ ] Fix ineffective debounce in typeahead
 - [ ] Add i18n for clear button aria-label
 - [ ] Bound unbounded regex cache in searchResults.js
-- [ ] Fix echo.js — use MW 1.43 hook, add MutationObserver disconnect
+- [ ] Fix echo.js — use MW 1.45 hook, add MutationObserver disconnect
 - [ ] Fix resizeObserver.js global variable collision
-- [ ] Migrate preferences to clientprefs on MW 1.43
+- [ ] Migrate preferences to clientprefs on MW 1.45
 - [ ] Add aria-expanded to all details/summary elements
 - [ ] Add aria-labels to icon-only buttons
 - [ ] Fix RTL direction locks in Footer/Common
@@ -52,10 +52,10 @@ Categorized list of known issues, improvements, and planned work.
 ## Upgrades
 
 - [ ] Upgrade Wiki7 skin: sync with Citizen v3.1.0 → v3.13.0
-- [ ] Upgrade MediaWiki: 1.43.1 → 1.45.1
-- [ ] Upgrade MariaDB: 10.5 (EOL) → 11.4+ LTS
-- [ ] Upgrade CDK from 2.193.0 to latest 2.x
-- [ ] Update Python dependencies
+- [x] Upgrade MediaWiki: 1.43.1 → 1.45.1 (codebase prepared)
+- [x] Upgrade MariaDB: 10.5 (EOL) → 11.4 LTS
+- [x] Upgrade CDK from 2.193.0 to latest 2.x
+- [x] Update Python dependencies
 
 ## Documentation
 

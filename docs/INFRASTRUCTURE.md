@@ -44,7 +44,7 @@ The CDK project lives at `cdk/` in the repository root.
                   ┌──────▼──────┐
                   │  RDS MariaDB │
                   │  db.t3.micro │
-                  │  (10.5)      │
+                  │  (11.4)      │
                   └──────────────┘
 
          ┌──────────────────────────────────┐
@@ -146,7 +146,7 @@ The main stack that composes all il-central-1 resources. Reads SSM parameters fo
 **File:** `cdk/lib/database-stack.ts`
 
 **Resources:**
-- RDS MariaDB 10.5 instance (`db.t3.micro`)
+- RDS MariaDB 11.4 instance (`db.t3.micro`)
   - 20 GB allocated, 100 GB max auto-scaling
   - Private subnet, not publicly accessible
   - Encrypted storage, deletion protection enabled

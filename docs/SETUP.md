@@ -71,14 +71,14 @@ When you run `docker compose up -d` from the `docker/` directory, three containe
 │  http://localhost:8080 ──► mediawiki container (Apache+PHP)  │
 │  http://localhost:8081 ──► adminer container (DB admin UI)   │
 │                                                              │
-│  mediawiki ──► db container (MariaDB 10.5, port 3306)        │
+│  mediawiki ──► db container (MariaDB 11.4, port 3306)        │
 └──────────────────────────────────────────────────────────────┘
 ```
 
 | Container | Image | Port | Description |
 |-----------|-------|------|-------------|
 | `mediawiki` | Custom (built from `docker/Dockerfile`) | 8080 -> 80 | MediaWiki with the Wiki7 skin, PHP, and Apache |
-| `db` | `mariadb:10.5` | 3306 (internal only) | MariaDB database for all wiki data |
+| `db` | `mariadb:11.4` | 3306 (internal only) | MariaDB database for all wiki data |
 | `adminer` | `adminer` | 8081 -> 8080 | Lightweight database management UI |
 
 ### Volumes

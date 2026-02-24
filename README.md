@@ -25,9 +25,9 @@ cd docker && docker compose up -d
 
 ## Tech Stack
 
-- **MediaWiki 1.43.1** — wiki engine
+- **MediaWiki 1.45.1** — wiki engine
 - **Wiki7 skin** — custom skin based on Citizen v3.1.0
-- **MariaDB 10.5** — database
+- **MariaDB 11.4** — database
 - **Docker** — local development and production image
 - **AWS CDK** — infrastructure as code
 - **Scrapy** — data pipeline for Transfermarkt scraping

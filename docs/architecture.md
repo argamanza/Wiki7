@@ -7,7 +7,7 @@ This document describes the actual architecture of the Wiki7 project in both loc
 Docker Compose runs three containers:
 
 1. **MediaWiki (Apache + PHP)** — the wiki application with the Wiki7 skin and extensions
-2. **MariaDB 10.5** — database
+2. **MariaDB 11.4** — database
 3. **Adminer** — database admin UI (development only)
 
 ```
@@ -22,7 +22,7 @@ Docker Compose runs three containers:
 │         │                   │                │
 │         ▼                   ▼                │
 │  ┌─────────────────────────────────┐         │
-│  │         MariaDB 10.5           │         │
+│  │         MariaDB 11.4           │         │
 │  │         :3306                  │         │
 │  └─────────────────────────────────┘         │
 └──────────────────────────────────────────────┘
