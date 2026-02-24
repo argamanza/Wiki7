@@ -13,6 +13,7 @@ class OverflowElement {
 		this.contentScrollLeft = 0;
 		this.contentWidth = 0;
 		this.onScroll = mw.util.throttle( this.onScroll.bind( this ), 250 );
+		this.onClick = this.onClick.bind( this );
 		this.updateState = this.updateState.bind( this );
 		this.headerToSticky = this.element.querySelector( '.wiki7-overflow-sticky-header' );
 	}
@@ -312,7 +313,7 @@ class OverflowElement {
 		this.content.addEventListener( 'scroll', this.onScroll );
 		this.resizeObserver.observe( this.element );
 		if ( this.isPointerDevice ) {
-			this.nav.addEventListener( 'click', this.onClick.bind( this ) );
+			this.nav.addEventListener( 'click', this.onClick );
 		}
 	}
 
