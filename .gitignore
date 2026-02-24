@@ -4,3 +4,28 @@
 /docker/images/*
 __pycache__/
 .env
+
+# Dependencies
+node_modules/
+
+# Build output
+*.pyc
+*.pyo
+vendor/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Data pipeline output
+data/output/
