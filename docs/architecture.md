@@ -1,216 +1,116 @@
 # Wiki7 Architecture
 
-This document outlines the architecture and infrastructure design for the Wiki7 project.
+This document describes the actual architecture of the Wiki7 project in both local development and production environments.
 
-## System Overview
+## Local Development
 
-Wiki7 is built on MediaWiki with custom extensions and skins, deployed on AWS using containerization and managed services. The architecture focuses on scalability, reliability, security, and ease of maintenance.
+Docker Compose runs three containers:
 
-## Infrastructure Components
-
-### AWS Services
-
-The infrastructure leverages the following AWS services:
-
-1. **Amazon ECS (Elastic Container Service)**
-   - Container orchestration for MediaWiki application
-   - Managed Fargate compute for serverless container deployment
-   - Auto-scaling based on demand
-
-2. **Amazon RDS (Relational Database Service)**
-   - MySQL database for MediaWiki
-   - Multi-AZ deployment for high availability
-   - Automated backups and maintenance
-
-3. **Amazon S3 (Simple Storage Service)**
-   - Storage for wiki media files (images, videos, documents)
-   - Version control of uploaded media
-   - Integration with CloudFront for delivery
-
-4. **Amazon CloudFront**
-   - Content Delivery Network for static assets
-   - Edge caching to improve global performance
-   - HTTPS termination and SSL management
-
-5. **AWS WAF (Web Application Firewall)**
-   - Protection against common web exploits
-   - Rate limiting to prevent abuse
-   - Custom security rules
-
-6. **AWS Route 53**
-   - DNS management
-   - Health checks and failover routing
-   - Domain registration and management
-
-7. **AWS CodePipeline**
-   - CI/CD pipeline automation
-   - Source integration with GitHub
-   - Build and deployment stages
-
-8. **AWS Secrets Manager**
-   - Secure storage of credentials and secrets
-   - Rotation of database credentials
-   - Integration with ECS for secure access
-
-9. **AWS CloudWatch**
-   - Monitoring and logging
-   - Alerts and notifications
-   - Dashboard for system health
-
-### Containerization
-
-Docker is used for containerization with the following components:
-
-1. **MediaWiki Container**
-   - Core MediaWiki application
-   - Custom extensions and skins
-   - PHP-FPM for processing
-
-2. **Nginx Container**
-   - Web server for serving MediaWiki
-   - SSL termination (if not using CloudFront)
-   - Static file serving
-
-3. **Sidecar Containers** (as needed)
-   - For specific tasks like cron jobs
-   - Maintenance scripts
-   - Utility functions
-
-## Network Architecture
+1. **MediaWiki (Apache + PHP)** — the wiki application with the Wiki7 skin and extensions
+2. **MariaDB 10.5** — database
+3. **Adminer** — database admin UI (development only)
 
 ```
-                                   ┌─────────────────┐
-                                   │                 │
-                                   │  Route 53 DNS   │
-                                   │                 │
-                                   └────────┬────────┘
-                                            │
-                                            ▼
-┌─────────────────┐             ┌─────────────────┐
-│                 │             │                 │
-│   CloudFront    │◄────────────│      WAF        │
-│                 │             │                 │
-└────────┬────────┘             └────────┬────────┘
-         │                               │
-         │                               │
-         ▼                               ▼
-┌─────────────────┐             ┌─────────────────┐
-│                 │             │                 │
-│   S3 Bucket     │             │ Load Balancer   │
-│  (Media Files)  │             │                 │
-│                 │             └────────┬────────┘
-└─────────────────┘                      │
-                                         │
-                                         ▼
-                                ┌─────────────────┐
-                                │                 │
-                                │   ECS Fargate   │
-                                │   (MediaWiki)   │
-                                │                 │
-                                └────────┬────────┘
-                                         │
-                                         ▼
-                                ┌─────────────────┐
-                                │                 │
-                                │   Amazon RDS    │
-                                │    (MySQL)      │
-                                │                 │
-                                └─────────────────┘
+┌──────────────────────────────────────────────┐
+│              Docker Compose                  │
+│                                              │
+│  ┌──────────────┐    ┌──────────────┐        │
+│  │  MediaWiki   │    │   Adminer    │        │
+│  │  (Apache)    │    │  :8081       │        │
+│  │  :8080       │    └──────┬───────┘        │
+│  └──────┬───────┘           │                │
+│         │                   │                │
+│         ▼                   ▼                │
+│  ┌─────────────────────────────────┐         │
+│  │         MariaDB 10.5           │         │
+│  │         :3306                  │         │
+│  └─────────────────────────────────┘         │
+└──────────────────────────────────────────────┘
 ```
+
+Configuration is managed through `.env` files (not AWS Secrets Manager). See `docker/.env.example` for required variables.
+
+## Production (AWS via CDK)
+
+The production environment is defined in CDK stacks under `cdk/`. The current architecture:
+
+```
+         ┌─────────────────┐
+         │   Route 53      │
+         │  wiki7.co.il    │
+         └────────┬────────┘
+                  │
+                  ▼
+         ┌─────────────────┐
+         │   CloudFront    │
+         │   (CDN + SSL)   │
+         └───────┬─┬───────┘
+                 │ │
+          ┌──────┘ └──────┐
+          ▼               ▼
+  ┌──────────────┐ ┌─────────────────┐
+  │   S3 Bucket  │ │      WAF        │
+  │ (Media Files)│ └────────┬────────┘
+  └──────────────┘          │
+                            ▼
+                   ┌─────────────────┐
+                   │      ALB        │
+                   │ (Load Balancer) │
+                   └────────┬────────┘
+                            │
+                            ▼
+                   ┌─────────────────┐
+                   │  ECS Fargate    │
+                   │  (MediaWiki     │
+                   │   + Apache)     │
+                   └────────┬────────┘
+                            │
+                            ▼
+                   ┌─────────────────┐
+                   │   RDS MariaDB   │
+                   └─────────────────┘
+```
+
+### AWS Services Used
+
+- **Route 53** — DNS for wiki7.co.il
+- **CloudFront** — CDN, SSL termination, caching
+- **WAF** — web application firewall (rate limiting, common exploit protection)
+- **ALB** — application load balancer routing to ECS
+- **ECS Fargate** — runs the MediaWiki container (Apache + PHP)
+- **RDS MariaDB** — managed database
+- **S3** — media file storage
+- **CloudWatch** — logging (alarms not yet configured)
+
+### What Does NOT Exist
+
+- **No CI/CD pipeline** — there is no CodePipeline, CodeBuild, or GitHub Actions. Deployments are manual via `cdk deploy`. GitHub Actions CI/CD is planned.
+- **No Secrets Manager** — secrets are in `.env` files
+- **No Nginx** — MediaWiki runs on Apache
+- **No Multi-AZ** — RDS is single-AZ to reduce cost
+- **No ElastiCache** — no caching layer beyond CloudFront
+- **No NAT Gateway** currently planned for removal (cost optimization)
 
 ## Data Flow
 
-1. **User Request Flow**
-   - User request → CloudFront → WAF → Load Balancer → ECS (MediaWiki) → RDS
-   - Media requests → CloudFront → S3
+1. **User requests** — User -> CloudFront -> WAF -> ALB -> ECS (MediaWiki/Apache) -> RDS MariaDB
+2. **Media requests** — User -> CloudFront -> S3
+3. **Deployments** — Manual: build Docker image, push to ECR, run `cdk deploy`
 
-2. **Content Creation Flow**
-   - Admin/Editor creates content → ECS (MediaWiki) → RDS
-   - Media uploads → ECS → S3 → CloudFront (for delivery)
+## Security
 
-3. **Deployment Flow**
-   - Code push → GitHub → CodePipeline → Build → Test → Deploy to ECS
-
-## Security Considerations
-
-1. **Network Security**
-   - Private subnets for database and application tiers
-   - Security groups with least privilege access
-   - VPC endpoints for AWS services
-
-2. **Application Security**
-   - HTTPS everywhere
-   - WAF protection
-   - Regular security updates
-   - Input validation and sanitization
-
-3. **Data Security**
-   - Encryption at rest for RDS and S3
-   - Encryption in transit (HTTPS)
-   - Database backups
-   - Access control for S3 objects
-
-## Scalability and High Availability
-
-1. **Scalability**
-   - ECS auto-scaling based on CPU/memory usage
-   - RDS instance scaling (vertical) as needed
-   - CloudFront for edge caching
-
-2. **High Availability**
-   - Multi-AZ deployment for RDS
-   - ECS tasks across multiple availability zones
-   - CloudFront global edge locations
-
-## Monitoring and Logging
-
-1. **CloudWatch**
-   - Custom metrics for MediaWiki performance
-   - Logs for ECS, RDS, and other services
-   - Alarms for critical thresholds
-
-2. **Application Logging**
-   - MediaWiki logs to CloudWatch
-   - Error tracking and reporting
-   - User activity auditing
-
-## Disaster Recovery
-
-1. **Backup Strategy**
-   - Automated RDS backups
-   - S3 versioning for media files
-   - Configuration backups via CodePipeline
-
-2. **Recovery Procedures**
-   - RDS point-in-time recovery
-   - ECS task replacement
-   - Infrastructure recreation via CloudFormation/CDK
+- Private subnets for RDS
+- Security groups with restricted access
+- HTTPS via CloudFront (ACM certificate)
+- WAF rules for rate limiting and common exploits
+- Database credentials in `.env` (migration to Secrets Manager is a backlog item)
+- Content Security Policy header not yet configured (backlog item)
 
 ## Cost Optimization
 
-1. **Resource Sizing**
-   - Right-sized ECS tasks
-   - RDS instance type selection
-   - Auto-scaling for demand
+The current architecture is more expensive than necessary for a personal project. An optimization plan exists (see `docs/plan.md`) targeting ~$16-20/month by:
 
-2. **Storage Optimization**
-   - S3 lifecycle policies
-   - RDS storage optimization
-   - CloudFront caching policies
-
-## Future Considerations
-
-1. **Caching Layer**
-   - ElastiCache for database query caching
-   - Enhanced CloudFront configurations
-
-2. **Content Search**
-   - Amazon OpenSearch Service for enhanced wiki search
-
-3. **Localization**
-   - Support for multiple languages
-   - Region-specific content delivery
-
-4. **Analytics**
-   - Integration with AWS analytics services
-   - User behavior tracking and analysis
+- Removing the NAT Gateway (~$35/mo savings)
+- Removing the ALB in favor of CloudFront VPC origins
+- Replacing ECS Fargate with EC2 (t4g.small)
+- Making RDS optional (local MariaDB with S3 backups)
