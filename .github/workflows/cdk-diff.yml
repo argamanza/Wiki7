@@ -1,0 +1,24 @@
+name: CDK Diff
+
+on:
+  pull_request:
+    paths:
+      - 'cdk/**'
+
+jobs:
+  cdk-diff:
+    name: CDK Diff
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: cd cdk && npm ci
+      - name: CDK Synth
+        run: cd cdk && npx cdk synth --quiet
+      - name: CDK Diff
+        run: cd cdk && npx cdk diff --no-color 2>&1 || true
+        env:
+          AWS_DEFAULT_REGION: il-central-1
