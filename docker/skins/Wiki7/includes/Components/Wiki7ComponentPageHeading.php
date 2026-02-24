@@ -76,19 +76,25 @@ class Wiki7ComponentPageHeading implements Wiki7Component {
 			$msgGender = '♀';
 		}
 		if ( isset( $msgGender ) ) {
-			$tagline .= "<span id=\"wiki7-tagline-user-gender\" data-user-gender=\"$gender\">$msgGender</span>";
+			$safeGender = htmlspecialchars( $gender, ENT_QUOTES, 'UTF-8' );
+			$safeMsgGender = htmlspecialchars( $msgGender, ENT_QUOTES, 'UTF-8' );
+			$tagline .= "<span id=\"wiki7-tagline-user-gender\" data-user-gender=\"$safeGender\">$safeMsgGender</span>";
 		}
 
 		if ( $editCount ) {
 			$msgEditCount = $localizer->msg( 'usereditcount' )->numParams( sprintf( '%s', number_format( $editCount, 0 ) ) );
-			$editCountHref = SkinComponentUtils::makeSpecialUrlSubpage( 'Contributions', $user );
-			$tagline .= "<span id=\"wiki7-tagline-user-editcount\" data-user-editcount=\"$editCount\"><a href=\"$editCountHref\">$msgEditCount</a></span>";
+			$editCountHref = htmlspecialchars( SkinComponentUtils::makeSpecialUrlSubpage( 'Contributions', $user ), ENT_QUOTES, 'UTF-8' );
+			$safeMsgEditCount = htmlspecialchars( (string)$msgEditCount, ENT_QUOTES, 'UTF-8' );
+			$safeEditCount = htmlspecialchars( (string)$editCount, ENT_QUOTES, 'UTF-8' );
+			$tagline .= "<span id=\"wiki7-tagline-user-editcount\" data-user-editcount=\"$safeEditCount\"><a href=\"$editCountHref\">$safeMsgEditCount</a></span>";
 		}
 
 		if ( is_string( $regDate ) ) {
 			$regDateTs = wfTimestamp( TS_UNIX, $regDate );
 			$msgRegDate = $localizer->msg( 'wiki7-tagline-user-regdate', $this->pageLang->userDate( new MWTimestamp( $regDate ), $user ) );
-			$tagline .= "<span id=\"wiki7-tagline-user-regdate\" data-user-regdate=\"$regDateTs\">$msgRegDate</span>";
+			$safeRegDateTs = htmlspecialchars( (string)$regDateTs, ENT_QUOTES, 'UTF-8' );
+			$safeMsgRegDate = htmlspecialchars( (string)$msgRegDate, ENT_QUOTES, 'UTF-8' );
+			$tagline .= "<span id=\"wiki7-tagline-user-regdate\" data-user-regdate=\"$safeRegDateTs\">$safeMsgRegDate</span>";
 		}
 
 		$tagline .= '</div>';

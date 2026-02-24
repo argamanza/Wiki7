@@ -31,15 +31,29 @@ export class NetworkStack extends Construct {
     this.mediawikiSecurityGroup = new ec2.SecurityGroup(this, 'MediaWikiSecurityGroup', {
       vpc: this.vpc,
       description: 'Allow inbound traffic from ALB to MediaWiki containers',
-      allowAllOutbound: true,
+      allowAllOutbound: false,
     });
+
+    // Allow HTTPS outbound (package repos, external APIs, S3)
+    this.mediawikiSecurityGroup.addEgressRule(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(443),
+      'Allow HTTPS outbound for package repos, external APIs, and S3'
+    );
 
     // Database security group
     this.databaseSecurityGroup = new ec2.SecurityGroup(this, 'Wiki7DatabaseSecurityGroup', {
       vpc: this.vpc,
       description: 'Allow ECS containers to connect to MariaDB',
-      allowAllOutbound: true,
+      allowAllOutbound: false,
     });
+
+    // Allow MariaDB outbound from MediaWiki to database security group
+    this.mediawikiSecurityGroup.addEgressRule(
+      this.databaseSecurityGroup,
+      ec2.Port.tcp(3306),
+      'Allow MariaDB outbound to database'
+    );
 
     // Allow MediaWiki ECS service to connect to RDS
     this.databaseSecurityGroup.addIngressRule(

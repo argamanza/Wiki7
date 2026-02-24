@@ -94,14 +94,17 @@ class Wiki7ComponentUserInfo implements Wiki7Component {
 		$userPageData = $this->userPageData;
 
 		$htmlItems = $userPageData['html-items'];
-		$realname = htmlspecialchars( $user->getRealName(), ENT_QUOTES );
+		$realname = htmlspecialchars( $user->getRealName(), ENT_QUOTES, 'UTF-8' );
 		if ( $realname !== '' ) {
-			$username = htmlspecialchars( $user->getName(), ENT_QUOTES );
+			$username = htmlspecialchars( $user->getName(), ENT_QUOTES, 'UTF-8' );
 			$innerHtml = <<<HTML
 				<span id="pt-userpage-realname">$realname</span>
 				<span id="pt-userpage-username">$username</span>
 			HTML;
-			// Dirty but it works
+			// FIXME: Using str_replace on rendered HTML is fragile and could match unintended
+			// content if the username appears elsewhere in the HTML string. This should be
+			// replaced with proper DOM manipulation (e.g. DOMDocument) to safely target only
+			// the intended text node within the user page link element.
 			$htmlItems = str_replace(
 				">" . $username . "<",
 				">" . $innerHtml . "<",

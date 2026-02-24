@@ -489,6 +489,10 @@ class SkinHooks implements
 			$icon = $item['icon'] ?? '';
 
 			if ( $icon ) {
+				// Validate icon name to prevent CSS class injection
+				if ( !preg_match( '/^[a-zA-Z0-9\-_]+$/', $icon ) ) {
+					continue;
+				}
 				// Html::makeLink will pass this through rawElement
 				// Avoid using mw-ui-icon in case its styles get loaded
 				// Sometimes extension includes the "wikimedia-" part in the icon key (e.g. ULS),

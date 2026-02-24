@@ -7,12 +7,16 @@ services:
       - ./images:/var/www/html/images
       - ./assets:/var/www/html/assets
       - ./skins:/var/www/html/skins
+    env_file:
+      - ../.env
     environment:
       - MEDIAWIKI_DB_TYPE=mysql
       - MEDIAWIKI_DB_HOST=db
       - MEDIAWIKI_DB_USER=wikiuser
       - MEDIAWIKI_DB_PASSWORD=${MEDIAWIKI_DB_PASSWORD}
       - MEDIAWIKI_DB_NAME=wikidb
+      - WG_SECRET_KEY=${WG_SECRET_KEY}
+      - WG_UPGRADE_KEY=${WG_UPGRADE_KEY}
       - WIKI_ENV=dev
     depends_on:
       - db

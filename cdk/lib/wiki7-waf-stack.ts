@@ -245,7 +245,7 @@ export class Wiki7WafStack extends cdk.Stack {
     // Create the log group
     const wafLogGroup = new logs.LogGroup(this, 'WafLogGroup', {
       logGroupName: 'aws-waf-logs-wiki7',
-      retention: logs.RetentionDays.ONE_WEEK,
+      retention: logs.RetentionDays.THREE_MONTHS,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 

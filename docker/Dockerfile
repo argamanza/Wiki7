@@ -1,4 +1,4 @@
-FROM mediawiki:1.43
+FROM mediawiki:1.43.1
 
 # Install tools for image handling and extensions
 RUN apt-get update && apt-get install -y \

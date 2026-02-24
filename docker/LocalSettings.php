@@ -121,7 +121,7 @@ $wgLogos = [
 ##
 ## Monitoring
 ##
-$wgPingback = true; // Help MediaWiki devs by sending anonymous usage stats
+$wgPingback = false; // Disabled for privacy
 
 ##
 ## Environment-specific settings
@@ -143,7 +143,7 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     $wgEnableParserCache = true; // Enable parsed output cache
     $wgMainCacheType = CACHE_ACCEL; // Use object cache
     $wgParserCacheType = CACHE_ACCEL;
-    $wgCacheDirectory = "/tmp"; // Use local tmp dir for cache if needed
+    $wgCacheDirectory = "$IP/cache"; // Use MediaWiki cache dir
     
     // Resource paths
     $wgLoadScript = 'https://wiki7.co.il/load.php';
