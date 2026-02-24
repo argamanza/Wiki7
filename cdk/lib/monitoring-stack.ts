@@ -7,6 +7,7 @@ import * as cloudwatchActions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as autoscaling from 'aws-cdk-lib/aws-autoscaling';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as budgets from 'aws-cdk-lib/aws-budgets';
+import * as ce from 'aws-cdk-lib/aws-ce';
 
 export interface MonitoringStackProps {
   /** Email address for alert notifications */
@@ -172,6 +173,33 @@ export class MonitoringStack extends Construct {
           ],
         },
       ],
+    });
+
+    // AWS Cost Anomaly Detection (free service)
+    // Monitors for unexpected cost spikes using machine learning
+    const anomalyMonitor = new ce.CfnAnomalyMonitor(this, 'Wiki7CostAnomalyMonitor', {
+      monitorName: 'wiki7-cost-anomaly-monitor',
+      monitorType: 'DIMENSIONAL',
+      monitorDimension: 'SERVICE',
+    });
+
+    new ce.CfnAnomalySubscription(this, 'Wiki7CostAnomalySubscription', {
+      subscriptionName: 'wiki7-cost-anomaly-alerts',
+      monitorArnList: [anomalyMonitor.attrMonitorArn],
+      subscribers: [
+        {
+          type: 'EMAIL',
+          address: alertEmail,
+        },
+      ],
+      frequency: 'DAILY',
+      thresholdExpression: JSON.stringify({
+        Dimensions: {
+          Key: 'ANOMALY_TOTAL_IMPACT_ABSOLUTE',
+          Values: ['5'],
+          MatchOptions: ['GREATER_THAN_OR_EQUAL'],
+        },
+      }),
     });
 
     // Tags
