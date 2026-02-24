@@ -71,8 +71,12 @@
 	"wiki7-feature-custom-width-full-label": "מלא",
 	"wiki7-user-info-text-anon": "כתובת ה־IP שלך תהיה גלויה לציבור אם תעשה עריכות כלשהן.",
 	"wiki7-user-info-text-temp": "החשבון החולף הזה נוצר לאחר שנעשתה עריכה ללא חשבון בדפדפן ובמכשיר הזה.",
+	"wiki7-tagline": "-",
 	"wiki7-command-palette-heading-recent": "אחרונים",
+	"wiki7-command-palette-heading-related": "קשורים",
 	"wiki7-command-palette-keyhint-enter-select": "בחירה",
+	"wiki7-command-palette-keyhint-enter-open": "פתיחה",
+	"wiki7-command-palette-keyhint-enter-search": "חיפוש",
 	"wiki7-command-palette-keyhint-navigate": "נווט",
 	"wiki7-command-palette-keyhint-exit": "יציאה",
 	"wiki7-command-palette-keyhint-actions": "פעולות",
@@ -80,5 +84,12 @@
 	"wiki7-command-palette-type-page": "דף",
 	"wiki7-command-palette-type-fulltext-search": "חיפוש טקסט מלא",
 	"wiki7-command-palette-type-namespace": "מרחב שם",
-	"wiki7-command-palette-type-command": "פקודה"
+	"wiki7-command-palette-type-command": "פקודה",
+	"wiki7-command-palette-type-special-page": "דף מיוחד",
+	"wiki7-command-palette-type-menu-item": "פריט תפריט",
+	"wiki7-command-palette-type-fulltext-search-description": "חיפוש בטקסט המלא של כל הדפים",
+	"wiki7-command-palette-command-ns-label": "מרחב שם",
+	"wiki7-command-palette-command-ns-description": "חיפוש דף במרחב שם מסוים",
+	"wiki7-command-palette-command-action-label": "פעולה",
+	"wiki7-command-palette-command-action-description": "ביצוע פעולה מסוימת"
 }

@@ -188,7 +188,7 @@ class ApiWebappManifest extends ApiBase {
 				$request->execute();
 				$logoContent = $request->getContent();
 			} catch ( Exception $e ) {
-				// Log the exception or handle it accordingly
+				wfLogWarning( 'Wiki7 WebappManifest: Failed to fetch logo from "' . $logoUrl . '": ' . $e->getMessage() );
 				$logoContent = '';
 			}
 
@@ -206,7 +206,7 @@ class ApiWebappManifest extends ApiBase {
 			}
 
 			// Set sizes to any if it is a SVG
-			if ( substr( $logoPath, -3 ) === 'svg' ) {
+			if ( str_ends_with( $logoPath, 'svg' ) ) {
 				$icon['sizes'] = 'any';
 				$icon['type'] = 'image/svg+xml';
 			}

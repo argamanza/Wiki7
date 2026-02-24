@@ -25,6 +25,10 @@ class Wiki7ComponentMenu implements Wiki7Component, Countable {
 			return count( $items );
 		}
 		$htmlItems = $this->data['html-items'] ?? '';
+		// FIXME: Counting '<li' occurrences in raw HTML is fragile — it could match
+		// inside attributes, comments, or nested elements. This should ideally use
+		// DOM parsing (e.g. DOMDocument) for accurate counting, but that would be
+		// disproportionately heavy for this use case.
 		return substr_count( $htmlItems, '<li' );
 	}
 

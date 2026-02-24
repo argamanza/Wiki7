@@ -64,7 +64,7 @@ class Wiki7ComponentUserInfo implements Wiki7Component {
 			try {
 				$title = $this->title->newFromTextThrow( $text, NS_PROJECT );
 			} catch ( MalformedTitleException $e ) {
-				// ignore
+				wfLogWarning( 'Wiki7 UserInfo: MalformedTitleException for group "' . $group . '": ' . $e->getMessage() );
 			}
 
 			if ( !$text || !$title ) {
