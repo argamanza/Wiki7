@@ -41,6 +41,7 @@
 	"wiki7-search-empty-desc": "Type to start searching",
 	"wiki7-search-noresults-title": "Uh oh! No results for $1",
 	"wiki7-search-noresults-desc": "Maybe try the options above?",
+	"wiki7-search-clear": "Clear search input",
 
 	"wiki7-share": "Share this page",
 	"wiki7-share-copied": "URL copied to clipboard!",

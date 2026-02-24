@@ -179,7 +179,8 @@
 			],
 			"messages": [
 				"wiki7-share",
-				"wiki7-share-copied"
+				"wiki7-share-copied",
+				"wiki7-search-clear"
 			],
 			"dependencies": [
 				"mediawiki.util",
