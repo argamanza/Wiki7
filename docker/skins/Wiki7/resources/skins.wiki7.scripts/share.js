@@ -32,7 +32,9 @@ function init() {
 				} );
 			}
 		} catch ( error ) {
-			mw.log.error( `[Wiki7] ${ error }` );
+			if ( error.name !== 'AbortError' ) {
+				mw.log.error( `[Wiki7] ${ error }` );
+			}
 		} finally {
 			shareButton.disabled = false; // Re-enable button after error or share completes
 		}

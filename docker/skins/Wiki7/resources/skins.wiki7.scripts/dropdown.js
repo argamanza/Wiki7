@@ -98,6 +98,7 @@ class Dropdown {
 		} else {
 			this.unbind();
 		}
+		this.summary.setAttribute( 'aria-expanded', String( this.details.open ) );
 	}
 
 	addKeyhint() {

@@ -8,6 +8,7 @@
  */
 function initResizeObserver( onResize, onResizeStart, onResizeEnd ) {
 	let resizeStarted = false;
+	let resizedFinished;
 
 	/* eslint-disable-next-line compat/compat */
 	return new ResizeObserver( ( entries ) => {
@@ -19,8 +20,8 @@ function initResizeObserver( onResize, onResizeStart, onResizeEnd ) {
 		onResize( entries[ 0 ] );
 
 		if ( onResizeEnd ) {
-			clearTimeout( window.resizedFinished );
-			window.resizedFinished = setTimeout( () => {
+			clearTimeout( resizedFinished );
+			resizedFinished = setTimeout( () => {
 				onResizeEnd( entries[ 0 ] );
 				resizeStarted = false;
 			}, 250 );
