@@ -203,7 +203,9 @@ class Wiki7ComponentPageHeading implements Wiki7Component {
 	public function getTemplateData(): array {
 		return [
 		'html-tagline' => $this->getTagline(),
-		'html-title-heading' => $this->getPageHeading()
+		'html-title-heading' => $this->getPageHeading(),
+		'page-lang' => $this->pageLang->getHtmlCode(),
+		'page-dir' => $this->pageLang->getDir()
 		];
 	}
 }
