@@ -104,6 +104,25 @@ class ApiWebappManifest extends ApiBase {
 	/**
 	 * Get icons for manifest
 	 */
+	/**
+	 * Validate that a URL is well-formed and uses an expected protocol
+	 */
+	private function isValidIconUrl( string $url ): bool {
+		// Allow protocol-relative URLs (e.g. //example.com/icon.png)
+		if ( str_starts_with( $url, '//' ) ) {
+			$url = 'https:' . $url;
+		}
+		// Allow relative URLs (e.g. /path/to/icon.png)
+		if ( str_starts_with( $url, '/' ) ) {
+			return true;
+		}
+		$parsed = parse_url( $url );
+		if ( $parsed === false || !isset( $parsed['scheme'] ) ) {
+			return false;
+		}
+		return in_array( strtolower( $parsed['scheme'] ), [ 'http', 'https' ], true );
+	}
+
 	private function getIcons(): array {
 		$iconsConfig = $this->options['icons'];
 		if ( !is_array( $iconsConfig ) || count( $iconsConfig ) === 0 ) {
@@ -117,6 +136,10 @@ class ApiWebappManifest extends ApiBase {
 			}
 			$icon = array_intersect_key( $iconConfig, array_flip( $allowedKeys ) );
 			if ( count( $icon ) === 0 ) {
+				continue;
+			}
+			// Validate icon src URL
+			if ( isset( $icon['src'] ) && !$this->isValidIconUrl( (string)$icon['src'] ) ) {
 				continue;
 			}
 			array_push( $icons, $icon );
@@ -153,6 +176,11 @@ class ApiWebappManifest extends ApiBase {
 			}
 
 			$logoPath = (string)$logos[$logoKey];
+
+			// Validate logo URL before use
+			if ( !$this->isValidIconUrl( $logoPath ) ) {
+				continue;
+			}
 
 			try {
 				$logoUrl = $urlUtils->expand( $logoPath, PROTO_CURRENT ) ?? '';
