@@ -30,19 +30,49 @@ $wgDBpassword = getenv('MEDIAWIKI_DB_PASSWORD'); // DB password via ENV
 
 # MySQL specific options
 $wgDBprefix = "";
-$wgDBssl = false; // Consider enabling SSL for production database connections
 $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
+
+# Database SSL: Enable for production connections by setting DB_SSL=true in environment.
+# For local Docker dev (db service on same network), SSL is not needed.
+$wgDBssl = ( getenv('DB_SSL') === 'true' );
+if ( $wgDBssl && getenv('DB_SSL_CA') ) {
+    // Path to the CA certificate for verifying the database server's certificate.
+    // Mount the certificate into the container and set DB_SSL_CA to its path.
+    $wgDBSslCAFile = getenv('DB_SSL_CA');
+}
 
 ##
 ## Email Settings
 ##
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; // Allow users to send emails to each other
-$wgEmergencyContact = "info@wiki7.co.il"; // System email contact
-$wgPasswordSender = "info@wiki7.co.il"; // Email sender address
+$wgEmergencyContact = getenv('WIKI_EMERGENCY_CONTACT') ?: "info@wiki7.co.il";
+$wgPasswordSender = getenv('WIKI_PASSWORD_SENDER') ?: "info@wiki7.co.il";
 $wgEnotifUserTalk = false; // Email notification when talkpage changes
 $wgEnotifWatchlist = false; // Email notification for watchlist changes
 $wgEmailAuthentication = true; // Require email confirmation
+
+# SMTP configuration for containerized environments.
+# System mail (sendmail/postfix) is not available inside Docker containers.
+# Set SMTP_HOST in your environment to enable SMTP delivery.
+# Required env vars: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD
+# Without these, email sending will be disabled gracefully.
+if ( getenv('SMTP_HOST') ) {
+    $wgSMTP = [
+        'host'     => getenv('SMTP_SECURE') === 'ssl' ? 'ssl://' . getenv('SMTP_HOST') : getenv('SMTP_HOST'),
+        'IDHost'   => getenv('SMTP_IDHOST') ?: 'wiki7.co.il',
+        'port'     => (int)( getenv('SMTP_PORT') ?: 587 ),
+        'auth'     => (bool)getenv('SMTP_USER'),
+        'username' => getenv('SMTP_USER') ?: '',
+        'password' => getenv('SMTP_PASSWORD') ?: '',
+    ];
+} else {
+    // No SMTP configured — disable email in containerized environments
+    // to avoid silent failures from missing sendmail/postfix.
+    if ( !is_executable('/usr/sbin/sendmail') ) {
+        $wgEnableEmail = false;
+    }
+}
 
 ##
 ## Upload Settings
@@ -50,6 +80,32 @@ $wgEmailAuthentication = true; // Require email confirmation
 $wgEnableUploads = true;
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "/usr/bin/convert";
+
+# SVG converter path for rendering SVG files via ImageMagick/rsvg
+$wgSVGConverterPath = "/usr/bin";
+$wgSVGConverter = "ImageMagick";
+
+# ImageMagick security: limit resource usage to prevent abuse via crafted images.
+# These limits protect against denial-of-service via memory/CPU exhaustion.
+$wgImageMagickTempDir = "/tmp/imagick";
+$wgMaxImageArea = 10e7; // Max 100 megapixels — reject extremely large images
+
+# Upload security: restrict dangerous file types that could be used for XSS or RCE.
+# Only allow common image and document formats; block executable and script types.
+$wgFileExtensions = [ 'png', 'gif', 'jpg', 'jpeg', 'webp', 'svg', 'pdf', 'ogg' ];
+
+# Explicitly block dangerous file types (defense-in-depth, even if not in $wgFileExtensions)
+$wgProhibitedFileExtensions = array_merge(
+    $wgProhibitedFileExtensions ?? [],
+    [ 'exe', 'bat', 'cmd', 'com', 'pif', 'scr', 'vbs', 'js', 'wsf', 'shtml', 'php', 'phtml', 'cgi' ]
+);
+
+# Verify uploaded file MIME types match their extensions (prevents disguised uploads)
+$wgVerifyMimeType = true;
+$wgStrictFileExtensions = true;
+
+# Disable running uploaded scripts as raw HTML (prevents stored XSS)
+$wgAllowTitlesInSVG = false;
 
 # InstantCommons allows using images from Wikimedia Commons
 $wgUseInstantCommons = false; // Set to true if you want to use Wikimedia Commons images
@@ -69,13 +125,44 @@ $wgAuthenticationTokenVersion = "1";
 $wgUpgradeKey = getenv('WG_UPGRADE_KEY') ?: "c23cfd79cbaf67f8"; // Upgrade key via ENV
 $wgCookieHttpOnly = true;
 $wgCookieSameSite = 'Lax';
-$wgPingback = false;
+$wgPingback = false; // Disable pingback to prevent leaking usage data to MediaWiki
+
+# Content Security Policy
+# MediaWiki 1.43 supports $wgCSPHeader for controlling resource loading.
+# This helps mitigate XSS by restricting where scripts, styles, and images can load from.
+$wgCSPHeader = [
+    'default-src' => [ "'self'" ],
+    'script-src'  => [ "'self'", "'unsafe-inline'", "'unsafe-eval'" ],
+    'style-src'   => [ "'self'", "'unsafe-inline'" ],
+    'img-src'     => [ "'self'", "data:", "https://upload.wikimedia.org" ],
+    'font-src'    => [ "'self'", "data:" ],
+    'object-src'  => [ "'none'" ],
+    'frame-ancestors' => [ "'self'" ],
+];
 
 ##
 ## Cache Settings
 ##
-$wgMainCacheType = CACHE_ACCEL;
+# Caching strategy:
+# - Development: CACHE_NONE (disabled for live changes, set in env block below)
+# - Docker local (no memcached): CACHE_DB (uses the database for caching)
+# - Production with memcached: CACHE_MEMCACHED (high-performance, set via MEMCACHED_SERVERS env)
+#
+# Default to CACHE_DB which works in any Docker environment without extra services.
+# The environment-specific block below overrides this for dev (CACHE_NONE) or production (CACHE_MEMCACHED).
+$wgMainCacheType = CACHE_DB;
+$wgParserCacheType = CACHE_DB;
+$wgMessageCacheType = CACHE_DB;
 $wgMemCachedServers = [];
+
+# If memcached is available (set MEMCACHED_SERVERS="host:port" in environment),
+# upgrade to CACHE_MEMCACHED for better performance.
+if ( getenv('MEMCACHED_SERVERS') ) {
+    $wgMainCacheType = CACHE_MEMCACHED;
+    $wgParserCacheType = CACHE_MEMCACHED;
+    $wgMessageCacheType = CACHE_MEMCACHED;
+    $wgMemCachedServers = explode( ',', getenv('MEMCACHED_SERVERS') );
+}
 
 ##
 ## Rights and Permissions
@@ -119,11 +206,6 @@ $wgLogos = [
 ];
 
 ##
-## Monitoring
-##
-$wgPingback = false; // Disabled for privacy
-
-##
 ## Environment-specific settings
 ##
 # Switches behavior based on WIKI_ENV ("production" vs "development")
@@ -134,16 +216,16 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     $wgCanonicalServer = "https://wiki7.co.il";
     $wgCookieSecure = true; // Only transmit cookies over HTTPS
     
-    // Error handling
+    // Error handling — hardened for production
     $wgShowExceptionDetails = false; // Hide internal error details for security
-    $wgDebugToolbar = false; // Should be false in production for security
-    
-    // Caching settings
+    $wgDebugToolbar = false; // Must be false in production for security
+    $wgResourceLoaderEnableJSProfiler = false; // Disable JS profiler in production
+
+    // Caching settings — use the global defaults set above (CACHE_DB or CACHE_MEMCACHED).
+    // The global cache settings block handles memcached detection automatically.
     $wgCachePages = true; // Enable page caching
     $wgEnableParserCache = true; // Enable parsed output cache
-    $wgMainCacheType = CACHE_ACCEL; // Use object cache
-    $wgParserCacheType = CACHE_ACCEL;
-    $wgCacheDirectory = "$IP/cache"; // Use MediaWiki cache dir
+    $wgCacheDirectory = "$IP/cache"; // Use MediaWiki cache dir for file-based caching
     
     // Resource paths
     $wgLoadScript = 'https://wiki7.co.il/load.php';
@@ -202,7 +284,9 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     $wgEnableParserCache = false; // Disable parsed output cache
     $wgMainCacheType = CACHE_NONE; // No object caching
     $wgParserCacheType = CACHE_NONE;
+    $wgMessageCacheType = CACHE_NONE;
     $wgCacheDirectory = false; // Disable file cache
+    $wgResourceLoaderEnableJSProfiler = false; // No profiler needed
     
     // Logging
     $wgDebugLogFile = "/tmp/mediawiki-debug.log"; // Log debug to file
