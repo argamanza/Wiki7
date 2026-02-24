@@ -1,6 +1,7 @@
 import scrapy
 import json
 import re
+from pathlib import Path
 from scrapy.http import Request
 
 
@@ -8,11 +9,22 @@ class MatchSpider(scrapy.Spider):
     name = "match"
     allowed_domains = ["transfermarkt.com", "api.scraperapi.com"]
 
+    def __init__(self, fixtures_path=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fixtures_path = fixtures_path or str(
+            Path(__file__).resolve().parent.parent.parent / "output" / "fixtures.json"
+        )
+
     async def start(self):
         use_scraperapi = self.settings.getbool("USE_SCRAPERAPI", False)
         api_key = self.settings.get("SCRAPERAPI_KEY")
 
-        with open("output/fixtures.json", encoding="utf-8") as f:
+        fixtures_file = Path(self.fixtures_path)
+        if not fixtures_file.exists():
+            self.logger.error("Fixtures file not found: %s. Run the fixtures spider first.", fixtures_file)
+            return
+
+        with open(fixtures_file, encoding="utf-8") as f:
             fixtures = json.load(f)
 
         for match in fixtures:
@@ -76,8 +88,10 @@ class MatchSpider(scrapy.Spider):
     def parse_background_position(self, style):
         try:
             parts = re.findall(r"-?\d+", style)
-            return int(parts[0]), int(parts[1]) if len(parts) == 2 else (None, None)
-        except Exception:
+            if len(parts) >= 2:
+                return int(parts[0]), int(parts[1])
+            return None, None
+        except (IndexError, ValueError, TypeError):
             return None, None
 
     def estimate_minute_from_sprite(self, pos):
@@ -125,14 +139,37 @@ class MatchSpider(scrapy.Spider):
         return result
 
     def resolve_team_key(self, team_name, response):
+        """Determine whether a team is 'home' or 'away' in this match.
+
+        The fixtures spider provides 'venue' ('H' or 'A') and 'opponent'.
+        When venue is 'H', Hapoel Beer Sheva is the home team and the
+        opponent is away. When venue is 'A', the opponent is home and
+        Hapoel Beer Sheva is away.
+
+        Falls back to assignment order if the data is ambiguous.
+        """
         match = response.meta["match_data"]
         name = team_name.lower()
-        if name in match.get("home_team", "").lower():
-            return "home"
-        if name in match.get("away_team", "").lower():
-            return "away"
-        if "home" not in response.meta:
-            response.meta["home"] = name
+        venue = match.get("venue", "").strip().upper()
+        opponent = (match.get("opponent") or "").lower()
+
+        # "hapoel" / "beer sheva" keywords identify our club
+        is_hbs = "beer sheva" in name or "hapoel" in name or "beer-sheva" in name
+
+        if venue == "H":
+            # We are the home team
+            return "home" if is_hbs else "away"
+        elif venue == "A":
+            # We are the away team
+            return "away" if is_hbs else "home"
+
+        # Fallback: try matching against the opponent name
+        if opponent and opponent in name:
+            return "away" if venue == "H" else "home"
+
+        # Last resort: first team seen is home
+        if "_first_team_seen" not in response.meta:
+            response.meta["_first_team_seen"] = name
             return "home"
         return "away"
 

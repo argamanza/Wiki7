@@ -2,7 +2,7 @@
 
 ## Overview
 
-The data pipeline scrapes **Transfermarkt** for Hapoel Beer Sheva FC (club ID: 2976) player and match data, normalizes it into structured JSONL files, and optionally enriches it with Hebrew translations. The pipeline is designed to feed data into the wiki7.co.il MediaWiki instance, though the final import step has not been implemented yet.
+The data pipeline scrapes **Transfermarkt** for Hapoel Beer Sheva FC (club ID: 2976) player and match data, normalizes it into structured JSONL files, and imports it into the wiki7.co.il MediaWiki instance. The pipeline is fully orchestrated via a single `run_pipeline.py` script.
 
 **Target data:**
 - Squad rosters (active + loaned players)
@@ -16,30 +16,25 @@ The data pipeline scrapes **Transfermarkt** for Hapoel Beer Sheva FC (club ID: 2
 
 ```
 Transfermarkt.com
-       │
-       ▼
-┌─────────────────────┐     ┌─────────────────────┐
-│  Scrapy Spiders     │     │  Normalization       │
-│  (tmk-scraper/)     │────▶│  Pipeline            │
-│                     │     │  (data_pipeline/)    │
-│  squad → player     │     │                      │
-│  fixtures → match   │     │  normalize_enrich    │
-│                     │     │  generate_mapping    │
-│  Output: JSON files │     │  apply_hebrew        │
-│  in output/         │     │                      │
-└─────────────────────┘     │  Output: JSONL files │
-                            │  in output/          │
-                            └──────────┬───────────┘
-                                       │
-                                       ▼
-                              ┌─────────────────┐
-                              │  (Future)        │
-                              │  Wiki Import     │
-                              │  via MediaWiki   │
-                              │  API / mwclient  │
-                              │                  │
-                              │  NOT IMPLEMENTED │
-                              └─────────────────┘
+       |
+       v
++---------------------+     +---------------------+     +---------------------+
+|  Scrapy Spiders     |     |  Normalization       |     |  Wiki Import        |
+|  (tmk-scraper/)     |---->|  Pipeline            |---->|  (wiki_import/)     |
+|                     |     |  (data_pipeline/)    |     |                     |
+|  squad -> player    |     |                      |     |  import_players     |
+|  fixtures -> match  |     |  normalize_enrich    |     |  import_matches     |
+|                     |     |  generate_mapping    |     |  import_templates   |
+|  Output: JSON files |     |  apply_hebrew        |     |  (Cargo + pages)    |
+|  in output/         |     |                      |     |                     |
++---------------------+     |  Output: JSONL files |     |  Uses mwclient +   |
+                             |  in output/          |     |  Jinja2 templates  |
+                             +---------------------+     +---------------------+
+                                                                  |
+                                                                  v
+                                                         MediaWiki (wiki7.co.il)
+
+Orchestrated by: run_pipeline.py (scrape -> normalize -> import)
 ```
 
 The spiders run in a specific order because later spiders depend on the output of earlier ones:
@@ -50,9 +45,52 @@ The spiders run in a specific order because later spiders depend on the output o
 
 ---
 
-## Spider Descriptions
+## Quick Start
 
-### 1. `squad` Spider
+### Prerequisites
+
+- Python 3.12+
+- [Poetry](https://python-poetry.org/) package manager
+- A ScraperAPI key (optional but recommended -- Transfermarkt blocks direct scraping)
+
+### Installation
+
+```bash
+cd data
+poetry install
+```
+
+### Full Pipeline (Dry Run)
+
+Preview what would be imported without actually writing to MediaWiki:
+
+```bash
+poetry run python run_pipeline.py --season 2024 --dry-run
+```
+
+### Full Pipeline (Live)
+
+```bash
+export SCRAPERAPI_KEY="your_key_here"
+export WIKI_URL="wiki7.co.il"
+export WIKI_BOT_USER="Bot@username"
+export WIKI_BOT_PASS="bot_password"
+poetry run python run_pipeline.py --season 2024
+```
+
+### Skip Scraping (Normalize + Import Only)
+
+```bash
+poetry run python run_pipeline.py --skip-scrape --dry-run
+```
+
+---
+
+## Pipeline Stages
+
+### Stage 1: Scraping (Scrapy Spiders)
+
+#### `squad` Spider
 **File:** `tmk-scraper/tmk_scraper/spiders/squad_spider.py`
 
 Scrapes the Hapoel Beer Sheva squad page for a given season. Also follows a link to scrape loaned-out players.
@@ -68,7 +106,7 @@ Scrapes the Hapoel Beer Sheva squad page for a given season. Also follows a link
 | `season` | string | Season year |
 | `loaned` | boolean | Whether the player is on loan |
 
-### 2. `player` Spider
+#### `player` Spider
 **File:** `tmk-scraper/tmk_scraper/spiders/player_spider.py`
 
 Reads `output/squad.json` and scrapes each player's profile page. Makes three requests per player:
@@ -86,7 +124,7 @@ Reads `output/squad.json` and scrapes each player's profile page. Makes three re
 | `market_value_history` | list | Array of `{date, value, team}` records |
 | `transfers` | list | Array of `{season, date, from, to, fee}` records |
 
-### 3. `fixtures` Spider
+#### `fixtures` Spider
 **File:** `tmk-scraper/tmk_scraper/spiders/fixtures_spider.py`
 
 Scrapes the season fixture list, grouped by competition.
@@ -107,7 +145,7 @@ Scrapes the season fixture list, grouped by competition.
 | `result` | string | Score (e.g., "2:1") |
 | `match_report_url` | string | URL to the detailed match report |
 
-### 4. `match` Spider
+#### `match` Spider
 **File:** `tmk-scraper/tmk_scraper/spiders/match_spider.py`
 
 Reads `output/fixtures.json` and scrapes each match report page for detailed event data.
@@ -124,90 +162,95 @@ Reads `output/fixtures.json` and scrapes each match report page for detailed eve
 | `penalties` | list/null | Penalty shootout details (if applicable) |
 | `manager_sanctions` | list | Manager yellow/red cards |
 
----
+### Stage 2: Normalization
 
-## Running the Pipeline
+**Directory:** `data_pipeline/`
 
-### Prerequisites
-
-- Python 3.12+
-- [Poetry](https://python-poetry.org/) package manager
-- A ScraperAPI key (optional but recommended -- Transfermarkt blocks direct scraping)
-
-### Installation
+Transforms raw spider JSON into structured, validated JSONL using Pydantic schemas.
 
 ```bash
-cd data
-poetry install
-```
-
-### Setting Up ScraperAPI (Optional)
-
-Export your ScraperAPI key as an environment variable:
-
-```bash
-export SCRAPERAPI_KEY="your_key_here"
-```
-
-If no key is set, spiders will attempt direct requests to Transfermarkt (likely to be blocked). To disable ScraperAPI, set `USE_SCRAPERAPI = False` in `tmk-scraper/tmk_scraper/settings.py`.
-
-### Running Spiders
-
-Spiders must be run in order from the `tmk-scraper/` directory:
-
-```bash
-cd data/tmk-scraper
-
-# Step 1: Scrape the squad roster
-poetry run scrapy crawl squad -a season=2024 -o output/squad.json
-
-# Step 2: Scrape player profiles (depends on output/squad.json)
-poetry run scrapy crawl player -o output/players.json
-
-# Step 3: Scrape season fixtures
-poetry run scrapy crawl fixtures -a season=2024 -o output/fixtures.json
-
-# Step 4: Scrape match reports (depends on output/fixtures.json)
-poetry run scrapy crawl match -o output/matches.json
-```
-
-The `-a season=YYYY` argument sets the season (defaults to 2024). The `-o` flag specifies the output file.
-
-### Running the Normalization Pipeline
-
-After scraping, normalize the raw player data into structured JSONL:
-
-```bash
-cd data
+# Standalone usage (usually called via run_pipeline.py):
 poetry run python -m data_pipeline.normalize_enrich_players
 ```
 
-This reads `tmk-scraper/output/players.json` and produces three files in `data_pipeline/output/`:
-- `players.jsonl` -- Normalized player records
-- `transfers.jsonl` -- Transfer history records
-- `market_values.jsonl` -- Market value history records
+**Produces:**
+- `data_pipeline/output/players.jsonl` -- Normalized player records
+- `data_pipeline/output/transfers.jsonl` -- Transfer history records
+- `data_pipeline/output/market_values.jsonl` -- Market value history records
 
-### Hebrew Enrichment (Optional)
-
-To add Hebrew translations for player names, positions, clubs, and nationalities:
+#### Hebrew Enrichment (Optional)
 
 ```bash
-cd data
-
-# Step 1: Generate a mapping stub with all unique values needing translation
+# Generate a mapping stub with all unique values needing translation
 poetry run python -m data_pipeline.generate_mapping_stub
 
-# Step 2: Manually fill in Hebrew values in output/mappings.he.yaml
+# Manually fill in Hebrew values in data_pipeline/output/mappings.he.yaml
 
-# Step 3: Apply the Hebrew mapping
+# Apply the Hebrew mapping
 poetry run python -m data_pipeline.apply_hebrew_mapping
 ```
 
 This produces `data_pipeline/output/players.he.jsonl` with Hebrew-enriched data.
 
+### Stage 3: Wiki Import
+
+**Directory:** `wiki_import/`
+
+Creates/updates MediaWiki pages from normalized data using `mwclient` and Jinja2 templates.
+
+**Modules:**
+| Module | Purpose |
+|--------|---------|
+| `import_players.py` | Creates/updates player infobox pages |
+| `import_matches.py` | Creates/updates match report pages |
+| `import_templates.py` | Creates Cargo table templates, squad pages, and transfer pages |
+
+**Templates (Jinja2):**
+| Template | Purpose |
+|----------|---------|
+| `templates/player_page.j2` | Player infobox + career history + market values |
+| `templates/match_report.j2` | Match report with lineups, goals, cards, subs |
+| `templates/squad_table.j2` | Season squad table |
+| `templates/transfer_table.j2` | Season incoming/outgoing transfer tables |
+
+**Features:**
+- **Idempotent:** Pages are only edited if content has actually changed (MD5 comparison)
+- **Dry-run mode:** Preview all changes without writing to the wiki
+- **Retry logic:** Automatic retries with exponential backoff for API errors
+- **Cargo tables:** Defines structured data tables for MediaWiki's Cargo extension
+
+---
+
+## Orchestration CLI
+
+The `run_pipeline.py` script chains all three stages:
+
+```
+Usage: run_pipeline.py [OPTIONS]
+
+Options:
+  --season TEXT       Season year to process (default: 2024)
+  --dry-run           Preview import without writing to wiki
+  --skip-scrape       Skip the scraping step
+  --skip-normalize    Skip the normalization step
+  --skip-import       Skip the wiki import step
+  --wiki-url TEXT     MediaWiki site URL (or set WIKI_URL env var)
+  -v, --verbose       Enable debug logging
+  --help              Show this message and exit.
+```
+
 ---
 
 ## Configuration
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `SCRAPERAPI_KEY` | ScraperAPI proxy key for Transfermarkt scraping | For scraping |
+| `WIKI_URL` | MediaWiki site hostname (e.g., `wiki7.co.il`) | For live import |
+| `WIKI_BOT_USER` | MediaWiki bot username | For live import |
+| `WIKI_BOT_PASS` | MediaWiki bot password | For live import |
 
 ### Scrapy Settings
 
@@ -226,8 +269,6 @@ This produces `data_pipeline/output/players.he.jsonl` with Hebrew-enriched data.
 
 When ScraperAPI is disabled, auto-throttling is enabled with a 3-second download delay.
 
-The `scrapy-fake-useragent` middleware rotates User-Agent strings to reduce detection risk.
-
 ### Dependencies
 
 Defined in `pyproject.toml`:
@@ -238,6 +279,10 @@ Defined in `pyproject.toml`:
 - `python-dateutil` ^2.9.0 -- Date parsing
 - `pycountry` ^24.6.1 -- Country name normalization
 - `pyyaml` ^6.0.2 -- YAML file handling (for Hebrew mappings)
+- `mwclient` ^0.11.0 -- MediaWiki API client
+- `jinja2` ^3.1 -- Template rendering for wiki pages
+- `click` ^8.1 -- CLI argument parsing
+- `tenacity` ^9.0 -- Retry logic with exponential backoff
 
 ---
 
@@ -305,23 +350,37 @@ class MarketValue(BaseModel):
 
 ---
 
+## Running Spiders Individually
+
+If you need to run spiders manually (outside the orchestrator):
+
+```bash
+cd data/tmk-scraper
+
+# Step 1: Scrape the squad roster
+poetry run scrapy crawl squad -a season=2024 -o output/squad.json
+
+# Step 2: Scrape player profiles (depends on output/squad.json)
+poetry run scrapy crawl player -o output/players.json
+
+# Step 3: Scrape season fixtures
+poetry run scrapy crawl fixtures -a season=2024 -o output/fixtures.json
+
+# Step 4: Scrape match reports (depends on output/fixtures.json)
+poetry run scrapy crawl match -o output/matches.json
+```
+
+---
+
 ## Known Limitations
 
-1. **Missing "last mile":** There is no code to import the normalized data into MediaWiki. The pipeline produces JSONL files, but nothing creates or updates wiki pages from them. A tool like `mwclient` or `pywikibot` would be needed to complete this.
+1. **Scrapy is over-engineered for single-team scraping:** The Scrapy framework adds significant complexity (middlewares, pipelines, settings, items) for what is essentially scraping data for a single team. A simpler approach with `requests` + `BeautifulSoup` would achieve the same result with less overhead.
 
-2. **Scrapy is over-engineered for single-team scraping:** The Scrapy framework adds significant complexity (middlewares, pipelines, settings, items) for what is essentially scraping data for a single team. A simpler approach with `requests` + `BeautifulSoup` in ~180 lines would achieve the same result with less overhead.
+2. **Sequential spider dependency:** The `player` spider reads `output/squad.json` and the `match` spider reads `output/fixtures.json`. The orchestrator (`run_pipeline.py`) enforces this order, but when running spiders manually you must follow the correct sequence.
 
-3. **Broken team matching in match spider:** The `resolve_team_key()` method in `match_spider.py` tries to match team names against `home_team` and `away_team` fields in the match data, but the fixtures spider does not produce these fields. The fallback logic (first team seen = home, second = away) is fragile.
+3. **Items class is unused:** `tmk_scraper/items.py` defines an empty `TmkScraperItem` class that is never used. All spiders yield plain dictionaries.
 
-4. **Sequential spider dependency:** The `player` spider reads `output/squad.json` and the `match` spider reads `output/fixtures.json`. These files must exist before running the dependent spider. There is no orchestration or pipeline runner to enforce this order.
-
-5. **docker-compose.yml references non-existent directory:** The `docker-compose.yml` in `data/` tries to build from a `transfermarkt-api/` directory that does not exist in the repository. This file appears to be a leftover from an earlier architecture.
-
-6. **No tests:** There are zero test files for any part of the data pipeline -- no spider tests, no schema tests, no normalization tests.
-
-7. **Items class is unused:** `tmk_scraper/items.py` defines an empty `TmkScraperItem` class that is never used. All spiders yield plain dictionaries.
-
-8. **Pipeline class is a no-op:** `tmk_scraper/pipelines.py` defines `TmkScraperPipeline.process_item()` which simply returns the item unchanged and is not registered in settings.
+4. **Pipeline class is a no-op:** `tmk_scraper/pipelines.py` defines `TmkScraperPipeline.process_item()` which simply returns the item unchanged and is not registered in settings.
 
 ---
 

@@ -1,5 +1,11 @@
-services:
-  transfermarket-api:
-    build: transfermarkt-api
-    ports:
-      - "8000:8000"
+# Wiki7 Data Pipeline — Docker Compose
+#
+# The transfermarkt-api service has been removed. The pipeline now uses
+# Scrapy spiders directly (with optional ScraperAPI proxy) and imports
+# normalized data into MediaWiki via the mwclient library.
+#
+# To run the full pipeline locally without Docker:
+#   poetry install
+#   python run_pipeline.py --season 2024 --dry-run
+
+services: {}

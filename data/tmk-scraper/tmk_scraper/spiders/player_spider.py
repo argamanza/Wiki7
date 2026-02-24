@@ -1,5 +1,6 @@
 import scrapy
 import json
+from pathlib import Path
 from scrapy.http import Request
 from datetime import datetime
 
@@ -8,12 +9,23 @@ class PlayerSpider(scrapy.Spider):
     name = "player"
     allowed_domains = ["transfermarkt.com", "api.scraperapi.com"]
 
+    def __init__(self, squad_path=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.squad_path = squad_path or str(
+            Path(__file__).resolve().parent.parent.parent / "output" / "squad.json"
+        )
+
     async def start(self):
         use_scraperapi = self.settings.getbool("USE_SCRAPERAPI", False)
         api_key = self.settings.get("SCRAPERAPI_KEY")
 
         # Load player URLs from output of squad spider
-        with open("output/squad.json", encoding="utf-8") as f:
+        squad_file = Path(self.squad_path)
+        if not squad_file.exists():
+            self.logger.error("Squad file not found: %s. Run the squad spider first.", squad_file)
+            return
+
+        with open(squad_file, encoding="utf-8") as f:
             players = json.load(f)
 
         for player in players:
@@ -95,7 +107,7 @@ class PlayerSpider(scrapy.Spider):
                 for p in data.get("list", [])
             ]
             player["market_value_history"] = sorted(history, key=lambda x: x["date"])
-        except Exception as e:
+        except (json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
             self.logger.warning(f"Failed to parse market value history: {e}")
             player["market_value_history"] = []
 
@@ -125,7 +137,7 @@ class PlayerSpider(scrapy.Spider):
                 for t in data.get("transfers", [])
             ]
             player["transfers"] = sorted(history, key=lambda x: x["date"])
-        except Exception as e:
+        except (json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
             self.logger.warning(f"Failed to parse transfer history: {e}")
             player["transfers"] = []
 
