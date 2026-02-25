@@ -4,6 +4,3 @@
 [submodule "docker/extensions/PageForms"]
 	path = docker/extensions/PageForms
 	url = https://gerrit.wikimedia.org/r/mediawiki/extensions/PageForms
-[submodule "docker/extensions/PageSchemas"]
-	path = docker/extensions/PageSchemas
-	url = https://gerrit.wikimedia.org/r/mediawiki/extensions/PageSchemas
