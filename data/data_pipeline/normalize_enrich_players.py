@@ -6,12 +6,13 @@ from tqdm import tqdm
 from typing import List
 
 
-RAW_PATH = Path("../tmk-scraper/output/players.json")
-OUT_DIR = Path("output")
-OUT_DIR.mkdir(parents=True, exist_ok=True)
+DEFAULT_RAW_PATH = Path("../tmk-scraper/output/players.json")
+DEFAULT_OUT_DIR = Path("output")
 
-def load_raw_players():
-    with open(RAW_PATH, "r", encoding="utf-8") as f:
+
+def load_raw_players(raw_path=None):
+    path = raw_path or DEFAULT_RAW_PATH
+    with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 def normalize_player(player) -> Player:
@@ -24,7 +25,7 @@ def normalize_player(player) -> Player:
 
     return Player(
         id=player["profile_url"].split("/")[-1],
-        name_english=player["name"],
+        name_english=player["name_english"],
         name_hebrew=name_hebrew,
         birth_date=parse_birth_date(facts.get("Date of birth/Age", "").split(" (")[0]),
         birth_place=facts.get("Place of birth"),
@@ -68,8 +69,12 @@ def write_jsonl(data, path):
         for item in data:
             f.write(item.model_dump_json() + "\n")
 
-def main():
-    raw_players = load_raw_players()
+def main(raw_path=None, out_dir=None):
+    resolved_raw = raw_path or DEFAULT_RAW_PATH
+    resolved_out = Path(out_dir) if out_dir else DEFAULT_OUT_DIR
+    resolved_out.mkdir(parents=True, exist_ok=True)
+
+    raw_players = load_raw_players(resolved_raw)
 
     all_players = []
     all_transfers = []
@@ -80,9 +85,9 @@ def main():
         all_transfers.extend(normalize_transfers(p))
         all_values.extend(normalize_market_values(p))
 
-    write_jsonl(all_players, OUT_DIR / "players.jsonl")
-    write_jsonl(all_transfers, OUT_DIR / "transfers.jsonl")
-    write_jsonl(all_values, OUT_DIR / "market_values.jsonl")
+    write_jsonl(all_players, resolved_out / "players.jsonl")
+    write_jsonl(all_transfers, resolved_out / "transfers.jsonl")
+    write_jsonl(all_values, resolved_out / "market_values.jsonl")
 
 if __name__ == "__main__":
     main()

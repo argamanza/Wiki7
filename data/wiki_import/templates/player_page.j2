@@ -1,0 +1,43 @@
+{{"{{"}}Player infobox
+| name_english = {{ player.name_english }}
+| name_hebrew = {{ player.name_hebrew or '' }}
+| tmk_id = {{ player.id }}
+| birth_date = {{ player.birth_date or '' }}
+| birth_place = {{ player.birth_place or '' }}
+| nationality = {{ player.nationality | join(', ') if player.nationality else '' }}
+| position = {{ player.main_position or '' }}
+| jersey_number = {{ player.current_jersey_number or '' }}
+| current_squad = {{ 'Yes' if player.current_squad else 'No' }}
+| homegrown = {{ 'Yes' if player.homegrown else 'No' }}
+| retired = {{ 'Yes' if player.retired else 'No' }}
+{{"}}"}}
+
+== Career ==
+{% if transfers %}
+{{"{{"}}Transfer history table
+{% for t in transfers %}
+| transfer_{{ loop.index }}_season = {{ t.season }}
+| transfer_{{ loop.index }}_date = {{ t.transfer_date }}
+| transfer_{{ loop.index }}_from = {{ t.from_club }}
+| transfer_{{ loop.index }}_to = {{ t.to_club }}
+| transfer_{{ loop.index }}_fee = {{ t.fee }}
+| transfer_{{ loop.index }}_loan = {{ 'Yes' if t.loan else 'No' }}
+{% endfor %}
+{{"}}"}}
+{% endif %}
+
+{% if market_values %}
+== Market Value History ==
+{| class="wikitable sortable"
+! Date !! Value !! Team
+{% for mv in market_values %}
+|-
+| {{ mv.value_date }} || {{ mv.value }} || {{ mv.team }}
+{% endfor %}
+|}
+{% endif %}
+
+[[Category:Players]]
+{% if player.current_squad %}[[Category:Current Squad]]{% endif %}
+{% if player.homegrown %}[[Category:Homegrown Players]]{% endif %}
+{% if player.retired %}[[Category:Retired Players]]{% endif %}

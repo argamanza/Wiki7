@@ -1,0 +1,34 @@
+== {{ season }} Transfers ==
+
+{% if incoming %}
+=== Incoming ===
+{| class="wikitable sortable"
+! Date !! Player !! From !! Fee !! Loan
+{% for t in incoming %}
+|-
+| {{ t.transfer_date }}
+| {{ t.player_name | default(t.player_id) }}
+| {{ t.from_club }}
+| {{ t.fee }}
+| {{ 'Yes' if t.loan else 'No' }}
+{% endfor %}
+|}
+{% endif %}
+
+{% if outgoing %}
+=== Outgoing ===
+{| class="wikitable sortable"
+! Date !! Player !! To !! Fee !! Loan
+{% for t in outgoing %}
+|-
+| {{ t.transfer_date }}
+| {{ t.player_name | default(t.player_id) }}
+| {{ t.to_club }}
+| {{ t.fee }}
+| {{ 'Yes' if t.loan else 'No' }}
+{% endfor %}
+|}
+{% endif %}
+
+[[Category:Transfers]]
+[[Category:{{ season }} Season]]
