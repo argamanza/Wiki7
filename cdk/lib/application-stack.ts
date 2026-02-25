@@ -31,10 +31,9 @@ export class ApplicationStack extends Construct {
 
     const { vpc, dbInstance, dbSecret, mediawikiSecurityGroup, domainName } = props;
 
-    // Create ECS Cluster
+    // Create ECS Cluster — Container Insights disabled to save costs
     const cluster = new ecs.Cluster(this, 'Wiki7Cluster', {
       vpc,
-      containerInsightsV2: ecs.ContainerInsights.ENABLED,
     });
 
     // IAM Role for ECS tasks
@@ -230,7 +229,7 @@ export class ApplicationStack extends Construct {
       desiredCount: 1,
       assignPublicIp: true,
       securityGroups: [mediawikiSecurityGroup],
-      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
     });
 
     // ALB Security Group

@@ -31,8 +31,15 @@ describe('NetworkStack', () => {
     });
   });
 
-  test('creates NAT gateway', () => {
-    template.resourceCountIs('AWS::EC2::NatGateway', 1);
+  test('has no NAT gateway (cost optimization)', () => {
+    template.resourceCountIs('AWS::EC2::NatGateway', 0);
+  });
+
+  test('creates S3 VPC gateway endpoint', () => {
+    template.hasResourceProperties('AWS::EC2::VPCEndpoint', {
+      ServiceName: Match.objectLike({}),
+      VpcEndpointType: 'Gateway',
+    });
   });
 
   test('creates MediaWiki security group', () => {
