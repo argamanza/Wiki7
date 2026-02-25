@@ -1,3 +1,5 @@
+import os
+
 # === Project identity ===
 BOT_NAME = "tmk_scraper"
 SPIDER_MODULES = ["tmk_scraper.spiders"]
@@ -5,7 +7,7 @@ NEWSPIDER_MODULE = "tmk_scraper.spiders"
 
 # === ScraperAPI toggle ===
 USE_SCRAPERAPI = True
-SCRAPERAPI_KEY = "a0dd5b987ccf04c58d3347ba9edd1206"
+SCRAPERAPI_KEY = os.environ.get('SCRAPERAPI_KEY', '')
 
 # === Logging ===
 LOG_LEVEL = "DEBUG"

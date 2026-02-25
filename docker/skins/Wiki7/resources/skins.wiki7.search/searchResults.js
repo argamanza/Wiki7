@@ -21,6 +21,8 @@ function searchResults() {
 	const textCache = {};
 	const redirectMessageCache = {};
 	const regexCache = {};
+	const regexCacheKeys = [];
+	const REGEX_CACHE_MAX_SIZE = 100;
 
 	return {
 		getRedirectLabel: function ( title, matchedTitle, queryValue ) {
@@ -72,14 +74,23 @@ function searchResults() {
 			return html;
 		},
 		highlightTitle: function ( title, match ) {
+			const escapeHtml = ( str ) => str.replace( /[&<>"']/g, ( ch ) => ( {
+				'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#039;'
+			} )[ ch ] );
+			const safeTitle = escapeHtml( title );
 			if ( !match ) {
-				return title;
+				return safeTitle;
 			}
 			if ( !regexCache[ match ] ) {
+				if ( regexCacheKeys.length >= REGEX_CACHE_MAX_SIZE ) {
+					const oldestKey = regexCacheKeys.shift();
+					delete regexCache[ oldestKey ];
+				}
 				regexCache[ match ] = new RegExp( mw.util.escapeRegExp( match ), 'i' );
+				regexCacheKeys.push( match );
 			}
 			const regex = regexCache[ match ];
-			return title.replace( regex, '<span class="wiki7-typeahead__highlight">$&</span>' );
+			return safeTitle.replace( regex, '<span class="wiki7-typeahead__highlight">$&</span>' );
 		},
 		getPlaceholderHTML: function ( queryValue, templates ) {
 			const data = {

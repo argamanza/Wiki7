@@ -1,0 +1,9 @@
+# Development overrides - automatically loaded by docker compose
+# To disable, rename this file or use: docker compose -f docker-compose.yml up
+services:
+  mediawiki:
+    environment:
+      - WIKI_ENV=dev
+    # Mount extensions for live editing in development
+    volumes:
+      - ./extensions:/var/www/html/extensions

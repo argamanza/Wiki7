@@ -44,13 +44,15 @@ class ResourceLoaderHooks {
 	public static function getWiki7ResourceLoaderConfig(
 		RL\Context $context,
 		Config $config
-	) {
+	): array {
 		return [
 			'wgWiki7EnablePreferences' => $config->get( 'Wiki7EnablePreferences' ),
 			'wgWiki7OverflowInheritedClasses' => $config->get( 'Wiki7OverflowInheritedClasses' ),
 			'wgWiki7OverflowNowrapClasses' => $config->get( 'Wiki7OverflowNowrapClasses' ),
 			'wgWiki7SearchModule' => $config->get( 'Wiki7SearchModule' ),
 			'wgWiki7EnableCommandPalette' => $config->get( 'Wiki7EnableCommandPalette' ),
+			'wgWiki7EnablePerformanceMode' => $config->get( 'Wiki7EnablePerformanceMode' ),
+			'wgWiki7HeaderPosition' => $config->get( 'Wiki7HeaderPosition' ),
 		];
 	}
 
@@ -63,7 +65,7 @@ class ResourceLoaderHooks {
 	public static function getWiki7PreferencesResourceLoaderConfig(
 		RL\Context $context,
 		Config $config
-	) {
+	): array {
 		return [
 			'wgWiki7ThemeDefault' => $config->get( 'Wiki7ThemeDefault' ),
 		];
@@ -78,7 +80,7 @@ class ResourceLoaderHooks {
 	public static function getWiki7SearchResourceLoaderConfig(
 		RL\Context $context,
 		Config $config
-	) {
+	): array {
 		return [
 			'isAdvancedSearchExtensionEnabled' => ExtensionRegistry::getInstance()->isLoaded( 'AdvancedSearch' ),
 			'isMediaSearchExtensionEnabled' => ExtensionRegistry::getInstance()->isLoaded( 'MediaSearch' ),
@@ -99,7 +101,7 @@ class ResourceLoaderHooks {
 	public static function getWiki7CommandPaletteResourceLoaderConfig(
 		RL\Context $context,
 		Config $config
-	) {
+	): array {
 		return [
 			'wgSearchSuggestCacheExpiry' => $config->get( MainConfigNames::SearchSuggestCacheExpiry )
 		];

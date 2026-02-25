@@ -1,6 +1,6 @@
 {
 	"name": "Wiki7",
-	"version": "3.1.0",
+	"version": "3.13.0",
 	"author": [
 		"[https://www.mediawiki.org/wiki/User:Alistair3149 Alistair3149]",
 		"[https://www.mediawiki.org/wiki/User:Octfx Octfx]",
@@ -12,7 +12,10 @@
 	"license-name": "GPL-3.0-or-later",
 	"type": "skin",
 	"requires": {
-		"MediaWiki": ">= 1.43.0"
+		"MediaWiki": ">= 1.45.0",
+		"platform": {
+			"php": ">= 8.1.0"
+		}
 	},
 	"attributes": {
 		"DarkMode": {
@@ -34,7 +37,9 @@
 					"name": "wiki7",
 					"responsive": true,
 					"supportsMwHeading": true,
+					"supportsMwHeadingAriaRole": true,
 					"toc": false,
+					"tempUserBanner": true,
 					"wrapSiteNotice": true,
 					"link": {
 						"text-wrapper": {
@@ -64,6 +69,7 @@
 						"wiki7-languages-toggle",
 						"wiki7-preferences-toggle",
 						"wiki7-search-toggle",
+						"wiki7-skip-to-content",
 						"wiki7-usermenu-toggle",
 						"randompage",
 						"search",
@@ -98,6 +104,9 @@
 	"HookHandlers": {
 		"SkinHooks": {
 			"class": "MediaWiki\\Skins\\Wiki7\\Hooks\\SkinHooks"
+		},
+		"ResourceLoaderHooks": {
+			"class": "MediaWiki\\Skins\\Wiki7\\Hooks\\ResourceLoaderHooks"
 		}
 	},
 	"Hooks": {
@@ -179,7 +188,8 @@
 			],
 			"messages": [
 				"wiki7-share",
-				"wiki7-share-copied"
+				"wiki7-share-copied",
+				"wiki7-search-clear"
 			],
 			"dependencies": [
 				"mediawiki.util",
@@ -858,6 +868,24 @@
 			"value": false,
 			"description": "[EXPERIMENTAL] Enables or disable the command palette. Command palette is in active development and may not work as expected.",
 			"descriptionmsg": "wiki7-config-enablecommandpalette",
+			"public": true
+		},
+		"HeaderPosition": {
+			"value": "header",
+			"description": "Position of the header. Valid values are 'header' and 'sidebar'.",
+			"descriptionmsg": "wiki7-config-headerposition",
+			"public": true
+		},
+		"EnablePerformanceMode": {
+			"value": false,
+			"description": "Enable performance mode which reduces animations and defers non-critical resources.",
+			"descriptionmsg": "wiki7-config-enableperformancemode",
+			"public": true
+		},
+		"EnableResourceHints": {
+			"value": true,
+			"description": "Enable resource hints (preload, prefetch) for improved page load performance.",
+			"descriptionmsg": "wiki7-config-enableresourcehints",
 			"public": true
 		}
 	},

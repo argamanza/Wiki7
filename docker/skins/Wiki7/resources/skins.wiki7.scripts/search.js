@@ -161,8 +161,7 @@ function renderSearchClearButton( input ) {
 	let hasClearButton = false;
 
 	clearButton.classList.add( 'wiki7-search__clear', 'wiki7-search__formButton' );
-	// TODO: Add i18n for the message below
-	// clearButton.setAttribute( 'aria-label', 'Clear search input' );
+	clearButton.setAttribute( 'aria-label', mw.msg( 'wiki7-search-clear' ) );
 	clearIcon.classList.add( 'wiki7-ui-icon', 'mw-ui-icon-wikimedia-trash' );
 	clearButton.append( clearIcon );
 
@@ -197,9 +196,46 @@ function initSearch( window ) {
 	const config = require( './config.json' );
 
 	if ( config.wgWiki7EnableCommandPalette ) {
-		// Short-circuit the search module initialization,
-		// as it will be replaced by the command palette
-		mw.loader.load( 'skins.wiki7.commandPalette' );
+		// Lazy-load the command palette module only when triggered by keyboard shortcut
+		// or search button click, instead of loading Vue + Pinia eagerly on page load
+		const MODULE_NAME = 'skins.wiki7.commandPalette';
+		let commandPaletteLoaded = false;
+
+		const loadCommandPalette = ( /** @type {Event} */ event ) => {
+			if ( event ) {
+				event.preventDefault();
+			}
+			if ( !commandPaletteLoaded ) {
+				commandPaletteLoaded = true;
+				mw.loader.load( MODULE_NAME );
+			}
+		};
+
+		// Listen for Cmd+K / Ctrl+K / "/" / Alt+Shift+F to trigger lazy load
+		document.addEventListener( 'keydown', ( /** @type {KeyboardEvent} */ event ) => {
+			const isCommandPaletteKey = () => {
+				if ( event.key === '/' ) {
+					return true;
+				} else if ( ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'k' ) {
+					return true;
+				} else if ( event.altKey && event.shiftKey && event.key.toLowerCase() === 'f' ) {
+					return true;
+				}
+				return false;
+			};
+			if ( isCommandPaletteKey() && !isFormField( event.target ) ) {
+				loadCommandPalette( event );
+			}
+		}, true );
+
+		// Also trigger on search button click
+		const searchDetails = document.getElementById( 'wiki7-search-details' );
+		if ( searchDetails ) {
+			searchDetails.addEventListener( 'click', () => {
+				loadCommandPalette();
+			} );
+		}
+
 		return;
 	}
 

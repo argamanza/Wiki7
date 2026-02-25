@@ -38,16 +38,13 @@ abstract class Partial {
 
 	use GetConfigTrait;
 
-	/** @var SkinWiki7 */
-	protected $skin;
+	protected SkinWiki7 $skin;
 
-	/** @var OutputPage */
-	protected $out;
+	protected OutputPage $out;
 
-	/** @var Title */
-	protected $title;
+	protected ?Title $title;
 
-	/** @var User */
+	/** @var \MediaWiki\User\User */
 	protected $user;
 
 	/**

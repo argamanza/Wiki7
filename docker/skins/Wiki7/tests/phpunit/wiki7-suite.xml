@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bootstrap.php"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+	colors="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutOutputDuringTests="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	verbose="true">
+	<testsuites>
+		<testsuite name="Wiki7Unit">
+			<directory>unit</directory>
+		</testsuite>
+		<testsuite name="Wiki7Integration">
+			<directory>integration</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

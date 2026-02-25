@@ -56,7 +56,7 @@ class SkinHooks implements
 	use GetConfigTrait;
 
 	/**
-	 * Adds the inline theme switcher script to the page
+	 * Adds the inline theme switcher script to the page and resource hints
 	 *
 	 * @param OutputPage $out
 	 * @param Skin $skin
@@ -72,6 +72,45 @@ class SkinHooks implements
 			$script = Html::inlineScript( $script );
 			$script = RL\ResourceLoader::filter( 'minify-js', $script );
 			$out->addHeadItem( 'skin.wiki7.inline', $script );
+		}
+
+		// Add resource hints for improved performance (v3.10.0+)
+		if ( $this->getConfigValue( 'Wiki7EnableResourceHints', $out ) === true ) {
+			$this->addResourceHints( $out );
+		}
+
+		// Add performance mode class (v3.7.0+)
+		if ( $this->getConfigValue( 'Wiki7EnablePerformanceMode', $out ) === true ) {
+			$out->addHtmlClasses( 'wiki7-performance-mode' );
+		}
+
+		// Add header position class (v3.6.0+)
+		$headerPosition = $this->getConfigValue( 'Wiki7HeaderPosition', $out );
+		if ( $headerPosition === 'sidebar' ) {
+			$out->addHtmlClasses( 'wiki7-header-sidebar' );
+		}
+	}
+
+	/**
+	 * Add resource hints (preload, prefetch, preconnect) for performance
+	 * Introduced in Citizen v3.10.0
+	 *
+	 * @param OutputPage $out
+	 */
+	private function addResourceHints( OutputPage $out ): void {
+		// DNS prefetch for common external resources
+		$out->addLink( [
+			'rel' => 'dns-prefetch',
+			'href' => '//upload.wikimedia.org',
+		] );
+
+		// Preconnect for the same origin to speed up resource loading
+		$serverUrl = $this->getConfigValue( 'Server', $out );
+		if ( $serverUrl ) {
+			$out->addLink( [
+				'rel' => 'preconnect',
+				'href' => $serverUrl,
+			] );
 		}
 	}
 
@@ -306,10 +345,8 @@ class SkinHooks implements
 		// Since talk keys have namespace as prefix
 		foreach ( $links['associated-pages'] as $key => $item ) {
 			$keyStr = (string)$key;
-			// TODO: use str_ends_with when we drop PHP 7.X
-			if ( substr( $keyStr, -5 ) === '_talk' ) {
+			if ( str_ends_with( $keyStr, '_talk' ) ) {
 				// Extract the namespace key from the talk key (e.g. Project from Project_talk)
-				// TODO: use str_starts_with when we drop PHP 7.X
 				$namespace = substr( $keyStr, 0, -5 );
 				$links['associated-pages'][$key]['icon'] = 'speechBubbles';
 				$links['associated-pages'][$namespace]['icon'] = 'arrowPrevious';
@@ -489,6 +526,10 @@ class SkinHooks implements
 			$icon = $item['icon'] ?? '';
 
 			if ( $icon ) {
+				// Validate icon name to prevent CSS class injection
+				if ( !preg_match( '/^[a-zA-Z0-9\-_]+$/', $icon ) ) {
+					continue;
+				}
 				// Html::makeLink will pass this through rawElement
 				// Avoid using mw-ui-icon in case its styles get loaded
 				// Sometimes extension includes the "wikimedia-" part in the icon key (e.g. ULS),

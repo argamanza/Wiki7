@@ -76,7 +76,7 @@ function adaptApiResponse( config, query, response, showDescription ) {
 
 	response = response.query;
 
-	// Merge redirects array into pages array if avaliable
+	// Merge redirects array into pages array if available
 	// So the from key can be used for matched title
 	if ( response.redirects ) {
 		const pageCount = response.pages.length;

@@ -1,89 +1,122 @@
-# 📘 Wiki7 Project Roadmap
+# Wiki7 Project Roadmap
 
-A structured plan for building the Hapoel Beer Sheva fan wiki on MediaWiki using AWS-managed infrastructure and modern DevOps practices.
-
----
-
-## ✅ Project Objectives
-Your Wiki7 project aims to create a fan-driven wiki for Hapoel Beer Sheva FC, with:
-
-- [x] **MediaWiki** as the content platform
-- [x] **Modern AWS-managed infrastructure** for scalability and performance
-- [x] **CI/CD pipeline** to enable smooth and automated staging and production deployments
-- [x] **Custom design** inspired by Maccabipedia and Wikipoel, to capture the spirit of the club and community
+A structured plan for building the Hapoel Beer Sheva fan wiki on MediaWiki with AWS infrastructure.
 
 ---
 
-## 🔧 Technical Stack
+## Technical Stack
 
-### Core Components
-- [x] **MediaWiki** – Core content engine
-- [x] **Docker** – Enables containerized, reproducible dev/prod environments
-- [x] **AWS ECS** (Elastic Container Service) – Manages container orchestration via Fargate or EC2
-- [x] **AWS RDS (PostgreSQL)** – Scalable managed database with built-in backups and monitoring
-- [x] **AWS S3** – For uploading and serving images and file media
-- [x] **AWS CloudFront** – Global CDN for caching and fast delivery
-- [x] **GitHub** – Source control and collaboration hub
-- [x] **AWS CodePipeline/CodeBuild** – CI/CD for automated builds and deployments
-- [x] **AWS CloudFormation/CDK** – Infrastructure as Code using developer-friendly tools
-- [x] **AWS Route 53** – DNS and domain management for the wiki
-
-### Why This Stack
-- [x] **Containerization**: Ensures parity across environments and smooth deployments
-- [x] **Managed AWS Services**: Reduces operational overhead without losing control
-- [x] **PostgreSQL**: More performant than MySQL for high-traffic wikis with many edits and queries
-- [x] **CodePipeline**: Seamless native integration with other AWS services
-- [x] **CDK**: Allows you to define infrastructure using familiar programming languages
+- **MediaWiki 1.45.1** -- content engine
+- **Wiki7 skin** -- custom skin based on Citizen v3.1.0
+- **MariaDB 11.4** -- database (MySQL-compatible)
+- **Docker** -- containerized development and production environments
+- **AWS CDK** -- infrastructure as code (TypeScript)
+- **EC2 (t4g.small)** -- compute (Nginx + PHP-FPM + local MariaDB)
+- **S3** -- media storage and backups
+- **CloudFront + WAF** -- CDN, SSL termination, and security
+- **Route 53** -- DNS management
+- **CloudWatch** -- monitoring and alerting
 
 ---
 
-## 📆 Project Phases and Checklist
+## Project Phases
 
-### Phase 1: Environment Setup & Planning
-- [x] Set up initial GitHub repository with clear directory structure
-- [x] Create a minimal Docker setup for local MediaWiki development
-- [x] Design initial AWS infrastructure diagram (VPC, RDS, ECS, S3, Route 53, etc.)
-- [x] Manually deploy a basic version of each core service to understand configurations and needs
+### Phase 1: Environment Setup -- DONE
 
-### Phase 2: Infrastructure as Code (IaC)
-- [ ] Build CDK templates for core services: VPC, RDS, ECS services, S3 buckets, CloudFront distribution
-- [ ] Configure private/public subnets, routing tables, and internet gateways in VPC
-- [ ] Deploy PostgreSQL database using RDS with proper subnet groups and security groups
-- [ ] Define ECS task definitions and service for MediaWiki Docker container
+- [x] Set up GitHub repository with directory structure (`docker/`, `cdk/`, `data/`, `docs/`)
+- [x] Create Docker Compose setup for local MediaWiki development
+- [x] Design initial AWS infrastructure diagram
+- [x] Manual deployment to validate service configurations
 
-### Phase 3: CI/CD Pipeline
-- [ ] Define CodePipeline with separate staging and production stages
-- [ ] Use CodeBuild to build Docker images and push to Amazon ECR
-- [ ] Add automated validation (e.g. health checks, linting, extension tests)
-- [ ] Include manual approval gates for production deployments, and support for rollbacks
+### Phase 2: Documentation & Project Setup -- DONE
 
-### Phase 4: MediaWiki Customization
-- [ ] Install essential MediaWiki extensions (ParserFunctions, VisualEditor, etc.)
-- [ ] Customize UI/theme to align with Maccabipedia / Wikipoel visual style
-- [ ] Design content structure: player pages, season summaries, match histories, fan chants/tifos
-- [ ] Secure the platform with CAPTCHA, user permission tiers, and abuse filters
+- [x] Create comprehensive project plan (plan.md)
+- [x] Create docs/SETUP.md local development setup guide
+- [x] Create docs/SKIN-DEVELOPMENT.md skin development guide
+- [x] Create docs/INFRASTRUCTURE.md AWS infrastructure guide
+- [x] Create data/README.md data pipeline guide
+- [x] Rewrite README.md with accurate project information
+- [x] Create CONTRIBUTING.md, LICENSE, Makefile, CHANGELOG.md
+- [x] Fix docs/architecture.md and docs/roadmap.md accuracy
 
-### Phase 5: Content & Launch
-- [ ] Create and import seed content (history, players, titles, managers)
-- [ ] Set up structured media management workflows (categories, galleries, etc.)
-- [ ] Perform load tests and performance audits with CloudWatch monitoring
-- [ ] Launch production version, enable domain via Route 53, and begin post-launch monitoring
+### Phase 3: Security & Configuration Hardening -- DONE
+
+- [x] Remove hardcoded secrets, create .env.example, gitignore .env
+- [x] Fix XSS, HTML injection, and input validation vulnerabilities in skin
+- [x] Add Content Security Policy, cookie security, security headers
+- [x] Add upload security (file type restrictions, MIME verification)
+- [x] Pin Docker base image, add multi-stage build
+- [x] Add Docker health checks, resource limits, log rotation
+- [x] Fix CDK security: S3 public access, EBS encryption, IMDSv2, RDS protection
+- [x] Add cross-region SSM sync for certificate and WAF ARN replication
+- [x] Configure database SSL, SMTP, and caching support
+
+### Phase 4: Infrastructure Optimization -- DONE
+
+- [x] Replace ECS Fargate + ALB with EC2 t4g.small (saves ~$60/mo)
+- [x] Remove NAT Gateway (saves ~$35/mo)
+- [x] Parameterize domain name and add CDK context flags
+- [x] Create EC2 application stack with ASG and auto-scaling
+- [x] Configure CloudFront with direct EC2 origin (no ALB)
+- [x] Add S3 origin with Origin Access Control for static assets
+- [x] Add CloudFront security headers and www-to-apex redirect
+- [x] Create monitoring stack (CloudWatch alarms, SNS alerts, AWS Budget)
+- [x] Create backup stack (daily mysqldump to S3 via Lambda)
+- [x] Create optional managed RDS database stack
+- [x] Optimize architecture from ~$107-128/mo to ~$16-20/mo target
+
+### Phase 5: CI/CD Pipeline -- DONE
+
+- [x] Set up GitHub Actions for CI (PHP lint, JS lint, CDK tests, Python lint)
+- [x] Add CDK diff workflow for infrastructure PRs
+- [ ] Add automated Docker image build and push to ECR
+- [ ] Add automated deployment to EC2 on merge to main
+
+### Phase 6: Production Hardening & Documentation -- DONE
+
+- [x] Add AWS Cost Anomaly Detection (free)
+- [x] Verify budget alarm and backup Lambda
+- [x] Create operations runbook (docs/RUNBOOK.md)
+- [x] Create deployment guide (docs/DEPLOYMENT.md)
+- [x] Create security documentation (docs/SECURITY.md)
+- [x] Create troubleshooting guide (docs/TROUBLESHOOTING.md)
+- [x] Update changelog and roadmap
 
 ---
 
-## 🎓 Learning & Execution Approach
-Each phase follows this cycle:
+## Future Work
 
-- **Learn** → Research the relevant technologies and practices for the phase
-- **Plan** → Create implementation and architecture diagrams
-- **Execute** → Build the feature or component in small, manageable chunks
-- **Review** → Test, validate, and iterate on what has been built
+### Content & Launch
+
+The site is live at wiki7.co.il but content is sparse. The data pipeline (Scrapy) exists but lacks the "last mile" to import scraped data into MediaWiki.
+
+- [ ] Build data import pipeline (scraped data into MediaWiki)
+- [ ] Create seed content (history, players, seasons, matches)
+- [ ] Set up structured media management (categories, galleries)
+- [ ] Perform load testing and performance audit
+
+### Skin Improvements
+
+- [ ] Fix skin bugs (memory leaks, Safari hacks, debounce issues)
+- [ ] Implement service worker caching (sw.js is currently empty)
+- [ ] Improve accessibility (aria-labels, aria-expanded)
+- [ ] Complete Hebrew i18n (14 missing keys)
+- [ ] Upgrade from Citizen v3.1.0 (currently 12 versions behind at v3.13.0)
+
+### Infrastructure Enhancements
+
+- [ ] Add automated Docker image build and push to ECR (CI/CD Phase 5 remaining)
+- [ ] Add automated deployment to EC2 on merge to main
+- [ ] Configure memcached for production caching
+- [ ] Configure SMTP for email notifications
+- [ ] Add CloudFront caching policy for anonymous wiki pages
 
 ---
 
-## 🔜 Immediate Next Steps
-- [ ] Create GitHub repository structure (e.g. `docker/`, `infrastructure/`, `mediawiki/`, `docs/`)
-- [ ] Set up local MediaWiki development with Docker Compose
-- [ ] Build basic MediaWiki image or use existing official image
-- [ ] Begin planning AWS architecture with diagrams for VPC, ECS, RDS, S3, and CloudFront
+## Immediate Priorities
 
+1. Build data import pipeline (scraped Transfermarkt data into MediaWiki)
+2. Create seed content for the wiki (players, seasons, match history)
+3. Add automated deployment pipeline (GitHub Actions -> EC2)
+4. Fix critical skin bugs (memory leaks, accessibility)
+5. Configure SMTP for email and memcached for caching

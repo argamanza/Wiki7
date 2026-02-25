@@ -56,7 +56,7 @@ class ApiWebappManifest extends ApiBase {
 	 */
 	public function __construct(
 		ApiMain $main,
-		$moduleName
+		string $moduleName
 	) {
 		parent::__construct( $main, $moduleName );
 		$this->main = $main;
@@ -104,6 +104,25 @@ class ApiWebappManifest extends ApiBase {
 	/**
 	 * Get icons for manifest
 	 */
+	/**
+	 * Validate that a URL is well-formed and uses an expected protocol
+	 */
+	private function isValidIconUrl( string $url ): bool {
+		// Allow protocol-relative URLs (e.g. //example.com/icon.png)
+		if ( str_starts_with( $url, '//' ) ) {
+			$url = 'https:' . $url;
+		}
+		// Allow relative URLs (e.g. /path/to/icon.png)
+		if ( str_starts_with( $url, '/' ) ) {
+			return true;
+		}
+		$parsed = parse_url( $url );
+		if ( $parsed === false || !isset( $parsed['scheme'] ) ) {
+			return false;
+		}
+		return in_array( strtolower( $parsed['scheme'] ), [ 'http', 'https' ], true );
+	}
+
 	private function getIcons(): array {
 		$iconsConfig = $this->options['icons'];
 		if ( !is_array( $iconsConfig ) || count( $iconsConfig ) === 0 ) {
@@ -119,7 +138,11 @@ class ApiWebappManifest extends ApiBase {
 			if ( count( $icon ) === 0 ) {
 				continue;
 			}
-			array_push( $icons, $icon );
+			// Validate icon src URL
+			if ( isset( $icon['src'] ) && !$this->isValidIconUrl( (string)$icon['src'] ) ) {
+				continue;
+			}
+			$icons[] = $icon;
 		}
 		return $icons;
 	}
@@ -154,13 +177,18 @@ class ApiWebappManifest extends ApiBase {
 
 			$logoPath = (string)$logos[$logoKey];
 
+			// Validate logo URL before use
+			if ( !$this->isValidIconUrl( $logoPath ) ) {
+				continue;
+			}
+
 			try {
 				$logoUrl = $urlUtils->expand( $logoPath, PROTO_CURRENT ) ?? '';
 				$request = $httpRequestFactory->create( $logoUrl, [], __METHOD__ );
 				$request->execute();
 				$logoContent = $request->getContent();
 			} catch ( Exception $e ) {
-				// Log the exception or handle it accordingly
+				wfLogWarning( 'Wiki7 WebappManifest: Failed to fetch logo from "' . $logoUrl . '": ' . $e->getMessage() );
 				$logoContent = '';
 			}
 
@@ -178,7 +206,7 @@ class ApiWebappManifest extends ApiBase {
 			}
 
 			// Set sizes to any if it is a SVG
-			if ( substr( $logoPath, -3 ) === 'svg' ) {
+			if ( str_ends_with( $logoPath, 'svg' ) ) {
 				$icon['sizes'] = 'any';
 				$icon['type'] = 'image/svg+xml';
 			}

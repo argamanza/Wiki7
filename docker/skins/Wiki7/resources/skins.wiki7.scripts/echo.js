@@ -102,6 +102,12 @@ function init() {
 			subtree: true
 		}
 	);
+
+	// Clean up observers when navigating away to prevent memory leaks
+	window.addEventListener( 'pagehide', () => {
+		initObserver.disconnect();
+		abuseObserver.disconnect();
+	}, { once: true } );
 }
 
 module.exports = init;

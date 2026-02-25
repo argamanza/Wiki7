@@ -202,10 +202,23 @@ final class BodyContent extends Partial {
 
 	/**
 	 * Gets top headings in the document.
+	 * Updated for MW 1.45 compatibility: supports both legacy heading DOM
+	 * and new mw-heading wrapper DOM (T13555).
 	 */
 	private function getTopHeadings( DOMDocument $doc ): array {
 		$headings = [];
 
+		// First, try to find headings using the new mw-heading wrapper (MW 1.45+)
+		// This is the preferred method when $wgParserEnableLegacyHeadingDOM is false
+		$mwHeadings = DOMCompat::querySelectorAll( $doc, '.mw-parser-output > .mw-heading' );
+		if ( count( $mwHeadings ) > 0 ) {
+			foreach ( $mwHeadings as $el ) {
+				$headings[] = $el;
+			}
+			return $headings;
+		}
+
+		// Fallback: legacy heading DOM support
 		foreach ( $this->topHeadingTags as $tagName ) {
 			$allTags = DOMCompat::querySelectorAll( $doc, $tagName );
 
@@ -217,17 +230,14 @@ final class BodyContent extends Partial {
 
 				$parentClasses = DOMCompat::getClassList( $parent );
 
-				// Use the `<div class="mw-heading">` wrapper if it is present. When they are required
-				// (T13555), the querySelectorAll() above can use the class and this can be removed.
+				// Use the `<div class="mw-heading">` wrapper if it is present
 				if ( $parentClasses->contains( 'mw-heading' ) ) {
 					$el = $parent;
 				} elseif ( !$parentClasses->contains( 'mw-parser-output' ) ) {
 					// Only target page headings, but not other heading tags
-					// TODO: Drop this when T13555 is deployed on LTS
 					continue;
 				}
 
-				// This check can be removed too when we require the wrappers.
 				if ( $parent->getAttribute( 'class' ) !== 'toctitle' ) {
 					$headings[] = $el;
 				}

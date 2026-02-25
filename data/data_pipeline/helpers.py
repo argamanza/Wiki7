@@ -2,7 +2,10 @@ import re
 from dateutil.parser import parse
 from datetime import date
 from typing import List, Optional, Set
+import logging
 import pycountry
+
+logger = logging.getLogger(__name__)
 
 
 def is_all_hebrew(text: str) -> bool:
@@ -13,7 +16,8 @@ def parse_birth_date(raw: str) -> Optional[date]:
         return None
     try:
         return parse(raw.split(" (")[0]).date()
-    except Exception:
+    except (ValueError, OverflowError, TypeError) as exc:
+        logger.debug("Could not parse birth date %r: %s", raw, exc)
         return None
 
 def parse_countries(country_string: str) -> List[str]:

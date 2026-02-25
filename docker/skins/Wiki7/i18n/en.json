@@ -33,7 +33,8 @@
 	"wiki7-footer-tagline": "Edit this text on [[MediaWiki:Wiki7-footer-tagline]]",
 	"wiki7-action-addsection": "Add topic",
 	"wiki7-jumptotop": "Back to top",
-	
+	"wiki7-skip-to-content": "Skip to content",
+
 	"wiki7-search-advancedsearch": "Advanced search",
 	"wiki7-search-fulltext": "Search text",
 	"wiki7-search-mediasearch": "Search media",
@@ -41,6 +42,7 @@
 	"wiki7-search-empty-desc": "Type to start searching",
 	"wiki7-search-noresults-title": "Uh oh! No results for $1",
 	"wiki7-search-noresults-desc": "Maybe try the options above?",
+	"wiki7-search-clear": "Clear search input",
 
 	"wiki7-share": "Share this page",
 	"wiki7-share-copied": "URL copied to clipboard!",

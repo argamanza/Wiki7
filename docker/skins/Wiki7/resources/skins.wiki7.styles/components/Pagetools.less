@@ -11,7 +11,7 @@
 	.wiki7-menu {
 		&__card {
 			position: absolute;
-			right: ~'calc( var( --space-xs ) * -1 )'; // counteract margin
+			inset-inline-end: ~'calc( var( --space-xs ) * -1 )'; // counteract margin
 			display: grid;
 			gap: var( --space-xs );
 			max-height: 60vh;
@@ -52,8 +52,7 @@
 
 		li > a {
 			gap: 0;
-			padding-right: var( --space-sm );
-			padding-left: var( --space-sm );
+			padding-inline: var( --space-sm );
 			font-size: 0;
 			border-radius: var( --border-radius-medium );
 
@@ -85,7 +84,7 @@
 		&::after {
 			position: absolute;
 			top: 0;
-			right: 0;
+			inset-inline-end: 0;
 			display: block;
 			padding: 0.1em 0.4em;
 			font-size: 0.65rem;
@@ -127,20 +126,20 @@
 	// Additional check to check if there are actually source edit button (#929)
 	&#ca-ve-edit:has( + #ca-edit ) {
 		> a {
-			border-top-right-radius: 0;
-			border-bottom-right-radius: 0;
+			border-start-end-radius: 0;
+			border-end-end-radius: 0;
 		}
 	}
 
 	&#ca-edit {
-		margin-left: ~'calc( var( --space-xxs ) * -1 )';
-		border-left: var( --border-width-base ) solid var( --color-progressive--hover );
+		margin-inline-start: ~'calc( var( --space-xxs ) * -1 )';
+		border-inline-start: var( --border-width-base ) solid var( --color-progressive--hover );
 
 		> a {
 			gap: 0;
 			font-size: 0; // hide edit source text
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
+			border-start-start-radius: 0;
+			border-end-start-radius: 0;
 		}
 	}
 }
@@ -157,7 +156,7 @@
 @media ( max-width: @max-width-breakpoint-tablet ) {
 	.page-actions {
 		position: fixed;
-		right: 0;
+		inset-inline-end: 0;
 		bottom: ~'calc( var( --header-size ) + max( env( safe-area-inset-bottom ), var( --space-xs ) ) )';
 		height: var( --toolbar-size );
 		margin: var( --space-xs );

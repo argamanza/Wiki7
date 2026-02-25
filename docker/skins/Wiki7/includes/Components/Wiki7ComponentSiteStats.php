@@ -66,10 +66,10 @@ class Wiki7ComponentSiteStats implements Wiki7Component {
 				$fmt->setAttribute( NumberFormatter::MAX_FRACTION_DIGITS, 1 );
 			} catch ( IntlException $exception ) {
 				/*
-				 * FIXME: Put a proper log or error message here?
 				 * For some unknown reason, NumberFormatter can throw an IntlException: Constructor failed
 				 * This should allow Wiki7 to run as usual even if such exception is encountered.
 				 */
+				wfLogWarning( 'Wiki7 NumberFormatter failed for locale "' . $locale . '": ' . $exception->getMessage() );
 			}
 		}
 
