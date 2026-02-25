@@ -1,0 +1,95 @@
+name: Lint and Test
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  lint-php:
+    name: PHP Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+      - name: Install PHP CodeSniffer
+        run: composer global require mediawiki/mediawiki-codesniffer
+      - name: Run PHP lint
+        run: |
+          cd docker/skins/Wiki7
+          ~/.composer/vendor/bin/phpcs --standard=MediaWiki includes/
+        continue-on-error: true
+
+  lint-js:
+    name: JS Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install ESLint
+        run: npm install -g eslint eslint-config-wikimedia
+      - name: Run ESLint
+        run: |
+          cd docker/skins/Wiki7
+          npx eslint resources/ || true
+        continue-on-error: true
+
+  test-cdk:
+    name: CDK Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: cd cdk && npm ci
+      - name: Synthesize CDK stacks
+        run: cd cdk && npx cdk synth --quiet
+        continue-on-error: true
+      - name: Run CDK tests
+        run: cd cdk && npm test
+        continue-on-error: true
+
+  test-python:
+    name: Python Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          cd data
+          pip install poetry
+          poetry install
+      - name: Run linter
+        run: |
+          cd data
+          poetry run ruff check . || true
+        continue-on-error: true
+      - name: Run tests
+        run: |
+          cd data
+          poetry run pytest --tb=short -v
+      - name: Run pipeline dry-run
+        run: |
+          cd data
+          mkdir -p data_pipeline/output tmk-scraper/output
+          cp tests/fixtures/output/* data_pipeline/output/ 2>/dev/null || true
+          cp tests/fixtures/matches_sample.json tmk-scraper/output/matches.json
+          python -c "
+          from data_pipeline.normalize_enrich_players import main
+          main(raw_path='tests/fixtures/players_sample.json', out_dir='data_pipeline/output')
+          "
+          python run_pipeline.py --skip-scrape --skip-normalize --dry-run -v
