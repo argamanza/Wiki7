@@ -1,9 +1,5 @@
 services:
-  scraper:
-    build:
-      context: .
-      dockerfile: Dockerfile.scraper
-    volumes:
-      - ./tmk-scraper/output:/app/tmk-scraper/output
-    environment:
-      - USE_SCRAPERAPI=false
+  transfermarket-api:
+    build: transfermarkt-api
+    ports:
+      - "8000:8000"

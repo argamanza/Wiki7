@@ -6,7 +6,7 @@ SPIDER_MODULES = ["tmk_scraper.spiders"]
 NEWSPIDER_MODULE = "tmk_scraper.spiders"
 
 # === ScraperAPI toggle ===
-USE_SCRAPERAPI = False
+USE_SCRAPERAPI = True
 SCRAPERAPI_KEY = os.environ.get("SCRAPERAPI_KEY", "")
 
 # === Logging ===
