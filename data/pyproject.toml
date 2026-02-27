@@ -3,6 +3,7 @@ name = "wiki7-data"
 version = "0.1.0"
 description = ""
 authors = ["Tzahi Argaman <tzahi.argaman@cyberark.com>"]
+package-mode = false
 
 
 [tool.poetry.dependencies]
