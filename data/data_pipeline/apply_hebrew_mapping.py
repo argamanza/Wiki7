@@ -12,7 +12,6 @@ def load_mapping():
 
 def apply_hebrew(player: dict, mapping: dict) -> dict:
     pos_map = mapping.get("positions", {})
-    club_map = mapping.get("clubs", {})
     nationality_map = mapping.get("nationalities", {})
     names_map = mapping.get("names", {})
 

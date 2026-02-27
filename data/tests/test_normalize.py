@@ -4,7 +4,6 @@ import json
 import tempfile
 from pathlib import Path
 
-import pytest
 
 from data_pipeline.normalize_enrich_players import main, normalize_player, normalize_transfers, normalize_market_values
 

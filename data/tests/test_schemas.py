@@ -1,6 +1,5 @@
 """Tests for data_pipeline.schemas Pydantic models."""
 
-import pytest
 from datetime import date
 from data_pipeline.schemas import Player, Transfer, MarketValue
 

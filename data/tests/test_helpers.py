@@ -1,6 +1,5 @@
 """Tests for data_pipeline.helpers module."""
 
-import pytest
 from datetime import date
 from data_pipeline.helpers import (
     is_all_hebrew,

@@ -1,7 +1,5 @@
 """Tests for wiki_import module — template rendering and dry-run behavior."""
 
-import json
-import tempfile
 from pathlib import Path
 
 import pytest
