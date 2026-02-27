@@ -20,7 +20,9 @@ jobs:
           php-version: '8.2'
           tools: composer
       - name: Install PHP CodeSniffer
-        run: composer global require mediawiki/mediawiki-codesniffer
+        run: |
+          composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer global require mediawiki/mediawiki-codesniffer
       - name: Run PHP lint
         run: |
           cd docker/skins/Wiki7
