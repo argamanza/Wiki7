@@ -90,8 +90,8 @@ jobs:
           mkdir -p data_pipeline/output tmk-scraper/output
           cp tests/fixtures/output/* data_pipeline/output/ 2>/dev/null || true
           cp tests/fixtures/matches_sample.json tmk-scraper/output/matches.json
-          python -c "
+          poetry run python -c "
           from data_pipeline.normalize_enrich_players import main
           main(raw_path='tests/fixtures/players_sample.json', out_dir='data_pipeline/output')
           "
-          python run_pipeline.py --skip-scrape --skip-normalize --dry-run -v
+          poetry run python run_pipeline.py --skip-scrape --skip-normalize --dry-run -v
