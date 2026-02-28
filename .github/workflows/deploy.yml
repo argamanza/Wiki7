@@ -32,10 +32,14 @@ jobs:
         run: cd cdk && npx cdk diff --all 2>&1 || true
 
       - name: CDK Deploy
-        run: cd cdk && npx cdk deploy --all --require-approval never
+        id: cdk-deploy
+        run: |
+          cd cdk && npx cdk deploy --all --require-approval never --outputs-file cdk-outputs.json
+          BUCKET=$(jq -r '.Wiki7CdkStack.ApplicationMediaWikiStorageBucketName68575BE3' cdk-outputs.json)
+          echo "bucket=$BUCKET" >> "$GITHUB_OUTPUT"
 
       - name: Sync assets to S3
-        run: aws s3 sync docker/assets s3://wiki7-storage/assets/ --delete
+        run: aws s3 sync docker/assets s3://${{ steps.cdk-deploy.outputs.bucket }}/assets/ --delete
 
       - name: Deployment summary
         run: |
