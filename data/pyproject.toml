@@ -1,21 +1,31 @@
-[tool.poetry]
+[project]
 name = "wiki7-data"
 version = "0.1.0"
 description = ""
-authors = ["Tzahi Argaman <tzahi.argaman@cyberark.com>"]
-readme = "README.md"
+requires-python = ">=3.12"
 
-[tool.poetry.dependencies]
-python = "^3.12"
-scrapy = "^2.13.0"
-scrapy-fake-useragent = "^1.4.4"
-pydantic = "^2.11.5"
-tqdm = "^4.67.1"
-python-dateutil = "^2.9.0.post0"
-pycountry = "^24.6.1"
-pyyaml = "^6.0.2"
+dependencies = [
+    "scrapy>=2.13.0",
+    "scrapy-fake-useragent>=1.4.4",
+    "pydantic>=2.11.5",
+    "tqdm>=4.67.1",
+    "python-dateutil>=2.9.0.post0",
+    "pycountry>=24.6.1",
+    "pyyaml>=6.0.2",
+    "mwclient>=0.11.0",
+    "jinja2>=3.1.0",
+    "tenacity>=9.0.0",
+    "click>=8.1.0",
+]
 
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+

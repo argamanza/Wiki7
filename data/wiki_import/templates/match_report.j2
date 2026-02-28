@@ -1,0 +1,106 @@
+{{"{{"}}Match infobox
+| competition = {{ match.competition or '' }}
+| matchday = {{ match.matchday or '' }}
+| date = {{ match.date or '' }}
+| time = {{ match.time or '' }}
+| venue = {{ match.venue or '' }}
+| opponent = {{ match.opponent or '' }}
+| result = {{ match.result or '' }}
+| system_of_play = {{ match.system_of_play or '' }}
+| attendance = {{ match.attendance or '' }}
+{{"}}"}}
+
+{% if match.home_lineup %}
+== Home Lineup ==
+{% if match.home_lineup is mapping %}
+{| class="wikitable"
+{% for position, players in match.home_lineup.items() %}
+{% if position != 'manager' %}
+|-
+! {{ position | capitalize }}
+| {% if players is string %}{{ players }}{% else %}{{ players | join(', ') }}{% endif %}
+{% endif %}
+{% endfor %}
+{% if match.home_lineup.manager is defined and match.home_lineup.manager %}
+|-
+! Manager
+| {{ match.home_lineup.manager }}
+{% endif %}
+|}
+{% else %}
+{% for p in match.home_lineup %}
+* {{ p.number | default('') }} {{ p.name_english | default(p.get('name', '')) }}{% if p.captain %} (C){% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if match.away_lineup %}
+== Away Lineup ==
+{% if match.away_lineup is mapping %}
+{| class="wikitable"
+{% for position, players in match.away_lineup.items() %}
+{% if position != 'manager' %}
+|-
+! {{ position | capitalize }}
+| {% if players is string %}{{ players }}{% else %}{{ players | join(', ') }}{% endif %}
+{% endif %}
+{% endfor %}
+{% if match.away_lineup.manager is defined and match.away_lineup.manager %}
+|-
+! Manager
+| {{ match.away_lineup.manager }}
+{% endif %}
+|}
+{% else %}
+{% for p in match.away_lineup %}
+* {{ p.number | default('') }} {{ p.name_english | default(p.get('name', '')) }}{% if p.captain %} (C){% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if match.goals %}
+== Goals ==
+{| class="wikitable"
+! Minute !! Score !! Scorer !! Assist !! Team
+{% for g in match.goals %}
+|-
+| {{ g.minute or '' }}{% if g.extra_time %}+{{ g.extra_time }}{% endif %} || {{ g.score or '' }} || {{ g.scorer or '' }} || {{ g.assist or '' }} || {{ g.team or '' }}
+{% endfor %}
+|}
+{% endif %}
+
+{% if match.substitutions %}
+== Substitutions ==
+{| class="wikitable"
+! Minute !! In !! Out !! Team !! Reason
+{% for s in match.substitutions %}
+|-
+| {{ s.minute or '' }}{% if s.extra_time %}+{{ s.extra_time }}{% endif %} || {{ s.player_in or '' }} || {{ s.player_out or '' }} || {{ s.team or '' }} || {{ s.reason or '' }}
+{% endfor %}
+|}
+{% endif %}
+
+{% if match.cards %}
+== Cards ==
+{| class="wikitable"
+! Minute !! Player !! Card !! Team !! Reason
+{% for c in match.cards %}
+|-
+| {{ c.minute or '' }}{% if c.extra_time %}+{{ c.extra_time }}{% endif %} || {{ c.player or '' }} || {{ c.card or '' }} || {{ c.team or '' }} || {{ c.reason or '' }}
+{% endfor %}
+|}
+{% endif %}
+
+{% if match.penalties %}
+== Penalty Shootout ==
+{| class="wikitable"
+! Team !! Player !! Result !! Score
+{% for p in match.penalties %}
+|-
+| {{ p.club or p.team or '' }} || {{ p.player or '' }} || {{ p.result or '' }} || {{ p.score or '' }}
+{% endfor %}
+|}
+{% endif %}
+
+[[Category:Matches]]
+[[Category:{{ match.competition or 'Unknown Competition' }}]]

@@ -9,22 +9,23 @@ export class NetworkStack extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // Create the VPC
+    // Create the VPC — no NAT Gateway (saves ~$35/mo)
+    // ECS tasks and RDS run in public subnets; RDS publiclyAccessible=false + SG restricts access
     this.vpc = new ec2.Vpc(this, 'Wiki7Vpc', {
       maxAzs: 2,
-      natGateways: 1,
+      natGateways: 0,
       subnetConfiguration: [
         {
           cidrMask: 24,
           name: 'public',
           subnetType: ec2.SubnetType.PUBLIC,
         },
-        {
-          cidrMask: 24,
-          name: 'private',
-          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
-        },
       ],
+    });
+
+    // S3 Gateway Endpoint — free, avoids S3 traffic going through the internet
+    this.vpc.addGatewayEndpoint('S3Endpoint', {
+      service: ec2.GatewayVpcEndpointAwsService.S3,
     });
 
     // MediaWiki ECS security group

@@ -1,0 +1,90 @@
+[
+  {
+    "name_english": "Sagiv Jehezkel",
+    "profile_url": "https://www.transfermarkt.com/sagiv-jehezkel/profil/spieler/503642",
+    "number": "10",
+    "season": "2024",
+    "loaned": false,
+    "facts": {
+      "Name in home country": "\u05e9\u05d2\u05d9\u05d1 \u05d9\u05d7\u05d6\u05e7\u05d0\u05dc",
+      "Date of birth/Age": "Jan 14, 2000 (24)",
+      "Place of birth": "Be'er Sheva, Israel",
+      "Citizenship": "Israel"
+    },
+    "positions": {
+      "main": "Attacking Midfield",
+      "others": ["Right Winger", "Second Striker"]
+    },
+    "market_value_history": [
+      {"date": "Dec 2023", "value": "\u20ac2.50m", "team": "Hapoel Beer Sheva"},
+      {"date": "Jun 2024", "value": "\u20ac3.00m", "team": "Hapoel Beer Sheva"}
+    ],
+    "transfers": [
+      {
+        "season": "2022/23",
+        "date": "Aug 1, 2022",
+        "from": "Hapoel Beer Sheva U19",
+        "to": "Hapoel Beer Sheva",
+        "fee": "-"
+      }
+    ]
+  },
+  {
+    "name_english": "Tomer Hemed",
+    "profile_url": "https://www.transfermarkt.com/tomer-hemed/profil/spieler/101577",
+    "number": "9",
+    "season": "2024",
+    "loaned": false,
+    "facts": {
+      "Name in home country": "\u05ea\u05d5\u05de\u05e8 \u05d7\u05de\u05d3",
+      "Date of birth/Age": "May 2, 1987 (37)",
+      "Place of birth": "Rishon LeZion, Israel",
+      "Citizenship": "Israel"
+    },
+    "positions": {
+      "main": "Centre-Forward",
+      "others": []
+    },
+    "market_value_history": [
+      {"date": "Dec 2023", "value": "\u20ac200k", "team": "Hapoel Beer Sheva"},
+      {"date": "Jun 2024", "value": "\u20ac150k", "team": "Hapoel Beer Sheva"}
+    ],
+    "transfers": [
+      {
+        "season": "2023/24",
+        "date": "Jan 15, 2024",
+        "from": "Bnei Sakhnin",
+        "to": "Hapoel Beer Sheva",
+        "fee": "free transfer"
+      },
+      {
+        "season": "2020/21",
+        "date": "Aug 10, 2020",
+        "from": "Charlton Athletic",
+        "to": "Bnei Sakhnin",
+        "fee": "Loan"
+      }
+    ]
+  },
+  {
+    "name_english": "Roei Gordana",
+    "profile_url": "https://www.transfermarkt.com/roei-gordana/profil/spieler/537108",
+    "number": "3",
+    "season": "2024",
+    "loaned": false,
+    "facts": {
+      "Name in home country": "\u05e8\u05d5\u05e2\u05d9 \u05d2\u05d5\u05e8\u05d3\u05e0\u05d0",
+      "Date of birth/Age": "Mar 10, 1999 (25)",
+      "Place of birth": "Be'er Sheva, Israel",
+      "Citizenship": "Israel"
+    },
+    "positions": {
+      "main": "Left-Back",
+      "others": ["Centre-Back"]
+    },
+    "market_value_history": [
+      {"date": "Jun 2024", "value": "\u20ac800k", "team": "Hapoel Beer Sheva"}
+    ],
+    "transfers": []
+  }
+]

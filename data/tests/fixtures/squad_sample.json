@@ -1,0 +1,30 @@
+[
+  {
+    "name_english": "Sagiv Jehezkel",
+    "profile_url": "https://www.transfermarkt.com/sagiv-jehezkel/profil/spieler/503642",
+    "number": "10",
+    "season": "2024",
+    "loaned": false
+  },
+  {
+    "name_english": "Tomer Hemed",
+    "profile_url": "https://www.transfermarkt.com/tomer-hemed/profil/spieler/101577",
+    "number": "9",
+    "season": "2024",
+    "loaned": false
+  },
+  {
+    "name_english": "Roei Gordana",
+    "profile_url": "https://www.transfermarkt.com/roei-gordana/profil/spieler/537108",
+    "number": "3",
+    "season": "2024",
+    "loaned": false
+  },
+  {
+    "name_english": "Miguel Vitor",
+    "profile_url": "https://www.transfermarkt.com/miguel-vitor/profil/spieler/86tried",
+    "number": "4",
+    "season": "2024",
+    "loaned": true
+  }
+]

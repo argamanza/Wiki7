@@ -1,0 +1,45 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Infrastructure & Application
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: il-central-1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install CDK dependencies
+        run: cd cdk && npm ci
+
+      - name: CDK Diff (preview changes)
+        run: cd cdk && npx cdk diff --all 2>&1 || true
+
+      - name: CDK Deploy
+        run: cd cdk && npx cdk deploy --all --require-approval never
+
+      - name: Sync assets to S3
+        run: aws s3 sync docker/assets s3://wiki7-storage/assets/ --delete
+
+      - name: Deployment summary
+        run: |
+          echo "## Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Site**: https://wiki7.co.il" >> $GITHUB_STEP_SUMMARY

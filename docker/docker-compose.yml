@@ -13,6 +13,7 @@ services:
       - MEDIAWIKI_DB_USER=wikiuser
       - MEDIAWIKI_DB_PASSWORD=secret
       - MEDIAWIKI_DB_NAME=wikidb
+      - MEDIAWIKI_ADMIN_PASSWORD=AdminPass1234
       - WIKI_ENV=dev
     depends_on:
       - db

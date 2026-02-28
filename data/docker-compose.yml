@@ -1,5 +1,9 @@
 services:
-  transfermarket-api:
-    build: transfermarkt-api
-    ports:
-      - "8000:8000"
+  scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile.scraper
+    volumes:
+      - ./tmk-scraper/output:/app/tmk-scraper/output
+    environment:
+      - SCRAPERAPI_KEY=${SCRAPERAPI_KEY:-}

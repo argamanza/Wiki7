@@ -1,28 +1,120 @@
 # Wiki7 - Hapoel Beer Sheva Fan Wiki
 
-A modern MediaWiki platform dedicated to Hapoel Beer Sheva FC, leveraging AWS managed services for robust infrastructure deployment.
+A MediaWiki-based fan wiki for **Hapoel Beer Sheva FC** at [wiki7.co.il](https://wiki7.co.il), featuring a custom Hebrew RTL skin, automated data pipeline from Transfermarkt, and AWS infrastructure managed with CDK.
 
-![Hapoel Beer Sheva FC Logo](https://placeholder.com/logo) <!-- Replace with actual logo URL -->
+## Project Structure
 
-## Overview
+```
+Wiki7/
+├── docker/          # MediaWiki container (1.43), custom Wiki7 skin, LocalSettings.php
+│   ├── skins/Wiki7/ # Custom skin (forked from Citizen) — red/white theme, RTL, dark mode
+│   └── extensions/  # Cargo, PageForms
+├── data/
+│   ├── tmk-scraper/ # Scrapy spiders scraping Transfermarkt (squad, player, fixtures, match)
+│   ├── data_pipeline/ # Pydantic normalization: raw JSON → structured JSONL
+│   ├── wiki_import/   # mwclient + Jinja2: JSONL → MediaWiki pages
+│   ├── run_pipeline.py # CLI orchestrator (scrape → normalize → import)
+│   └── tests/         # pytest suite (48 tests)
+├── cdk/             # AWS CDK (TypeScript) infrastructure — ECS Fargate, RDS, CloudFront, WAF, S3
+│   └── test/        # Jest CDK tests (21 tests)
+├── .github/workflows/ # CI/CD: lint+test, deploy to AWS, CDK diff on PRs
+└── Makefile         # Common targets for docker, test, lint, cdk, pipeline
+```
 
-Wiki7 aims to create a comprehensive knowledge base for Hapoel Beer Sheva FC fans, inspired by successful wiki projects like Maccabipedia and Wikipoel. The project is built on MediaWiki with custom extensions and skins, deployed on AWS using modern DevOps practices.
+## Quick Start
 
-### Key Features
+```bash
+# 1. Clone and setup
+git clone --recursive https://github.com/argamanza/Wiki7.git
+cd Wiki7
+cp .env.example .env   # Fill in your values
+make setup
 
-- **MediaWiki Platform**: Customized for football club information management
-- **Modern Infrastructure**: AWS-managed services for scalability and reliability
-- **CI/CD Pipeline**: Automated building, testing, and deployment
-- **Custom Design**: Themed for Hapoel Beer Sheva (red and white colors)
-- **Docker Containerization**: For consistent development and deployment
+# 2. Start local development
+make docker-up          # MediaWiki at localhost:8080, Adminer at localhost:8081
 
-## Architecture
+# 3. Run tests
+make test               # Python (48) + CDK (21) tests
 
-The project uses the following AWS services:
+# 4. Data pipeline
+make pipeline-install   # Install Python dependencies
+make pipeline-dry-run   # Preview wiki pages without importing
+```
 
-- **Amazon ECS** for container orchestration
-- **Amazon RDS** for database management
-- **Amazon S3** for media storage
-- **Amazon CloudFront** for content delivery
-- **AWS CodePipeline** for CI/CD
-- **AWS CloudFormation/CDK** for Infrastructure as Code
+## Data Pipeline
+
+Scrapes Transfermarkt for Hapoel Beer Sheva player/match data and imports it into MediaWiki.
+
+```
+Scrapy spiders → Raw JSON → Pydantic normalization → JSONL → Jinja2 templates → MediaWiki pages
+```
+
+```bash
+# Full pipeline (requires SCRAPERAPI_KEY)
+cd data && python run_pipeline.py --season 2024 --verbose
+
+# Skip scraping, just normalize + import
+python run_pipeline.py --skip-scrape --wiki-url http://localhost:8080
+
+# Dry run — preview generated pages
+python run_pipeline.py --skip-scrape --dry-run --verbose
+```
+
+Generated page types: player pages (infobox, transfer history, market values), match reports, Cargo table templates, season squad pages, transfer summary pages.
+
+## AWS Infrastructure
+
+CDK stacks deploy to `il-central-1` (main) and `us-east-1` (CloudFront/WAF):
+
+| Component | Service | Cost |
+|-----------|---------|------|
+| Compute | ECS Fargate (512 CPU / 1024 MB) | ~$15/mo |
+| Database | RDS MariaDB 10.5 (db.t3.micro) | ~$15/mo |
+| CDN | CloudFront | ~$1-5/mo |
+| WAF | CoreRuleSet + GeoBlock + RateLimit | ~$8/mo |
+| Storage | S3 (versioned) | ~$0.15/mo |
+| DNS | Route53 | ~$0.50/mo |
+| Backups | AWS Backup (7-day retention) | ~$2/mo |
+
+```bash
+make cdk-synth    # Validate templates
+make cdk-diff     # Preview changes
+make cdk-deploy   # Deploy (requires AWS credentials)
+```
+
+## CI/CD
+
+GitHub Actions workflows:
+
+- **lint-and-test.yml** — Runs on every push: PHP lint, JS lint, CDK tests, Python tests + pipeline dry-run
+- **deploy.yml** — Runs on push to master: `cdk deploy --all`
+- **cdk-diff.yml** — Runs on PRs touching `cdk/`: posts CDK diff as PR comment
+
+Required GitHub Secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `WG_SECRET_KEY`, `WG_UPGRADE_KEY`, `SCRAPERAPI_KEY`
+
+## Environment Variables
+
+See [`.env.example`](.env.example) for all required variables. Key ones:
+
+| Variable | Purpose |
+|----------|---------|
+| `WG_SECRET_KEY` | MediaWiki session signing (64-char hex) |
+| `WG_UPGRADE_KEY` | MediaWiki web installer key (16-char hex) |
+| `SCRAPERAPI_KEY` | ScraperAPI key for Transfermarkt scraping |
+| `MEDIAWIKI_DB_PASSWORD` | Database password for local dev |
+
+## Development
+
+```bash
+make help              # Show all available targets
+make docker-up         # Start local env
+make docker-logs       # Follow container logs
+make docker-shell      # Shell into MediaWiki container
+make docker-update-db  # Run MediaWiki maintenance/update
+make lint              # Run Python linter (ruff)
+make test              # Run all tests
+```
+
+## License
+
+This project is for fan/educational purposes. MediaWiki is licensed under GPL-2.0.

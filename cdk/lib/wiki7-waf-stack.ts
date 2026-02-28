@@ -104,57 +104,8 @@ export class Wiki7WafStack extends cdk.Stack {
             metricName: 'AWS-AWSManagedRulesKnownBadInputsRuleSet',
           },
         },
-        // AWS Managed Rules - SQL injection
-        {
-          name: 'AWS-AWSManagedRulesSQLiRuleSet',
-          priority: 4,
-          overrideAction: { none: {} },
-          statement: {
-            managedRuleGroupStatement: {
-              vendorName: 'AWS',
-              name: 'AWSManagedRulesSQLiRuleSet',
-            },
-          },
-          visibilityConfig: {
-            sampledRequestsEnabled: true,
-            cloudWatchMetricsEnabled: true,
-            metricName: 'AWS-AWSManagedRulesSQLiRuleSet',
-          },
-        },
-        // AWS Managed Rules - Linux specific
-        {
-          name: 'AWS-AWSManagedRulesLinuxRuleSet',
-          priority: 5,
-          overrideAction: { none: {} },
-          statement: {
-            managedRuleGroupStatement: {
-              vendorName: 'AWS',
-              name: 'AWSManagedRulesLinuxRuleSet',
-            },
-          },
-          visibilityConfig: {
-            sampledRequestsEnabled: true,
-            cloudWatchMetricsEnabled: true,
-            metricName: 'AWS-AWSManagedRulesLinuxRuleSet',
-          },
-        },
-        // AWS Managed Rules - PHP application specific
-        {
-          name: 'AWS-AWSManagedRulesPHPRuleSet',
-          priority: 6,
-          overrideAction: { none: {} },
-          statement: {
-            managedRuleGroupStatement: {
-              vendorName: 'AWS',
-              name: 'AWSManagedRulesPHPRuleSet',
-            },
-          },
-          visibilityConfig: {
-            sampledRequestsEnabled: true,
-            cloudWatchMetricsEnabled: true,
-            metricName: 'AWS-AWSManagedRulesPHPRuleSet',
-          },
-        },
+        // Removed SQLi, Linux, PHP rule sets to save ~$3/mo
+        // MediaWiki + Fargate handle these protections at the app layer
         // Rate limiting - 2000 requests per 5 minutes per IP
         {
           name: 'RateLimitPerIP',

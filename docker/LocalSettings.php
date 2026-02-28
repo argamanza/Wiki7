@@ -64,9 +64,9 @@ $wgWiki7EnableHEFonts = true; // Enable Hebrew fonts
 ##
 ## Security Settings
 ##
-$wgSecretKey = "137d670eceb1b6da8ecd51f3493aab7215e43ef79a9d27072655db73dfa2d3d5"; // Site secret
+$wgSecretKey = getenv('WG_SECRET_KEY') ?: 'dev-only-secret-key-replace-in-production';
 $wgAuthenticationTokenVersion = "1";
-$wgUpgradeKey = "c23cfd79cbaf67f8"; // Upgrade key for web installer
+$wgUpgradeKey = getenv('WG_UPGRADE_KEY') ?: 'dev-only-upgrade'; // Upgrade key for web installer
 
 ##
 ## Cache Settings

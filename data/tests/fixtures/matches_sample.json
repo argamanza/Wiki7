@@ -1,0 +1,50 @@
+[
+  {
+    "competition": "Israeli Premier League",
+    "matchday": "1",
+    "date": "2024-08-24",
+    "time": "20:15",
+    "venue": "Turner Stadium",
+    "opponent": "Maccabi Tel Aviv",
+    "result": "2-1",
+    "system_of_play": "4-2-3-1",
+    "attendance": "13,000",
+    "home_lineup": [
+      {"number": 10, "name_english": "Sagiv Jehezkel", "captain": false},
+      {"number": 9, "name_english": "Tomer Hemed", "captain": true},
+      {"number": 3, "name_english": "Roei Gordana", "captain": false}
+    ],
+    "away_lineup": [
+      {"number": 7, "name_english": "Eran Zahavi", "captain": true}
+    ],
+    "goals": [
+      {"minute": "23", "score": "1-0", "scorer": "Sagiv Jehezkel", "assist": "Tomer Hemed", "team": "Hapoel Beer Sheva"},
+      {"minute": "55", "score": "1-1", "scorer": "Eran Zahavi", "assist": "", "team": "Maccabi Tel Aviv"},
+      {"minute": "78", "score": "2-1", "scorer": "Tomer Hemed", "assist": "Roei Gordana", "team": "Hapoel Beer Sheva"}
+    ],
+    "substitutions": [
+      {"minute": "65", "player_in": "Player A", "player_out": "Roei Gordana", "team": "Hapoel Beer Sheva", "reason": "Tactical"}
+    ],
+    "cards": [
+      {"minute": "30", "player": "Sagiv Jehezkel", "card": "Yellow", "team": "Hapoel Beer Sheva", "reason": "Foul"}
+    ],
+    "penalties": []
+  },
+  {
+    "competition": "Israeli Premier League",
+    "matchday": "2",
+    "date": "2024-08-31",
+    "time": "19:30",
+    "venue": "Sammy Ofer Stadium",
+    "opponent": "Maccabi Haifa",
+    "result": "0-0",
+    "system_of_play": "4-3-3",
+    "attendance": "18,500",
+    "home_lineup": [],
+    "away_lineup": [],
+    "goals": [],
+    "substitutions": [],
+    "cards": [],
+    "penalties": []
+  }
+]

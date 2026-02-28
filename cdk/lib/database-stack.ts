@@ -33,7 +33,7 @@ export class DatabaseStack extends Construct {
     this.dbInstance = new rds.DatabaseInstance(this, 'Wiki7Database', {
       engine: rds.DatabaseInstanceEngine.mariaDb({ version: rds.MariaDbEngineVersion.VER_10_5 }),
       vpc,
-      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
       securityGroups: [mediawikiSecurityGroup],
       credentials: rds.Credentials.fromSecret(this.dbSecret),
       multiAz: false,
