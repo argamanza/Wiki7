@@ -18,20 +18,17 @@ export class BackupStack extends Construct {
     // Create a custom KMS key for backup encryption
     const backupKey = new kms.Key(this, 'Wiki7BackupKey', {
       enableKeyRotation: true,
-      alias: 'alias/wiki7-backup-key',
-      removalPolicy: cdk.RemovalPolicy.RETAIN, // Keep the key if stack is deleted
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
     // Create a backup vault with encryption
     const backupVault = new backup.BackupVault(this, 'Wiki7BackupVault', {
-      backupVaultName: 'wiki7-backup-vault',
       encryptionKey: backupKey,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
     // Create a backup plan
     const backupPlan = new backup.BackupPlan(this, 'Wiki7BackupPlan', {
-      backupPlanName: 'wiki7-backup-plan',
       backupVault: backupVault,
     });
 

@@ -68,7 +68,6 @@ export class ApplicationStack extends Construct {
 
     // Create S3 bucket for MediaWiki storage
     this.mediawikiStorageBucket = new s3.Bucket(this, 'Wiki7StorageBucket', {
-      bucketName: `wiki7-storage`,
       encryption: s3.BucketEncryption.S3_MANAGED,
       // When using CloudFront with OAC, you should block all public access
       blockPublicAccess: new s3.BlockPublicAccess({
