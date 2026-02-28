@@ -55,12 +55,8 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: cd cdk && npm ci
-      - name: Synthesize CDK stacks
-        run: cd cdk && npx cdk synth --quiet
-        continue-on-error: true
       - name: Run CDK tests
         run: cd cdk && npm test
-        continue-on-error: true
 
   test-python:
     name: Python Tests

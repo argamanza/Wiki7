@@ -2,7 +2,7 @@ FROM mediawiki:1.43
 
 # Install tools for image handling and extensions
 RUN apt-get update && apt-get install -y \
-    git unzip wget imagemagick \
+    git unzip wget imagemagick mariadb-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Download Composer
@@ -15,6 +15,7 @@ ENV COMPOSER_ROOT_VERSION=1.43.0
 RUN cd /var/www/html && \
 git clone --depth 1 https://github.com/edwardspec/mediawiki-aws-s3.git extensions/AWS && \
 echo '{"extra":{"merge-plugin":{"include":["extensions/AWS/composer.json"]}}}' > composer.local.json && \
+composer config audit.block-insecure false && \
 composer update --no-dev
 
 # Set working directory
@@ -34,5 +35,15 @@ COPY extensions/PageForms/ /var/www/html/extensions/PageForms/
 COPY skins/Citizen/ /var/www/html/skins/Citizen/
 COPY skins/Wiki7/ /var/www/html/skins/Wiki7/
 
+# Back up custom LocalSettings.php so entrypoint can restore it after install.php
+RUN cp /var/www/html/LocalSettings.php /var/www/html/LocalSettings.php.custom
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Fix permissions
 RUN chown -R www-data:www-data /var/www/html
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]

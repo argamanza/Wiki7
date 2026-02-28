@@ -48,6 +48,24 @@ export class ApplicationStack extends Construct {
 
     dbSecret.grantRead(taskRole);
 
+    // Create Secrets Manager secret for MediaWiki application secrets
+    const mediawikiSecret = new secretsmanager.Secret(this, 'Wiki7MediaWikiSecret', {
+      generateSecretString: {
+        secretStringTemplate: JSON.stringify({
+          adminPassword: '',
+          secretKey: '',
+          upgradeKey: '',
+        }),
+        generateStringKey: 'adminPassword',
+        excludePunctuation: true,
+        passwordLength: 32,
+      },
+      description: 'MediaWiki application secrets (admin password, secret key, upgrade key)',
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+    });
+
+    mediawikiSecret.grantRead(taskRole);
+
     // Create S3 bucket for MediaWiki storage
     this.mediawikiStorageBucket = new s3.Bucket(this, 'Wiki7StorageBucket', {
       bucketName: `wiki7-storage`,
@@ -216,6 +234,9 @@ export class ApplicationStack extends Construct {
     });
 
     container.addSecret('MEDIAWIKI_DB_PASSWORD', ecs.Secret.fromSecretsManager(dbSecret, 'password'));
+    container.addSecret('MEDIAWIKI_ADMIN_PASSWORD', ecs.Secret.fromSecretsManager(mediawikiSecret, 'adminPassword'));
+    container.addSecret('WG_SECRET_KEY', ecs.Secret.fromSecretsManager(mediawikiSecret, 'secretKey'));
+    container.addSecret('WG_UPGRADE_KEY', ecs.Secret.fromSecretsManager(mediawikiSecret, 'upgradeKey'));
 
     container.addPortMappings({
       containerPort: 80,
@@ -230,6 +251,7 @@ export class ApplicationStack extends Construct {
       assignPublicIp: true,
       securityGroups: [mediawikiSecurityGroup],
       vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+      healthCheckGracePeriod: cdk.Duration.seconds(300),
     });
 
     // ALB Security Group
@@ -260,8 +282,12 @@ export class ApplicationStack extends Construct {
       port: 80,
       targets: [fargateService],
       healthCheck: {
-        path: '/',
-        healthyHttpCodes: '200-399',
+        path: '/api.php?action=query&meta=siteinfo&format=json',
+        healthyHttpCodes: '200',
+        interval: cdk.Duration.seconds(30),
+        timeout: cdk.Duration.seconds(10),
+        healthyThresholdCount: 2,
+        unhealthyThresholdCount: 5,
       },
     });
     

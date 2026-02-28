@@ -98,7 +98,9 @@ describe('DatabaseStack', () => {
   });
 
   test('creates Secrets Manager secret for DB credentials', () => {
-    template.resourceCountIs('AWS::SecretsManager::Secret', 1);
+    template.hasResourceProperties('AWS::SecretsManager::Secret', {
+      Description: 'Database credentials for Wiki7 MediaWiki database',
+    });
   });
 });
 
@@ -158,6 +160,40 @@ describe('ApplicationStack', () => {
     template.hasResourceProperties('AWS::ElasticLoadBalancingV2::Listener', {
       Port: 80,
       Protocol: 'HTTP',
+    });
+  });
+
+  test('health check uses MediaWiki API endpoint', () => {
+    template.hasResourceProperties('AWS::ElasticLoadBalancingV2::TargetGroup', {
+      HealthCheckPath: '/api.php?action=query&meta=siteinfo&format=json',
+      Matcher: { HttpCode: '200' },
+    });
+  });
+
+  test('ECS service has health check grace period', () => {
+    template.hasResourceProperties('AWS::ECS::Service', {
+      HealthCheckGracePeriodSeconds: 300,
+    });
+  });
+
+  test('creates MediaWiki application secret', () => {
+    template.hasResourceProperties('AWS::SecretsManager::Secret', {
+      Description: 'MediaWiki application secrets (admin password, secret key, upgrade key)',
+    });
+  });
+
+  test('container has MediaWiki secrets injected', () => {
+    template.hasResourceProperties('AWS::ECS::TaskDefinition', {
+      ContainerDefinitions: Match.arrayWith([
+        Match.objectLike({
+          Secrets: Match.arrayWith([
+            Match.objectLike({ Name: 'MEDIAWIKI_DB_PASSWORD' }),
+            Match.objectLike({ Name: 'MEDIAWIKI_ADMIN_PASSWORD' }),
+            Match.objectLike({ Name: 'WG_SECRET_KEY' }),
+            Match.objectLike({ Name: 'WG_UPGRADE_KEY' }),
+          ]),
+        }),
+      ]),
     });
   });
 });

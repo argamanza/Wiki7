@@ -33,9 +33,6 @@ jobs:
 
       - name: CDK Deploy
         run: cd cdk && npx cdk deploy --all --require-approval never
-        env:
-          WG_SECRET_KEY: ${{ secrets.WG_SECRET_KEY }}
-          WG_UPGRADE_KEY: ${{ secrets.WG_UPGRADE_KEY }}
 
       - name: Sync assets to S3
         run: aws s3 sync docker/assets s3://wiki7-storage/assets/ --delete
