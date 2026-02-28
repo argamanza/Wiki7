@@ -1,15 +1,10 @@
-[tool.poetry]
+[project]
 name = "cdk"
 version = "0.1.0"
 description = ""
-authors = ["Tzahi Argaman <tzahi.argaman@cyberark.com>"]
-readme = "README.md"
+requires-python = ">=3.11"
 
-[tool.poetry.dependencies]
-python = "^3.11"
-boto3 = "^1.38.27"
+dependencies = [
+    "boto3>=1.38.27",
+]
 
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"

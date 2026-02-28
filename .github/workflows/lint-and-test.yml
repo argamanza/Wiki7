@@ -69,25 +69,25 @@ jobs:
       - name: Install dependencies
         run: |
           cd data
-          pip install poetry
-          poetry install
+          pip install uv
+          uv sync
       - name: Run linter
         run: |
           cd data
-          poetry run ruff check . || true
+          uv run ruff check . || true
         continue-on-error: true
       - name: Run tests
         run: |
           cd data
-          poetry run pytest --tb=short -v
+          uv run pytest --tb=short -v
       - name: Run pipeline dry-run
         run: |
           cd data
           mkdir -p data_pipeline/output tmk-scraper/output
           cp tests/fixtures/output/* data_pipeline/output/ 2>/dev/null || true
           cp tests/fixtures/matches_sample.json tmk-scraper/output/matches.json
-          poetry run python -c "
+          uv run python -c "
           from data_pipeline.normalize_enrich_players import main
           main(raw_path='tests/fixtures/players_sample.json', out_dir='data_pipeline/output')
           "
-          poetry run python run_pipeline.py --skip-scrape --skip-normalize --dry-run -v
+          uv run python run_pipeline.py --skip-scrape --skip-normalize --dry-run -v

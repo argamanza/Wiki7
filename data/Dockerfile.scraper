@@ -7,15 +7,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc libffi-dev libxml2-dev libxslt1-dev zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install poetry
-RUN pip install --no-cache-dir poetry
+# Install uv
+RUN pip install --no-cache-dir uv
 
 # Copy dependency files first (for caching)
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml uv.lock ./
 
-# Install dependencies (no dev deps, no virtualenv in container)
-RUN poetry config virtualenvs.create false \
-    && poetry install --only main --no-root --no-interaction --no-ansi
+# Install dependencies (no dev deps)
+RUN uv sync --no-dev --frozen
 
 # Copy the scraper source
 COPY tmk-scraper/ ./tmk-scraper/
@@ -26,4 +25,4 @@ WORKDIR /app/tmk-scraper
 RUN mkdir -p output
 
 # Default: run the squad spider
-CMD ["scrapy", "crawl", "squad", "-o", "output/squad.json"]
+CMD ["uv", "run", "scrapy", "crawl", "squad", "-o", "output/squad.json"]
