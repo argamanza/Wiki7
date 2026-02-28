@@ -5,7 +5,7 @@ set -e
 echo "Waiting for database..."
 for i in $(seq 1 30); do
   if mysqladmin ping -h "$MEDIAWIKI_DB_HOST" -u "$MEDIAWIKI_DB_USER" \
-     -p"$MEDIAWIKI_DB_PASSWORD" --silent 2>/dev/null; then
+     -p"$MEDIAWIKI_DB_PASSWORD" --skip-ssl --silent 2>/dev/null; then
     echo "Database is ready."
     break
   fi
@@ -19,12 +19,15 @@ done
 
 # 2. Check if MediaWiki is already installed (core `page` table exists)
 TABLE_EXISTS=$(mysql -h "$MEDIAWIKI_DB_HOST" -u "$MEDIAWIKI_DB_USER" \
-  -p"$MEDIAWIKI_DB_PASSWORD" "$MEDIAWIKI_DB_NAME" \
+  -p"$MEDIAWIKI_DB_PASSWORD" --skip-ssl "$MEDIAWIKI_DB_NAME" \
   -sse "SELECT COUNT(*) FROM information_schema.tables \
         WHERE table_schema='$MEDIAWIKI_DB_NAME' AND table_name='page';" 2>/dev/null || echo "0")
 
 if [ "$TABLE_EXISTS" = "0" ]; then
   echo "=== Fresh database detected. Running MediaWiki install... ==="
+  # install.php refuses to run if LocalSettings.php exists — move it aside
+  mv /var/www/html/LocalSettings.php /var/www/html/LocalSettings.php.bak
+
   php maintenance/run.php install \
     --dbserver="$MEDIAWIKI_DB_HOST" \
     --dbname="$MEDIAWIKI_DB_NAME" \
