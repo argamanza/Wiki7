@@ -727,7 +727,7 @@
 			"public": true
 		},
 		"ThemeColor": {
-			"value": "#12100a",
+			"value": "#0d0e12",
 			"description": "The theme color defined in the meta tag",
 			"descriptionmsg": "wiki7-config-themecolor",
 			"public": true
@@ -740,10 +740,10 @@
 		},
 		"ManifestOptions": {
 			"value": {
-				"background_color": "#12100a",
+				"background_color": "#0d0e12",
 				"description": "",
 				"short_name": "",
-				"theme_color": "#12100a",
+				"theme_color": "#0d0e12",
 				"icons": []
 			},
 			"description": "Configuration for web app manifest",
