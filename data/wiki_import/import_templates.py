@@ -16,6 +16,7 @@ TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
 
 DEFAULT_PLAYERS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "players.jsonl"
 DEFAULT_TRANSFERS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "transfers.jsonl"
+DEFAULT_STATS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "stats.jsonl"
 
 # Hapoel Beer Sheva related keywords for detecting incoming/outgoing transfers
 HBS_KEYWORDS = ("hapoel beer sheva", "beer sheva", "h. beer sheva", "hapoel be'er sheva")
@@ -71,6 +72,20 @@ CARGO_TABLES = {
             "result": "String",
             "system_of_play": "String",
             "attendance": "String",
+            "season": "String",
+        },
+    },
+    "Template:Cargo/PlayerStats": {
+        "table": "player_stats",
+        "fields": {
+            "player_id": "String",
+            "season": "String",
+            "appearances": "Integer",
+            "goals": "Integer",
+            "assists": "Integer",
+            "yellow_cards": "Integer",
+            "red_cards": "Integer",
+            "minutes_played": "Integer",
         },
     },
 }
@@ -181,10 +196,25 @@ def import_squad_page(
     site: Optional[mwclient.Site] = None,
     season: str = "2024",
     players_path: Optional[Path] = None,
+    stats_path: Optional[Path] = None,
     dry_run: bool = False,
 ) -> dict:
     resolved_players = players_path or DEFAULT_PLAYERS_PATH
+    resolved_stats = stats_path or DEFAULT_STATS_PATH
     players = _load_jsonl(resolved_players)
+
+    # Enrich players with season-specific stats
+    if resolved_stats.exists():
+        all_stats = _load_jsonl(resolved_stats)
+        stats_by_player = {}
+        for s in all_stats:
+            if s.get("season") == season:
+                stats_by_player[s["player_id"]] = s
+        for p in players:
+            p["stats"] = stats_by_player.get(p["id"])
+    else:
+        for p in players:
+            p["stats"] = None
 
     content = _render_template("squad_table.j2", season=season, players=players)
     title = f"Squad {season}"

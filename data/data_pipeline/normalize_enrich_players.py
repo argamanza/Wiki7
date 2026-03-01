@@ -1,12 +1,13 @@
 import json
 from pathlib import Path
-from data_pipeline.schemas import Player, MarketValue, Transfer
+from data_pipeline.schemas import Player, MarketValue, Transfer, PlayerSeasonStats
 from data_pipeline.helpers import is_all_hebrew, parse_birth_date, parse_countries, is_homegrown, is_retired
 from tqdm import tqdm
 from typing import List
 
 
 DEFAULT_RAW_PATH = Path("../tmk-scraper/output/players.json")
+DEFAULT_STATS_PATH = Path("../tmk-scraper/output/stats.json")
 DEFAULT_OUT_DIR = Path("output")
 
 
@@ -64,13 +65,32 @@ def normalize_market_values(player) -> List[MarketValue]:
         for mv in player.get("market_value_history", [])
     ]
 
+def normalize_stats(stats_data: list) -> List[PlayerSeasonStats]:
+    """Normalize raw stats spider output into PlayerSeasonStats objects."""
+    return [
+        PlayerSeasonStats(
+            player_id=s["player_id"],
+            season=s["season"],
+            appearances=s.get("appearances", 0),
+            goals=s.get("goals", 0),
+            assists=s.get("assists", 0),
+            yellow_cards=s.get("yellow_cards", 0),
+            red_cards=s.get("red_cards", 0),
+            minutes_played=s.get("minutes_played", 0),
+        )
+        for s in stats_data
+    ]
+
+
 def write_jsonl(data, path):
     with open(path, "w", encoding="utf-8") as f:
         for item in data:
             f.write(item.model_dump_json() + "\n")
 
-def main(raw_path=None, out_dir=None):
+
+def main(raw_path=None, stats_path=None, out_dir=None):
     resolved_raw = raw_path or DEFAULT_RAW_PATH
+    resolved_stats = stats_path or DEFAULT_STATS_PATH
     resolved_out = Path(out_dir) if out_dir else DEFAULT_OUT_DIR
     resolved_out.mkdir(parents=True, exist_ok=True)
 
@@ -88,6 +108,15 @@ def main(raw_path=None, out_dir=None):
     write_jsonl(all_players, resolved_out / "players.jsonl")
     write_jsonl(all_transfers, resolved_out / "transfers.jsonl")
     write_jsonl(all_values, resolved_out / "market_values.jsonl")
+
+    # Normalize stats if available
+    resolved_stats = Path(resolved_stats)
+    if resolved_stats.exists():
+        with open(resolved_stats, "r", encoding="utf-8") as f:
+            raw_stats = json.load(f)
+        all_stats = normalize_stats(raw_stats)
+        write_jsonl(all_stats, resolved_out / "stats.jsonl")
+
 
 if __name__ == "__main__":
     main()

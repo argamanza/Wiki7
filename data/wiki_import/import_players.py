@@ -17,6 +17,7 @@ TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
 DEFAULT_PLAYERS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "players.jsonl"
 DEFAULT_TRANSFERS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "transfers.jsonl"
 DEFAULT_MARKET_VALUES_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "market_values.jsonl"
+DEFAULT_STATS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "stats.jsonl"
 
 
 def _load_jsonl(path: Path) -> list:
@@ -63,15 +64,20 @@ def _edit_page(site: mwclient.Site, title: str, content: str, summary: str) -> b
     return True
 
 
-def _build_player_page(player: dict, transfers: list, market_values: list) -> str:
+def _build_player_page(player: dict, transfers: list, market_values: list, stats: list = None) -> str:
     """Render a player wiki page from normalized data."""
     player_transfers = [t for t in transfers if t.get("player_id") == player["id"]]
     player_mvs = [mv for mv in market_values if mv.get("player_id") == player["id"]]
+    player_stats = sorted(
+        [s for s in (stats or []) if s.get("player_id") == player["id"]],
+        key=lambda s: s.get("season", ""),
+    )
     return _render_template(
         "player_page.j2",
         player=player,
         transfers=player_transfers,
         market_values=player_mvs,
+        stats=player_stats,
     )
 
 
@@ -80,6 +86,7 @@ def import_players(
     players_path: Optional[Path] = None,
     transfers_path: Optional[Path] = None,
     market_values_path: Optional[Path] = None,
+    stats_path: Optional[Path] = None,
     dry_run: bool = False,
 ) -> dict:
     """Import all player pages into MediaWiki.
@@ -89,6 +96,7 @@ def import_players(
         players_path: Path to players.jsonl (or players.he.jsonl).
         transfers_path: Path to transfers.jsonl.
         market_values_path: Path to market_values.jsonl.
+        stats_path: Path to stats.jsonl (optional).
         dry_run: If True, just preview changes without writing.
 
     Returns:
@@ -97,17 +105,19 @@ def import_players(
     resolved_players = players_path or DEFAULT_PLAYERS_PATH
     resolved_transfers = transfers_path or DEFAULT_TRANSFERS_PATH
     resolved_mvs = market_values_path or DEFAULT_MARKET_VALUES_PATH
+    resolved_stats = stats_path or DEFAULT_STATS_PATH
 
     players = _load_jsonl(resolved_players)
     transfers = _load_jsonl(resolved_transfers)
     market_values = _load_jsonl(resolved_mvs)
+    stats = _load_jsonl(resolved_stats) if resolved_stats.exists() else []
 
     summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
 
     for player in players:
         title = player["name_english"]
         try:
-            content = _build_player_page(player, transfers, market_values)
+            content = _build_player_page(player, transfers, market_values, stats)
 
             if dry_run:
                 logger.info("[DRY RUN] Would create/update page: %s (%d chars)", title, len(content))

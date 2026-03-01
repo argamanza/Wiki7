@@ -1,13 +1,15 @@
 == {{ season }} Squad ==
 
 {| class="wikitable sortable"
-! # !! Player !! Position !! Nationality !! Status
+! # !! Player !! Position !! Nationality !! Apps !! Goals !! Status
 {% for player in players %}
 |-
 | {{ player.current_jersey_number or '-' }}
 | [[{{ player.name_english }}]]{% if player.name_hebrew %} ({{ player.name_hebrew }}){% endif %}
 | {{ player.main_position or '' }}
 | {{ player.nationality | join(', ') if player.nationality else '' }}
+| {{ player.stats.appearances if player.stats else '-' }}
+| {{ player.stats.goals if player.stats else '-' }}
 | {% if not player.current_squad %}On Loan{% elif player.retired %}Retired{% else %}Active{% endif %}
 {% endfor %}
 |}

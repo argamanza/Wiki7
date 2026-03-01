@@ -17,6 +17,17 @@ class MarketValue(BaseModel):
     value: str
     team: str
 
+class PlayerSeasonStats(BaseModel):
+    player_id: str
+    season: str
+    appearances: int = 0
+    goals: int = 0
+    assists: int = 0
+    yellow_cards: int = 0
+    red_cards: int = 0
+    minutes_played: int = 0
+
+
 class Player(BaseModel):
     id: str  # Transfermarkt ID
     name_english: str

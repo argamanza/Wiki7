@@ -26,6 +26,17 @@
 {{"}}"}}
 {% endif %}
 
+{% if stats %}
+== Season Statistics ==
+{| class="wikitable sortable"
+! Season !! Apps !! Goals !! Assists !! Yellow !! Red !! Minutes
+{% for s in stats %}
+|-
+| {{ s.season }} || {{ s.appearances }} || {{ s.goals }} || {{ s.assists }} || {{ s.yellow_cards }} || {{ s.red_cards }} || {{ s.minutes_played }}
+{% endfor %}
+|}
+{% endif %}
+
 {% if market_values %}
 == Market Value History ==
 {| class="wikitable sortable"

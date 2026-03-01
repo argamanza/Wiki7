@@ -33,6 +33,22 @@ class TestPlayerPageRendering:
         assert "[[Category:Players]]" in content
         assert "[[Category:Current Squad]]" in content
 
+    def test_render_player_page_with_stats(self, normalized_data):
+        from wiki_import.import_players import _build_player_page, _load_jsonl
+
+        players = _load_jsonl(normalized_data / "players.jsonl")
+        transfers = _load_jsonl(normalized_data / "transfers.jsonl")
+        market_values = _load_jsonl(normalized_data / "market_values.jsonl")
+        stats = [
+            {"player_id": players[0]["id"], "season": "2024", "appearances": 30,
+             "goals": 8, "assists": 5, "yellow_cards": 3, "red_cards": 0, "minutes_played": 2450},
+        ]
+
+        content = _build_player_page(players[0], transfers, market_values, stats)
+        assert "Season Statistics" in content
+        assert "2024" in content
+        assert "30" in content  # appearances
+
     def test_dry_run_import(self, normalized_data):
         from wiki_import.import_players import import_players
 
@@ -76,7 +92,7 @@ class TestCargoTemplates:
         from wiki_import.import_templates import import_cargo_templates
 
         summary = import_cargo_templates(dry_run=True)
-        assert summary["created"] == 4
+        assert summary["created"] == 5
         assert summary["failed"] == 0
 
     def test_cargo_template_content(self):
