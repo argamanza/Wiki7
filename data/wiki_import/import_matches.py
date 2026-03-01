@@ -18,14 +18,33 @@ DEFAULT_MATCHES_PATH = Path(__file__).resolve().parent.parent / "tmk-scraper" / 
 
 
 def _load_json(path: Path) -> list:
-    """Load a JSON array file."""
+    """Load a JSON file, handling concatenated arrays from multiple scraper runs."""
     if not path.exists():
         raise FileNotFoundError(f"Data file not found: {path}")
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    if not isinstance(data, list):
-        raise ValueError(f"Expected a JSON array in {path}, got {type(data).__name__}")
-    return data
+    text = path.read_text(encoding="utf-8").strip()
+    if not text:
+        return []
+    try:
+        data = json.loads(text)
+        if not isinstance(data, list):
+            raise ValueError(f"Expected a JSON array in {path}, got {type(data).__name__}")
+        return data
+    except json.JSONDecodeError:
+        # Handle concatenated JSON arrays from multiple scraper runs
+        results = []
+        decoder = json.JSONDecoder()
+        idx = 0
+        while idx < len(text):
+            remaining = text[idx:].lstrip()
+            if not remaining:
+                break
+            obj, end = decoder.raw_decode(remaining)
+            if isinstance(obj, list):
+                results.extend(obj)
+            else:
+                results.append(obj)
+            idx += len(text) - len(remaining) + end
+        return results
 
 
 def _content_hash(text: str) -> str:
