@@ -90,7 +90,7 @@ GitHub Actions workflows:
 - **deploy.yml** — Runs on push to master: `cdk deploy --all`
 - **cdk-diff.yml** — Runs on PRs touching `cdk/`: posts CDK diff as PR comment
 
-Required GitHub Secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `WG_SECRET_KEY`, `WG_UPGRADE_KEY`, `SCRAPERAPI_KEY`
+AWS credentials use GitHub OIDC (no AWS secrets needed). Required GitHub Secrets: `WG_SECRET_KEY`, `WG_UPGRADE_KEY`, `SCRAPERAPI_KEY`
 
 ## Environment Variables
 

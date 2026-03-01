@@ -5,12 +5,22 @@ on:
     paths:
       - 'cdk/**'
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   cdk-diff:
     name: Show CDK Diff
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::368127906643:role/Wiki7GitHubActionsDeployRole
+          aws-region: il-central-1
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
