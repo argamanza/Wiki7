@@ -251,6 +251,8 @@ export class ApplicationStack extends Construct {
       securityGroups: [mediawikiSecurityGroup],
       vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
       healthCheckGracePeriod: cdk.Duration.seconds(300),
+      minHealthyPercent: 100,
+      maxHealthyPercent: 200,
     });
 
     // ALB Security Group
