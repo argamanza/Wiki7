@@ -1,0 +1,56 @@
+== {{ season_display }} Season ==
+
+=== Squad ===
+''See: [[Squad {{ season }}]]''
+
+=== Transfers ===
+''See: [[Transfers {{ season }}]]''
+
+{% if stats %}
+=== Key Statistics ===
+{| class="wikitable"
+! Stat !! Value
+|-
+| Total Appearances || {{ total_appearances }}
+|-
+| Total Goals || {{ total_goals }}
+|-
+| Total Assists || {{ total_assists }}
+|-
+| Total Yellow Cards || {{ total_yellows }}
+|-
+| Total Red Cards || {{ total_reds }}
+|}
+{% endif %}
+
+{% if top_scorers %}
+=== Top Scorers ===
+{| class="wikitable"
+! # !! Player !! Goals
+{% for s in top_scorers[:5] %}
+|-
+| {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.goals }}
+{% endfor %}
+|}
+{% endif %}
+
+{% if top_appearances %}
+=== Most Appearances ===
+{| class="wikitable"
+! # !! Player !! Apps
+{% for s in top_appearances[:5] %}
+|-
+| {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.appearances }}
+{% endfor %}
+|}
+{% endif %}
+
+{% if fixtures_by_competition %}
+=== Competitions ===
+{% for comp, matches in fixtures_by_competition.items() %}
+* '''{{ comp }}''': {{ matches | length }} matches
+{% endfor %}
+{% endif %}
+
+[[Category:Seasons]]
+[[Category:Season {{ season }}]]

@@ -1,0 +1,12 @@
+== {{ title }} ==
+
+{| class="wikitable sortable"
+! # !! Player !! {{ value_label }}
+{% for entry in entries %}
+|-
+| {{ loop.index }} || [[{{ entry.player_name }}]] || {{ entry.value }}
+{% endfor %}
+|}
+
+[[Category:Statistics]]
+{% if scope == "all_time" %}[[Category:All-Time Records]]{% endif %}

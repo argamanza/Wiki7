@@ -127,6 +127,22 @@ class TestMergeSeasons:
             transfers = [json.loads(line) for line in f if line.strip()]
         assert len(transfers) == 2
 
+    def test_empty_seasons_still_creates_files(self, tmp_path):
+        """Verify merge writes empty files instead of skipping them."""
+        base = tmp_path / "seasons"
+        s1 = base / "2023"
+        _write_jsonl(s1 / "players.jsonl", [])
+        _write_jsonl(s1 / "transfers.jsonl", [])
+        _write_jsonl(s1 / "market_values.jsonl", [])
+        _write_jsonl(s1 / "stats.jsonl", [])
+
+        out = tmp_path / "merged"
+        merge_seasons(base_dir=base, seasons=["2023"], output_dir=out)
+
+        # All files must exist even when empty
+        for f in ("players.jsonl", "transfers.jsonl", "market_values.jsonl", "stats.jsonl"):
+            assert (out / f).exists()
+
     def test_missing_all_seasons(self, tmp_path):
         base = tmp_path / "empty"
         base.mkdir()

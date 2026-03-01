@@ -29,10 +29,10 @@
 {% if stats %}
 == Season Statistics ==
 {| class="wikitable sortable"
-! Season !! Apps !! Goals !! Assists !! Yellow !! Red !! Minutes
+! Season !! Apps !! Goals !! Assists !! {{"{{"}}Tooltip|Y|Yellow cards{{"}}"}} !! {{"{{"}}Tooltip|2Y|Second yellow cards{{"}}"}} !! {{"{{"}}Tooltip|R|Red cards{{"}}"}} !! Minutes
 {% for s in stats %}
 |-
-| {{ s.season }} || {{ s.appearances }} || {{ s.goals }} || {{ s.assists }} || {{ s.yellow_cards }} || {{ s.red_cards }} || {{ s.minutes_played }}
+| {{ s.season }} || {{ s.appearances }} || {{ s.goals }} || {{ s.assists }} || {{ s.yellow_cards }} || {{ s.get('second_yellow_cards', 0) }} || {{ s.red_cards }} || {{ s.minutes_played }}
 {% endfor %}
 |}
 {% endif %}

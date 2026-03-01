@@ -13,6 +13,7 @@ Usage:
     python run_pipeline.py --skip-scrape --dry-run      # Normalize existing data and preview import
 """
 
+import json
 import logging
 import subprocess
 import sys
@@ -58,12 +59,14 @@ def _run_spider(spider_name: str, season: str, output_file: str) -> bool:
         "-o", str(output_path),
     ]
 
+    verbose = logger.isEnabledFor(logging.DEBUG)
     logger.info("Running spider: %s (season=%s)", spider_name, season)
 
     result = subprocess.run(
         cmd,
         cwd=str(SCRAPER_DIR),
-        capture_output=True,
+        stdout=None if verbose else subprocess.DEVNULL,
+        stderr=None if verbose else subprocess.PIPE,
         text=True,
         timeout=600,
     )
@@ -79,19 +82,47 @@ def _run_spider(spider_name: str, season: str, output_file: str) -> bool:
         logger.error("Spider '%s' produced no output at %s", spider_name, output_path)
         return False
 
+    # Check output file has actual data
+    # squad, player, and stats are critical — empty means Transfermarkt is blocking us.
+    # fixtures and match may legitimately return [] (future/incomplete seasons).
+    CRITICAL_SPIDERS = {"squad", "player", "stats"}
+    with open(output_path, "r") as f:
+        data = json.load(f)
+    if not data:
+        if spider_name in CRITICAL_SPIDERS:
+            logger.error("Spider '%s' returned empty results for season %s", spider_name, season)
+            return False
+        logger.warning("Spider '%s' returned empty results for season %s (non-critical, continuing)", spider_name, season)
+
     logger.info("Spider '%s' completed -> %s", spider_name, output_path)
     return True
 
 
-def run_scrape(season: str) -> bool:
-    """Run all five spiders in the correct order for a single season."""
-    spiders = [
-        ("squad", "squad.json"),
-        ("player", "players.json"),
-        ("stats", "stats.json"),
-        ("fixtures", "fixtures.json"),
-        ("match", "matches.json"),
-    ]
+# Per-season spiders (run once per season)
+ALL_SPIDERS = [
+    ("squad", "squad.json"),
+    ("player", "players.json"),
+    ("stats", "stats.json"),
+    ("fixtures", "fixtures.json"),
+    ("match", "matches.json"),
+    ("transfers", "transfers.json"),
+]
+
+# Club-level spiders (run once, not per-season)
+CLUB_SPIDERS = [
+    ("coach", "coaches.json"),
+    ("honours", "honours.json"),
+    ("stadium", "stadium.json"),
+    ("records", "records.json"),
+]
+
+
+def run_scrape(season: str, only: set[str] | None = None) -> bool:
+    """Run per-season spiders in the correct order for a single season.
+
+    If *only* is given, run just those spiders (order is preserved).
+    """
+    spiders = [(n, f) for n, f in ALL_SPIDERS if only is None or n in only]
 
     for spider_name, output_file in spiders:
         if not _run_spider(spider_name, season, output_file):
@@ -99,6 +130,51 @@ def run_scrape(season: str) -> bool:
             return False
 
     logger.info("All spiders completed successfully for season %s", season)
+    return True
+
+
+def run_club_scrape(only: set[str] | None = None) -> bool:
+    """Run club-level spiders (not per-season).
+
+    These are run once and output to the base scraper output directory.
+    """
+    spiders = [(n, f) for n, f in CLUB_SPIDERS if only is None or n in only]
+
+    if not spiders:
+        return True
+
+    for spider_name, output_file in spiders:
+        output_path = SCRAPER_OUTPUT_DIR / output_file
+        if output_path.exists():
+            output_path.unlink()
+            logger.info("Removed stale output: %s", output_path)
+
+        cmd = [
+            sys.executable, "-m", "scrapy", "crawl", spider_name,
+            "-o", str(output_path),
+        ]
+
+        verbose = logger.isEnabledFor(logging.DEBUG)
+        logger.info("Running club spider: %s", spider_name)
+
+        result = subprocess.run(
+            cmd,
+            cwd=str(SCRAPER_DIR),
+            stdout=None if verbose else subprocess.DEVNULL,
+            stderr=None if verbose else subprocess.PIPE,
+            text=True,
+            timeout=600,
+        )
+
+        if result.returncode != 0:
+            logger.error("Club spider '%s' failed (exit code %d)", spider_name, result.returncode)
+            if result.stderr:
+                for line in result.stderr.strip().split("\n")[-10:]:
+                    logger.error("  %s", line)
+            return False
+
+        logger.info("Club spider '%s' completed -> %s", spider_name, output_path)
+
     return True
 
 
@@ -160,8 +236,14 @@ def run_import(
     site = None
     if not dry_run:
         import mwclient
+        from urllib.parse import urlparse
         try:
-            site = mwclient.Site(wiki_url, path="/")
+            parsed = urlparse(wiki_url if "://" in wiki_url else f"http://{wiki_url}")
+            host = parsed.hostname or wiki_url
+            port = parsed.port
+            scheme = parsed.scheme or ("http" if host in ("localhost", "127.0.0.1") else "https")
+            host_str = f"{host}:{port}" if port else host
+            site = mwclient.Site(host_str, path="/", scheme=scheme)
             wiki_user = os.environ.get("WIKI_BOT_USER", "")
             wiki_pass = os.environ.get("WIKI_BOT_PASS", "")
             if wiki_user and wiki_pass:
@@ -175,7 +257,12 @@ def run_import(
 
     from wiki_import.import_players import import_players
     from wiki_import.import_matches import import_matches
-    from wiki_import.import_templates import import_cargo_templates, import_squad_page, import_transfer_page
+    from wiki_import.import_templates import (
+        import_cargo_templates, import_squad_page, import_transfer_page,
+        import_coaches_page, import_honours_page, import_stadium_page,
+        import_records_page, import_season_overview, import_leaderboards,
+        import_attendance, import_competition_pages,
+    )
 
     # Determine data directory (merged or single-season)
     resolved_data_dir = data_dir or PIPELINE_OUTPUT_DIR
@@ -250,6 +337,67 @@ def run_import(
             logger.error("Transfer page import failed for season %s: %s", season, exc)
             all_ok = False
 
+    # Season overview pages (per season)
+    for season in seasons:
+        try:
+            logger.info("Importing season overview for %s...", season)
+            results[f"season_{season}"] = import_season_overview(
+                site=site, season=season,
+                players_path=resolved_data_dir / "players.jsonl",
+                stats_path=resolved_data_dir / "stats.jsonl",
+                dry_run=dry_run,
+            )
+        except FileNotFoundError as exc:
+            logger.error("Season overview import failed for %s: %s", season, exc)
+            all_ok = False
+
+    # Club-level pages (once)
+    for label, func, kwargs in [
+        ("coaches", import_coaches_page, {}),
+        ("honours", import_honours_page, {}),
+        ("stadium", import_stadium_page, {}),
+        ("records", import_records_page, {}),
+    ]:
+        try:
+            logger.info("Importing %s page...", label)
+            results[label] = func(site=site, dry_run=dry_run, **kwargs)
+        except FileNotFoundError as exc:
+            logger.error("%s import failed: %s", label, exc)
+            all_ok = False
+
+    # Leaderboards (from merged stats)
+    try:
+        logger.info("Importing leaderboard pages...")
+        results["leaderboards"] = import_leaderboards(
+            site=site,
+            stats_path=resolved_data_dir / "stats.jsonl",
+            players_path=resolved_data_dir / "players.jsonl",
+            dry_run=dry_run,
+        )
+    except FileNotFoundError as exc:
+        logger.error("Leaderboard import failed: %s", exc)
+        all_ok = False
+
+    # Attendance statistics (from all seasons' fixtures)
+    try:
+        logger.info("Importing attendance statistics...")
+        results["attendance"] = import_attendance(
+            site=site, seasons=seasons, dry_run=dry_run,
+        )
+    except FileNotFoundError as exc:
+        logger.error("Attendance import failed: %s", exc)
+        all_ok = False
+
+    # Competition season pages
+    try:
+        logger.info("Importing competition pages...")
+        results["competitions"] = import_competition_pages(
+            site=site, seasons=seasons, dry_run=dry_run,
+        )
+    except FileNotFoundError as exc:
+        logger.error("Competition pages import failed: %s", exc)
+        all_ok = False
+
     # Print summary
     logger.info("=" * 60)
     logger.info("IMPORT SUMMARY%s", " (DRY RUN)" if dry_run else "")
@@ -279,13 +427,14 @@ def run_import(
 @click.option("--season", default="2024", help="Season year to process (default: 2024)")
 @click.option("--seasons", default=None, help="Multi-season range (e.g., '2015-2025') or list (e.g., '2015,2020,2024')")
 @click.option("--dry-run", is_flag=True, help="Preview import without writing to wiki")
+@click.option("--spiders", default=None, help="Run only these spiders (comma-separated, e.g., 'stats' or 'squad,player')")
 @click.option("--skip-scrape", is_flag=True, help="Skip the scraping step")
 @click.option("--skip-normalize", is_flag=True, help="Skip the normalization step")
 @click.option("--skip-merge", is_flag=True, help="Skip the merge step")
 @click.option("--skip-import", is_flag=True, help="Skip the wiki import step")
 @click.option("--wiki-url", envvar="WIKI_URL", default=None, help="MediaWiki site URL (or set WIKI_URL env var)")
 @click.option("--verbose", "-v", is_flag=True, help="Enable debug logging")
-def main(season, seasons, dry_run, skip_scrape, skip_normalize, skip_merge, skip_import, wiki_url, verbose):
+def main(season, seasons, spiders, dry_run, skip_scrape, skip_normalize, skip_merge, skip_import, wiki_url, verbose):
     """Wiki7 data pipeline: scrape -> normalize -> merge -> import."""
     log_level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(
@@ -302,6 +451,16 @@ def main(season, seasons, dry_run, skip_scrape, skip_normalize, skip_merge, skip
         season_list = [season]
         multi_season = False
 
+    # Parse --spiders filter
+    spider_filter = None
+    if spiders:
+        valid_names = {name for name, _ in ALL_SPIDERS} | {name for name, _ in CLUB_SPIDERS}
+        spider_filter = {s.strip() for s in spiders.split(",")}
+        unknown = spider_filter - valid_names
+        if unknown:
+            logger.error("Unknown spider(s): %s (valid: %s)", ", ".join(unknown), ", ".join(sorted(valid_names)))
+            sys.exit(1)
+
     start_time = time.time()
     logger.info(
         "Wiki7 pipeline starting (seasons=%s, dry_run=%s, multi_season=%s)",
@@ -309,16 +468,27 @@ def main(season, seasons, dry_run, skip_scrape, skip_normalize, skip_merge, skip
     )
     errors = []
 
-    # Step 1: Scrape (per season)
+    # Step 1: Scrape (per season + club-level)
     if not skip_scrape:
         logger.info("=" * 60)
         logger.info("STEP 1: SCRAPING (%d seasons)", len(season_list))
         logger.info("=" * 60)
         for s in season_list:
             logger.info("--- Scraping season %s ---", s)
-            if not run_scrape(s):
+            if not run_scrape(s, only=spider_filter):
                 errors.append(f"Scraping failed for season {s}")
                 logger.error("Scraping failed for season %s. Continuing with next...", s)
+
+        # Club-level spiders (run once, not per-season)
+        club_filter = spider_filter
+        if club_filter:
+            club_names = {name for name, _ in CLUB_SPIDERS}
+            club_filter = club_filter & club_names
+        if club_filter is None or club_filter:
+            logger.info("--- Scraping club-level data ---")
+            if not run_club_scrape(only=club_filter):
+                errors.append("Club-level scraping failed")
+                logger.error("Club-level scraping failed")
     else:
         logger.info("Skipping scrape step (--skip-scrape)")
 

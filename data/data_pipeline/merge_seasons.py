@@ -92,9 +92,6 @@ def merge_seasons(base_dir: Path, seasons: List[str], output_dir: Path):
     # Concatenate transfers, market values, stats
     for filename in ("transfers.jsonl", "market_values.jsonl", "stats.jsonl"):
         merged = merge_appendable(season_dirs, filename)
-        if merged:
-            write_jsonl(merged, output_dir / filename)
-        else:
-            logger.debug("No records found for '%s'", filename)
+        write_jsonl(merged, output_dir / filename)
 
     logger.info("Merge complete. Output written to %s", output_dir)

@@ -1,0 +1,26 @@
+{{"{{"}}Stadium infobox
+| name = {{ stadium.name }}
+| capacity = {{ stadium.capacity or '' }}
+| surface = {{ stadium.surface or '' }}
+| opening_year = {{ stadium.opening_year or '' }}
+| address = {{ stadium.address or '' }}
+| city = {{ stadium.city or '' }}
+{{"}}"}}
+
+== {{ stadium.name }} ==
+
+{% if stadium.capacity %}
+'''Capacity:''' {{ "{:,}".format(stadium.capacity) }}
+{% endif %}
+{% if stadium.surface %}
+'''Surface:''' {{ stadium.surface }}
+{% endif %}
+{% if stadium.opening_year %}
+'''Opened:''' {{ stadium.opening_year }}
+{% endif %}
+{% if stadium.address %}
+'''Address:''' {{ stadium.address }}
+{% endif %}
+
+[[Category:Stadiums]]
+[[Category:Club]]

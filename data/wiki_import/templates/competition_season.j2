@@ -1,0 +1,13 @@
+== {{ competition }} {{ season_display }} ==
+
+{| class="wikitable"
+! Matchday !! Date !! Venue !! Opponent !! Result !! Attendance
+{% for f in fixtures %}
+|-
+| {{ f.matchday }} || {{ f.date }} || {{ f.venue }} || {{ f.opponent }} || {{ f.result }} || {{ f.attendance }}
+{% endfor %}
+|}
+
+[[Category:{{ competition }}]]
+[[Category:Season {{ season }}]]
+[[Category:Competitions]]

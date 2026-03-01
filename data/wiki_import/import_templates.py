@@ -22,6 +22,9 @@ DEFAULT_STATS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / 
 HBS_KEYWORDS = ("hapoel beer sheva", "beer sheva", "h. beer sheva", "hapoel be'er sheva")
 
 
+DEFAULT_SCRAPER_OUTPUT_DIR = Path(__file__).resolve().parent.parent / "tmk-scraper" / "output"
+
+
 CARGO_TABLES = {
     "Template:Cargo/Player": {
         "table": "players",
@@ -84,8 +87,31 @@ CARGO_TABLES = {
             "goals": "Integer",
             "assists": "Integer",
             "yellow_cards": "Integer",
+            "second_yellow_cards": "Integer",
             "red_cards": "Integer",
             "minutes_played": "Integer",
+        },
+    },
+    "Template:Cargo/Coach": {
+        "table": "coaches",
+        "fields": {
+            "coach_id": "String",
+            "name": "String",
+            "tenure_start": "String",
+            "tenure_end": "String",
+            "matches": "Integer",
+            "wins": "Integer",
+            "draws": "Integer",
+            "losses": "Integer",
+            "ppm": "String",
+        },
+    },
+    "Template:Cargo/Honour": {
+        "table": "honours",
+        "fields": {
+            "competition": "String",
+            "achievement": "String",
+            "seasons": "List (,) of String",
         },
     },
 }
@@ -315,4 +341,395 @@ def import_transfer_page(
         summary["failed"] += 1
         summary["errors"].append({"page": title, "error": str(exc)})
 
+    return summary
+
+
+def _load_json(path: Path) -> list:
+    """Load a JSON file, returning [] if not found or empty."""
+    if not path.exists():
+        return []
+    text = path.read_text(encoding="utf-8").strip()
+    if not text:
+        return []
+    data = json.loads(text)
+    return data if isinstance(data, list) else [data]
+
+
+def _import_single_page(
+    site, title: str, content: str, dry_run: bool, summary: dict
+):
+    """Helper to import a single wiki page with dry-run support."""
+    try:
+        if dry_run:
+            logger.info("[DRY RUN] Would create/update page: %s (%d chars)", title, len(content))
+            summary["created"] += 1
+            return
+
+        if site is None:
+            raise RuntimeError("site is required when dry_run=False")
+
+        page = site.pages[title]
+        if page.exists:
+            existing = page.text()
+            if _content_hash(existing.strip()) == _content_hash(content.strip()):
+                summary["skipped"] += 1
+                return
+            _edit_page(site, title, content, summary=f"Updated page: {title}")
+            summary["updated"] += 1
+        else:
+            _edit_page(site, title, content, summary=f"Created page: {title}")
+            summary["created"] += 1
+
+    except (mwclient.errors.APIError, ConnectionError, RuntimeError) as exc:
+        logger.error("Failed to import page '%s': %s", title, exc)
+        summary["failed"] += 1
+        summary["errors"].append({"page": title, "error": str(exc)})
+
+
+def import_coaches_page(
+    site=None,
+    coaches_path: Optional[Path] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import the Manager History page from coaches.json."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    path = coaches_path or DEFAULT_SCRAPER_OUTPUT_DIR / "coaches.json"
+    coaches = _load_json(path)
+    if not coaches:
+        logger.warning("No coach data found at %s", path)
+        return summary
+
+    content = _render_template("coach_page.j2", coaches=coaches)
+    _import_single_page(site, "Manager History", content, dry_run, summary)
+
+    logger.info(
+        "Coach import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def import_honours_page(
+    site=None,
+    honours_path: Optional[Path] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import the Honours page from honours.json."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    path = honours_path or DEFAULT_SCRAPER_OUTPUT_DIR / "honours.json"
+    honours = _load_json(path)
+    if not honours:
+        logger.warning("No honours data found at %s", path)
+        return summary
+
+    content = _render_template("honours_page.j2", honours=honours)
+    _import_single_page(site, "Honours", content, dry_run, summary)
+
+    logger.info(
+        "Honours import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def import_stadium_page(
+    site=None,
+    stadium_path: Optional[Path] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import the Stadium page from stadium.json."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    path = stadium_path or DEFAULT_SCRAPER_OUTPUT_DIR / "stadium.json"
+    stadium_data = _load_json(path)
+    if not stadium_data:
+        logger.warning("No stadium data found at %s", path)
+        return summary
+
+    stadium = stadium_data[0] if isinstance(stadium_data, list) else stadium_data
+    title = stadium.get("name", "Stadium")
+    content = _render_template("stadium_page.j2", stadium=stadium)
+    _import_single_page(site, title, content, dry_run, summary)
+
+    logger.info(
+        "Stadium import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def import_records_page(
+    site=None,
+    records_path: Optional[Path] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import the Club Records page from records.json."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    path = records_path or DEFAULT_SCRAPER_OUTPUT_DIR / "records.json"
+    records = _load_json(path)
+    if not records:
+        logger.warning("No records data found at %s", path)
+        return summary
+
+    # Group by category
+    records_by_category = {}
+    for r in records:
+        cat = r.get("category", "Other")
+        records_by_category.setdefault(cat, []).append(r)
+
+    content = _render_template("records_page.j2", records_by_category=records_by_category)
+    _import_single_page(site, "Club Records", content, dry_run, summary)
+
+    logger.info(
+        "Records import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def import_season_overview(
+    site=None,
+    season: str = "2024",
+    players_path: Optional[Path] = None,
+    stats_path: Optional[Path] = None,
+    fixtures_path: Optional[Path] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import a Season Overview page aggregating squad, stats, and fixtures data."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    resolved_players = players_path or DEFAULT_PLAYERS_PATH
+    resolved_stats = stats_path or DEFAULT_STATS_PATH
+
+    # Load players for name mapping
+    try:
+        players = _load_jsonl(resolved_players)
+    except FileNotFoundError:
+        players = []
+    name_map = {p["id"]: p["name_english"] for p in players}
+
+    # Load and filter stats for this season
+    try:
+        all_stats = _load_jsonl(resolved_stats)
+    except FileNotFoundError:
+        all_stats = []
+    season_stats = [s for s in all_stats if s.get("season") == season]
+
+    # Compute aggregates
+    total_appearances = sum(s.get("appearances", 0) for s in season_stats)
+    total_goals = sum(s.get("goals", 0) for s in season_stats)
+    total_assists = sum(s.get("assists", 0) for s in season_stats)
+    total_yellows = sum(s.get("yellow_cards", 0) for s in season_stats)
+    total_reds = sum(s.get("red_cards", 0) for s in season_stats)
+
+    # Top scorers and appearances
+    for s in season_stats:
+        s["player_name"] = name_map.get(s.get("player_id"), s.get("player_id", "Unknown"))
+    top_scorers = sorted(season_stats, key=lambda s: s.get("goals", 0), reverse=True)
+    top_appearances = sorted(season_stats, key=lambda s: s.get("appearances", 0), reverse=True)
+
+    # Load fixtures if available
+    resolved_fixtures = fixtures_path or DEFAULT_SCRAPER_OUTPUT_DIR / season / "fixtures.json"
+    fixtures = _load_json(resolved_fixtures) if resolved_fixtures.exists() else []
+    fixtures_by_competition = {}
+    for f in fixtures:
+        comp = f.get("competition", "Unknown")
+        fixtures_by_competition.setdefault(comp, []).append(f)
+
+    season_int = int(season)
+    season_display = f"{season_int}/{str(season_int + 1)[-2:]}"
+
+    content = _render_template(
+        "season_overview.j2",
+        season=season,
+        season_display=season_display,
+        stats=season_stats,
+        total_appearances=total_appearances,
+        total_goals=total_goals,
+        total_assists=total_assists,
+        total_yellows=total_yellows,
+        total_reds=total_reds,
+        top_scorers=top_scorers,
+        top_appearances=top_appearances,
+        fixtures_by_competition=fixtures_by_competition,
+    )
+    title = f"Season {season_display}"
+    _import_single_page(site, title, content, dry_run, summary)
+
+    logger.info(
+        "Season overview import for %s: %d created, %d updated, %d skipped, %d failed",
+        season, summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def import_leaderboards(
+    site=None,
+    stats_path: Optional[Path] = None,
+    players_path: Optional[Path] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import all-time leaderboard pages (top scorers, most appearances, assist leaders)."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    resolved_stats = stats_path or DEFAULT_STATS_PATH
+    resolved_players = players_path or DEFAULT_PLAYERS_PATH
+
+    try:
+        all_stats = _load_jsonl(resolved_stats)
+    except FileNotFoundError:
+        logger.warning("No stats data for leaderboards")
+        return summary
+
+    try:
+        players = _load_jsonl(resolved_players)
+    except FileNotFoundError:
+        players = []
+    name_map = {p["id"]: p["name_english"] for p in players}
+
+    # Aggregate per player across all seasons
+    player_totals = {}
+    for s in all_stats:
+        pid = s.get("player_id", "")
+        if pid not in player_totals:
+            player_totals[pid] = {
+                "player_name": name_map.get(pid, pid),
+                "appearances": 0,
+                "goals": 0,
+                "assists": 0,
+            }
+        player_totals[pid]["appearances"] += s.get("appearances", 0)
+        player_totals[pid]["goals"] += s.get("goals", 0)
+        player_totals[pid]["assists"] += s.get("assists", 0)
+
+    all_players = list(player_totals.values())
+
+    leaderboards = [
+        ("All-Time Top Scorers", "Goals", "goals", sorted(all_players, key=lambda p: p["goals"], reverse=True)),
+        ("All-Time Most Appearances", "Apps", "appearances", sorted(all_players, key=lambda p: p["appearances"], reverse=True)),
+        ("All-Time Assist Leaders", "Assists", "assists", sorted(all_players, key=lambda p: p["assists"], reverse=True)),
+    ]
+
+    for title, value_label, key, sorted_list in leaderboards:
+        # Only include players with > 0 of the stat
+        entries = [{"player_name": p["player_name"], "value": p[key]} for p in sorted_list if p[key] > 0][:50]
+        if not entries:
+            continue
+
+        content = _render_template(
+            "leaderboard.j2",
+            title=title,
+            value_label=value_label,
+            entries=entries,
+            scope="all_time",
+        )
+        _import_single_page(site, title, content, dry_run, summary)
+
+    logger.info(
+        "Leaderboard import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def import_attendance(
+    site=None,
+    seasons: list = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import attendance statistics page from fixtures data across seasons."""
+    import re
+
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    if not seasons:
+        logger.warning("No seasons provided for attendance import")
+        return summary
+
+    season_stats = []
+    for season in seasons:
+        fixtures_path = DEFAULT_SCRAPER_OUTPUT_DIR / season / "fixtures.json"
+        fixtures = _load_json(fixtures_path)
+        if not fixtures:
+            continue
+
+        attendances = []
+        for f in fixtures:
+            raw = f.get("attendance", "")
+            if raw:
+                cleaned = re.sub(r"[^\d]", "", str(raw))
+                if cleaned:
+                    attendances.append(int(cleaned))
+
+        if attendances:
+            season_int = int(season)
+            season_stats.append({
+                "season": f"{season_int}/{str(season_int + 1)[-2:]}",
+                "total_matches": len(attendances),
+                "total_attendance": sum(attendances),
+                "average": sum(attendances) // len(attendances),
+                "highest": max(attendances),
+                "lowest": min(attendances),
+            })
+
+    if not season_stats:
+        logger.warning("No attendance data found")
+        return summary
+
+    content = _render_template("attendance.j2", season_stats=season_stats)
+    _import_single_page(site, "Attendance Statistics", content, dry_run, summary)
+
+    logger.info(
+        "Attendance import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def import_competition_pages(
+    site=None,
+    seasons: list = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import per-competition per-season pages from fixtures data."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    if not seasons:
+        return summary
+
+    for season in seasons:
+        fixtures_path = DEFAULT_SCRAPER_OUTPUT_DIR / season / "fixtures.json"
+        fixtures = _load_json(fixtures_path)
+        if not fixtures:
+            continue
+
+        # Group by competition
+        by_competition = {}
+        for f in fixtures:
+            comp = f.get("competition", "Unknown")
+            by_competition.setdefault(comp, []).append(f)
+
+        season_int = int(season)
+        season_display = f"{season_int}/{str(season_int + 1)[-2:]}"
+
+        for comp, comp_fixtures in by_competition.items():
+            if not comp or comp == "Unknown":
+                continue
+            content = _render_template(
+                "competition_season.j2",
+                competition=comp,
+                season=season,
+                season_display=season_display,
+                fixtures=comp_fixtures,
+            )
+            title = f"{comp} {season_display}"
+            _import_single_page(site, title, content, dry_run, summary)
+
+    logger.info(
+        "Competition pages import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
     return summary

@@ -1,0 +1,11 @@
+== Manager History ==
+
+{| class="wikitable sortable"
+! Manager !! From !! To !! Matches !! W !! D !! L !! PPM
+{% for c in coaches %}
+|-
+| [[{{ c.name }}]] || {{ c.tenure_start }} || {{ c.tenure_end }} || {{ c.matches }} || {{ c.wins }} || {{ c.draws }} || {{ c.losses }} || {{ c.ppm }}
+{% endfor %}
+|}
+
+[[Category:Managers]]

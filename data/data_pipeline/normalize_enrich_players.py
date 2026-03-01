@@ -75,6 +75,7 @@ def normalize_stats(stats_data: list) -> List[PlayerSeasonStats]:
             goals=s.get("goals", 0),
             assists=s.get("assists", 0),
             yellow_cards=s.get("yellow_cards", 0),
+            second_yellow_cards=s.get("second_yellow_cards", 0),
             red_cards=s.get("red_cards", 0),
             minutes_played=s.get("minutes_played", 0),
         )
