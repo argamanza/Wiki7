@@ -30,7 +30,7 @@ export class CloudFrontConstruct extends Construct {
 
     // S3 Origin with OAC - using correct props
     const s3Origin = origins.S3BucketOrigin.withOriginAccessControl(mediawikiStorageBucket, {
-      originAccessLevels: [cloudfront.AccessLevel.READ, cloudfront.AccessLevel.LIST],
+      originAccessLevels: [cloudfront.AccessLevel.READ],
       connectionTimeout: cdk.Duration.seconds(10),
       connectionAttempts: 3,
       originPath: '/',  // Default, but explicit for clarity
