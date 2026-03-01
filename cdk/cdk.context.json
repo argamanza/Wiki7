@@ -7,10 +7,5 @@
   "hosted-zone:account=368127906643:domainName=wiki7.co.il:region=us-east-1": {
     "Id": "/hostedzone/Z05358991AQ467TZUH2N6",
     "Name": "wiki7.co.il."
-  },
-  "availability-zones:account=244175932815:region=il-central-1": [
-    "il-central-1a",
-    "il-central-1b",
-    "il-central-1c"
-  ]
+  }
 }
