@@ -12,10 +12,11 @@ RUN wget -cO - https://getcomposer.org/composer-2.phar > composer.phar \
 
 # Clone and configure the AWS extension
 ENV COMPOSER_ROOT_VERSION=1.43.0
-RUN cd /var/www/html && \
+RUN chmod u+w /var/www/html && cd /var/www/html && \
 git clone --depth 1 https://github.com/edwardspec/mediawiki-aws-s3.git extensions/AWS && \
 echo '{"extra":{"merge-plugin":{"include":["extensions/AWS/composer.json"]}}}' > composer.local.json && \
-composer config --global audit.block-insecure false && \
+chmod u+w composer.json && \
+composer config audit.block-insecure false && \
 composer update --no-dev --no-audit
 
 # Set working directory
