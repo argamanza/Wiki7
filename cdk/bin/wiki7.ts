@@ -7,9 +7,6 @@ import { Wiki7CdkStack } from '../lib/wiki7-cdk-stack';
 import { GitHubOidcStack } from '../lib/github-oidc-stack';
 
 const app = new cdk.App();
-// S3 origin LIST permission is only used for images/* and assets/* behaviors, not the default
-// behavior (which routes to ALB). Suppress the misleading CDK security warning.
-app.node.setContext('@aws-cdk/aws-cloudfront-origins:listBucketSecurityRisk', true);
 
 const account = process.env.CDK_DEFAULT_ACCOUNT;
 
