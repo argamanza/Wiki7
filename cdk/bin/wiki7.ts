@@ -4,6 +4,7 @@ import { Wiki7DnsStack } from '../lib/wiki7-dns-stack';
 import { Wiki7CertificateStack } from '../lib/wiki7-certificate-stack';
 import { Wiki7WafStack } from '../lib/wiki7-waf-stack';
 import { Wiki7CdkStack } from '../lib/wiki7-cdk-stack';
+import { GitHubOidcStack } from '../lib/github-oidc-stack';
 
 const app = new cdk.App();
 
@@ -24,5 +25,9 @@ new Wiki7WafStack(app, 'Wiki7WafStack', {
 });
 
 new Wiki7CdkStack(app, 'Wiki7CdkStack', {
+  env: { account, region: 'il-central-1' },
+});
+
+new GitHubOidcStack(app, 'Wiki7GitHubOidcStack', {
   env: { account, region: 'il-central-1' },
 });
