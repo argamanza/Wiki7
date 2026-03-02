@@ -1,11 +1,11 @@
-# Wiki7 - Hapoel Beer Sheva Fan Wiki
+# wiki7 - Hapoel Beer Sheva Fan Wiki
 
 A MediaWiki-based fan wiki for **Hapoel Beer Sheva FC** at [wiki7.co.il](https://wiki7.co.il), featuring a custom Hebrew RTL skin, automated data pipeline from Transfermarkt, and AWS infrastructure managed with CDK.
 
 ## Project Structure
 
 ```
-Wiki7/
+wiki7/
 ├── docker/          # MediaWiki container (1.43), custom Wiki7 skin, LocalSettings.php
 │   ├── skins/Wiki7/ # Custom skin (forked from Citizen) — red/white theme, RTL, dark mode
 │   └── extensions/  # Cargo, PageForms
@@ -25,8 +25,8 @@ Wiki7/
 
 ```bash
 # 1. Clone and setup
-git clone --recursive https://github.com/argamanza/Wiki7.git
-cd Wiki7
+git clone --recursive https://github.com/argamanza/wiki7.git
+cd wiki7
 cp .env.example .env   # Fill in your values
 make setup
 

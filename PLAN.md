@@ -1,6 +1,6 @@
-# Wiki7 Revival Plan
+# wiki7 Revival Plan
 
-Comprehensive plan to bring Wiki7 from a stale project to a production-grade, scalable community wiki for Hapoel Beer Sheva FC.
+Comprehensive plan to bring wiki7 from a stale project to a production-grade, scalable community wiki for Hapoel Beer Sheva FC.
 
 Each stage is designed to be **independently researched, planned, and implemented** by separate agents. Stages touch distinct file domains with minimal overlap.
 

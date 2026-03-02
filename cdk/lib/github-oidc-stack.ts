@@ -21,7 +21,10 @@ export class GitHubOidcStack extends cdk.Stack {
           'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
         },
         StringLike: {
-          'token.actions.githubusercontent.com:sub': 'repo:argamanza/Wiki7:*',
+          'token.actions.githubusercontent.com:sub': [
+            'repo:argamanza/Wiki7:*',
+            'repo:argamanza/wiki7:*',
+          ],
         },
       }),
       maxSessionDuration: cdk.Duration.hours(1),

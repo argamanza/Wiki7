@@ -3,14 +3,14 @@
 ## Prerequisites
 
 - Docker and docker-compose installed
-- Wiki7 Docker environment available (`Wiki7/docker/`)
+- Wiki7 Docker environment available (`wiki7/docker/`)
 
 ## Steps
 
 ### 1. Start the local wiki
 
 ```bash
-cd Wiki7/docker && docker-compose up -d
+cd wiki7/docker && docker-compose up -d
 ```
 
 Wait for it to be ready at http://localhost:8080 (first start takes ~30 seconds for DB init).
@@ -45,7 +45,7 @@ export WIKI_BOT_PASS="BotPass1234"
 ### 6. Run the pipeline
 
 ```bash
-cd Wiki7/data
+cd wiki7/data
 
 # Dry run first (no wiki writes)
 python run_pipeline.py --season 2024 --dry-run -v
