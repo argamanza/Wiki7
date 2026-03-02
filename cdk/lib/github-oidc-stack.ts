@@ -22,7 +22,6 @@ export class GitHubOidcStack extends cdk.Stack {
         },
         StringLike: {
           'token.actions.githubusercontent.com:sub': [
-            'repo:argamanza/Wiki7:*',
             'repo:argamanza/wiki7:*',
           ],
         },
