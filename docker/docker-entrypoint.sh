@@ -23,9 +23,7 @@ TABLE_EXISTS=$(mysql -h "$MEDIAWIKI_DB_HOST" -u "$MEDIAWIKI_DB_USER" \
   -sse "SELECT COUNT(*) FROM information_schema.tables \
         WHERE table_schema='$MEDIAWIKI_DB_NAME' AND table_name='page';" 2>/dev/null || echo "0")
 
-FRESH_INSTALL=0
 if [ "$TABLE_EXISTS" = "0" ]; then
-  FRESH_INSTALL=1
   echo "=== Fresh database detected. Running MediaWiki install... ==="
   # install.php refuses to run if LocalSettings.php exists — move it aside
   mv /var/www/html/LocalSettings.php /var/www/html/LocalSettings.php.bak
@@ -51,14 +49,9 @@ echo "=== Running update.php for schema migrations... ==="
 php maintenance/run.php update --quick
 
 # 4. Import default wiki pages (main page, templates, CSS/JS)
-#    On fresh install: --force overwrites the default main page created by install.php
-#    On restart: create-if-missing only (preserves user edits)
+#    Auto-detects content changes via hash comparison in updatelog table
 echo "=== Importing default wiki pages... ==="
-if [ "$FRESH_INSTALL" = "1" ]; then
-  php maintenance/run.php /var/www/html/import-pages.php --force
-else
-  php maintenance/run.php /var/www/html/import-pages.php
-fi
+php maintenance/run.php /var/www/html/import-pages.php
 
 echo "=== Database initialization complete. Starting Apache... ==="
 

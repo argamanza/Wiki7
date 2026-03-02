@@ -51,6 +51,60 @@ class ImportDefaultPages extends Maintenance {
         ];
     }
 
+    private const UPDATELOG_KEY = 'wiki7-pages-import';
+
+    /**
+     * Compute a deterministic SHA-256 hash over all mapped page files.
+     * Changes to any file content, or adding/removing mapped files, will change the hash.
+     */
+    private function computePagesHash( string $pagesDir ): string {
+        $mapping = $this->getPageMapping();
+        $parts = [];
+        ksort( $mapping );
+        foreach ( $mapping as $filename => $pageTitle ) {
+            $filePath = "$pagesDir/$filename";
+            if ( file_exists( $filePath ) ) {
+                $parts[] = "$filename=$pageTitle:" . sha1_file( $filePath );
+            } else {
+                $parts[] = "$filename=$pageTitle:MISSING";
+            }
+        }
+        return hash( 'sha256', implode( "\n", $parts ) );
+    }
+
+    /**
+     * Read the stored content hash from MediaWiki's updatelog table.
+     */
+    private function getStoredHash(): ?string {
+        $dbr = $this->getServiceContainer()->getDBLoadBalancer()->getConnection( DB_REPLICA );
+        try {
+            $row = $dbr->selectRow(
+                'updatelog',
+                'ul_value',
+                [ 'ul_key' => self::UPDATELOG_KEY ],
+                __METHOD__
+            );
+            return $row ? $row->ul_value : null;
+        } catch ( \Exception $e ) {
+            // Table may not exist yet on very first run
+            return null;
+        }
+    }
+
+    /**
+     * Store the content hash in MediaWiki's updatelog table.
+     */
+    private function storeHash( string $hash ): void {
+        $dbw = $this->getServiceContainer()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
+        $dbw->upsert(
+            'updatelog',
+            [ 'ul_key' => self::UPDATELOG_KEY, 'ul_value' => $hash ],
+            'ul_key',
+            [ 'ul_value' => $hash ],
+            __METHOD__
+        );
+    }
+
     public function execute() {
         $pagesDir = __DIR__ . '/wiki-pages';
 
@@ -61,13 +115,30 @@ class ImportDefaultPages extends Maintenance {
 
         $mapping = $this->getPageMapping();
         $force   = $this->hasOption( 'force' );
+
+        // Auto-detect content changes via hash comparison
+        if ( !$force ) {
+            $currentHash = $this->computePagesHash( $pagesDir );
+            $storedHash  = $this->getStoredHash();
+
+            if ( $storedHash === null ) {
+                $this->output( "  No stored content hash found — forcing import.\n" );
+                $force = true;
+            } elseif ( $storedHash !== $currentHash ) {
+                $this->output( "  Content hash changed — forcing import.\n" );
+                $force = true;
+            } else {
+                $this->output( "  Content hash unchanged — create-if-missing only.\n" );
+            }
+        }
+
         $created = 0;
         $updated = 0;
         $skipped = 0;
         $errors  = 0;
 
         if ( $force ) {
-            $this->output( "  (--force mode: overwriting existing pages)\n" );
+            $this->output( "  (force mode: overwriting existing pages)\n" );
         }
 
         foreach ( $mapping as $filename => $pageTitle ) {
@@ -129,7 +200,7 @@ class ImportDefaultPages extends Maintenance {
                 }
 
                 $comment = \MediaWiki\CommentStore\CommentStoreComment::newUnsavedComment(
-                    $pageExists ? 'Auto-import: overwrite on fresh install' : 'Auto-import: initial page creation'
+                    $pageExists ? 'Auto-import: content update' : 'Auto-import: initial page creation'
                 );
 
                 $updater->saveRevision( $comment, $editFlags );
@@ -152,6 +223,10 @@ class ImportDefaultPages extends Maintenance {
                 $errors++;
             }
         }
+
+        // Store current hash so subsequent restarts can detect changes
+        $finalHash = $this->computePagesHash( $pagesDir );
+        $this->storeHash( $finalHash );
 
         $this->output( "\nImport complete: $created created, $updated updated, $skipped skipped, $errors errors.\n" );
     }
