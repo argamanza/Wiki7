@@ -35,6 +35,10 @@ COPY extensions/PageForms/ /var/www/html/extensions/PageForms/
 COPY skins/Citizen/ /var/www/html/skins/Citizen/
 COPY skins/Wiki7/ /var/www/html/skins/Wiki7/
 
+# Copy wiki page seed files and import script
+COPY wiki-pages/ /var/www/html/wiki-pages/
+COPY import-pages.php /var/www/html/import-pages.php
+
 # Back up custom LocalSettings.php so entrypoint can restore it after install.php
 RUN cp /var/www/html/LocalSettings.php /var/www/html/LocalSettings.php.custom
 

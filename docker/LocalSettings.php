@@ -88,6 +88,9 @@ wfLoadSkin( 'Wiki7' );
 
 $wgDefaultSkin = 'Wiki7';
 
+// Main page configuration
+$wgMainPageIsDomainRoot = true; // Serve main page at domain root
+
 ##
 ## Extensions
 ##

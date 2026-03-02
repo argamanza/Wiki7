@@ -1,0 +1,13 @@
+<div class="wiki7-home__card">
+<div class="wiki7-home__card-title"><span class="wiki7-home__card-title-icon">📸</span> רגע בהיסטוריה</div>
+<!-- TODO: החליפו לתמונה אמיתית כשתעלו תמונות לוויקי -->
+<div style="background: linear-gradient(135deg, var(--wiki7-red) 0%, #3d0a15 100%); border-radius: var(--border-radius-base, 4px); height: 180px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 3rem; margin-bottom: var(--space-xs, 0.5rem);">
+⚽🏆
+</div>
+<div class="wiki7-featured__caption">
+שחקני הפועל באר שבע חוגגים את הזכייה באליפות ישראל.
+<!-- TODO: עדכנו עם תיאור תמונה אמיתי -->
+</div>
+</div><noinclude>
+[[קטגוריה:תבניות עמוד ראשי]]
+</noinclude>

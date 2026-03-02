@@ -1,0 +1,759 @@
+/* ===================================================================
+ * ויקישבע — Main Page Styles
+ * Hapoel Beer Sheva Fan Wiki
+ *
+ * Uses Wiki7/Citizen CSS custom properties for seamless skin integration.
+ * RTL-safe via CSS logical properties.
+ * =================================================================== */
+
+/* --- Color Palette --- */
+:root {
+    --wiki7-red: #C8102E;
+    --wiki7-red-dark: #9B0C23;
+    --wiki7-red-light: #E8314D;
+    --wiki7-gold: #D4A843;
+    --wiki7-gold-light: #F0D080;
+}
+
+/* --- Main Page: Hide default heading & adjust layout --- */
+.page-עמוד_ראשי.action-view .wiki7-page-heading,
+.page-עמוד_ראשי.action-view #firstHeading,
+.page-עמוד_ראשי.action-view .page-heading {
+    display: none;
+}
+
+.page-עמוד_ראשי.action-view .mw-body-content {
+    margin-top: 0;
+}
+
+/* ===================================================================
+ * HEADER SECTION
+ * =================================================================== */
+.wiki7-home__header {
+    position: relative;
+    padding: var(--space-xl, 2rem) var(--space-lg, 1.5rem);
+    background: linear-gradient(135deg, var(--wiki7-red) 0%, var(--wiki7-red-dark) 100%);
+    border-radius: var(--border-radius-medium, 8px);
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: var(--space-md, 1rem);
+}
+
+.wiki7-home__header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('') center/cover no-repeat;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.wiki7-home__header-pretitle {
+    font-size: var(--font-size-small, 0.875rem);
+    opacity: 0.85;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xxs, 0.25rem);
+}
+
+.wiki7-home__header-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.wiki7-home__header-subtitle {
+    font-size: var(--font-size-medium, 1rem);
+    opacity: 0.9;
+    margin-top: var(--space-xs, 0.5rem);
+    max-width: 600px;
+    margin-inline: auto;
+}
+
+/* ===================================================================
+ * HERO BANNER / SLIDER
+ * =================================================================== */
+.wiki7-home__banner {
+    position: relative;
+    border-radius: var(--border-radius-medium, 8px);
+    overflow: hidden;
+    margin-bottom: var(--space-md, 1rem);
+    background: var(--color-surface-1, #1a1a2e);
+}
+
+.wiki7-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.wiki7-slider__track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.wiki7-slider__slide {
+    min-width: 100%;
+    position: relative;
+    padding: var(--space-xl, 2rem) var(--space-lg, 1.5rem);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.wiki7-slider__slide--red {
+    background: linear-gradient(135deg, var(--wiki7-red) 0%, #3d0a15 100%);
+    color: #fff;
+}
+
+.wiki7-slider__slide--dark {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+}
+
+.wiki7-slider__slide--gold {
+    background: linear-gradient(135deg, #2d1f0e 0%, #1a1408 100%);
+    color: #fff;
+}
+
+.wiki7-slider__slide h3 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 700;
+    margin: 0 0 var(--space-xs, 0.5rem) 0;
+    line-height: 1.3;
+}
+
+.wiki7-slider__slide h3 .emphasis {
+    color: var(--wiki7-gold-light);
+}
+
+.wiki7-slider__slide .slide-text {
+    font-size: var(--font-size-small, 0.875rem);
+    opacity: 0.9;
+    max-width: 65ch;
+    line-height: 1.6;
+}
+
+.wiki7-slider__slide .slide-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xxs, 0.25rem);
+    margin-top: var(--space-sm, 0.75rem);
+    padding: var(--space-xs, 0.5rem) var(--space-sm, 0.75rem);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: var(--border-radius-base, 4px);
+    color: #fff;
+    font-size: var(--font-size-small, 0.875rem);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    width: fit-content;
+}
+
+.wiki7-slider__slide .slide-cta:hover {
+    background: rgba(255,255,255,0.25);
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Slider dots */
+.wiki7-slider__dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs, 0.5rem);
+    padding: var(--space-sm, 0.75rem) 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.wiki7-slider__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.wiki7-slider__dot--active {
+    background: #fff;
+    transform: scale(1.2);
+}
+
+/* ===================================================================
+ * NAVIGATION PILLS
+ * =================================================================== */
+.wiki7-home__nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xs, 0.5rem);
+    margin-bottom: var(--space-md, 1rem);
+}
+
+.wiki7-nav-pill {
+    position: relative;
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.wiki7-nav-pill:hover {
+    border-color: var(--wiki7-red);
+    background: var(--color-surface-2, #f5f5f5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200, 16, 46, 0.15);
+}
+
+/* Link fills the entire pill — whole area is clickable */
+.wiki7-nav-pill a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm, 0.75rem);
+    padding: var(--space-sm, 0.75rem) var(--space-md, 1rem);
+    text-decoration: none !important;
+    color: var(--color-emphasized, #000);
+    font-weight: var(--font-weight-semi-bold, 600);
+    font-size: var(--font-size-small, 0.875rem);
+    line-height: 1.3;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.wiki7-nav-pill:hover a,
+.wiki7-nav-pill:hover a.new {
+    color: var(--wiki7-red);
+}
+
+/* Red-link (non-existent pages) still looks normal */
+.wiki7-nav-pill a.new {
+    color: var(--color-emphasized, #000);
+}
+
+/* SVG icon via mask-image on the link's ::before */
+.wiki7-nav-pill a::before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background: var(--wiki7-red);
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    transition: background 0.2s ease;
+}
+
+/* Individual pill icons (Lucide-style SVGs) */
+.wiki7-nav-pill--team a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--players a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--seasons a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--trophies a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6'/%3E%3Cpath d='M18 9h1.5a2.5 2.5 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'/%3E%3Cpath d='M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'/%3E%3Cpath d='M18 2H6v7a6 6 0 0 0 12 0V2Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6'/%3E%3Cpath d='M18 9h1.5a2.5 2.5 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'/%3E%3Cpath d='M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'/%3E%3Cpath d='M18 2H6v7a6 6 0 0 0 12 0V2Z'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--coaches a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--stadium a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z'/%3E%3Cpath d='M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2'/%3E%3Cpath d='M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2'/%3E%3Cpath d='M10 6h4'/%3E%3Cpath d='M10 10h4'/%3E%3Cpath d='M10 14h4'/%3E%3Cpath d='M10 18h4'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z'/%3E%3Cpath d='M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2'/%3E%3Cpath d='M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2'/%3E%3Cpath d='M10 6h4'/%3E%3Cpath d='M10 10h4'/%3E%3Cpath d='M10 14h4'/%3E%3Cpath d='M10 18h4'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--transfers a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15-5 5 5 5'/%3E%3Cpath d='M22 20H2'/%3E%3Cpath d='m17 9 5-5-5-5'/%3E%3Cpath d='M2 4h20'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15-5 5 5 5'/%3E%3Cpath d='M22 20H2'/%3E%3Cpath d='m17 9 5-5-5-5'/%3E%3Cpath d='M2 4h20'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--stats a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V10'/%3E%3Cpath d='M18 20V4'/%3E%3Cpath d='M6 20v-4'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V10'/%3E%3Cpath d='M18 20V4'/%3E%3Cpath d='M6 20v-4'/%3E%3C/svg%3E");
+}
+
+/* ===================================================================
+ * STATISTICS BAR
+ * =================================================================== */
+.wiki7-home__stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md, 1rem);
+    padding: var(--space-md, 1rem) var(--space-sm, 0.75rem);
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    margin-bottom: var(--space-md, 1rem);
+}
+
+.wiki7-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-xs, 0.5rem) var(--space-md, 1rem);
+    min-width: 80px;
+}
+
+.wiki7-stat__number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--wiki7-red);
+    line-height: 1;
+}
+
+.wiki7-stat__label {
+    font-size: var(--font-size-x-small, 0.75rem);
+    color: var(--color-subtle, #666);
+    margin-top: var(--space-xxs, 0.25rem);
+    text-align: center;
+}
+
+/* ===================================================================
+ * CONTENT GRID (Two-column card layout)
+ * =================================================================== */
+.wiki7-home__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: var(--space-md, 1rem);
+    margin-bottom: var(--space-md, 1rem);
+}
+
+.wiki7-home__grid--three {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+
+/* ===================================================================
+ * CARD COMPONENT
+ * =================================================================== */
+.wiki7-home__card {
+    position: relative;
+    padding: var(--space-md, 1rem);
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    font-size: var(--font-size-small, 0.875rem);
+    overflow: hidden;
+}
+
+.wiki7-home__card-title {
+    font-size: 1rem;
+    font-weight: var(--font-weight-semi-bold, 600);
+    color: var(--color-emphasized, #000);
+    margin: 0 0 var(--space-sm, 0.75rem) 0;
+    padding-bottom: var(--space-xs, 0.5rem);
+    border-bottom: 2px solid var(--wiki7-red);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs, 0.5rem);
+}
+
+.wiki7-home__card-title-icon {
+    color: var(--wiki7-red);
+}
+
+/* ===================================================================
+ * TROPHY CABINET
+ * =================================================================== */
+.wiki7-trophy-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wiki7-trophy-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm, 0.75rem);
+    padding: var(--space-xs, 0.5rem) 0;
+    border-bottom: 1px solid var(--border-color-base, #eee);
+}
+
+.wiki7-trophy-item:last-child {
+    border-bottom: none;
+}
+
+.wiki7-trophy-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, var(--wiki7-gold) 0%, var(--wiki7-gold-light) 100%);
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 50%;
+}
+
+.wiki7-trophy-name {
+    font-weight: var(--font-weight-semi-bold, 600);
+    color: var(--color-emphasized, #000);
+}
+
+.wiki7-trophy-years {
+    font-size: var(--font-size-x-small, 0.75rem);
+    color: var(--color-subtle, #666);
+    margin-top: 2px;
+}
+
+/* ===================================================================
+ * QUOTE SECTION
+ * =================================================================== */
+.wiki7-quote {
+    position: relative;
+    padding: var(--space-md, 1rem);
+    font-style: italic;
+}
+
+.wiki7-quote__text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-emphasized, #000);
+    position: relative;
+    padding-inline-start: var(--space-md, 1rem);
+    border-inline-start: 3px solid var(--wiki7-red);
+}
+
+.wiki7-quote__source {
+    margin-top: var(--space-sm, 0.75rem);
+    font-size: var(--font-size-small, 0.875rem);
+    font-style: normal;
+    color: var(--color-subtle, #666);
+}
+
+/* ===================================================================
+ * FEATURED ARTICLE / IMAGE
+ * =================================================================== */
+.wiki7-featured__text {
+    line-height: 1.7;
+    color: var(--color-base, #333);
+}
+
+.wiki7-featured__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xxs, 0.25rem);
+    margin-top: var(--space-sm, 0.75rem);
+    font-weight: var(--font-weight-semi-bold, 600);
+    color: var(--wiki7-red);
+}
+
+.wiki7-featured__link:hover {
+    text-decoration: underline;
+}
+
+.wiki7-featured__image {
+    width: 100%;
+    border-radius: var(--border-radius-base, 4px);
+    margin-bottom: var(--space-xs, 0.5rem);
+}
+
+.wiki7-featured__caption {
+    font-size: var(--font-size-x-small, 0.75rem);
+    color: var(--color-subtle, #666);
+    text-align: center;
+    margin-top: var(--space-xxs, 0.25rem);
+}
+
+/* ===================================================================
+ * CURRENT SEASON
+ * =================================================================== */
+.wiki7-season__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs, 0.5rem);
+}
+
+.wiki7-season__item {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xs, 0.5rem);
+    background: var(--color-surface-2, #f5f5f5);
+    border-radius: var(--border-radius-base, 4px);
+}
+
+.wiki7-season__item-label {
+    font-size: var(--font-size-x-small, 0.75rem);
+    color: var(--color-subtle, #666);
+}
+
+.wiki7-season__item-value {
+    font-weight: var(--font-weight-semi-bold, 600);
+    color: var(--color-emphasized, #000);
+    font-size: 1rem;
+}
+
+.wiki7-season__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xxs, 0.25rem);
+    padding: var(--space-xxs, 0.25rem) var(--space-xs, 0.5rem);
+    background: var(--wiki7-red);
+    color: #fff;
+    border-radius: var(--border-radius-base, 4px);
+    font-size: var(--font-size-x-small, 0.75rem);
+    font-weight: 600;
+    margin-bottom: var(--space-sm, 0.75rem);
+    width: fit-content;
+}
+
+/* ===================================================================
+ * COMMUNITY LINKS / SOCIAL / CONTACT
+ * =================================================================== */
+.wiki7-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs, 0.5rem);
+}
+
+.wiki7-link-button {
+    position: relative;
+    background: var(--color-surface-2, #f5f5f5);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    overflow: hidden;
+}
+
+.wiki7-link-button:hover {
+    background: var(--color-surface-2--hover, #eee);
+    border-color: var(--wiki7-red);
+    transform: translateY(-1px);
+}
+
+/* Link fills the full button area */
+.wiki7-link-button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs, 0.5rem);
+    padding: var(--space-sm, 0.75rem);
+    text-decoration: none !important;
+    color: var(--color-emphasized, #000);
+    font-weight: var(--font-weight-semi-bold, 600);
+    font-size: var(--font-size-small, 0.875rem);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.wiki7-link-button:hover a {
+    color: var(--wiki7-red);
+}
+
+/* Red-link override */
+.wiki7-link-button a.new {
+    color: var(--color-emphasized, #000);
+}
+
+.wiki7-link-button:hover a.new {
+    color: var(--wiki7-red);
+}
+
+/* Hide MediaWiki external link icon inside buttons */
+.wiki7-link-button .external::after,
+.wiki7-link-button .external.text::after {
+    display: none !important;
+}
+
+.wiki7-link-button--full {
+    grid-column: 1 / -1;
+}
+
+/* Social brand icon via mask-image */
+.wiki7-link-button a::before {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    background: var(--color-subtle, #666);
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    transition: background 0.2s ease;
+}
+
+.wiki7-link-button:hover a::before {
+    background: var(--wiki7-red);
+}
+
+.wiki7-link-button--facebook a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z'/%3E%3C/svg%3E");
+}
+
+.wiki7-link-button--twitter a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E");
+}
+
+.wiki7-link-button--instagram a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='20' x='2' y='2' rx='5'/%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M17.5 6.5h.01'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='20' x='2' y='2' rx='5'/%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M17.5 6.5h.01'/%3E%3C/svg%3E");
+}
+
+.wiki7-link-button--youtube a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14.752 11.168-3.197-2.132A1 1 0 0 0 10 9.87v4.263a1 1 0 0 0 1.555.832l3.197-2.132a1 1 0 0 0 0-1.664Z'/%3E%3Cpath d='M21 12.049c0 1.025-.049 2.048-.146 3.067a2.066 2.066 0 0 1-1.791 1.84 28.83 28.83 0 0 1-6.063.493 28.83 28.83 0 0 1-6.063-.493 2.066 2.066 0 0 1-1.791-1.84 26.53 26.53 0 0 1 0-6.134 2.066 2.066 0 0 1 1.791-1.84A28.83 28.83 0 0 1 13 6.502c2.064 0 4.083.168 6.063.493a2.066 2.066 0 0 1 1.791 1.84c.097 1.019.146 2.042.146 3.067v.147Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14.752 11.168-3.197-2.132A1 1 0 0 0 10 9.87v4.263a1 1 0 0 0 1.555.832l3.197-2.132a1 1 0 0 0 0-1.664Z'/%3E%3Cpath d='M21 12.049c0 1.025-.049 2.048-.146 3.067a2.066 2.066 0 0 1-1.791 1.84 28.83 28.83 0 0 1-6.063.493 28.83 28.83 0 0 1-6.063-.493 2.066 2.066 0 0 1-1.791-1.84 26.53 26.53 0 0 1 0-6.134 2.066 2.066 0 0 1 1.791-1.84A28.83 28.83 0 0 1 13 6.502c2.064 0 4.083.168 6.063.493a2.066 2.066 0 0 1 1.791 1.84c.097 1.019.146 2.042.146 3.067v.147Z'/%3E%3C/svg%3E");
+}
+
+.wiki7-link-button--official a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M2 12h20'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M2 12h20'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+    background: var(--wiki7-red);
+}
+
+.wiki7-link-button--official {
+    background: var(--wiki7-red);
+    border-color: var(--wiki7-red);
+}
+
+.wiki7-link-button--official a {
+    color: #fff;
+}
+
+.wiki7-link-button--official:hover {
+    background: var(--wiki7-red-dark);
+    border-color: var(--wiki7-red-dark);
+}
+
+.wiki7-link-button--official:hover a {
+    color: #fff;
+}
+
+.wiki7-link-button--official a::before {
+    background: #fff;
+}
+
+/* Red button variant (for CTA buttons) */
+.wiki7-link-button--red {
+    background: var(--wiki7-red);
+    border-color: var(--wiki7-red);
+}
+
+.wiki7-link-button--red a,
+.wiki7-link-button--red a.new {
+    color: #fff;
+}
+
+.wiki7-link-button--red:hover {
+    background: var(--wiki7-red-dark);
+    border-color: var(--wiki7-red-dark);
+}
+
+.wiki7-link-button--red:hover a,
+.wiki7-link-button--red:hover a.new {
+    color: #fff;
+}
+
+/* ===================================================================
+ * DID YOU KNOW / FACTS
+ * =================================================================== */
+.wiki7-didyouknow__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wiki7-didyouknow__item {
+    position: relative;
+    padding: var(--space-xs, 0.5rem) 0;
+    padding-inline-start: var(--space-md, 1rem);
+    border-bottom: 1px solid var(--border-color-base, #eee);
+    line-height: 1.6;
+}
+
+.wiki7-didyouknow__item::before {
+    content: "💡";
+    position: absolute;
+    inset-inline-start: 0;
+    top: var(--space-xs, 0.5rem);
+}
+
+.wiki7-didyouknow__item:last-child {
+    border-bottom: none;
+}
+
+/* ===================================================================
+ * RESPONSIVE ADJUSTMENTS
+ * =================================================================== */
+@media (max-width: 720px) {
+    .wiki7-home__nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .wiki7-home__stats {
+        gap: var(--space-xs, 0.5rem);
+    }
+
+    .wiki7-stat {
+        min-width: 70px;
+        padding: var(--space-xxs, 0.25rem) var(--space-xs, 0.5rem);
+    }
+
+    .wiki7-stat__number {
+        font-size: 1.25rem;
+    }
+
+    .wiki7-season__info {
+        grid-template-columns: 1fr;
+    }
+
+    .wiki7-links-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wiki7-slider__slide {
+        min-height: 180px;
+        padding: var(--space-md, 1rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .wiki7-home__nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .wiki7-home__header {
+        padding: var(--space-md, 1rem);
+    }
+
+    .wiki7-nav-pill a {
+        padding: var(--space-xs, 0.5rem);
+        font-size: var(--font-size-x-small, 0.75rem);
+    }
+
+    .wiki7-nav-pill a::before {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+    }
+}
