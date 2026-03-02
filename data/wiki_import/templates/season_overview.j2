@@ -1,54 +1,73 @@
-== {{ season_display }} Season ==
+== עונת {{ season_display }} ==
 
-=== Squad ===
-''See: [[Squad {{ season }}]]''
+=== סגל ===
+''ראו: [[Squad {{ season }}]]''
 
-=== Transfers ===
-''See: [[Transfers {{ season }}]]''
+=== העברות ===
+''ראו: [[Transfers {{ season }}]]''
 
 {% if stats %}
-=== Key Statistics ===
+=== סטטיסטיקות מפתח ===
 {| class="wikitable"
-! Stat !! Value
+! נתון !! ערך
 |-
-| Total Appearances || {{ total_appearances }}
+| סך הופעות || {{ total_appearances }}
 |-
-| Total Goals || {{ total_goals }}
+| סך שערים || {{ total_goals }}
 |-
-| Total Assists || {{ total_assists }}
+| סך בישולים || {{ total_assists }}
 |-
-| Total Yellow Cards || {{ total_yellows }}
+| סך כרטיסים צהובים || {{ total_yellows }}
 |-
-| Total Red Cards || {{ total_reds }}
+| סך כרטיסים אדומים || {{ total_reds }}
 |}
 {% endif %}
 
 {% if top_scorers %}
-=== Top Scorers ===
+=== מלכי שערים ===
 {| class="wikitable"
-! # !! Player !! Goals
-{% for s in top_scorers[:5] %}
+! # !! שחקן !! שערים
+{% for s in top_scorers[:10] %}
+{% if s.goals > 0 %}
 |-
 | {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.goals }}
+{% endif %}
 {% endfor %}
 |}
 {% endif %}
 
 {% if top_appearances %}
-=== Most Appearances ===
+=== בעלי ההופעות ===
 {| class="wikitable"
-! # !! Player !! Apps
-{% for s in top_appearances[:5] %}
+! # !! שחקן !! הופעות
+{% for s in top_appearances[:10] %}
+{% if s.appearances > 0 %}
 |-
 | {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.appearances }}
+{% endif %}
+{% endfor %}
+|}
+{% endif %}
+
+{% if top_assists %}
+=== מלכי בישולים ===
+{| class="wikitable"
+! # !! שחקן !! בישולים
+{% for s in top_assists[:10] %}
+{% if s.assists > 0 %}
+|-
+| {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.assists }}
+{% endif %}
 {% endfor %}
 |}
 {% endif %}
 
 {% if fixtures_by_competition %}
-=== Competitions ===
+=== תחרויות ===
 {% for comp, matches in fixtures_by_competition.items() %}
-* '''{{ comp }}''': {{ matches | length }} matches
+{% set season_int = season | int %}
+{% set season_display_comp = season_int ~ "/" ~ (season_int + 1) | string %}
+* '''[[{{ comp }} {{ season_display_comp }}|{{ comp }}]]''': {{ matches | length }} משחקים
 {% endfor %}
 {% endif %}
 

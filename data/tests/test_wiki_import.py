@@ -45,7 +45,7 @@ class TestPlayerPageRendering:
         ]
 
         content = _build_player_page(players[0], transfers, market_values, stats)
-        assert "Season Statistics" in content
+        assert "סטטיסטיקה עונתית" in content
         assert "2024" in content
         assert "30" in content  # appearances
 
@@ -130,3 +130,70 @@ class TestTransferPage:
         )
         # May be 0 or 1 depending on whether fixture transfers match HBS keywords
         assert summary["failed"] == 0
+
+
+class TestMediaWikiTemplates:
+    def test_all_template_files_exist(self):
+        from wiki_import.import_templates import MEDIAWIKI_TEMPLATES, MEDIAWIKI_TEMPLATE_DIR
+
+        for title, filename in MEDIAWIKI_TEMPLATES.items():
+            filepath = MEDIAWIKI_TEMPLATE_DIR / filename
+            assert filepath.exists(), f"Template file missing for {title}: {filepath}"
+
+    def test_template_file_contents(self):
+        from wiki_import.import_templates import MEDIAWIKI_TEMPLATES, MEDIAWIKI_TEMPLATE_DIR
+
+        tooltip = (MEDIAWIKI_TEMPLATE_DIR / "Tooltip.wikitext").read_text(encoding="utf-8")
+        assert "<includeonly>" in tooltip
+        assert "border-bottom" in tooltip
+
+        player_infobox = (MEDIAWIKI_TEMPLATE_DIR / "Player_infobox.wikitext").read_text(encoding="utf-8")
+        assert "infobox" in player_infobox
+        assert "#cc0000" in player_infobox
+        assert "עמדה" in player_infobox
+
+        match_infobox = (MEDIAWIKI_TEMPLATE_DIR / "Match_infobox.wikitext").read_text(encoding="utf-8")
+        assert "infobox" in match_infobox
+        assert "מסגרת" in match_infobox
+
+        stadium_infobox = (MEDIAWIKI_TEMPLATE_DIR / "Stadium_infobox.wikitext").read_text(encoding="utf-8")
+        assert "infobox" in stadium_infobox
+        assert "קיבולת" in stadium_infobox
+
+    def test_dry_run_mediawiki_templates(self):
+        from wiki_import.import_templates import import_mediawiki_templates
+
+        summary = import_mediawiki_templates(dry_run=True)
+        assert summary["created"] == 4  # Tooltip, Player, Match, Stadium
+        assert summary["failed"] == 0
+
+    def test_mediawiki_templates_dict_has_correct_keys(self):
+        from wiki_import.import_templates import MEDIAWIKI_TEMPLATES
+
+        expected_titles = {
+            "Template:Tooltip",
+            "Template:Player infobox",
+            "Template:Match infobox",
+            "Template:Stadium infobox",
+        }
+        assert set(MEDIAWIKI_TEMPLATES.keys()) == expected_titles
+
+
+class TestPositionGrouping:
+    def test_group_players_by_position(self):
+        from wiki_import.import_templates import _group_players_by_position
+
+        players = [
+            {"main_position": "Goalkeeper", "name_english": "GK1"},
+            {"main_position": "Centre-Back", "name_english": "CB1"},
+            {"main_position": "Left-Back", "name_english": "LB1"},
+            {"main_position": "Central Midfield", "name_english": "CM1"},
+            {"main_position": "Centre-Forward", "name_english": "CF1"},
+            {"main_position": "", "name_english": "Unknown1"},
+        ]
+        groups = _group_players_by_position(players)
+        assert len(groups["GK"]) == 1
+        assert len(groups["DF"]) == 2
+        assert len(groups["MF"]) == 1
+        assert len(groups["FW"]) == 1
+        assert len(groups["OTHER"]) == 1

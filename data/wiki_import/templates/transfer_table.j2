@@ -1,31 +1,31 @@
-== {{ season }} Transfers ==
+== העברות {{ season }} ==
 
 {% if incoming %}
-=== Incoming ===
+=== באים ===
 {| class="wikitable sortable"
-! Date !! Player !! From !! Fee !! Loan
+! תאריך !! שחקן !! מ !! עלות !! השאלה
 {% for t in incoming %}
 |-
 | {{ t.transfer_date }}
-| {{ t.player_name | default(t.player_id) }}
+| [[{{ t.player_name | default(t.player_id) }}]]
 | {{ t.from_club }}
 | {{ t.fee }}
-| {{ 'Yes' if t.loan else 'No' }}
+| {{ '&#x2705;' if t.loan else '' }}
 {% endfor %}
 |}
 {% endif %}
 
 {% if outgoing %}
-=== Outgoing ===
+=== יוצאים ===
 {| class="wikitable sortable"
-! Date !! Player !! To !! Fee !! Loan
+! תאריך !! שחקן !! אל !! עלות !! השאלה
 {% for t in outgoing %}
 |-
 | {{ t.transfer_date }}
-| {{ t.player_name | default(t.player_id) }}
+| [[{{ t.player_name | default(t.player_id) }}]]
 | {{ t.to_club }}
 | {{ t.fee }}
-| {{ 'Yes' if t.loan else 'No' }}
+| {{ '&#x2705;' if t.loan else '' }}
 {% endfor %}
 |}
 {% endif %}

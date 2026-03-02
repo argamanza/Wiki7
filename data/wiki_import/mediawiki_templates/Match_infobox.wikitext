@@ -1,0 +1,39 @@
+<includeonly>
+{| class="infobox" style="width:22em; font-size:88%; direction:rtl; text-align:right;"
+|-
+! colspan="2" style="background:#cc0000; color:white; font-size:120%; text-align:center;" | vs {{{opponent|}}}
+|-
+! colspan="2" style="text-align:center; font-size:150%; font-weight:bold;" | {{{result|}}}
+|-
+! style="width:35%;" | מסגרת
+| {{{competition|}}}
+{{#if:{{{matchday|}}}|
+{{!}}-
+! מחזור
+{{!}} {{{matchday|}}}
+}}
+|-
+! תאריך
+| {{{date|}}}
+{{#if:{{{time|}}}|
+{{!}}-
+! שעה
+{{!}} {{{time|}}}
+}}
+{{#if:{{{venue|}}}|
+{{!}}-
+! אצטדיון
+{{!}} {{{venue|}}}
+}}
+{{#if:{{{attendance|}}}|
+{{!}}-
+! צופים
+{{!}} {{{attendance|}}}
+}}
+{{#if:{{{system_of_play|}}}|
+{{!}}-
+! שיטת משחק
+{{!}} {{{system_of_play|}}}
+}}
+|}
+</includeonly>

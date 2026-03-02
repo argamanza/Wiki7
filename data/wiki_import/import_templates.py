@@ -13,6 +13,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 logger = logging.getLogger(__name__)
 
 TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
+MEDIAWIKI_TEMPLATE_DIR = Path(__file__).resolve().parent / "mediawiki_templates"
 
 DEFAULT_PLAYERS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "players.jsonl"
 DEFAULT_TRANSFERS_PATH = Path(__file__).resolve().parent.parent / "data_pipeline" / "output" / "transfers.jsonl"
@@ -23,6 +24,15 @@ HBS_KEYWORDS = ("hapoel beer sheva", "beer sheva", "h. beer sheva", "hapoel be'e
 
 
 DEFAULT_SCRAPER_OUTPUT_DIR = Path(__file__).resolve().parent.parent / "tmk-scraper" / "output"
+
+
+# Mapping of MediaWiki template page titles to their wikitext source files.
+MEDIAWIKI_TEMPLATES = {
+    "Template:Tooltip": "Tooltip.wikitext",
+    "Template:Player infobox": "Player_infobox.wikitext",
+    "Template:Match infobox": "Match_infobox.wikitext",
+    "Template:Stadium infobox": "Stadium_infobox.wikitext",
+}
 
 
 CARGO_TABLES = {
@@ -176,6 +186,52 @@ def _build_cargo_template(table_name: str, fields: dict) -> str:
     return "\n".join(lines)
 
 
+def import_mediawiki_templates(
+    site: Optional[mwclient.Site] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Import static MediaWiki templates (infoboxes, tooltip, etc.) from wikitext files."""
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    for title, filename in MEDIAWIKI_TEMPLATES.items():
+        try:
+            filepath = MEDIAWIKI_TEMPLATE_DIR / filename
+            if not filepath.exists():
+                raise FileNotFoundError(f"Template file not found: {filepath}")
+            content = filepath.read_text(encoding="utf-8")
+
+            if dry_run:
+                logger.info("[DRY RUN] Would create/update MediaWiki template: %s (%d chars)", title, len(content))
+                summary["created"] += 1
+                continue
+
+            if site is None:
+                raise RuntimeError("site is required when dry_run=False")
+
+            page = site.pages[title]
+            if page.exists:
+                existing = page.text()
+                if _content_hash(existing.strip()) == _content_hash(content.strip()):
+                    summary["skipped"] += 1
+                    continue
+                _edit_page(site, title, content, summary=f"Updated MediaWiki template: {title}")
+                summary["updated"] += 1
+            else:
+                _edit_page(site, title, content, summary=f"Created MediaWiki template: {title}")
+                summary["created"] += 1
+
+        except (mwclient.errors.APIError, ConnectionError, RuntimeError, FileNotFoundError) as exc:
+            logger.error("Failed to import MediaWiki template '%s': %s", title, exc)
+            summary["failed"] += 1
+            summary["errors"].append({"page": title, "error": str(exc)})
+
+    logger.info(
+        "MediaWiki template import: %d created, %d updated, %d skipped, %d failed",
+        summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
 def import_cargo_templates(
     site: Optional[mwclient.Site] = None,
     dry_run: bool = False,
@@ -218,6 +274,26 @@ def import_cargo_templates(
     return summary
 
 
+POSITION_GROUP_ORDER = {
+    "Goalkeeper": "GK",
+    "Centre-Back": "DF", "Left-Back": "DF", "Right-Back": "DF", "Defender": "DF",
+    "Central Midfield": "MF", "Defensive Midfield": "MF", "Attacking Midfield": "MF",
+    "Left Midfield": "MF", "Right Midfield": "MF", "Midfielder": "MF",
+    "Left Winger": "FW", "Right Winger": "FW", "Centre-Forward": "FW",
+    "Second Striker": "FW", "Forward": "FW", "Striker": "FW",
+}
+
+
+def _group_players_by_position(players: list) -> dict:
+    """Group players into position buckets: GK, DF, MF, FW, OTHER."""
+    groups = {"GK": [], "DF": [], "MF": [], "FW": [], "OTHER": []}
+    for p in players:
+        pos = p.get("main_position", "") or ""
+        group = POSITION_GROUP_ORDER.get(pos, "OTHER")
+        groups[group].append(p)
+    return groups
+
+
 def import_squad_page(
     site: Optional[mwclient.Site] = None,
     season: str = "2024",
@@ -242,7 +318,8 @@ def import_squad_page(
         for p in players:
             p["stats"] = None
 
-    content = _render_template("squad_table.j2", season=season, players=players)
+    players_by_position = _group_players_by_position(players)
+    content = _render_template("squad_table.j2", season=season, players=players, players_by_position=players_by_position)
     title = f"Squad {season}"
 
     summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
@@ -530,6 +607,7 @@ def import_season_overview(
         s["player_name"] = name_map.get(s.get("player_id"), s.get("player_id", "Unknown"))
     top_scorers = sorted(season_stats, key=lambda s: s.get("goals", 0), reverse=True)
     top_appearances = sorted(season_stats, key=lambda s: s.get("appearances", 0), reverse=True)
+    top_assists = sorted(season_stats, key=lambda s: s.get("assists", 0), reverse=True)
 
     # Load fixtures if available
     resolved_fixtures = fixtures_path or DEFAULT_SCRAPER_OUTPUT_DIR / season / "fixtures.json"
@@ -554,6 +632,7 @@ def import_season_overview(
         total_reds=total_reds,
         top_scorers=top_scorers,
         top_appearances=top_appearances,
+        top_assists=top_assists,
         fixtures_by_competition=fixtures_by_competition,
     )
     title = f"Season {season_display}"

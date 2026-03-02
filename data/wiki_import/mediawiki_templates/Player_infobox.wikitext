@@ -1,0 +1,49 @@
+<includeonly>
+{| class="infobox" style="width:22em; font-size:88%; direction:rtl; text-align:right;"
+|-
+! colspan="2" style="background:#cc0000; color:white; font-size:120%; text-align:center;" | {{{name_english|}}}
+{{#if:{{{name_hebrew|}}}|
+{{!}}-
+! colspan="2" style="background:#cc0000; color:white; font-size:110%; text-align:center;" {{!}} {{{name_hebrew|}}}
+}}
+|-
+! style="width:35%;" | עמדה
+| {{{position|}}}
+|-
+! מספר חולצה
+| {{{jersey_number|}}}
+{{#if:{{{birth_date|}}}|
+{{!}}-
+! תאריך לידה
+{{!}} {{{birth_date|}}}
+}}
+{{#if:{{{birth_place|}}}|
+{{!}}-
+! מקום לידה
+{{!}} {{{birth_place|}}}
+}}
+{{#if:{{{nationality|}}}|
+{{!}}-
+! אזרחות
+{{!}} {{{nationality|}}}
+}}
+|-
+! בסגל הנוכחי
+| {{#ifeq:{{{current_squad|}}}|Yes|&#x2705;|&#x274C;}}
+{{#ifeq:{{{homegrown|}}}|Yes|
+{{!}}-
+! חניך המועדון
+{{!}} &#x2705;
+}}
+{{#ifeq:{{{retired|}}}|Yes|
+{{!}}-
+! פרש
+{{!}} &#x2705;
+}}
+{{#if:{{{tmk_id|}}}|
+{{!}}-
+! קישור חיצוני
+{{!}} [https://www.transfermarkt.com/player/profil/spieler/{{{tmk_id|}}} Transfermarkt]
+}}
+|}
+</includeonly>

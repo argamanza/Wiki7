@@ -258,7 +258,8 @@ def run_import(
     from wiki_import.import_players import import_players
     from wiki_import.import_matches import import_matches
     from wiki_import.import_templates import (
-        import_cargo_templates, import_squad_page, import_transfer_page,
+        import_mediawiki_templates, import_cargo_templates,
+        import_squad_page, import_transfer_page,
         import_coaches_page, import_honours_page, import_stadium_page,
         import_records_page, import_season_overview, import_leaderboards,
         import_attendance, import_competition_pages,
@@ -269,6 +270,14 @@ def run_import(
 
     results = {}
     all_ok = True
+
+    # MediaWiki templates (infoboxes, tooltip, etc.) — must exist before content pages
+    try:
+        logger.info("Importing MediaWiki templates...")
+        results["mediawiki_templates"] = import_mediawiki_templates(site=site, dry_run=dry_run)
+    except FileNotFoundError as exc:
+        logger.error("MediaWiki template import failed: %s", exc)
+        all_ok = False
 
     # Cargo templates (once)
     try:
