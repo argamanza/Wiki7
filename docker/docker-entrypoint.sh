@@ -62,5 +62,5 @@ fi
 
 echo "=== Database initialization complete. Starting Apache... ==="
 
-# 4. Hand off to Apache
+# 5. Hand off to Apache
 exec docker-php-entrypoint apache2-foreground

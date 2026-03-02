@@ -1,0 +1,30 @@
+<div class="wiki7-home__card">
+<div class="wiki7-home__card-title"><span class="wiki7-home__card-title-icon">📅</span> עונת 2025/26</div>
+<div class="wiki7-season__badge">⚽ עונה פעילה</div>
+<div class="wiki7-season__info">
+<div class="wiki7-season__item">
+<span class="wiki7-season__item-label">ליגה</span>
+<span class="wiki7-season__item-value">[[ליגת העל]]</span>
+</div>
+<div class="wiki7-season__item">
+<span class="wiki7-season__item-label">אצטדיון בית</span>
+<span class="wiki7-season__item-value">[[אצטדיון טוטו טרנר|טוטו טרנר]]</span>
+</div>
+<div class="wiki7-season__item">
+<span class="wiki7-season__item-label">מאמן</span>
+<!-- TODO: עדכנו את שם המאמן הנוכחי -->
+<span class="wiki7-season__item-value">[[מאמן נוכחי]]</span>
+</div>
+<div class="wiki7-season__item">
+<span class="wiki7-season__item-label">קפטן</span>
+<!-- TODO: עדכנו את שם הקפטן הנוכחי -->
+<span class="wiki7-season__item-value">[[קפטן נוכחי]]</span>
+</div>
+</div>
+
+<div style="margin-top: var(--space-sm, 0.75rem); text-align: center;">
+<span class="wiki7-featured__link">[[עונת 2025-26|לדף העונה המלא ←]]</span>
+</div>
+</div><noinclude>
+[[קטגוריה:תבניות עמוד ראשי]]
+</noinclude>
