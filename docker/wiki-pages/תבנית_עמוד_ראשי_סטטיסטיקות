@@ -1,0 +1,28 @@
+<div class="wiki7-home__stats">
+<div class="wiki7-stat">
+<span class="wiki7-stat__number">97</span>
+<span class="wiki7-stat__label">שחקנים</span>
+</div>
+<div class="wiki7-stat">
+<span class="wiki7-stat__number">856</span>
+<span class="wiki7-stat__label">העברות</span>
+</div>
+<div class="wiki7-stat">
+<span class="wiki7-stat__number">14</span>
+<span class="wiki7-stat__label">תארים</span>
+</div>
+<div class="wiki7-stat">
+<span class="wiki7-stat__number">16,126</span>
+<span class="wiki7-stat__label">מושבים באצטדיון</span>
+</div>
+<div class="wiki7-stat">
+<span class="wiki7-stat__number">1949</span>
+<span class="wiki7-stat__label">שנת הקמה</span>
+</div>
+<div class="wiki7-stat">
+<span class="wiki7-stat__number">{{NUMBEROFARTICLES}}</span>
+<span class="wiki7-stat__label">ערכים בוויקי</span>
+</div>
+</div><noinclude>
+[[קטגוריה:תבניות עמוד ראשי]]
+</noinclude>
