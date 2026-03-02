@@ -18,18 +18,20 @@
 {% for player in group_players %}
 |-
 | {{ player.current_jersey_number or '-' }}
-| [[{{ player.name_english }}]]{% if player.name_hebrew %} ({{ player.name_hebrew }}){% endif %}
+{% set player_display %}[[{{ player.name_hebrew or player.name_english }}]]{% if player.name_hebrew and player.name_english != player.name_hebrew %} ({{ player.name_english }}){% endif %}{% endset %}
+{% set status %}{% if not player.current_squad %}מושאל{% elif player.retired %}פרש{% else %}פעיל{% endif %}{% endset %}
+| {{ player_display }}
 | {{ player.main_position or '' }}
 | {{ player.nationality | join(', ') if player.nationality else '' }}
 | {{ player.stats.appearances if player.stats else '-' }}
 | {{ player.stats.goals if player.stats else '-' }}
 | {{ player.stats.assists if player.stats else '-' }}
-| {% if not player.current_squad %}On Loan{% elif player.retired %}Retired{% else %}Active{% endif %}
+| {{ status }}
 {% endfor %}
 |}
 
 {% endif %}
 {% endfor %}
 
-[[Category:Squads]]
-[[Category:{{ season }} Season]]
+[[קטגוריה:סגלים]]
+[[קטגוריה:עונת {{ season }}]]

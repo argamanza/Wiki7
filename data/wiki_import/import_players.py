@@ -115,7 +115,7 @@ def import_players(
     summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
 
     for player in players:
-        title = player["name_english"]
+        title = player.get("name_hebrew") or player["name_english"]
         try:
             content = _build_player_page(player, transfers, market_values, stats)
 

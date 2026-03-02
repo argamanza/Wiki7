@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Master orchestration script for the Wiki7 data pipeline.
 
-Chains together: scrape -> normalize -> merge -> import to MediaWiki.
+Chains together: scrape -> normalize -> merge -> Hebrew enrich -> import to MediaWiki.
 
 Usage:
     python run_pipeline.py                              # Full pipeline, single season (2024)
@@ -11,6 +11,11 @@ Usage:
     python run_pipeline.py --seasons 2015-2025          # Run for multiple seasons
     python run_pipeline.py --seasons 2015,2020,2024     # Run for specific seasons
     python run_pipeline.py --skip-scrape --dry-run      # Normalize existing data and preview import
+
+    # Two-phase workflow with manual review of Hebrew translations:
+    python run_pipeline.py --seasons 2021-2025 --review-mappings     # Phase 1: stop after auto-translate
+    # Edit data_pipeline/output/merged/mappings.he.yaml              # Phase 2: review & fix
+    python run_pipeline.py --seasons 2021-2025 --skip-scrape --skip-normalize --skip-merge  # Phase 3: apply & import
 """
 
 import json
@@ -219,6 +224,62 @@ def run_merge(seasons: list[str]) -> bool:
         return False
 
 
+def run_hebrew_enrichment(data_dir: Path, seasons: list[str] | None = None, review_only: bool = False) -> bool:
+    """Generate Hebrew mappings, auto-translate, and apply to data.
+
+    If review_only is True, stops after auto-translate so the user can review
+    mappings.he.yaml before applying.
+    """
+    logger.info("Running Hebrew enrichment pipeline...")
+    try:
+        from data_pipeline.generate_mapping_stub import generate_stub
+        from data_pipeline.auto_translate_hebrew import auto_translate
+        from data_pipeline.apply_hebrew_mapping import apply_mappings, apply_hebrew_matches, load_mapping
+
+        players_path = data_dir / "players.jsonl"
+        transfers_path = data_dir / "transfers.jsonl"
+        mapping_path = data_dir / "mappings.he.yaml"
+
+        logger.info("Generating mapping stub...")
+        generate_stub(players_path, transfers_path, mapping_path, SCRAPER_OUTPUT_DIR)
+
+        logger.info("Auto-translating empty mappings...")
+        summary = auto_translate(mapping_path)
+        if summary:
+            logger.info("  Translations: %s", summary)
+
+        if review_only:
+            logger.info("=" * 60)
+            logger.info("REVIEW MODE: Mappings generated at:")
+            logger.info("  %s", mapping_path)
+            logger.info("Review and fix translations, then re-run with:")
+            logger.info("  --skip-scrape --skip-normalize --skip-merge")
+            logger.info("=" * 60)
+            return True
+
+        logger.info("Applying Hebrew mappings to data files...")
+        apply_mappings(players_path, data_dir / "players.he.jsonl", mapping_path)
+
+        if seasons:
+            mapping = load_mapping(mapping_path)
+            players_he = data_dir / "players.he.jsonl"
+            for season in seasons:
+                matches_in = SCRAPER_OUTPUT_DIR / season / "matches.json"
+                matches_out = SCRAPER_OUTPUT_DIR / season / "matches.he.json"
+                if matches_in.exists():
+                    logger.info("Applying Hebrew mappings to matches for season %s...", season)
+                    apply_hebrew_matches(matches_in, matches_out, mapping, players_he)
+
+        logger.info("Hebrew enrichment completed")
+        return True
+    except FileNotFoundError as exc:
+        logger.error("Hebrew enrichment failed: %s", exc)
+        return False
+    except Exception as exc:
+        logger.error("Hebrew enrichment failed: %s", exc)
+        return False
+
+
 def run_import(
     seasons: list[str],
     dry_run: bool = False,
@@ -287,19 +348,29 @@ def run_import(
         logger.error("Cargo template import failed: %s", exc)
         all_ok = False
 
-    # Player pages (from merged/single data dir)
+    # Player pages (from merged/single data dir, prefer Hebrew-enriched versions)
     try:
         logger.info("Importing player pages...")
         players_path = resolved_data_dir / "players.jsonl"
-        # Check for Hebrew-enriched version
-        he_path = resolved_data_dir / "players.he.jsonl"
-        if he_path.exists():
-            players_path = he_path
+        he_players = resolved_data_dir / "players.he.jsonl"
+        if he_players.exists():
+            players_path = he_players
+
+        transfers_path = resolved_data_dir / "transfers.jsonl"
+        he_transfers = resolved_data_dir / "transfers.he.jsonl"
+        if he_transfers.exists():
+            transfers_path = he_transfers
+
+        mv_path = resolved_data_dir / "market_values.jsonl"
+        he_mv = resolved_data_dir / "market_values.he.jsonl"
+        if he_mv.exists():
+            mv_path = he_mv
+
         results["players"] = import_players(
             site=site,
             players_path=players_path,
-            transfers_path=resolved_data_dir / "transfers.jsonl",
-            market_values_path=resolved_data_dir / "market_values.jsonl",
+            transfers_path=transfers_path,
+            market_values_path=mv_path,
             stats_path=resolved_data_dir / "stats.jsonl",
             dry_run=dry_run,
         )
@@ -307,10 +378,11 @@ def run_import(
         logger.error("Player import failed: %s", exc)
         all_ok = False
 
-    # Match reports (per season)
+    # Match reports (per season, prefer Hebrew-enriched)
     for season in seasons:
         try:
-            matches_path = SCRAPER_OUTPUT_DIR / season / "matches.json"
+            he_matches = SCRAPER_OUTPUT_DIR / season / "matches.he.json"
+            matches_path = he_matches if he_matches.exists() else SCRAPER_OUTPUT_DIR / season / "matches.json"
             if matches_path.exists():
                 logger.info("Importing match reports for season %s...", season)
                 results[f"matches_{season}"] = import_matches(
@@ -320,13 +392,16 @@ def run_import(
             logger.error("Match import failed for season %s: %s", season, exc)
             all_ok = False
 
-    # Squad and transfer pages (per season)
+    # Squad and transfer pages (per season, prefer Hebrew-enriched)
+    squad_players = he_players if he_players.exists() else resolved_data_dir / "players.jsonl"
+    squad_transfers = he_transfers if he_transfers.exists() else resolved_data_dir / "transfers.jsonl"
+
     for season in seasons:
         try:
             logger.info("Importing squad page for season %s...", season)
             results[f"squad_{season}"] = import_squad_page(
                 site=site, season=season,
-                players_path=resolved_data_dir / "players.jsonl",
+                players_path=squad_players,
                 stats_path=resolved_data_dir / "stats.jsonl",
                 dry_run=dry_run,
             )
@@ -338,21 +413,21 @@ def run_import(
             logger.info("Importing transfer page for season %s...", season)
             results[f"transfers_{season}"] = import_transfer_page(
                 site=site, season=season,
-                players_path=resolved_data_dir / "players.jsonl",
-                transfers_path=resolved_data_dir / "transfers.jsonl",
+                players_path=squad_players,
+                transfers_path=squad_transfers,
                 dry_run=dry_run,
             )
         except FileNotFoundError as exc:
             logger.error("Transfer page import failed for season %s: %s", season, exc)
             all_ok = False
 
-    # Season overview pages (per season)
+    # Season overview pages (per season, prefer Hebrew-enriched)
     for season in seasons:
         try:
             logger.info("Importing season overview for %s...", season)
             results[f"season_{season}"] = import_season_overview(
                 site=site, season=season,
-                players_path=resolved_data_dir / "players.jsonl",
+                players_path=squad_players,
                 stats_path=resolved_data_dir / "stats.jsonl",
                 dry_run=dry_run,
             )
@@ -374,13 +449,13 @@ def run_import(
             logger.error("%s import failed: %s", label, exc)
             all_ok = False
 
-    # Leaderboards (from merged stats)
+    # Leaderboards (from merged stats, prefer Hebrew-enriched players)
     try:
         logger.info("Importing leaderboard pages...")
         results["leaderboards"] = import_leaderboards(
             site=site,
             stats_path=resolved_data_dir / "stats.jsonl",
-            players_path=resolved_data_dir / "players.jsonl",
+            players_path=squad_players,
             dry_run=dry_run,
         )
     except FileNotFoundError as exc:
@@ -441,10 +516,12 @@ def run_import(
 @click.option("--skip-normalize", is_flag=True, help="Skip the normalization step")
 @click.option("--skip-merge", is_flag=True, help="Skip the merge step")
 @click.option("--skip-import", is_flag=True, help="Skip the wiki import step")
+@click.option("--skip-hebrew", is_flag=True, help="Skip the Hebrew enrichment step")
+@click.option("--review-mappings", is_flag=True, help="Stop after generating Hebrew mappings for manual review")
 @click.option("--wiki-url", envvar="WIKI_URL", default=None, help="MediaWiki site URL (or set WIKI_URL env var)")
 @click.option("--verbose", "-v", is_flag=True, help="Enable debug logging")
-def main(season, seasons, spiders, dry_run, skip_scrape, skip_normalize, skip_merge, skip_import, wiki_url, verbose):
-    """Wiki7 data pipeline: scrape -> normalize -> merge -> import."""
+def main(season, seasons, spiders, dry_run, skip_scrape, skip_normalize, skip_merge, skip_import, skip_hebrew, review_mappings, wiki_url, verbose):
+    """Wiki7 data pipeline: scrape -> normalize -> merge -> Hebrew enrich -> import."""
     log_level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(
         level=log_level,
@@ -532,9 +609,25 @@ def main(season, seasons, spiders, dry_run, skip_scrape, skip_normalize, skip_me
         # Single season: use season-specific dir
         data_dir = PIPELINE_OUTPUT_DIR / season_list[0]
 
-    # Step 4: Import
-    if not skip_import:
+    # Step 4: Hebrew enrichment
+    if data_dir and not skip_hebrew:
         step_num = 4 if multi_season else 3
+        logger.info("=" * 60)
+        logger.info("STEP %d: HEBREW ENRICHMENT%s", step_num, " (REVIEW MODE)" if review_mappings else "")
+        logger.info("=" * 60)
+        if not run_hebrew_enrichment(data_dir, seasons=season_list, review_only=review_mappings):
+            errors.append("Hebrew enrichment failed")
+            logger.error("Hebrew enrichment failed.")
+        if review_mappings:
+            elapsed = time.time() - start_time
+            logger.info("Pipeline paused for review (%.1fs). Exiting.", elapsed)
+            sys.exit(0)
+    elif skip_hebrew:
+        logger.info("Skipping Hebrew enrichment step (--skip-hebrew)")
+
+    # Step 5: Import
+    if not skip_import:
+        step_num = 5 if multi_season else 4
         logger.info("=" * 60)
         logger.info("STEP %d: WIKI IMPORT%s", step_num, " (DRY RUN)" if dry_run else "")
         logger.info("=" * 60)

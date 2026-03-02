@@ -16,20 +16,24 @@
 {| class="wikitable"
 {% for position, players in match.home_lineup.items() %}
 {% if position != 'manager' %}
+{% set player_cell %}{% if players is string %}[[{{ players }}]]{% elif players is iterable %}{% for name in players %}{% if not loop.first %}, {% endif %}[[{{ name }}]]{% endfor %}{% else %}{{ players }}{% endif %}{% endset %}
 |-
 ! {{ position | capitalize }}
-| {% if players is string %}[[{{ players }}]]{% elif players is iterable %}{% for name in players %}{% if not loop.first %}, {% endif %}[[{{ name }}]]{% endfor %}{% else %}{{ players }}{% endif %}
+|| {{ player_cell }}
 {% endif %}
 {% endfor %}
 {% if match.home_lineup.manager is defined and match.home_lineup.manager %}
+
 |-
 ! מאמן
-| [[{{ match.home_lineup.manager }}]]
+|| [[{{ match.home_lineup.manager }}]]
 {% endif %}
+
 |}
 {% else %}
 {% for p in match.home_lineup %}
-* {{ p.number | default('') }} [[{{ p.name_english | default(p.get('name', '')) }}]]{% if p.captain %} (C){% endif %}
+{% set player_link %}[[{{ p.name_hebrew | default(p.name_english | default(p.get('name', ''))) }}]]{% if p.captain %} (C){% endif %}{% endset %}
+* {{ p.number | default('') }} {{ player_link }}
 {% endfor %}
 {% endif %}
 {% endif %}
@@ -40,20 +44,24 @@
 {| class="wikitable"
 {% for position, players in match.away_lineup.items() %}
 {% if position != 'manager' %}
+{% set player_cell %}{% if players is string %}[[{{ players }}]]{% elif players is iterable %}{% for name in players %}{% if not loop.first %}, {% endif %}[[{{ name }}]]{% endfor %}{% else %}{{ players }}{% endif %}{% endset %}
 |-
 ! {{ position | capitalize }}
-| {% if players is string %}[[{{ players }}]]{% elif players is iterable %}{% for name in players %}{% if not loop.first %}, {% endif %}[[{{ name }}]]{% endfor %}{% else %}{{ players }}{% endif %}
+|| {{ player_cell }}
 {% endif %}
 {% endfor %}
 {% if match.away_lineup.manager is defined and match.away_lineup.manager %}
+
 |-
 ! מאמן
-| [[{{ match.away_lineup.manager }}]]
+|| [[{{ match.away_lineup.manager }}]]
 {% endif %}
+
 |}
 {% else %}
 {% for p in match.away_lineup %}
-* {{ p.number | default('') }} [[{{ p.name_english | default(p.get('name', '')) }}]]{% if p.captain %} (C){% endif %}
+{% set player_link %}[[{{ p.name_hebrew | default(p.name_english | default(p.get('name', ''))) }}]]{% if p.captain %} (C){% endif %}{% endset %}
+* {{ p.number | default('') }} {{ player_link }}
 {% endfor %}
 {% endif %}
 {% endif %}
@@ -66,6 +74,7 @@
 |-
 | {{ g.minute or '' }}{% if g.extra_time %}+{{ g.extra_time }}{% endif %} || {{ g.score or '' }} || [[{{ g.scorer or '' }}]] || {% if g.assist %}[[{{ g.assist }}]]{% endif %} || {{ g.team or '' }}
 {% endfor %}
+
 |}
 {% endif %}
 
@@ -77,6 +86,7 @@
 |-
 | {{ s.minute or '' }}{% if s.extra_time %}+{{ s.extra_time }}{% endif %} || [[{{ s.player_in or '' }}]] || [[{{ s.player_out or '' }}]] || {{ s.team or '' }} || {{ s.reason or '' }}
 {% endfor %}
+
 |}
 {% endif %}
 
@@ -88,6 +98,7 @@
 |-
 | {{ c.minute or '' }}{% if c.extra_time %}+{{ c.extra_time }}{% endif %} || [[{{ c.player or '' }}]] || {{ c.card or '' }} || {{ c.team or '' }} || {{ c.reason or '' }}
 {% endfor %}
+
 |}
 {% endif %}
 
@@ -99,18 +110,19 @@
 |-
 | {{ p.club or p.team or '' }} || [[{{ p.player or '' }}]] || {{ p.result or '' }} || {{ p.score or '' }}
 {% endfor %}
+
 |}
 {% endif %}
 
-[[Category:Matches]]
-[[Category:{{ match.competition or 'Unknown Competition' }}]]
+[[קטגוריה:משחקים]]
+[[קטגוריה:{{ match.competition or 'תחרות לא ידועה' }}]]
 {% set result = match.result | default('') %}
 {% set parts = result.split(':') if ':' in result | string else [] %}
 {% if parts | length == 2 %}
 {% set home_goals = parts[0] | trim | int if parts[0] | trim else 0 %}
 {% set away_goals = parts[1] | trim | int if parts[1] | trim else 0 %}
-{% if home_goals > away_goals %}[[Category:Wins]]
-{% elif home_goals < away_goals %}[[Category:Losses]]
-{% else %}[[Category:Draws]]
+{% if home_goals > away_goals %}[[קטגוריה:ניצחונות]]
+{% elif home_goals < away_goals %}[[קטגוריה:הפסדים]]
+{% else %}[[קטגוריה:תיקו]]
 {% endif %}
 {% endif %}

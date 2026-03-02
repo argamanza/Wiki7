@@ -320,7 +320,7 @@ def import_squad_page(
 
     players_by_position = _group_players_by_position(players)
     content = _render_template("squad_table.j2", season=season, players=players, players_by_position=players_by_position)
-    title = f"Squad {season}"
+    title = f"סגל {season}"
 
     summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
 
@@ -366,7 +366,7 @@ def import_transfer_page(
     players = _load_jsonl(resolved_players)
     transfers = _load_jsonl(resolved_transfers)
 
-    name_map = {p["id"]: p["name_english"] for p in players}
+    name_map = {p["id"]: p.get("name_hebrew") or p["name_english"] for p in players}
 
     season_transfers = [t for t in transfers if t.get("season", "").startswith(season[:4])]
 
@@ -388,7 +388,7 @@ def import_transfer_page(
         incoming=incoming,
         outgoing=outgoing,
     )
-    title = f"Transfers {season}"
+    title = f"העברות {season}"
 
     summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
 
@@ -478,7 +478,7 @@ def import_coaches_page(
         return summary
 
     content = _render_template("coach_page.j2", coaches=coaches)
-    _import_single_page(site, "Manager History", content, dry_run, summary)
+    _import_single_page(site, "היסטוריית מאמנים", content, dry_run, summary)
 
     logger.info(
         "Coach import: %d created, %d updated, %d skipped, %d failed",
@@ -502,7 +502,7 @@ def import_honours_page(
         return summary
 
     content = _render_template("honours_page.j2", honours=honours)
-    _import_single_page(site, "Honours", content, dry_run, summary)
+    _import_single_page(site, "תארים", content, dry_run, summary)
 
     logger.info(
         "Honours import: %d created, %d updated, %d skipped, %d failed",
@@ -558,7 +558,7 @@ def import_records_page(
         records_by_category.setdefault(cat, []).append(r)
 
     content = _render_template("records_page.j2", records_by_category=records_by_category)
-    _import_single_page(site, "Club Records", content, dry_run, summary)
+    _import_single_page(site, "שיאי המועדון", content, dry_run, summary)
 
     logger.info(
         "Records import: %d created, %d updated, %d skipped, %d failed",
@@ -586,7 +586,7 @@ def import_season_overview(
         players = _load_jsonl(resolved_players)
     except FileNotFoundError:
         players = []
-    name_map = {p["id"]: p["name_english"] for p in players}
+    name_map = {p["id"]: p.get("name_hebrew") or p["name_english"] for p in players}
 
     # Load and filter stats for this season
     try:
@@ -635,7 +635,7 @@ def import_season_overview(
         top_assists=top_assists,
         fixtures_by_competition=fixtures_by_competition,
     )
-    title = f"Season {season_display}"
+    title = f"עונת {season_display}"
     _import_single_page(site, title, content, dry_run, summary)
 
     logger.info(
@@ -667,7 +667,7 @@ def import_leaderboards(
         players = _load_jsonl(resolved_players)
     except FileNotFoundError:
         players = []
-    name_map = {p["id"]: p["name_english"] for p in players}
+    name_map = {p["id"]: p.get("name_hebrew") or p["name_english"] for p in players}
 
     # Aggregate per player across all seasons
     player_totals = {}
@@ -687,9 +687,9 @@ def import_leaderboards(
     all_players = list(player_totals.values())
 
     leaderboards = [
-        ("All-Time Top Scorers", "Goals", "goals", sorted(all_players, key=lambda p: p["goals"], reverse=True)),
-        ("All-Time Most Appearances", "Apps", "appearances", sorted(all_players, key=lambda p: p["appearances"], reverse=True)),
-        ("All-Time Assist Leaders", "Assists", "assists", sorted(all_players, key=lambda p: p["assists"], reverse=True)),
+        ("מלכי השערים של כל הזמנים", "שערים", "goals", sorted(all_players, key=lambda p: p["goals"], reverse=True)),
+        ("בעלי ההופעות של כל הזמנים", "הופעות", "appearances", sorted(all_players, key=lambda p: p["appearances"], reverse=True)),
+        ("מלכי הבישולים של כל הזמנים", "בישולים", "assists", sorted(all_players, key=lambda p: p["assists"], reverse=True)),
     ]
 
     for title, value_label, key, sorted_list in leaderboards:
@@ -759,7 +759,7 @@ def import_attendance(
         return summary
 
     content = _render_template("attendance.j2", season_stats=season_stats)
-    _import_single_page(site, "Attendance Statistics", content, dry_run, summary)
+    _import_single_page(site, "סטטיסטיקות קהל", content, dry_run, summary)
 
     logger.info(
         "Attendance import: %d created, %d updated, %d skipped, %d failed",

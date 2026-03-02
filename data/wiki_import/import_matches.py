@@ -85,15 +85,14 @@ def _edit_page(site: mwclient.Site, title: str, content: str, summary: str) -> b
 
 def _match_page_title(match: dict) -> str:
     """Generate a wiki page title for a match report."""
-    date = match.get("date", "Unknown Date")
-    opponent = match.get("opponent", "Unknown")
+    date = match.get("date", "תאריך לא ידוע")
+    opponent = match.get("opponent", "לא ידוע")
     competition = match.get("competition", "")
 
-    title = f"{date} vs {opponent}"
+    title = f"{date} נגד {opponent}"
     if competition:
         title += f" ({competition})"
 
-    # Sanitize for MediaWiki title constraints
     title = title.replace("[", "(").replace("]", ")").replace("{", "(").replace("}", ")")
     title = title.replace("#", "").replace("|", "-")
     return title
