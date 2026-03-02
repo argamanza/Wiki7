@@ -16,6 +16,7 @@ dependencies = [
     "jinja2>=3.1.0",
     "tenacity>=9.0.0",
     "click>=8.1.0",
+    "deep-translator>=1.11.0",
 ]
 
 [dependency-groups]
@@ -27,5 +28,5 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]
+pythonpath = [".", "tmk-scraper"]
 

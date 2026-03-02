@@ -83,11 +83,10 @@ jobs:
       - name: Run pipeline dry-run
         run: |
           cd data
-          mkdir -p data_pipeline/output tmk-scraper/output
-          cp tests/fixtures/output/* data_pipeline/output/ 2>/dev/null || true
-          cp tests/fixtures/matches_sample.json tmk-scraper/output/matches.json
+          mkdir -p data_pipeline/output/2024 tmk-scraper/output/2024
+          cp tests/fixtures/matches_sample.json tmk-scraper/output/2024/matches.json
           uv run python -c "
           from data_pipeline.normalize_enrich_players import main
-          main(raw_path='tests/fixtures/players_sample.json', out_dir='data_pipeline/output')
+          main(raw_path='tests/fixtures/players_sample.json', stats_path='tests/fixtures/stats_sample.json', out_dir='data_pipeline/output/2024')
           "
           uv run python run_pipeline.py --skip-scrape --skip-normalize --dry-run -v

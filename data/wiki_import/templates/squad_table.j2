@@ -1,16 +1,35 @@
-== {{ season }} Squad ==
+== סגל {{ season }} ==
 
-{| class="wikitable sortable"
-! # !! Player !! Position !! Nationality !! Status
-{% for player in players %}
+{% set position_groups = [
+    ("שוערים", "#4a90d9", "GK"),
+    ("הגנה", "#2ecc71", "DF"),
+    ("קישור", "#f39c12", "MF"),
+    ("התקפה", "#e74c3c", "FW"),
+    ("אחר", "#999999", "OTHER"),
+] %}
+{% for group_label, group_color, group_key in position_groups %}
+{% set group_players = players_by_position.get(group_key, []) %}
+{% if group_players %}
+{| class="wikitable sortable" style="width:100%;"
+|-
+! colspan="8" style="background:{{ group_color }}; color:white; text-align:center;" | {{ group_label }}
+|-
+! # !! שחקן !! עמדה !! אזרחות !! הופעות !! שערים !! בישולים !! סטטוס
+{% for player in group_players %}
 |-
 | {{ player.current_jersey_number or '-' }}
 | [[{{ player.name_english }}]]{% if player.name_hebrew %} ({{ player.name_hebrew }}){% endif %}
 | {{ player.main_position or '' }}
 | {{ player.nationality | join(', ') if player.nationality else '' }}
+| {{ player.stats.appearances if player.stats else '-' }}
+| {{ player.stats.goals if player.stats else '-' }}
+| {{ player.stats.assists if player.stats else '-' }}
 | {% if not player.current_squad %}On Loan{% elif player.retired %}Retired{% else %}Active{% endif %}
 {% endfor %}
 |}
+
+{% endif %}
+{% endfor %}
 
 [[Category:Squads]]
 [[Category:{{ season }} Season]]

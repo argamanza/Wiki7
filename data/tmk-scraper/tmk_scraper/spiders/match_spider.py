@@ -8,11 +8,17 @@ class MatchSpider(scrapy.Spider):
     name = "match"
     allowed_domains = ["transfermarkt.com", "api.scraperapi.com"]
 
+    def __init__(self, season="2024", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.season = season
+
     async def start(self):
         use_scraperapi = self.settings.getbool("USE_SCRAPERAPI", False)
         api_key = self.settings.get("SCRAPERAPI_KEY")
 
-        with open("output/fixtures.json", encoding="utf-8") as f:
+        # Load fixtures from season-specific dir
+        fixtures_path = f"output/{self.season}/fixtures.json"
+        with open(fixtures_path, encoding="utf-8") as f:
             fixtures = json.load(f)
 
         for match in fixtures:

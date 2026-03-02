@@ -1,0 +1,16 @@
+== שיאי המועדון ==
+
+{% for category, entries in records_by_category.items() %}
+=== {{ category }} ===
+{| class="wikitable"
+! # !! שחקן !! שיא
+{% for r in entries %}
+|-
+| {{ loop.index }} || {% if r.player_id %}[[{{ r.player_name }}]]{% else %}{{ r.player_name }}{% endif %} || {{ r.value }}
+{% endfor %}
+|}
+
+{% endfor %}
+
+[[Category:Club Records]]
+[[Category:Club History]]

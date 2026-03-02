@@ -12,24 +12,37 @@
 | retired = {{ 'Yes' if player.retired else 'No' }}
 {{"}}"}}
 
-== Career ==
+== קריירה ==
 {% if transfers %}
-{{"{{"}}Transfer history table
+{| class="wikitable sortable" style="direction:rtl; text-align:right;"
+! עונה !! תאריך !! מ !! אל !! עלות !! השאלה
 {% for t in transfers %}
-| transfer_{{ loop.index }}_season = {{ t.season }}
-| transfer_{{ loop.index }}_date = {{ t.transfer_date }}
-| transfer_{{ loop.index }}_from = {{ t.from_club }}
-| transfer_{{ loop.index }}_to = {{ t.to_club }}
-| transfer_{{ loop.index }}_fee = {{ t.fee }}
-| transfer_{{ loop.index }}_loan = {{ 'Yes' if t.loan else 'No' }}
+|-
+| {{ t.season }} || {{ t.transfer_date }} || {{ t.from_club }} || {{ t.to_club }} || {{ t.fee }} || {{ '&#x2705;' if t.loan else '' }}
 {% endfor %}
-{{"}}"}}
+|}
+{% endif %}
+
+{% if stats %}
+== סטטיסטיקה עונתית ==
+{| class="wikitable sortable"
+! עונה !! הופעות !! שערים !! בישולים !! {{"{{"}}Tooltip|Y|כרטיסים צהובים{{"}}"}} !! {{"{{"}}Tooltip|2Y|כרטיס צהוב שני{{"}}"}} !! {{"{{"}}Tooltip|R|כרטיסים אדומים{{"}}"}} !! דקות
+{% for s in stats %}
+{% set season_int = s.season | int %}
+{% set next_year = (season_int + 1) | string %}
+{% set season_display = season_int ~ "/" ~ next_year[-2:] %}
+|-
+| [[Season {{ season_display }}|{{ s.season }}]] || {{ s.appearances }} || {{ s.goals }} || {{ s.assists }} || {{ s.yellow_cards }} || {{ s.get('second_yellow_cards', 0) }} || {{ s.red_cards }} || {{ s.minutes_played }}
+{% endfor %}
+|-
+! סה"כ !! {{ stats | sum(attribute='appearances') }} !! {{ stats | sum(attribute='goals') }} !! {{ stats | sum(attribute='assists') }} !! {{ stats | sum(attribute='yellow_cards') }} !! {{ stats | map(attribute='second_yellow_cards') | map('default', 0) | sum }} !! {{ stats | sum(attribute='red_cards') }} !! {{ stats | sum(attribute='minutes_played') }}
+|}
 {% endif %}
 
 {% if market_values %}
-== Market Value History ==
+== היסטוריית שווי שוק ==
 {| class="wikitable sortable"
-! Date !! Value !! Team
+! תאריך !! שווי !! קבוצה
 {% for mv in market_values %}
 |-
 | {{ mv.value_date }} || {{ mv.value }} || {{ mv.team }}
@@ -41,3 +54,9 @@
 {% if player.current_squad %}[[Category:Current Squad]]{% endif %}
 {% if player.homegrown %}[[Category:Homegrown Players]]{% endif %}
 {% if player.retired %}[[Category:Retired Players]]{% endif %}
+{% set pos = player.main_position or '' %}
+{% if 'Goalkeeper' in pos %}[[Category:Goalkeepers]]
+{% elif 'Back' in pos or 'Centre-Back' in pos or 'Defender' in pos %}[[Category:Defenders]]
+{% elif 'Midfield' in pos or 'Midfielder' in pos %}[[Category:Midfielders]]
+{% elif 'Wing' in pos or 'Forward' in pos or 'Striker' in pos %}[[Category:Forwards]]
+{% endif %}

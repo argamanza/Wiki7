@@ -1,0 +1,15 @@
+== תארים ==
+
+{% for honour in honours %}
+=== {{ honour.competition }} ===
+'''{{ honour.achievement }}'''
+{% if honour.seasons %}
+{% for s in honour.seasons %}
+* {{ s }}
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+
+[[Category:Honours]]
+[[Category:Club History]]

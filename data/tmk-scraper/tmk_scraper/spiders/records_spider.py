@@ -1,0 +1,68 @@
+import scrapy
+
+
+class RecordsSpider(scrapy.Spider):
+    """Scrape transfer records from Transfermarkt transferrekorde page."""
+
+    name = "records"
+    allowed_domains = ["transfermarkt.com"]
+
+    def __init__(self, season="2024", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.season = season
+        self.base_url = "https://www.transfermarkt.com"
+        self.start_urls = [
+            f"{self.base_url}/hapoel-beer-sheva/transferrekorde/verein/2976"
+        ]
+
+    def parse(self, response: scrapy.http.Response, **kwargs):
+        count = 0
+
+        # Page title contains the category (e.g., "Record arrivals")
+        page_title = response.css("title::text").get("").split("|")[0].strip()
+        # Remove club name prefix if present
+        category = page_title.replace("Hapoel Beer Sheva - ", "").strip() or "Transfer records"
+
+        # Also check navigation for sub-pages (arrivals vs departures)
+        # The page has tabs for "Record arrivals" and "Record departures"
+        nav_links = response.css("div.content-box-headline a")
+
+        for row in response.css("table.items > tbody > tr"):
+            # Only process data rows (odd/even)
+            row_class = row.attrib.get("class", "")
+            if "odd" not in row_class and "even" not in row_class:
+                continue
+
+            # Find player name — look for links that point to player profiles (contain /profil/)
+            player_links = row.css("td.hauptlink a[href*='/profil/']")
+            if not player_links:
+                # Fallback: first hauptlink that isn't a club link
+                player_links = row.css("td.hauptlink a")
+
+            if not player_links:
+                continue
+
+            player_name = player_links[0].css("::text").get("").strip()
+            profile_url = player_links[0].attrib.get("href", "")
+            player_id = profile_url.strip().split("/")[-1] if "/profil/" in profile_url else ""
+
+            # Get the transfer fee (typically in td.rechts)
+            rechts = row.css("td.rechts a::text, td.rechts::text").getall()
+            rechts = [r.strip() for r in rechts if r.strip()]
+            value = rechts[0] if rechts else ""
+
+            if not value:
+                zentriert = row.css("td.zentriert::text").getall()
+                zentriert = [z.strip() for z in zentriert if z.strip()]
+                value = zentriert[-1] if zentriert else ""
+
+            if player_name:
+                count += 1
+                yield {
+                    "category": category,
+                    "player_name": player_name,
+                    "player_id": player_id,
+                    "value": value,
+                }
+
+        self.logger.info("Scraped %d record entries", count)

@@ -1,0 +1,15 @@
+== סטטיסטיקות קהל ==
+
+{% if season_stats %}
+=== סיכום לפי עונה ===
+{| class="wikitable sortable"
+! עונה !! משחקים !! סך צופים !! ממוצע !! שיא !! מינימום
+{% for s in season_stats %}
+|-
+| {{ s.season }} || {{ s.total_matches }} || {{ "{:,}".format(s.total_attendance) }} || {{ "{:,}".format(s.average) }} || {{ "{:,}".format(s.highest) }} || {{ "{:,}".format(s.lowest) }}
+{% endfor %}
+|}
+{% endif %}
+
+[[Category:Statistics]]
+[[Category:Attendance]]

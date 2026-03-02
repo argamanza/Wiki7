@@ -1,7 +1,7 @@
 """Tests for data_pipeline.schemas Pydantic models."""
 
 from datetime import date
-from data_pipeline.schemas import Player, Transfer, MarketValue
+from data_pipeline.schemas import Player, Transfer, MarketValue, PlayerSeasonStats
 
 
 class TestPlayerSchema:
@@ -114,3 +114,43 @@ class TestMarketValueSchema:
         )
         assert mv.player_id == "503642"
         assert mv.value == "€2.50m"
+
+
+class TestPlayerSeasonStatsSchema:
+    def test_valid_stats(self):
+        stats = PlayerSeasonStats(
+            player_id="503642",
+            season="2024",
+            appearances=30,
+            goals=8,
+            assists=5,
+            yellow_cards=3,
+            red_cards=0,
+            minutes_played=2450,
+        )
+        assert stats.player_id == "503642"
+        assert stats.season == "2024"
+        assert stats.appearances == 30
+        assert stats.goals == 8
+
+    def test_defaults(self):
+        stats = PlayerSeasonStats(player_id="123", season="2023")
+        assert stats.appearances == 0
+        assert stats.goals == 0
+        assert stats.assists == 0
+        assert stats.yellow_cards == 0
+        assert stats.red_cards == 0
+        assert stats.minutes_played == 0
+
+    def test_serialization(self):
+        stats = PlayerSeasonStats(
+            player_id="503642",
+            season="2024",
+            appearances=30,
+            goals=8,
+        )
+        data = stats.model_dump()
+        assert data["player_id"] == "503642"
+        assert data["appearances"] == 30
+        json_str = stats.model_dump_json()
+        assert '"player_id":"503642"' in json_str

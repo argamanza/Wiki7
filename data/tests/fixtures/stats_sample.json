@@ -1,0 +1,32 @@
+[
+  {
+    "player_id": "503642",
+    "season": "2024",
+    "appearances": 30,
+    "goals": 8,
+    "assists": 5,
+    "yellow_cards": 3,
+    "red_cards": 0,
+    "minutes_played": 2450
+  },
+  {
+    "player_id": "503642",
+    "season": "2023",
+    "appearances": 25,
+    "goals": 6,
+    "assists": 3,
+    "yellow_cards": 2,
+    "red_cards": 0,
+    "minutes_played": 2100
+  },
+  {
+    "player_id": "101577",
+    "season": "2024",
+    "appearances": 20,
+    "goals": 2,
+    "assists": 1,
+    "yellow_cards": 5,
+    "red_cards": 1,
+    "minutes_played": 1600
+  }
+]

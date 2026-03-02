@@ -1,0 +1,31 @@
+<includeonly>
+{| class="infobox" style="width:22em; font-size:88%; direction:rtl; text-align:right;"
+|-
+! colspan="2" style="background:#cc0000; color:white; font-size:120%; text-align:center;" | {{{name|}}}
+{{#if:{{{city|}}}|
+{{!}}-
+! style="width:35%;" {{!}} עיר
+{{!}} {{{city|}}}
+}}
+{{#if:{{{capacity|}}}|
+{{!}}-
+! קיבולת
+{{!}} {{{capacity|}}}
+}}
+{{#if:{{{surface|}}}|
+{{!}}-
+! משטח
+{{!}} {{{surface|}}}
+}}
+{{#if:{{{opening_year|}}}|
+{{!}}-
+! שנת פתיחה
+{{!}} {{{opening_year|}}}
+}}
+{{#if:{{{address|}}}|
+{{!}}-
+! כתובת
+{{!}} {{{address|}}}
+}}
+|}
+</includeonly>

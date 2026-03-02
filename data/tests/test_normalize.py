@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 
 
-from data_pipeline.normalize_enrich_players import main, normalize_player, normalize_transfers, normalize_market_values
+from data_pipeline.normalize_enrich_players import main, normalize_player, normalize_transfers, normalize_market_values, normalize_stats
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
@@ -116,6 +116,37 @@ class TestNormalizeMarketValues:
         assert mvs[0].value == "€2.50m"
 
 
+class TestNormalizeStats:
+    def test_normalize_stats(self):
+        raw_stats = [
+            {
+                "player_id": "503642",
+                "season": "2024",
+                "appearances": 30,
+                "goals": 8,
+                "assists": 5,
+                "yellow_cards": 3,
+                "red_cards": 0,
+                "minutes_played": 2450,
+            }
+        ]
+        stats = normalize_stats(raw_stats)
+        assert len(stats) == 1
+        assert stats[0].player_id == "503642"
+        assert stats[0].appearances == 30
+        assert stats[0].goals == 8
+
+    def test_normalize_stats_defaults(self):
+        raw_stats = [{"player_id": "123", "season": "2023"}]
+        stats = normalize_stats(raw_stats)
+        assert stats[0].appearances == 0
+        assert stats[0].goals == 0
+
+    def test_normalize_stats_empty(self):
+        stats = normalize_stats([])
+        assert stats == []
+
+
 class TestMainFunction:
     def test_end_to_end_with_fixtures(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -141,3 +172,18 @@ class TestMainFunction:
             with open(out / "market_values.jsonl") as f:
                 mvs = [json.loads(line) for line in f if line.strip()]
             assert len(mvs) >= 1
+
+    def test_end_to_end_with_stats(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            main(
+                raw_path=str(FIXTURES_DIR / "players_sample.json"),
+                stats_path=str(FIXTURES_DIR / "stats_sample.json"),
+                out_dir=tmpdir,
+            )
+            out = Path(tmpdir)
+            assert (out / "stats.jsonl").exists()
+
+            with open(out / "stats.jsonl") as f:
+                stats = [json.loads(line) for line in f if line.strip()]
+            assert len(stats) == 3
+            assert stats[0]["player_id"] == "503642"

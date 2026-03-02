@@ -8,12 +8,17 @@ class PlayerSpider(scrapy.Spider):
     name = "player"
     allowed_domains = ["transfermarkt.com", "api.scraperapi.com"]
 
+    def __init__(self, season="2024", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.season = season
+
     async def start(self):
         use_scraperapi = self.settings.getbool("USE_SCRAPERAPI", False)
         api_key = self.settings.get("SCRAPERAPI_KEY")
 
-        # Load player URLs from output of squad spider
-        with open("output/squad.json", encoding="utf-8") as f:
+        # Load player URLs from output of squad spider (season-specific dir)
+        squad_path = f"output/{self.season}/squad.json"
+        with open(squad_path, encoding="utf-8") as f:
             players = json.load(f)
 
         for player in players:

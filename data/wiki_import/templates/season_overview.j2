@@ -1,0 +1,75 @@
+== עונת {{ season_display }} ==
+
+=== סגל ===
+''ראו: [[Squad {{ season }}]]''
+
+=== העברות ===
+''ראו: [[Transfers {{ season }}]]''
+
+{% if stats %}
+=== סטטיסטיקות מפתח ===
+{| class="wikitable"
+! נתון !! ערך
+|-
+| סך הופעות || {{ total_appearances }}
+|-
+| סך שערים || {{ total_goals }}
+|-
+| סך בישולים || {{ total_assists }}
+|-
+| סך כרטיסים צהובים || {{ total_yellows }}
+|-
+| סך כרטיסים אדומים || {{ total_reds }}
+|}
+{% endif %}
+
+{% if top_scorers %}
+=== מלכי שערים ===
+{| class="wikitable"
+! # !! שחקן !! שערים
+{% for s in top_scorers[:10] %}
+{% if s.goals > 0 %}
+|-
+| {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.goals }}
+{% endif %}
+{% endfor %}
+|}
+{% endif %}
+
+{% if top_appearances %}
+=== בעלי ההופעות ===
+{| class="wikitable"
+! # !! שחקן !! הופעות
+{% for s in top_appearances[:10] %}
+{% if s.appearances > 0 %}
+|-
+| {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.appearances }}
+{% endif %}
+{% endfor %}
+|}
+{% endif %}
+
+{% if top_assists %}
+=== מלכי בישולים ===
+{| class="wikitable"
+! # !! שחקן !! בישולים
+{% for s in top_assists[:10] %}
+{% if s.assists > 0 %}
+|-
+| {{ loop.index }} || [[{{ s.player_name }}]] || {{ s.assists }}
+{% endif %}
+{% endfor %}
+|}
+{% endif %}
+
+{% if fixtures_by_competition %}
+=== תחרויות ===
+{% for comp, matches in fixtures_by_competition.items() %}
+{% set season_int = season | int %}
+{% set season_display_comp = season_int ~ "/" ~ (season_int + 1) | string %}
+* '''[[{{ comp }} {{ season_display_comp }}|{{ comp }}]]''': {{ matches | length }} משחקים
+{% endfor %}
+{% endif %}
+
+[[Category:Seasons]]
+[[Category:Season {{ season }}]]
