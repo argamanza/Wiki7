@@ -166,10 +166,70 @@
         } );
     }
 
+    /**
+     * Initialize quick-access icon shortcuts in the header bar.
+     */
+    function initHeaderQuickAccess() {
+        var header = document.querySelector( '.wiki7-header' );
+        if ( !header ) return;
+
+        var headerInner = header.querySelector( '.wiki7-header__inner' );
+        if ( !headerInner ) return;
+
+        var items = [
+            { id: 'team',      label: 'הקבוצה',       desc: 'דף המועדון הראשי',     href: '/wiki/הפועל_באר_שבע' },
+            { id: 'players',   label: 'שחקנים',       desc: 'שחקני המועדון',         href: '/wiki/קטגוריה:שחקנים' },
+            { id: 'seasons',   label: 'עונות',        desc: 'עונות המועדון',         href: '/wiki/קטגוריה:עונות' },
+            { id: 'trophies',  label: 'תארים',        desc: 'תארים והישגים',         href: '/wiki/תארים' },
+            { id: 'stadium',   label: 'האצטדיון',     desc: 'אצטדיון טוטו טרנר',     href: '/wiki/אצטדיון_טוטו_טרנר' },
+            { id: 'transfers', label: 'העברות',       desc: 'מעברי שחקנים',          href: '/wiki/קטגוריה:העברות' },
+            { id: 'stats',     label: 'סטטיסטיקות',   desc: 'נתונים וסטטיסטיקות',    href: '/wiki/סטטיסטיקות' }
+        ];
+
+        var container = document.createElement( 'div' );
+        container.className = 'wiki7-header__quick-access';
+
+        for ( var i = 0; i < items.length; i++ ) {
+            var item = items[ i ];
+            var link = document.createElement( 'a' );
+            link.className = 'wiki7-header__quick-link';
+            link.href = item.href;
+            link.setAttribute( 'aria-label', item.label );
+            link.setAttribute( 'data-tooltip', item.label );
+
+            var icon = document.createElement( 'span' );
+            icon.className = 'wiki7-header__quick-link-icon wiki7-header__quick-link-icon--' + item.id;
+            link.appendChild( icon );
+
+            // Mini card preview
+            var card = document.createElement( 'div' );
+            card.className = 'wiki7-header__quick-card';
+
+            var cardTitle = document.createElement( 'div' );
+            cardTitle.className = 'wiki7-header__quick-card-title';
+            cardTitle.textContent = item.label;
+            card.appendChild( cardTitle );
+
+            var cardDesc = document.createElement( 'div' );
+            cardDesc.className = 'wiki7-header__quick-card-desc';
+            cardDesc.textContent = item.desc;
+            card.appendChild( cardDesc );
+
+            link.appendChild( card );
+            container.appendChild( link );
+        }
+
+        header.insertBefore( container, headerInner );
+    }
+
     // Initialize when DOM is ready
     if ( document.readyState === 'loading' ) {
-        document.addEventListener( 'DOMContentLoaded', initSlider );
+        document.addEventListener( 'DOMContentLoaded', function () {
+            initSlider();
+            initHeaderQuickAccess();
+        } );
     } else {
         initSlider();
+        initHeaderQuickAccess();
     }
 }() );

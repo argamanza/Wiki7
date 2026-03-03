@@ -889,3 +889,141 @@
         min-width: 20px;
     }
 }
+
+/* ===================================================================
+ * HEADER QUICK-ACCESS ICONS
+ * Injected via JS into the header bar for fast navigation
+ * =================================================================== */
+.wiki7-header__quick-access {
+    display: none;
+}
+
+@media (min-width: 1000px) {
+    .wiki7-header__quick-access {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-xxs, 0.25rem);
+        padding: var(--space-xs, 0.5rem) 0;
+        position: relative;
+    }
+
+    /* Divider line above the icons */
+    .wiki7-header__quick-access::before {
+        content: "";
+        display: block;
+        width: 60%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.15);
+        margin-bottom: var(--space-xxs, 0.25rem);
+    }
+
+    .wiki7-header__quick-link {
+        display: grid;
+        place-items: center;
+        width: calc(var(--header-size, 3.25rem) - var(--space-xs, 0.5rem) * 2);
+        height: calc(var(--header-size, 3.25rem) - var(--space-xs, 0.5rem) * 2);
+        border-radius: var(--border-radius-base, 4px);
+        position: relative;
+        text-decoration: none !important;
+        transition: background 0.2s ease;
+    }
+
+    .wiki7-header__quick-link:hover {
+        background: var(--background-color-button-quiet--hover, rgba(255, 255, 255, 0.04));
+    }
+
+    .wiki7-header__quick-link:active {
+        background: var(--background-color-button-quiet--active, rgba(255, 255, 255, 0.08));
+    }
+
+    /* Icon rendering via CSS mask */
+    .wiki7-header__quick-link-icon {
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: rgba(255, 255, 255, 0.7);
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        transition: background 0.2s ease;
+    }
+
+    .wiki7-header__quick-link:hover .wiki7-header__quick-link-icon {
+        background: #fff;
+    }
+
+    /* Reuse the same Lucide SVG data URIs from nav pills */
+    .wiki7-header__quick-link-icon--team {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E");
+    }
+
+    .wiki7-header__quick-link-icon--players {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
+    }
+
+    .wiki7-header__quick-link-icon--seasons {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3C/svg%3E");
+    }
+
+    .wiki7-header__quick-link-icon--trophies {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6'/%3E%3Cpath d='M18 9h1.5a2.5 2.5 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'/%3E%3Cpath d='M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'/%3E%3Cpath d='M18 2H6v7a6 6 0 0 0 12 0V2Z'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6'/%3E%3Cpath d='M18 9h1.5a2.5 2.5 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'/%3E%3Cpath d='M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'/%3E%3Cpath d='M18 2H6v7a6 6 0 0 0 12 0V2Z'/%3E%3C/svg%3E");
+    }
+
+    .wiki7-header__quick-link-icon--stadium {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z'/%3E%3Cpath d='M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2'/%3E%3Cpath d='M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2'/%3E%3Cpath d='M10 6h4'/%3E%3Cpath d='M10 10h4'/%3E%3Cpath d='M10 14h4'/%3E%3Cpath d='M10 18h4'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z'/%3E%3Cpath d='M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2'/%3E%3Cpath d='M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2'/%3E%3Cpath d='M10 6h4'/%3E%3Cpath d='M10 10h4'/%3E%3Cpath d='M10 14h4'/%3E%3Cpath d='M10 18h4'/%3E%3C/svg%3E");
+    }
+
+    .wiki7-header__quick-link-icon--transfers {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15-5 5 5 5'/%3E%3Cpath d='M22 20H2'/%3E%3Cpath d='m17 9 5-5-5-5'/%3E%3Cpath d='M2 4h20'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15-5 5 5 5'/%3E%3Cpath d='M22 20H2'/%3E%3Cpath d='m17 9 5-5-5-5'/%3E%3Cpath d='M2 4h20'/%3E%3C/svg%3E");
+    }
+
+    .wiki7-header__quick-link-icon--stats {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V10'/%3E%3Cpath d='M18 20V4'/%3E%3Cpath d='M6 20v-4'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V10'/%3E%3Cpath d='M18 20V4'/%3E%3Cpath d='M6 20v-4'/%3E%3C/svg%3E");
+    }
+
+    /* Mini card preview on hover */
+    .wiki7-header__quick-card {
+        position: absolute;
+        inset-inline-end: calc(100% + 12px);
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--color-surface-1, #1a1a2e);
+        border: 1px solid var(--border-color-base, rgba(255,255,255,0.08));
+        border-radius: var(--border-radius-medium, 8px);
+        padding: var(--space-sm, 0.75rem);
+        min-width: 140px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+    }
+
+    .wiki7-header__quick-link:hover .wiki7-header__quick-card {
+        opacity: 1;
+    }
+
+    .wiki7-header__quick-card-title {
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: var(--color-emphasized, #fff);
+        margin-bottom: 0.125rem;
+    }
+
+    .wiki7-header__quick-card-desc {
+        font-size: 0.75rem;
+        color: var(--color-subtle, #999);
+    }
+}
