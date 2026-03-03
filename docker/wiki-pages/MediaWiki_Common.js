@@ -41,6 +41,37 @@
             }
         }
 
+        // Create arrow navigation zones
+        function createArrowZone( direction ) {
+            var zone = document.createElement( 'div' );
+            zone.className = 'wiki7-slider__arrow-zone wiki7-slider__arrow-zone--' + direction;
+
+            var btn = document.createElement( 'button' );
+            btn.className = 'wiki7-slider__arrow-btn';
+            btn.setAttribute( 'aria-label', direction === 'prev' ? 'השקופית הקודמת' : 'השקופית הבאה' );
+            btn.setAttribute( 'type', 'button' );
+
+            var icon = document.createElement( 'span' );
+            icon.className = 'wiki7-slider__arrow-icon wiki7-slider__arrow-icon--' + direction;
+            btn.appendChild( icon );
+
+            btn.addEventListener( 'click', function ( e ) {
+                e.stopPropagation();
+                if ( direction === 'prev' ) {
+                    prevSlide();
+                } else {
+                    nextSlide();
+                }
+                resetAutoPlay();
+            } );
+
+            zone.appendChild( btn );
+            slider.appendChild( zone );
+        }
+
+        createArrowZone( 'prev' );
+        createArrowZone( 'next' );
+
         function goToSlide( index ) {
             if ( index < 0 ) index = slideCount - 1;
             if ( index >= slideCount ) index = 0;
