@@ -33,3 +33,8 @@ htmlcov/
 
 # Data pipeline output
 data/output/
+data/data_pipeline/output/
+data/tmk-scraper/output/
+
+# Claude Code
+.claude/

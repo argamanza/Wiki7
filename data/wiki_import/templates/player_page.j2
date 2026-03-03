@@ -20,6 +20,7 @@
 |-
 | {{ t.season }} || {{ t.transfer_date }} || {{ t.from_club }} || {{ t.to_club }} || {{ t.fee }} || {{ '&#x2705;' if t.loan else '' }}
 {% endfor %}
+
 |}
 {% endif %}
 
@@ -32,8 +33,9 @@
 {% set next_year = (season_int + 1) | string %}
 {% set season_display = season_int ~ "/" ~ next_year[-2:] %}
 |-
-| [[Season {{ season_display }}|{{ s.season }}]] || {{ s.appearances }} || {{ s.goals }} || {{ s.assists }} || {{ s.yellow_cards }} || {{ s.get('second_yellow_cards', 0) }} || {{ s.red_cards }} || {{ s.minutes_played }}
+| [[עונת {{ season_display }}|{{ s.season }}]] || {{ s.appearances }} || {{ s.goals }} || {{ s.assists }} || {{ s.yellow_cards }} || {{ s.get('second_yellow_cards', 0) }} || {{ s.red_cards }} || {{ s.minutes_played }}
 {% endfor %}
+
 |-
 ! סה"כ !! {{ stats | sum(attribute='appearances') }} !! {{ stats | sum(attribute='goals') }} !! {{ stats | sum(attribute='assists') }} !! {{ stats | sum(attribute='yellow_cards') }} !! {{ stats | map(attribute='second_yellow_cards') | map('default', 0) | sum }} !! {{ stats | sum(attribute='red_cards') }} !! {{ stats | sum(attribute='minutes_played') }}
 |}
@@ -47,16 +49,17 @@
 |-
 | {{ mv.value_date }} || {{ mv.value }} || {{ mv.team }}
 {% endfor %}
+
 |}
 {% endif %}
 
-[[Category:Players]]
-{% if player.current_squad %}[[Category:Current Squad]]{% endif %}
-{% if player.homegrown %}[[Category:Homegrown Players]]{% endif %}
-{% if player.retired %}[[Category:Retired Players]]{% endif %}
+[[קטגוריה:שחקנים]]
+{% if player.current_squad %}[[קטגוריה:סגל נוכחי]]{% endif %}
+{% if player.homegrown %}[[קטגוריה:חניכי מועדון]]{% endif %}
+{% if player.retired %}[[קטגוריה:שחקנים שפרשו]]{% endif %}
 {% set pos = player.main_position or '' %}
-{% if 'Goalkeeper' in pos %}[[Category:Goalkeepers]]
-{% elif 'Back' in pos or 'Centre-Back' in pos or 'Defender' in pos %}[[Category:Defenders]]
-{% elif 'Midfield' in pos or 'Midfielder' in pos %}[[Category:Midfielders]]
-{% elif 'Wing' in pos or 'Forward' in pos or 'Striker' in pos %}[[Category:Forwards]]
+{% if 'שוער' in pos or 'Goalkeeper' in pos %}[[קטגוריה:שוערים]]
+{% elif 'הגנה' in pos or 'Back' in pos or 'Centre-Back' in pos or 'Defender' in pos %}[[קטגוריה:הגנה]]
+{% elif 'קישור' in pos or 'Midfield' in pos or 'Midfielder' in pos %}[[קטגוריה:קישור]]
+{% elif 'התקפה' in pos or 'Wing' in pos or 'Forward' in pos or 'Striker' in pos %}[[קטגוריה:התקפה]]
 {% endif %}

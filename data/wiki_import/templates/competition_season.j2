@@ -16,12 +16,14 @@
 {% else %}
 {% set row_color = "" %}
 {% endif %}
+
 |-{% if row_color %} style="background:{{ row_color }};"{% endif %}
 
-| {{ f.matchday }} || {{ f.date }} || {{ f.venue }} || {{ f.opponent }} || {% if f.date and f.opponent %}[[{{ f.date }} vs {{ f.opponent }} ({{ competition }})|{{ result }}]]{% else %}{{ result }}{% endif %} || {{ f.attendance }}
+| {{ f.matchday }} || {{ f.date }} || {{ f.venue }} || {{ f.opponent }} || {% if f.date and f.opponent %}[[{{ f.date }} נגד {{ f.opponent }} ({{ competition }})|{{ result }}]]{% else %}{{ result }}{% endif %} || {{ f.attendance }}
 {% endfor %}
+
 |}
 
-[[Category:{{ competition }}]]
-[[Category:Season {{ season }}]]
-[[Category:Competitions]]
+[[קטגוריה:{{ competition }}]]
+[[קטגוריה:עונת {{ season }}]]
+[[קטגוריה:תחרויות]]
