@@ -83,6 +83,17 @@ class PlayerSpider(scrapy.Spider):
 
         yield Request(url=mv_url, callback=self.parse_market_value, meta=meta)
 
+    _MV_DATE_FORMATS = ["%b %d, %Y", "%d/%m/%Y"]
+
+    def _parse_mv_date(self, raw: str) -> str | None:
+        """Try multiple date formats Transfermarkt has used over time."""
+        for fmt in self._MV_DATE_FORMATS:
+            try:
+                return datetime.strptime(raw, fmt).strftime("%Y-%m-%d")
+            except (ValueError, TypeError):
+                continue
+        return None
+
     def parse_market_value(self, response):
         player = response.meta["player_data"]
         player_id = response.meta["player_id"]
@@ -91,14 +102,17 @@ class PlayerSpider(scrapy.Spider):
 
         try:
             data = json.loads(response.text)
-            history = [
-                {
-                    "date": datetime.strptime(p["datum_mw"], "%b %d, %Y").strftime("%Y-%m-%d"),
-                    "value": p["mw"],
-                    "team": p["verein"]
-                }
-                for p in data.get("list", [])
-            ]
+            history = []
+            for p in data.get("list", []):
+                parsed_date = self._parse_mv_date(p.get("datum_mw", ""))
+                if parsed_date:
+                    history.append({
+                        "date": parsed_date,
+                        "value": p["mw"],
+                        "team": p["verein"],
+                    })
+                else:
+                    self.logger.warning(f"Skipping market value entry with unparseable date: {p.get('datum_mw')}")
             player["market_value_history"] = sorted(history, key=lambda x: x["date"])
         except Exception as e:
             self.logger.warning(f"Failed to parse market value history: {e}")

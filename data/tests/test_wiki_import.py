@@ -30,8 +30,8 @@ class TestPlayerPageRendering:
         content = _build_player_page(players[0], transfers, market_values)
         assert "Player infobox" in content
         assert "Sagiv Jehezkel" in content
-        assert "[[Category:Players]]" in content
-        assert "[[Category:Current Squad]]" in content
+        assert "[[קטגוריה:שחקנים]]" in content
+        assert "[[קטגוריה:סגל נוכחי]]" in content
 
     def test_render_player_page_with_stats(self, normalized_data):
         from wiki_import.import_players import _build_player_page, _load_jsonl
