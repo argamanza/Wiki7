@@ -12,10 +12,10 @@
 	--delta-lightness-active-state: calc( var( --delta-lightness-state-base ) * -1 );
 	--delta-lightness-surface-base: -1%;
 
-	/* Progressive color */
-	--color-progressive-oklch__l: 53%;
-	--color-progressive-oklch__c: 0.2074;
-	--color-progressive-oklch__h: 22.32;
+	/* Progressive color — aligned to Hapoel Beer Sheva brand red #C8102E */
+	--color-progressive-oklch__l: 46%;
+	--color-progressive-oklch__c: 0.195;
+	--color-progressive-oklch__h: 23;
 
 	/* Surface color */
 	--color-surface-0-oklch__l: 99%;
@@ -104,9 +104,10 @@
 	 * Fallback for browsers that do not support OKLCH
 	 * TODO: Remove this once OKLCH is supported in all browsers
 	 */
-	--color-progressive-hsl__h: 220;
-	--color-progressive-hsl__s: 60%;
-	--color-progressive-hsl__l: 50%;
+	/* Fix: HSL fallback was 220° (blue) — corrected to match #C8102E red */
+	--color-progressive-hsl__h: 350;
+	--color-progressive-hsl__s: 85%;
+	--color-progressive-hsl__l: 42%;
 
 	--color-surface-0-hsl__s: 30%;
 	--color-surface-0-hsl__l: 96%;
