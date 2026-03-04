@@ -15,18 +15,6 @@
     --wiki7-gold-light: #F0D080;
 }
 
-/* --- Color Variant: Muted header ---
- * Add class "wiki7-color-variant-muted" to <html> to use a darker,
- * more muted red for the header bar (two-tone approach).
- * Toggle in browser console: document.documentElement.classList.toggle('wiki7-color-variant-muted')
- */
-html.wiki7-color-variant-muted {
-    --color-progressive-oklch__l: 40%;
-    --color-progressive-oklch__c: 0.17;
-    --color-progressive-hsl__l: 35%;
-    --color-progressive-hsl__s: 70%;
-}
-
 /* --- Main Page: Hide default heading & adjust layout --- */
 .page-עמוד_ראשי.action-view .wiki7-page-heading,
 .page-עמוד_ראשי.action-view #firstHeading,
