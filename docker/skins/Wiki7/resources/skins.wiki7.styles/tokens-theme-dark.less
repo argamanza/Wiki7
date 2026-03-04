@@ -50,8 +50,10 @@
 	--color-syntax-pink: @color-syntax-pink-dark;
 	--color-syntax-violet: @color-syntax-violet-dark;
 
-	--background-color-button-quiet--hover: rgba( 255, 255, 255, 0.04 );
-	--background-color-button-quiet--active: rgba( 255, 255, 255, 0.08 );
+	--background-color-button-quiet--hover: ~'oklch( 80% 0.02 var( --color-progressive-oklch__h ) / 0.06 )';
+	--background-color-button-quiet--active: ~'oklch( 80% 0.03 var( --color-progressive-oklch__h ) / 0.10 )';
+	--background-color-button-quiet-menu--hover: ~'oklch( 80% 0.02 var( --color-progressive-oklch__h ) / 0.06 )';
+	--background-color-button-quiet-menu--active: ~'oklch( 80% 0.03 var( --color-progressive-oklch__h ) / 0.10 )';
 	--background-color-icon: ~'rgba( 255, 255, 255, var( --opacity-icon-base ) )';
 	--background-color-icon--hover: ~'rgba( 255, 255, 255, var( --opacity-icon-base--hover ) )';
 	--background-color-icon--active: ~'rgba( 255, 255, 255, var( --opacity-icon-base--active ) )';

@@ -11,12 +11,12 @@
 	flex-direction: var( --header-direction );
 	gap: var( --space-xxs );
 	padding: ~'var( --space-xs ) max( env( safe-area-inset-right ), var( --space-xs ) ) max( env( safe-area-inset-bottom ), var( --space-xs ) ) max( env( safe-area-inset-left ), var( --space-xs ) )';
-	background-color: oklch( 52% 0.195 23 );
+	background-color: ~'oklch( calc( var( --color-progressive-oklch__l--base ) + var( --delta-lightness-header ) ) var( --color-progressive-oklch__c ) var( --color-progressive-oklch__h ) )';
 	// Override theme-dependent variables for the fixed red header bar
-	--background-color-button-quiet--hover: rgba( 253, 220, 220, 0.9 );
-	--background-color-button-quiet--active: rgba( 255, 241, 241, 0.95 );
-	--background-color-button-quiet-menu--hover: rgba( 253, 220, 220, 0.9 );
-	--background-color-button-quiet-menu--active: rgba( 255, 241, 241, 0.95 );
+	--background-color-button-quiet--hover: ~'oklch( 92% 0.04 var( --color-progressive-oklch__h ) / 0.9 )';
+	--background-color-button-quiet--active: ~'oklch( 96% 0.02 var( --color-progressive-oklch__h ) / 0.95 )';
+	--background-color-button-quiet-menu--hover: ~'oklch( 92% 0.04 var( --color-progressive-oklch__h ) / 0.9 )';
+	--background-color-button-quiet-menu--active: ~'oklch( 96% 0.02 var( --color-progressive-oklch__h ) / 0.95 )';
 	--filter-invert: none;
 	border-top: var( --border-width-base ) solid var( --border-color-base );
 
@@ -77,7 +77,7 @@
 
 			&:hover {
 				.wiki7-ui-icon {
-					color: oklch( 46% 0.195 23 );
+					color: var( --color-progressive );
 				}
 			}
 		}
@@ -141,7 +141,7 @@
 
 			&:hover {
 				.wiki7-ui-icon {
-					color: oklch( 46% 0.195 23 );
+					color: var( --color-progressive );
 				}
 			}
 		}
