@@ -71,10 +71,10 @@
 	--background-color-transparent: transparent;
 	--background-color-backdrop-light: ~'oklch( var( --color-surface-0-oklch__l ) var( --color-surface-0-oklch__c ) var( --color-progressive-oklch__h ) / var( --backdrop-opacity ) )';
 	--background-color-backdrop-dark: ~'rgba( 0, 0, 0, var( --backdrop-opacity ) )';
-	--background-color-button-quiet--hover: rgba(253, 220, 220, 0.9);
-	--background-color-button-quiet--active: rgba(255, 241, 241, 0.95);
-	--background-color-button-quiet-menu--hover: rgba(253, 220, 220, 0.9);
-	--background-color-button-quiet-menu--active: rgba(255, 241, 241, 0.95);
+	--background-color-button-quiet--hover: ~'oklch( 92% 0.04 var( --color-progressive-oklch__h ) / 0.9 )';
+	--background-color-button-quiet--active: ~'oklch( 96% 0.02 var( --color-progressive-oklch__h ) / 0.95 )';
+	--background-color-button-quiet-menu--hover: ~'oklch( 92% 0.04 var( --color-progressive-oklch__h ) / 0.9 )';
+	--background-color-button-quiet-menu--active: ~'oklch( 96% 0.02 var( --color-progressive-oklch__h ) / 0.95 )';
 	--background-color-input-binary--checked: var( --color-progressive );
 	--background-color-tab-list-item-framed--hover: rgba( 255, 255, 255, 0.3 );
 	--background-color-tab-list-item-framed--active: rgba( 255, 255, 255, 0.65 );
@@ -169,9 +169,9 @@
 		//--background-color-warning-subtle: ~'hsl( var( --color-warning__h ), var( --background-color-subtle__s ), var( --background-color-subtle__l ) )';
 		//--background-color-success-subtle: ~'hsl( var( --color-success__h ), var( --background-color-subtle__s ), var( --background-color-subtle__l ) )';
 		--background-color-backdrop-light: ~'hsl( var( --color-progressive-hsl__h ), var( --color-surface-0-hsl__s ), var( --color-surface-0-hsl__l ) / var( --backdrop-opacity ) )';
-		//--background-color-button-quiet--hover: rgba( 0, 24, 73, 0.027 );
-		//--background-color-button-quiet--active: rgba( 0, 24, 73, 0.082 );
-		//--background-color-tab-list-item-framed--hover: rgba( 255, 255, 255, 0.3 );
-		//--background-color-tab-list-item-framed--active: rgba( 255, 255, 255, 0.65 );
+		--background-color-button-quiet--hover: ~'hsla( var( --color-progressive-hsl__h ), 85%, 93%, 0.9 )';
+		--background-color-button-quiet--active: ~'hsla( var( --color-progressive-hsl__h ), 85%, 97%, 0.95 )';
+		--background-color-button-quiet-menu--hover: ~'hsla( var( --color-progressive-hsl__h ), 85%, 93%, 0.9 )';
+		--background-color-button-quiet-menu--active: ~'hsla( var( --color-progressive-hsl__h ), 85%, 97%, 0.95 )';
 	}
 }
