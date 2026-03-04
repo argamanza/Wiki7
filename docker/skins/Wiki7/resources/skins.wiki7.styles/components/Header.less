@@ -12,11 +12,12 @@
 	gap: var( --space-xxs );
 	padding: ~'var( --space-xs ) max( env( safe-area-inset-right ), var( --space-xs ) ) max( env( safe-area-inset-bottom ), var( --space-xs ) ) max( env( safe-area-inset-left ), var( --space-xs ) )';
 	background-color: oklch( 52% 0.195 23 );
-	// Override button hover colors for the red header bar
+	// Override theme-dependent variables for the fixed red header bar
 	--background-color-button-quiet--hover: rgba( 255, 255, 255, 0.35 );
 	--background-color-button-quiet--active: rgba( 255, 255, 255, 0.5 );
 	--background-color-button-quiet-menu--hover: rgba( 255, 255, 255, 0.35 );
 	--background-color-button-quiet-menu--active: rgba( 255, 255, 255, 0.5 );
+	--filter-invert: none;
 	border-top: var( --border-width-base ) solid var( --border-color-base );
 
 	&__item {
@@ -76,7 +77,7 @@
 
 			&:hover {
 				.wiki7-ui-icon {
-					color: var(--color-progressive);
+					color: oklch( 35% 0.195 23 );
 				}
 			}
 		}
@@ -140,7 +141,7 @@
 
 			&:hover {
 				.wiki7-ui-icon {
-					color: var(--color-progressive);
+					color: oklch( 35% 0.195 23 );
 				}
 			}
 		}
@@ -208,16 +209,3 @@
 	}
 }
 
-// Dark mode color fixes
-@media (prefers-color-scheme: dark) {
-	.wiki7-header {
-		.wiki7-dropdown-details[open] > .wiki7-dropdown-summary {
-			background-color: var(--background-color-button-quiet-menu--active);
-			color: var(--color-progressive);
-
-			.wiki7-ui-icon {
-				color: var(--color-progressive);
-			}
-		}
-	}
-}
