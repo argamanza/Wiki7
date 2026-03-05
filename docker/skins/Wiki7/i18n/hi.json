@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Abijeet Patro"
+		]
+	},
+	"wiki7-drawer-toggle": "मेनू टॉगल करें",
+	"wiki7-search-toggle": "खोज टॉगल करें",
+	"wiki7-sitestats-users-label": "सदस्य",
+	"wiki7-search-fulltext": "युक्त पृष्ठों को खोजें",
+	"wiki7-user-info-edits-label": "सम्पादन",
+	"wiki7-command-palette-keyhint-enter-select": "चुनें",
+	"wiki7-command-palette-keyhint-exit": "निकास",
+	"wiki7-command-palette-type-page": "पृष्ठ",
+	"wiki7-command-palette-type-namespace": "नामस्थान",
+	"wiki7-command-palette-type-user": "सदस्य"
+}

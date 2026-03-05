@@ -188,7 +188,7 @@ module.exports = exports = defineComponent( {
 		/**
 		 * Handles the selection of a result item.
 		 *
-		 * @param {CommandPaletteItem} result The selected item.
+		 * @param {CommandPaletteItem} result The selected item
 		 */
 		const selectResult = async ( result ) => {
 			const selectionAction = await searchStore.handleSelection( result );
@@ -196,12 +196,14 @@ module.exports = exports = defineComponent( {
 			switch ( selectionAction.action ) {
 				case 'navigate':
 					if ( selectionAction.payload ) {
-						window.location.href = selectionAction.payload;
+						// <a> tags are handled by the browser on mouse click, so we don't need to navigate.
+						if ( !result.isMouseClick ) {
+							window.location.href = selectionAction.payload;
+						}
 						close();
 					}
 					break;
 				case 'updateQuery':
-					// Query already updated by the store action, just focus input
 					nextTick( focusInput );
 					break;
 				case 'none':
@@ -218,7 +220,6 @@ module.exports = exports = defineComponent( {
 		const handleAction = ( action ) => {
 			switch ( action.type ) {
 				case 'dismiss':
-					// Specific to recent items, handled by the store
 					if ( action.itemId !== undefined ) {
 						searchStore.dismissRecentItem( action.itemId );
 					} else {
@@ -227,7 +228,6 @@ module.exports = exports = defineComponent( {
 					break;
 
 				case 'navigate':
-					// Standard navigation action
 					if ( action.url ) {
 						window.location.href = action.url;
 						close();
@@ -443,6 +443,7 @@ module.exports = exports = defineComponent( {
 
 <style lang="less">
 @import 'mediawiki.skin.variables.less';
+@import '../../mixins.less';
 
 .wiki7-command-palette {
 	--wiki7-command-palette-side-padding: var( --space-md );
@@ -453,12 +454,19 @@ module.exports = exports = defineComponent( {
 	max-width: @size-5600;
 	margin-inline: auto;
 	overflow: hidden;
-	font-size: var( --font-size-medium );
-	line-height: var( --line-height-xx-small );
-	background-color: var( --color-surface-1 );
 	border: var( --border-base );
 	border-radius: var( --border-radius-medium );
 	box-shadow: var( --box-shadow-drop-xx-large );
+	transform: unset;
+	transition-timing-function: var( --transition-timing-function-ease-out );
+	transition-duration: var( --transition-duration-medium );
+	transition-property: transform;
+	.mixin-wiki7-frosted-glass;
+	.mixin-wiki7-font-styles( 'small' );
+
+	@starting-style {
+		transform: scale( 0 ) translateY( -200% );
+	}
 
 	@media ( min-width: @max-width-breakpoint-tablet ) {
 		top: 3rem;
@@ -485,6 +493,17 @@ module.exports = exports = defineComponent( {
 	&__no-results {
 		padding: var( --space-md ) var( --wiki7-command-palette-side-padding );
 		text-align: center;
+	}
+
+	.wiki7-command-palette-list-item:not( [ data-type='action' ] ) {
+		opacity: 1;
+		transition: opacity var( --transition-duration-medium );
+		/* stylelint-disable-next-line time-min-milliseconds */
+		transition-delay: calc( 0.05s * ( sibling-index() - 1 ) );
+
+		@starting-style {
+			opacity: 0;
+		}
 	}
 }
 </style>

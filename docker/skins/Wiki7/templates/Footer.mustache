@@ -20,10 +20,29 @@
 	<div class="wiki7-footer__container">
 		<section class="wiki7-footer__content">
 			<div class="wiki7-footer__siteinfo">
-				<div id="footer-sitetitle" class="mw-wiki-title">{{>Wordmark}}</div>
-				<p id="footer-desc">{{{msg-wiki7-footer-desc}}}</p>
+				<div id="footer-sitetitle" class="wiki7-footer__sitetitle mw-wiki-title">
+					<img class="mw-logo-icon" src="{{>Logo_icon_src}}" alt="" aria-hidden="true" loading="lazy" height="48" width="48">
+					{{>Wordmark}}
+				</div>
+				<p id="footer-desc" class="wiki7-footer__desc">{{{msg-wiki7-footer-desc}}}</p>
 			</div>
 			{{#data-places}}{{>Footer__row}}{{/data-places}}
+		</section>
+		<section class="wiki7-footer__social">
+			<div class="wiki7-social-links">
+				<a href="https://www.facebook.com/HapoelBeerSheva" class="wiki7-social-link" target="_blank" rel="noopener" title="Facebook">
+					<span class="wiki7-social-link__icon wiki7-social-link__icon--facebook"></span>
+				</a>
+				<a href="https://www.instagram.com/hapoelbeersheva" class="wiki7-social-link" target="_blank" rel="noopener" title="Instagram">
+					<span class="wiki7-social-link__icon wiki7-social-link__icon--instagram"></span>
+				</a>
+				<a href="https://www.youtube.com/@HapoelBeerSheva" class="wiki7-social-link" target="_blank" rel="noopener" title="YouTube">
+					<span class="wiki7-social-link__icon wiki7-social-link__icon--youtube"></span>
+				</a>
+				<a href="https://x.com/HapoelBeerSheva" class="wiki7-social-link" target="_blank" rel="noopener" title="X">
+					<span class="wiki7-social-link__icon wiki7-social-link__icon--x"></span>
+				</a>
+			</div>
 		</section>
 		<section class="wiki7-footer__bottom">
 			<div id="footer-tagline">{{{msg-wiki7-footer-tagline}}}</div>

@@ -1,9 +1,7 @@
 <template>
 	<div class="citizen-command-palette__footer">
-		<div class="citizen-command-palette__footer-note">
-			Thanks for trying our new Command Palette!
-			<a href="https://github.com/StarCitizenTools/mediawiki-skins-Citizen/issues">Give us feedback</a>
-		</div>
+		<!-- eslint-disable-next-line vue/no-v-html -->
+		<div class="citizen-command-palette__footer-note" v-html="currentTip"></div>
 		<command-palette-keyboard-hints
 			:has-highlighted-item-with-actions="hasHighlightedItemWithActions"
 			:item-count="itemCount"
@@ -18,6 +16,7 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
+const { ref, computed, onMounted } = require( 'vue' );
 const CommandPaletteKeyboardHints = require( './CommandPaletteKeyboardHints.vue' );
 
 // @vue/component
@@ -55,6 +54,28 @@ module.exports = exports = defineComponent( {
 			type: Number,
 			default: 0
 		}
+	},
+	setup() {
+		// TODO: Make this expandable with more tips, probably with a mw hook
+		// TODO: Maybe we should move this to store?
+		const tips = [
+			mw.message( 'citizen-command-palette-tip-commands' ).parse(),
+			mw.message( 'citizen-command-palette-tip-users' ).parse(),
+			mw.message( 'citizen-command-palette-tip-namespace' ).parse(),
+			mw.message( 'citizen-command-palette-tip-templates' ).parse()
+		];
+
+		const currentTipIndex = ref( 0 );
+		const currentTip = computed( () => tips[ currentTipIndex.value ] );
+
+		onMounted( () => {
+			// Randomly select a tip when component is mounted
+			currentTipIndex.value = Math.floor( Math.random() * tips.length );
+		} );
+
+		return {
+			currentTip
+		};
 	}
 } );
 </script>
@@ -68,7 +89,6 @@ module.exports = exports = defineComponent( {
 	align-items: center;
 	justify-content: space-between;
 	padding: var( --space-sm ) var( --citizen-command-palette-side-padding );
-	font-size: var( --font-size-x-small );
 	color: var( --color-subtle );
 	border-top: var( --border-subtle );
 

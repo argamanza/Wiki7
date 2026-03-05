@@ -12,7 +12,8 @@ const commandRegistry = new Map(); // Initialize empty, will be populated below
 // Define and load built-in commands
 const builtInCommands = {
 	namespace: require( '../commands/namespace.js' ),
-	action: require( '../commands/action.js' )
+	action: require( '../commands/action.js' ),
+	user: require( '../commands/user.js' )
 };
 
 /** @type {Array<{trigger: string, id: string, lowerTrigger: string}>} */
@@ -89,35 +90,19 @@ function getCommandListItems( filterPrefix ) {
 	}
 
 	try {
-		const mappedResults = entries.map( ( [ id, handler ] ) => {
-			let metadata = [];
-			if ( handler.triggers?.length > 0 ) {
-				metadata = handler.triggers.map( ( trigger, index ) => ( {
-					label: trigger,
-					highlightQuery: index === 0 // Highlight only the first trigger
-				} ) );
-			} else {
-				// Fallback if no triggers are defined
-				metadata.push( {
-					label: `/${ id }`,
-					highlightQuery: true
-				} );
-			}
-
-			const item = {
-				id: `citizen-command-palette-item-command-${ id }`,
-				type: 'command',
-				label: handler.label ?? id,
-				description: handler.description,
-				thumbnailIcon: cdxIconCode,
-				value: handler.triggers?.[ 0 ] ?? `/${ id }`,
-				metadata: metadata,
-				source: `command:${ id }`
-			};
-			return item;
-		} );
-
-		return mappedResults;
+		return entries.map( ( [ id, handler ] ) => ( {
+			id: `citizen-command-palette-item-command-${ id }`,
+			type: 'command',
+			label: handler.triggers[ 0 ],
+			description: handler.description,
+			thumbnailIcon: cdxIconCode,
+			value: handler.triggers[ 0 ],
+			metadata: handler.triggers.length > 1 ?
+				handler.triggers.slice( 1 ).map( ( trigger ) => ( { label: trigger } ) ) :
+				undefined,
+			source: `command:${ id }`,
+			highlightQuery: true
+		} ) );
 	} catch ( error ) {
 		mw.log.error( '[skins.citizen.commandPalette|CommandProvider|getCommandListItems] Error during mapping:', error );
 		return []; // Return empty array in case of error
@@ -131,11 +116,74 @@ Object.values( builtInCommands ).forEach( registerCommand );
 // Pass the registration function as data
 mw.hook( 'skins.citizen.commandPalette.registerCommand' ).fire( { registerCommand } );
 
+/**
+ * Finds the command handler that best matches the start of the query.
+ * It searches through registered command triggers and returns the longest match.
+ *
+ * @param {string} query The search query.
+ * @return {{handler: CommandPaletteCommand, trigger: string, id: string}|null}
+ */
+function findMatchingCommand( query ) {
+	const lowerQuery = query.toLowerCase();
+	const matchingTriggers = flatTriggerList.filter( ( { lowerTrigger } ) => lowerQuery.startsWith( lowerTrigger ) );
+
+	if ( matchingTriggers.length === 0 ) {
+		return null;
+	}
+
+	// Sort by trigger length descending to find the longest match
+	matchingTriggers.sort( ( a, b ) => b.trigger.length - a.trigger.length );
+	const bestMatch = matchingTriggers[ 0 ];
+	const { trigger, id } = bestMatch;
+	const handler = commandRegistry.get( id );
+
+	if ( !handler ) {
+		mw.log.warn( `[skins.citizen.commandPalette|CommandProvider] Handler for command "${ id }" (matched via trigger "${ trigger }") not found in registry. This indicates an inconsistency.` );
+		return null;
+	}
+
+	return { handler, trigger, id };
+}
+
+/**
+ * Executes a sub-query command and returns the processed results.
+ *
+ * @param {CommandPaletteCommand} handler The command handler.
+ * @param {string} query The full search query.
+ * @param {string} trigger The trigger that matched.
+ * @param {string} commandId The ID of the command.
+ * @return {Promise<Array<CommandPaletteItem>>}
+ */
+async function executeSubQueryCommand( handler, query, trigger, commandId ) {
+	const subQuery = query.slice( trigger.length ).trim();
+	const actualSubQuery = subQuery.startsWith( ':' ) ? subQuery.slice( 1 ).trim() : subQuery;
+
+	try {
+		const results = await handler.getResults( actualSubQuery );
+		const processedResults = ( Array.isArray( results ) ? results : [] ).map( ( item ) => {
+			if ( item.highlightQuery ) {
+				return { ...item, highlightTerm: actualSubQuery };
+			}
+			return item;
+		} );
+
+		// Tag results with the structured source: provider:handlerId and limit
+		return processedResults.map( ( item ) => ( {
+			...item,
+			source: `command:${ commandId }`
+		} ) ).slice( 0, MAX_COMMAND_RESULTS );
+	} catch ( err ) {
+		mw.log.error( `[skins.citizen.commandPalette|CommandProvider] Handler getResults for "${ commandId }" failed:`, err );
+		return [];
+	}
+}
+
 /** @type {CommandPaletteProvider} */
 module.exports = {
 	id: 'command',
 	isAsync: true, // Although some commands might be sync, the handler resolution can be async
 	debounceMs: 0,
+	keepStaleResultsOnQueryChange: true,
 
 	/**
 	 * Determines if this provider should handle the current query.
@@ -161,82 +209,33 @@ module.exports = {
 	 * @return {Promise<Array<CommandPaletteItem>>}
 	 */
 	async getResults( query ) {
-		let matchedHandler = null;
-		let matchedTrigger = null;
-		let commandId = null; // Store the matched command ID
+		const match = findMatchingCommand( query );
 
-		// Find the handler and trigger that match the query start using the flatTriggerList and lowerQuery
-		const matchingTriggers = flatTriggerList.filter( ( { lowerTrigger } ) => query.toLowerCase().startsWith( lowerTrigger ) );
-
-		if ( matchingTriggers.length > 0 ) {
-			// Sort by trigger length descending to find the longest match
-			matchingTriggers.sort( ( a, b ) => b.trigger.length - a.trigger.length );
-			const bestMatch = matchingTriggers[ 0 ];
-			matchedTrigger = bestMatch.trigger;
-			commandId = bestMatch.id;
-			matchedHandler = commandRegistry.get( commandId ); // Get the handler from the map
-
-			// Basic check if handler was found (it should be, given flatTriggerList is derived from it)
-			if ( !matchedHandler ) {
-				mw.log.warn( `[skins.citizen.commandPalette|CommandProvider] Handler for command "${ commandId }" (matched via trigger "${ matchedTrigger }") not found in registry. This indicates an inconsistency.` );
-				// Reset matched state if handler is unexpectedly missing
-				matchedHandler = null;
-				matchedTrigger = null;
-				commandId = null;
-			}
-		}
-
-		// Query Handling Logic - remains the same, but uses the matchedHandler/matchedTrigger found above
 		// Case 1: Root query "/" - Show all available commands
 		if ( query === '/' ) {
-			const commandItems = getCommandListItems(); // Get all command items
-			if ( !Array.isArray( commandItems ) ) {
-				mw.log.error( '[skins.citizen.commandPalette|CommandProvider] getCommandListItems did not return an array for query "/"!' );
-				return []; // Return empty array defensively
-			}
+			const commandItems = getCommandListItems();
 			return commandItems.slice( 0, MAX_COMMAND_RESULTS );
 		}
 
-		// Case 2: A specific command trigger is fully matched (e.g., query starts with "/ns" or ":")
-		if ( matchedHandler && matchedTrigger ) {
-			// Subquery commands
-			if ( typeof matchedHandler.getResults === 'function' ) {
-				// It's a sub-query command, process the sub-query
-				const subQuery = query.slice( matchedTrigger.length ).trim();
-				const actualSubQuery = subQuery.startsWith( ':' ) ? subQuery.slice( 1 ).trim() : subQuery;
-
-				try {
-					// Pass the actual sub-query to the handler
-					const results = await matchedHandler.getResults( actualSubQuery );
-					const processedResults = ( Array.isArray( results ) ? results : [] ).map( ( item ) => {
-						if ( item.highlightQuery ) {
-							return { ...item, highlightTerm: actualSubQuery };
-						}
-						return item;
-					} );
-
-					// Tag results with the structured source: provider:handlerId
-					return processedResults.map( ( item ) => ( {
-						...item,
-						source: `command:${ commandId }` // Structured source
-					} ) ).slice( 0, MAX_COMMAND_RESULTS );
-				} catch ( err ) {
-					mw.log.error( `[skins.citizen.commandPalette|CommandProvider] Handler getResults for "${ commandId }" failed:`, err );
-					return [];
-				}
-			// Simple commands
+		// Case 2: A specific command trigger is fully matched
+		if ( match ) {
+			const { handler, trigger, id } = match;
+			if ( typeof handler.getResults === 'function' ) {
+				// It's a sub-query command
+				return executeSubQueryCommand( handler, query, trigger, id );
 			} else {
-				const thisCommandItem = getCommandListItems().find( ( item ) => item.source === `command:${ commandId }` );
+				// It's a simple command
+				const thisCommandItem = getCommandListItems().find( ( item ) => item.source === `command:${ id }` );
 				return thisCommandItem ? [ thisCommandItem ] : [];
 			}
 		}
 
-		// Case 3: No specific trigger matched, but query starts with '/' (e.g., "/n" or "/unknown")
-		if ( !matchedTrigger && query.startsWith( '/' ) ) {
-			return getCommandListItems( query ).slice( 0, MAX_COMMAND_RESULTS ); // Filter commands by original query prefix
+		// Case 3: No specific trigger matched, but query starts with '/' (prefix search)
+		if ( query.startsWith( '/' ) ) {
+			return getCommandListItems( query ).slice( 0, MAX_COMMAND_RESULTS );
 		}
 
-		// Case 4: Query doesn't match any command pattern - return empty array
+		// Case 4: Query doesn't match any command pattern
 		return [];
 	},
 
@@ -245,7 +244,7 @@ module.exports = {
 	 * Finds the responsible handler based on item.source and delegates.
 	 *
 	 * @param {CommandPaletteItem} item The selected item.
-	 * @return {CommandPaletteActionResult} Action result for the UI.
+	 * @return {Promise<CommandPaletteActionResult>} Action result for the UI.
 	 */
 	async onResultSelect( item ) {
 		// Extract handler ID from structured source (e.g., 'command:namespace')

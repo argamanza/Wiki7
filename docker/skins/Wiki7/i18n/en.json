@@ -6,7 +6,7 @@
 		]
 	},
 	"skinname-wiki7": "Wiki7",
-	"wiki7-skin-desc": "A beautiful, usable, responsive MediaWiki skin that makes extensions part of the cohesive experience. Initially created for the [https://starwiki7.tools/ Star Wiki7 Wiki].",
+	"wiki7-skin-desc": "A beautiful, usable, responsive MediaWiki skin that makes extensions part of the cohesive experience. Initially created for the [https://starcitizen.tools/ Star Wiki7 Wiki].",
 	"wiki7-prefs-talkpage": "[[mw:Skin_talk:Wiki7|Discussion]]",
 	"wiki7.css": "/* All CSS here will be loaded for users of the Wiki7 skin */",
 	"wiki7.js": "/* All JavaScript here will be loaded for users of the Wiki7 skin */",
@@ -33,7 +33,8 @@
 	"wiki7-footer-tagline": "Edit this text on [[MediaWiki:Wiki7-footer-tagline]]",
 	"wiki7-action-addsection": "Add topic",
 	"wiki7-jumptotop": "Back to top",
-	
+	"wiki7-toc-toggle-button-label": "Toggle $1 subsection",
+
 	"wiki7-search-advancedsearch": "Advanced search",
 	"wiki7-search-fulltext": "Search text",
 	"wiki7-search-mediasearch": "Search media",
@@ -55,33 +56,51 @@
 	"wiki7-tagline-ns-category": "Category page",
 	"wiki7-tagline-user-regdate": "Joined $1",
 
+	"wiki7-preferences-section-appearance": "Appearance",
+	"wiki7-preferences-section-behavior": "Behavior",
+
 	"wiki7-theme-name": "Color",
-	"wiki7-theme-description": "Change the theme of the wiki",
+	"wiki7-theme-description": "Switch between light and dark mode",
 	"wiki7-theme-day-label": "Light",
 	"wiki7-theme-night-label": "Dark",
 	"wiki7-theme-os-label": "Auto",
-	"wiki7-theme-exclusion-notice": "This page is always in light mode.",
-
 	"wiki7-feature-autohide-navigation-name": "Automatically hide navigation",
+	"wiki7-feature-autohide-navigation-description": "Hide the navigation bar when scrolling down",
 	"wiki7-feature-autohide-navigation-0-label": "Off",
 	"wiki7-feature-autohide-navigation-1-label": "On",
 
+	"wiki7-feature-performance-mode-name": "Performance mode",
+	"wiki7-feature-performance-mode-description": "Reduce animations and visual effects",
+	"wiki7-feature-performance-mode-0-label": "Off",
+	"wiki7-feature-performance-mode-1-label": "On",
+
+	"wiki7-feature-image-dimming-name": "Image dimming",
+	"wiki7-feature-image-dimming-description": "Reduce the brightness of images",
+	"wiki7-feature-image-dimming-0-label": "Off",
+	"wiki7-feature-image-dimming-1-label": "On",
+
 	"wiki7-feature-pure-black-name": "Pure black mode",
+	"wiki7-feature-pure-black-description": "Replace dark gray backgrounds with pure black",
 	"wiki7-feature-pure-black-0-label": "Off",
 	"wiki7-feature-pure-black-1-label": "On",
 
 	"wiki7-feature-custom-font-size-name": "Text",
+	"wiki7-feature-custom-font-size-description": "Change the font size of the body text",
 	"wiki7-feature-custom-font-size-small-label": "Small",
 	"wiki7-feature-custom-font-size-standard-label": "Standard",
 	"wiki7-feature-custom-font-size-large-label": "Large",
+	"wiki7-feature-custom-font-size-xlarge-label": "Extra large",
 
 	"wiki7-feature-custom-width-name": "Width",
+	"wiki7-feature-custom-width-description": "Change the width of the content area",
 	"wiki7-feature-custom-width-standard-label": "Standard",
 	"wiki7-feature-custom-width-wide-label": "Wide",
 	"wiki7-feature-custom-width-full-label": "Full",
 
 	"wiki7-user-info-text-anon": "Your IP address will be publicly visible if you make any edits.",
 	"wiki7-user-info-text-temp": "This temporary account was created after an edit was made without an account on this browser and device.",
+	"wiki7-user-info-edits-label": "Edits",
+	"wiki7-user-info-joined-label": "Joined",
 
 	"wiki7-command-palette-heading-recent": "Recent",
 	"wiki7-command-palette-heading-related": "Related",
@@ -95,17 +114,24 @@
 	"wiki7-command-palette-keyhint-return": "Return",
 
 	"wiki7-command-palette-type-page": "Page",
-	"wiki7-command-palette-type-fulltext-search": "Fulltext search",
+	"wiki7-command-palette-type-action": "Action",
 	"wiki7-command-palette-type-namespace": "Namespace",
 	"wiki7-command-palette-type-command": "Command",
 	"wiki7-command-palette-type-special-page": "Special page",
 	"wiki7-command-palette-type-menu-item": "Menu item",
+	"wiki7-command-palette-type-user": "User",
 
-	"wiki7-command-palette-type-fulltext-search-description": "Search the full text of all pages",
-
-	"wiki7-command-palette-command-ns-label": "Namespace",
 	"wiki7-command-palette-command-ns-description": "Search for a page in a specific namespace",
+	"wiki7-command-palette-command-action-description": "Perform a specific action",
+	"wiki7-command-palette-command-user-description": "Search for a user",
 
-	"wiki7-command-palette-command-action-label": "Action",
-	"wiki7-command-palette-command-action-description": "Perform a specific action"
+	"wiki7-command-palette-queryaction-fulltext-search-description": "Search the full text of all pages",
+	"wiki7-command-palette-queryaction-media-search-description": "Search for media files",
+	"wiki7-command-palette-queryaction-page-edit-description": "Create or edit page",
+
+	"wiki7-command-palette-tip-commands": "Type <code>/</code> for all commands",
+	"wiki7-command-palette-tip-users": "Type <code>@</code> to search for users",
+	"wiki7-command-palette-tip-namespace": "Type <code>:</code> to search for namespace",
+	"wiki7-command-palette-tip-templates": "Type <code><nowiki>{{</nowiki></code> to search for templates",
+	"wiki7-command-palette-tip-actions": "Type <code>></code> for a list of actions"
 }

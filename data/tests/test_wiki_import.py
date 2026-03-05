@@ -92,7 +92,7 @@ class TestCargoTemplates:
         from wiki_import.import_templates import import_cargo_templates
 
         summary = import_cargo_templates(dry_run=True)
-        assert summary["created"] == 7  # Player, Transfer, MarketValue, Match, PlayerStats, Coach, Honour
+        assert summary["created"] == 12  # Player, Transfer, MarketValue, Match, PlayerStats, Coach, Honour, FanAnthem, MuseumItem, Season, Kit, FanStory
         assert summary["failed"] == 0
 
     def test_cargo_template_content(self):
@@ -149,7 +149,7 @@ class TestMediaWikiTemplates:
 
         player_infobox = (MEDIAWIKI_TEMPLATE_DIR / "Player_infobox.wikitext").read_text(encoding="utf-8")
         assert "infobox" in player_infobox
-        assert "#cc0000" in player_infobox
+        assert "wiki7-infobox" in player_infobox
         assert "עמדה" in player_infobox
 
         match_infobox = (MEDIAWIKI_TEMPLATE_DIR / "Match_infobox.wikitext").read_text(encoding="utf-8")
@@ -164,7 +164,7 @@ class TestMediaWikiTemplates:
         from wiki_import.import_templates import import_mediawiki_templates
 
         summary = import_mediawiki_templates(dry_run=True)
-        assert summary["created"] == 4  # Tooltip, Player, Match, Stadium
+        assert summary["created"] == 10  # Tooltip, Player, Match, Stadium, Fan anthem, Museum item, Season, Coach, Trophy, Kit
         assert summary["failed"] == 0
 
     def test_mediawiki_templates_dict_has_correct_keys(self):
@@ -175,6 +175,12 @@ class TestMediaWikiTemplates:
             "Template:Player infobox",
             "Template:Match infobox",
             "Template:Stadium infobox",
+            "Template:Fan anthem infobox",
+            "Template:Museum item infobox",
+            "Template:Season infobox",
+            "Template:Coach infobox",
+            "Template:Trophy infobox",
+            "Template:Kit infobox",
         }
         assert set(MEDIAWIKI_TEMPLATES.keys()) == expected_titles
 

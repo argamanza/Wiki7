@@ -1,0 +1,26 @@
+<includeonly>
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+{{{name|}}}
+</div>
+{{#if:{{{image|}}}|
+<div class="wiki7-infobox__image">[[File:{{{image|}}}|300px]]</div>
+}}
+<div class="wiki7-infobox__section">
+{{#if:{{{item_type|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">סוג</span><span class="wiki7-infobox__value">{{{item_type|}}}</span></div>}}
+{{#if:{{{era|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תקופה</span><span class="wiki7-infobox__value">{{{era|}}}</span></div>}}
+{{#if:{{{year|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">שנה</span><span class="wiki7-infobox__value">{{{year|}}}</span></div>}}
+{{#if:{{{donor|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תורם</span><span class="wiki7-infobox__value">{{{donor|}}}</span></div>}}
+{{#if:{{{description|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תיאור</span><span class="wiki7-infobox__value">{{{description|}}}</span></div>}}
+</div>
+</div>
+{{#cargo_store:
+_table=museum_items
+|name={{{name|}}}
+|item_type={{{item_type|}}}
+|era={{{era|}}}
+|year={{{year|}}}
+|donor={{{donor|}}}
+|description={{{description|}}}
+}}
+</includeonly>

@@ -46,7 +46,8 @@ function getFirstString( s ) {
  */
 function adaptApiResponse( config, query, response, showDescription ) {
 	const urlGeneratorInstance = urlGenerator( config );
-	const getDescription = ( page ) => getFirstString( page?.printouts?.Description ).slice( 0, 60 );
+	const getDescription = ( page ) => getFirstString( page?.printouts?.Description )
+		.slice( 0, 60 );
 
 	return {
 		query,
@@ -106,15 +107,15 @@ function smwAskApiSearchClient( config ) {
 		/**
 		 * @type {fetchByTitle}
 		 */
-		// FIXME: Set showDescription to false for now, the 'Description' key in printout seems to be causing issue
+		// FIXME: Set showDescription to false for now, the 'Description' key in printout seems to
+		// be causing issue
 		fetchByTitle: ( q, limit = config.wgWiki7MaxSearchResults, showDescription = false ) => {
 			const searchApiUrl = config.wgScriptPath + '/api.php';
 
 			const getConditions = () => {
 				const separateConditions = ( s ) => s.replace( /\]\]\s*\[\[/g, '|' );
 				const removeSquareBrackets = ( s ) => s.replace( /\[|\]/g, '' );
-				const conditions = removeSquareBrackets( separateConditions( q ) );
-				return conditions;
+				return removeSquareBrackets( separateConditions( q ) );
 			};
 
 			const getPrintouts = () => {
@@ -153,7 +154,8 @@ function smwAskApiSearchClient( config ) {
 				}
 			} );
 			const searchResponsePromise = result.fetch
-				.then( ( /** @type {SMWAskArgResponse} */ res ) => adaptApiResponse( config, q, res, showDescription ) );
+				.then( ( res ) => adaptApiResponse(
+					config, q, res, showDescription ) );
 			return {
 				abort: result.abort,
 				fetch: searchResponsePromise

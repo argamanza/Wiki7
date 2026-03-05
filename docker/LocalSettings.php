@@ -88,6 +88,9 @@ wfLoadSkin( 'Wiki7' );
 
 $wgDefaultSkin = 'Wiki7';
 
+// Wiki7 skin configuration
+$wgWiki7HeaderPosition = 'left'; // Auto-flips to right in RTL
+
 // Main page configuration
 $wgMainPageIsDomainRoot = true; // Serve main page at domain root
 
@@ -109,6 +112,7 @@ wfLoadExtension( 'WikiEditor' );
 
 wfLoadExtension( 'Cargo' );
 wfLoadExtension( 'PageForms' );
+wfLoadExtension( 'TabberNeue' );
 
 ##
 ## Logo

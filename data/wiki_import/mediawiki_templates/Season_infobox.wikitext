@@ -1,0 +1,29 @@
+<includeonly>
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+עונת {{{year|}}}
+</div>
+<div class="wiki7-infobox__section">
+{{#if:{{{manager|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מאמן</span><span class="wiki7-infobox__value">{{{manager|}}}</span></div>}}
+{{#if:{{{league_position|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מיקום בליגה</span><span class="wiki7-infobox__value">{{{league_position|}}}</span></div>}}
+{{#if:{{{cup_result|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">גביע המדינה</span><span class="wiki7-infobox__value">{{{cup_result|}}}</span></div>}}
+{{#if:{{{top_scorer|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מלך שערים</span><span class="wiki7-infobox__value">{{{top_scorer|}}}{{#if:{{{top_scorer_goals|}}}| ({{{top_scorer_goals|}}} שערים)}}</span></div>}}
+</div>
+{{#if:{{{matches|}}}{{{wins|}}}|
+<div class="wiki7-infobox__stats-grid">
+{{#if:{{{matches|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{matches|}}}</span><span class="wiki7-infobox__stat-label">משחקים</span></div>}}
+{{#if:{{{wins|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{wins|}}}</span><span class="wiki7-infobox__stat-label">ניצחונות</span></div>}}
+{{#if:{{{goals_scored|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{goals_scored|}}}</span><span class="wiki7-infobox__stat-label">שערים</span></div>}}
+</div>
+}}
+</div>
+{{#cargo_store:
+_table=seasons
+|year={{{year|}}}
+|league_position={{{league_position|}}}
+|cup_result={{{cup_result|}}}
+|top_scorer={{{top_scorer|}}}
+|top_scorer_goals={{{top_scorer_goals|}}}
+|manager={{{manager|}}}
+}}
+</includeonly>

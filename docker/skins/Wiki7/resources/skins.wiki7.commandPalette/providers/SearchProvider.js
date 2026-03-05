@@ -1,11 +1,13 @@
 const { CommandPaletteItem, CommandPaletteProvider, CommandPaletteActionResult } = require( '../types.js' );
 const SearchClientFactory = require( '../searchClients/SearchClientFactory.js' );
+const { getNavigationAction } = require( '../utils/providerActions.js' );
 
 /** @type {CommandPaletteProvider} */
 module.exports = {
 	id: 'search',
 	isAsync: true,
 	debounceMs: 250,
+	keepStaleResultsOnQueryChange: true,
 
 	/**
 	 * Determines if this provider should handle the current query.
@@ -44,16 +46,11 @@ module.exports = {
 
 	/**
 	 * Handles the selection of a search result item.
-	 * Default action is to navigate to the item's URL.
 	 *
 	 * @param {CommandPaletteItem} item The selected item.
-	 * @return {CommandPaletteActionResult} Action result for the UI.
+	 * @return {Promise<CommandPaletteActionResult>} Action result.
 	 */
 	async onResultSelect( item ) {
-		// Default behavior for search results is navigation
-		if ( item.url ) {
-			return { action: 'navigate', payload: item.url };
-		}
-		return { action: 'none' }; // Fallback if no URL
+		return getNavigationAction( item );
 	}
 };

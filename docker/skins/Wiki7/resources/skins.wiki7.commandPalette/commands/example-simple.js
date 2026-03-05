@@ -10,7 +10,7 @@
 
 /* eslint-disable no-console */
 /* Type declaration is not required, but is included for clarity. */
-const { CommandPaletteCommand, CommandPaletteItem, CommandPaletteActionResult } = require( '../types.js' );
+const { CommandPaletteCommand, CommandPaletteItem, CommandPaletteNoneAction } = require( '../types.js' );
 
 /**
  * Example Simple Command
@@ -33,11 +33,6 @@ const exampleSimpleCommand = {
 	triggers: [ '/simple', '/sim' ],
 
 	/**
-	 * Label: The display name of the command in the initial command list.
-	 */
-	label: 'Simple Example Command',
-
-	/**
 	 * Description: A short explanation shown below the label.
 	 */
 	description: 'Executes a simple action directly.',
@@ -47,13 +42,12 @@ const exampleSimpleCommand = {
 	 * Since there's no sub-query, this performs the final action.
 	 *
 	 * @param {CommandPaletteItem} item The selected command item.
-	 * @return {CommandPaletteActionResult} Action result for the UI.
+	 * @return {CommandPaletteNoneAction} Action result for the UI.
 	 */
 	onCommandSelect( item ) {
 		console.debug( '[ExampleSimpleCommand] Command selected:', item );
 		mw.notify( `Simple command '${ item.label }' executed!` );
-		// Close the palette after execution
-		return { action: 'close' };
+		return { action: 'none' };
 	},
 
 	// No getResults or onResultSelect needed for a simple command.

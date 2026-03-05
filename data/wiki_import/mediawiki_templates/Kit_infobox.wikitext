@@ -1,0 +1,23 @@
+<includeonly>
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+מדי {{{kit_type|}}} — {{{season|}}}
+</div>
+{{#if:{{{image|}}}|
+<div class="wiki7-infobox__image">[[File:{{{image|}}}|250px]]</div>
+}}
+<div class="wiki7-infobox__section">
+<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">עונה</span><span class="wiki7-infobox__value">{{{season|}}}</span></div>
+<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">סוג</span><span class="wiki7-infobox__value">{{{kit_type|}}}</span></div>
+{{#if:{{{manufacturer|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">יצרן</span><span class="wiki7-infobox__value">{{{manufacturer|}}}</span></div>}}
+{{#if:{{{sponsor|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">חסות</span><span class="wiki7-infobox__value">{{{sponsor|}}}</span></div>}}
+</div>
+</div>
+{{#cargo_store:
+_table=kits
+|season={{{season|}}}
+|kit_type={{{kit_type|}}}
+|manufacturer={{{manufacturer|}}}
+|sponsor={{{sponsor|}}}
+}}
+</includeonly>

@@ -1,5 +1,8 @@
 <template>
-	<div
+	<component
+		:is="url ? 'a' : 'button'"
+		:href="url || undefined"
+		:type="url ? undefined : 'button'"
 		class="wiki7-command-palette-list-item__content"
 	>
 		<cdx-thumbnail
@@ -62,7 +65,7 @@
 				{{ typeLabel }}
 			</div>
 		</div>
-	</div>
+	</component>
 </template>
 
 <script>
@@ -78,6 +81,10 @@ module.exports = exports = defineComponent( {
 		CdxThumbnail
 	},
 	props: {
+		url: {
+			type: String,
+			default: ''
+		},
 		label: {
 			type: String,
 			required: true
@@ -119,6 +126,8 @@ module.exports = exports = defineComponent( {
 </script>
 
 <style lang="less">
+@import '../../mixins.less';
+
 .wiki7-command-palette-list-item {
 	&__content {
 		display: flex;
@@ -126,6 +135,17 @@ module.exports = exports = defineComponent( {
 		align-items: center;
 		padding: var( --space-sm ) var( --wiki7-command-palette-side-padding );
 		text-decoration: none;
+
+		// Reset button styles
+		button& {
+			width: 100%;
+			font: inherit;
+			color: inherit;
+			text-align: inherit;
+			cursor: pointer;
+			background: none;
+			border: 0;
+		}
 
 		&:hover {
 			text-decoration: none;
@@ -136,17 +156,12 @@ module.exports = exports = defineComponent( {
 		flex: 1;
 		min-width: 0;
 		overflow: hidden;
-
-		&__label,
-		&__description {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
+		line-height: 1.125rem; // Match height of the thumbnail
 
 		&__label {
 			font-weight: var( --font-weight-semi-bold );
 			color: var( --color-emphasized );
+			.mixin-wiki7-font-styles( 'body' );
 
 			.cdx-search-result-title {
 				/* So that text-overflow works */
@@ -155,7 +170,6 @@ module.exports = exports = defineComponent( {
 		}
 
 		&__description {
-			font-size: var( --font-size-x-small );
 			color: var( --color-subtle );
 		}
 
@@ -167,23 +181,33 @@ module.exports = exports = defineComponent( {
 				color: var( --color-subtle );
 			}
 		}
+
+		&__label,
+		&__description {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	}
 
 	&__metadata {
 		display: flex;
 		gap: var( --space-xxs );
-		font-size: var( --font-size-x-small );
 		color: var( --color-subtle );
 
 		&__item {
 			display: flex;
 			column-gap: var( --space-xxs );
 			align-items: center;
-			padding: var( --space-xxs ) var( --space-xs );
-			line-height: var( --line-height-xxx-small );
+			padding: 2px var( --space-xs );
+			line-height: var( --line-height-small );
 			background: var( --color-surface-3 );
 			border: var( --border-subtle );
 			border-radius: var( --border-radius-base );
+
+			.cdx-icon {
+				color: var( --color-subtle );
+			}
 		}
 	}
 }

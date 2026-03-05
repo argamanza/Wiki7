@@ -21,7 +21,9 @@
 	--color-subtle-oklch__l: 70%;
 	--color-subtle-oklch__c: 0.07;
 	--color-placeholder-oklch__l: 60%;
-	--color-placeholder-oklch__c: 0.07;
+	--color-placeholder-oklch__c: 0.03;
+	--color-disabled-oklch__l: 50%;
+	--color-disabled-oklch__c: 0.01;
 
 	--color-emphasized-hsl__s: 80%;
 	--color-emphasized-hsl__l: 95%;
@@ -29,8 +31,10 @@
 	--color-base-hsl__l: 85%;
 	--color-subtle-hsl__s: 35%;
 	--color-subtle-hsl__l: 70%;
-	--color-placeholder-hsl__s: 40%;
+	--color-placeholder-hsl__s: 80%;
 	--color-placeholder-hsl__l: 60%;
+	--color-disabled-hsl__s: 80%;
+	--color-disabled-hsl__l: 50%;
 
 	--color-destructive__l: 50%;
 	--color-success__l: 35%;
@@ -56,13 +60,16 @@
 	--background-color-icon--hover: ~'rgba( 255, 255, 255, var( --opacity-icon-base--hover ) )';
 	--background-color-icon--active: ~'rgba( 255, 255, 255, var( --opacity-icon-base--active ) )';
 
-	--border-color-base: rgba( 255, 255, 255, 0.08 );
-	--border-color-subtle: rgba( 255, 255, 255, 0.05 );
-	--border-color-muted: rgba( 255, 255, 255, 0.03 );
-	--border-color-interactive: rgba( 255, 255, 255, 0.11 );
+	--border-color-base: ~'rgb( 255 255 255 / 0.1 )';
+	--border-color-subtle: ~'rgb( 255 255 255 / 0.05 )';
+	--border-color-muted: ~'rgb( 255 255 255 / 0.03 )';
+	--border-color-interactive: ~'rgb( 255 255 255 / 0.1 )';
 
-	--shadow-color: var( --color-progressive-hsl__h ), 50%, 3%;
-	--shadow-opacity: 0.3;
+	--opacity-glass: 0.8;
+
+	--shadow-color-oklch__l: 6%;
+	--shadow-color-hsl__l: 3%;
+	--shadow-opacity: 0.44;
 
 	--filter-invert: invert( 1 ) hue-rotate( 180deg );
 

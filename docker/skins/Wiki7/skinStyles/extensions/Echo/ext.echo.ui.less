@@ -3,9 +3,9 @@
  *
  * SkinStyles for Extension:Echo
  * Module: ext.echo.ui
- * Version: REL1_43
+ * Version: REL1_43 / REL1_45
  *
- * Date: 2025-01-04
+ * Date: 2025-12-23
 */
 
 @import '../../../resources/variables.less';
@@ -16,15 +16,38 @@
 }
 
 .skin-wiki7 {
-	.mw-echo-ui-notificationBadgeButtonPopupWidget-popup {
+	.mw-echo-ui-notificationBadgeButtonPopupWidget-popup,
+	.mw-echo-ui-notificationBadgeController-popup {
 		top: unset !important;
-		bottom: calc( var( --header-size ) + env( safe-area-inset-bottom ) ) !important;
+		bottom: calc( var( --header-size-block-end ) + env( safe-area-inset-bottom ) ) !important;
 		margin: var( --space-xs );
-		box-shadow: var( --box-shadow-drop-xx-large );
+		box-shadow: var( --box-shadow-large );
 
 		@media ( min-width: @min-width-breakpoint-desktop ) {
-			bottom: 0 !important;
-			left: var( --header-size ) !important;
+			.wiki7-header-position-left & {
+				right: unset !important;
+				bottom: 0 !important;
+				left: var( --header-size-inline-start ) !important;
+			}
+
+			.wiki7-header-position-right & {
+				right: var( --header-size-inline-end ) !important;
+				bottom: 0 !important;
+				left: unset !important;
+			}
+
+			.wiki7-header-position-top & {
+				top: var( --header-size-block-start ) !important;
+				right: 0 !important;
+				bottom: unset !important;
+				left: unset !important;
+			}
+
+			.wiki7-header-position-bottom & {
+				right: 0 !important;
+				bottom: var( --header-size-block-end ) !important;
+				left: unset !important;
+			}
 		}
 
 		.oo-ui-popupWidget-body {
@@ -52,7 +75,7 @@
 					margin-left: var( --space-xs );
 					font-size: var( --font-size-medium );
 					font-weight: var( --font-weight-semi-bold );
-					line-height: var( --line-height-xx-small );
+					line-height: var( --line-height-small );
 					color: var( --color-emphasized );
 				}
 
@@ -68,7 +91,8 @@
 /* mw.echo.ui.mobile.less */
 @media all and ( max-width: 720px ) {
 	.mw-echo-ui-overlay {
-		.mw-echo-ui-notificationBadgeButtonPopupWidget-popup {
+		.mw-echo-ui-notificationBadgeButtonPopupWidget-popup,
+		.mw-echo-ui-notificationBadgeController-popup {
 			right: 0 !important;
 			left: 0 !important;
 		}
@@ -84,6 +108,13 @@
 	bottom: 0;
 	z-index: @z-index-overlay; // Higher than header
 
+	@media ( min-width: @min-width-breakpoint-desktop ) {
+		.wiki7-header-position-top & {
+			top: 0;
+			bottom: unset;
+		}
+	}
+
 	// Add dismiss affordnance backdrop
 	@media ( max-width: @max-width-breakpoint-tablet ) {
 		&::before {
@@ -97,7 +128,7 @@
 			transition-property: opacity;
 		}
 
-		&:has( > .mw-echo-ui-notificationBadgeButtonPopupWidget-popup:not( .oo-ui-element-hidden ) ) {
+		&:has( > :is( .mw-echo-ui-notificationBadgeButtonPopupWidget-popup, .mw-echo-ui-notificationBadgeController-popup ):not( .oo-ui-element-hidden ) ) {
 			&::before {
 				position: fixed;
 				inset: 0;

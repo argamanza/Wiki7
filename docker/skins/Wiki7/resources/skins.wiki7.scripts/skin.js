@@ -1,14 +1,18 @@
 /**
+ * @param {Object} deps
+ * @param {Document} deps.document
+ * @param {Window} deps.window
+ * @param {Object} deps.mw
+ * @param {Object} deps.navigator
+ * @param {Object} deps.HTMLScriptElement
  * @return {void}
  */
-function deferredTasks() {
-	const
-		setupObservers = require( './setupObservers.js' ),
-		speculationRules = require( './speculationRules.js' );
+function deferredTasks( { document, window, mw, navigator, HTMLScriptElement } ) {
+	const { createSpeculationRules } = require( './speculationRules.js' );
+	const { createServiceWorker } = require( './serviceWorker.js' );
 
-	setupObservers.main();
-	speculationRules.init();
-	registerServiceWorker();
+	createSpeculationRules( { document, mw, HTMLScriptElement } ).init();
+	createServiceWorker( { mw, navigator } ).register();
 
 	window.addEventListener( 'beforeunload', () => {
 		// Set up loading indicator
@@ -19,48 +23,57 @@ function deferredTasks() {
 	window.addEventListener( 'pagehide', () => {
 		document.documentElement.classList.remove( 'wiki7-loading' );
 	} );
-}
 
-/**
- * Register service worker
- *
- * @return {void}
- */
-function registerServiceWorker() {
-	const scriptPath = mw.config.get( 'wgScriptPath' );
-	// Only allow serviceWorker when the scriptPath is at root because of its scope
-	// I can't figure out how to add the Service-Worker-Allowed HTTP header
-	// to change the default scope
-	if ( scriptPath !== '' ) {
-		return;
-	}
-
-	if ( 'serviceWorker' in navigator ) {
-		const SW_MODULE_NAME = 'skins.wiki7.serviceWorker',
-			version = mw.loader.moduleRegistry[ SW_MODULE_NAME ].version,
-			// HACK: Faking a RL link
-			swUrl = scriptPath +
-				'/load.php?modules=' + SW_MODULE_NAME +
-				'&only=scripts&raw=true&skin=wiki7&version=' + version;
-		navigator.serviceWorker.register( swUrl, { scope: '/' } );
-	}
+	document.documentElement.classList.add( 'wiki7-animations-ready' );
 }
 
 /**
  * Initialize scripts related to wiki page content
  *
  * @param {HTMLElement} bodyContent
+ * @param {Object} deps
+ * @param {Document} deps.document
+ * @param {Window} deps.window
+ * @param {Object} deps.mw
+ * @param {typeof IntersectionObserver} deps.IntersectionObserver
+ * @param {typeof ResizeObserver} deps.ResizeObserver
  * @return {void}
  */
-function initBodyContent( bodyContent ) {
+function initBodyContent(
+	bodyContent, { document, window, mw, IntersectionObserver, ResizeObserver }
+) {
 	const
-		sections = require( './sections.js' ),
-		overflowElements = require( './overflowElements.js' );
+		{ createSections } = require( './sections.js' ),
+		overflowElements = require( './overflowElements/index.js' ),
+		{ createContentEnhancements } = require( './contentEnhancements.js' ),
+		config = require( './config.json' );
 
 	// Collapsable sections
-	sections.init( bodyContent );
+	createSections( { document, bodyContent } ).init();
 	// Overflow element enhancements
-	overflowElements.init( bodyContent );
+	overflowElements.init( {
+		document, window, mw, IntersectionObserver, ResizeObserver,
+		bodyContent, config
+	} );
+	// Content enhancements
+	createContentEnhancements( { document, bodyContent } ).init();
+}
+
+/**
+ * Initialize preferences module when the preferences button is first clicked
+ *
+ * @param {Object} deps
+ * @param {Document} deps.document
+ * @param {Object} deps.mw
+ * @return {void}
+ */
+function initPreferences( { document, mw } ) {
+	document.getElementById( 'wiki7-preferences-details' ).addEventListener( 'toggle', () => {
+		mw.loader.load( 'skins.wiki7.preferences' );
+	},
+	{
+		once: true
+	} );
 }
 
 /**
@@ -70,31 +83,40 @@ function initBodyContent( bodyContent ) {
 function main( window ) {
 	const
 		config = require( './config.json' ),
-		echo = require( './echo.js' ),
+		{ createEchoUpgrade } = require( './echo.js' ),
 		search = require( './search.js' ),
 		dropdown = require( './dropdown.js' ),
-		lastModified = require( './lastModified.js' ),
-		share = require( './share.js' );
+		{ createLastModified } = require( './lastModified.js' ),
+		{ createShare } = require( './share.js' ),
+		setupObservers = require( './setupObservers.js' ),
+		{ createPerformanceMode } = require( './performance.js' );
 
-	dropdown.init();
-	search.init( window );
-	echo();
-	lastModified.init();
-	share.init();
+	search.init( { window, document, mw } );
+	createEchoUpgrade( { document, mw } ).init();
+	setupObservers.init( { document, window, mw, IntersectionObserver } );
+	dropdown.init( { document, window } );
+	createLastModified( { document, Intl } ).init();
+	createShare( { document, window, mw, navigator } ).init();
+	createPerformanceMode( { document, mw } ).init();
 
 	mw.hook( 'wikipage.content' ).add( ( content ) => {
 		// content is a jQuery object
 		// note that this refers to .mw-body-content, not #bodyContent
-		initBodyContent( content[ 0 ] );
+		initBodyContent(
+			content[ 0 ], { document, window, mw, IntersectionObserver, ResizeObserver }
+		);
 	} );
 
-	// Preference module
+	// Preferences module
 	if ( config.wgWiki7EnablePreferences === true ) {
-		mw.loader.load( 'skins.wiki7.preferences' );
+		initPreferences( { document, mw } );
 	}
 
 	// Defer non-essential tasks
-	mw.requestIdleCallback( deferredTasks, { timeout: 3000 } );
+	mw.requestIdleCallback(
+		() => deferredTasks( { document, window, mw, navigator, HTMLScriptElement } ),
+		{ timeout: 3000 }
+	);
 }
 
 if ( document.readyState === 'interactive' || document.readyState === 'complete' ) {

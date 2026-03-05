@@ -1,29 +1,19 @@
 <?php
-/**
- * Citizen - A responsive skin developed for the Star Citizen Wiki
- *
- * This file is part of Citizen.
- *
- * Citizen is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Citizen is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Citizen.  If not, see <https://www.gnu.org/licenses/>.
- *
- * @file
- * @ingroup Skins
- */
+
+declare( strict_types=1 );
 
 namespace MediaWiki\Skins\Citizen;
 
-use MediaWiki\MediaWikiServices;
+use BadMethodCallException;
+use MediaWiki\Cache\GenderCache;
+use MediaWiki\Config\Config;
+use MediaWiki\Languages\LanguageConverterFactory;
+use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\MainConfigNames;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\Registration\ExtensionRegistry;
+use MediaWiki\Skins\Citizen\Components\CitizenComponentBodyContent;
 use MediaWiki\Skins\Citizen\Components\CitizenComponentFooter;
 use MediaWiki\Skins\Citizen\Components\CitizenComponentMainMenu;
 use MediaWiki\Skins\Citizen\Components\CitizenComponentPageFooter;
@@ -32,10 +22,15 @@ use MediaWiki\Skins\Citizen\Components\CitizenComponentPageSidebar;
 use MediaWiki\Skins\Citizen\Components\CitizenComponentPageTools;
 use MediaWiki\Skins\Citizen\Components\CitizenComponentSearchBox;
 use MediaWiki\Skins\Citizen\Components\CitizenComponentSiteStats;
+use MediaWiki\Skins\Citizen\Components\CitizenComponentStickyHeader;
+use MediaWiki\Skins\Citizen\Components\CitizenComponentTableOfContents;
 use MediaWiki\Skins\Citizen\Components\CitizenComponentUserInfo;
-use MediaWiki\Skins\Citizen\Partials\BodyContent;
-use MediaWiki\Skins\Citizen\Partials\Metadata;
-use MediaWiki\Skins\Citizen\Partials\Theme;
+use MediaWiki\Title\Title;
+use MediaWiki\User\UserFactory;
+use MediaWiki\User\UserGroupManager;
+use MediaWiki\User\UserIdentityLookup;
+use MediaWiki\Utils\UrlUtils;
+use MobileContext;
 use SkinMustache;
 use SkinTemplate;
 
@@ -45,6 +40,26 @@ use SkinTemplate;
  */
 class SkinCitizen extends SkinMustache {
 
+	private const CLIENTPREFS_THEME_MAP = [
+		'auto' => 'os',
+		'light' => 'day',
+		'dark' => 'night'
+	];
+
+	private const DEFAULT_CLIENT_PREFS = [
+		'citizen-feature-autohide-navigation' => '1',
+		'citizen-feature-image-dimming' => '0',
+		'citizen-feature-pure-black' => '0',
+		'citizen-feature-custom-font-size' => 'standard',
+		'citizen-feature-custom-width' => 'standard',
+		'citizen-feature-performance-mode' => '1',
+	];
+
+	private const OPTIONAL_FONT_MODULES = [
+		'CitizenEnableCJKFonts' => 'skins.citizen.styles.fonts.cjk',
+		'CitizenEnableARFonts' => 'skins.citizen.styles.fonts.ar',
+	];
+
 	/** For caching purposes */
 	private ?array $languages = null;
 
@@ -53,24 +68,80 @@ class SkinCitizen extends SkinMustache {
 	 *
 	 * @inheritDoc
 	 */
-	public function __construct( $options = [] ) {
+	public function __construct(
+		private readonly UserFactory $userFactory,
+		private readonly GenderCache $genderCache,
+		private readonly UserIdentityLookup $userIdentityLookup,
+		private readonly LanguageConverterFactory $languageConverterFactory,
+		private readonly LanguageNameUtils $languageNameUtils,
+		private readonly PermissionManager $permissionManager,
+		private readonly ExtensionRegistry $extensionRegistry,
+		private readonly UserGroupManager $userGroupManager,
+		private readonly UrlUtils $urlUtils,
+		// @phan-suppress-next-line PhanUndeclaredTypeParameter,PhanUndeclaredTypeProperty
+		private readonly ?MobileContext $mfContext,
+		array $options = []
+	) {
 		if ( !isset( $options['name'] ) ) {
 			$options['name'] = 'citizen';
 		}
 
-		// Add skin-specific features
+		// Add skin-specific features that only modify the $options array.
+		// OutputPage modifications (HTML classes, metadata) are deferred to
+		// initPage() and getHtmlElementAttributes() so that they only run
+		// when Citizen is the active rendering skin. Without this separation,
+		// Special:Preferences pollutes other skins' OutputPage when it
+		// instantiates all registered skins to gather their configuration.
 		$this->buildSkinFeatures( $options );
 		parent::__construct( $options );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function initPage( OutputPage $out ): void {
+		parent::initPage( $out );
+		$this->addMetadata( $out, $this->getConfig() );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getHtmlElementAttributes(): array {
+		$attrs = parent::getHtmlElementAttributes();
+		$config = $this->getConfig();
+		$classes = [];
+
+		// Theme
+		$theme = $config->get( 'CitizenThemeDefault' );
+		if ( isset( self::CLIENTPREFS_THEME_MAP[$theme] ) ) {
+			$classes[] = 'skin-theme-clientpref-' . self::CLIENTPREFS_THEME_MAP[$theme];
+		}
+
+		// Default client preferences
+		foreach ( self::DEFAULT_CLIENT_PREFS as $feature => $value ) {
+			$classes[] = $feature . '-clientpref-' . $value;
+		}
+
+		// Header position
+		$headerPosition = $config->get( 'CitizenHeaderPosition' );
+		if ( !in_array( $headerPosition, [ 'left', 'right', 'top', 'bottom' ], true ) ) {
+			$headerPosition = 'left';
+		}
+		$classes[] = 'citizen-header-position-' . $headerPosition;
+
+		$attrs['class'] = trim( $attrs['class'] . ' ' . implode( ' ', $classes ) );
+		return $attrs;
 	}
 
 	/**
 	 * Ensure onSkinTemplateNavigation runs after all SkinTemplateNavigation hooks
 	 * @see T287622
 	 *
-	 * @param SkinTemplate $skin The skin template object.
-	 * @param array &$content_navigation The content navigation array.
+	 * @param SkinTemplate $skin
+	 * @param array &$content_navigation
 	 */
-	protected function runOnSkinTemplateNavigationHooks( SkinTemplate $skin, &$content_navigation ) {
+	protected function runOnSkinTemplateNavigationHooks( SkinTemplate $skin, &$content_navigation ): void {
 		parent::runOnSkinTemplateNavigationHooks( $skin, $content_navigation );
 		Hooks\SkinHooks::onSkinTemplateNavigation( $skin, $content_navigation );
 	}
@@ -94,141 +165,185 @@ class SkinCitizen extends SkinMustache {
 
 		$config = $this->getConfig();
 		$localizer = $this->getContext();
+		$lang = $this->getLanguage();
 		$out = $this->getOutput();
 		$title = $this->getTitle();
 		$user = $this->getUser();
-		$pageLang = $title->getPageLanguage();
-		$services = MediaWikiServices::getInstance();
 
-		$isRegistered = $user->isRegistered();
-		$isTemp = $user->isTemp();
-
-		$bodycontent = new BodyContent( $this );
+		[ $sidebar, $pageToolsMenu ] = $this->extractPageToolsFromSidebar(
+			$parentData['data-portlets-sidebar']
+		);
 
 		$components = [
 			'data-footer' => new CitizenComponentFooter(
 				$localizer,
 				$parentData['data-footer']
 			),
-			'data-main-menu' => new CitizenComponentMainMenu( $parentData['data-portlets-sidebar'] ),
+			'data-main-menu' => new CitizenComponentMainMenu( $sidebar ),
 			'data-page-footer' => new CitizenComponentPageFooter(
 				$localizer,
 				$parentData['data-footer']['data-info']
 			),
 			'data-page-heading' => new CitizenComponentPageHeading(
-				$services,
+				$this->userFactory,
+				$this->genderCache,
+				$this->userIdentityLookup,
+				$this->languageConverterFactory,
+				$lang,
 				$localizer,
 				$out,
-				$pageLang,
 				$title,
 				$parentData['html-title-heading']
 			),
 			'data-page-sidebar' => new CitizenComponentPageSidebar(
 				$localizer,
-				$out,
-				$pageLang,
 				$title,
-				$user
+				$parentData['data-last-modified']
 			),
 			'data-page-tools' => new CitizenComponentPageTools(
 				$config,
 				$localizer,
 				$title,
 				$user,
-				$services->getPermissionManager(),
+				$this->permissionManager,
 				count( $this->getLanguagesCached() ),
-				$parentData['data-portlets-sidebar'],
+				$pageToolsMenu,
 				// These portlets can be unindexed
 				$parentData['data-portlets']['data-languages'] ?? [],
 				$parentData['data-portlets']['data-variants'] ?? []
 			),
 			'data-search-box' => new CitizenComponentSearchBox(
 				$localizer,
-				$services->getExtensionRegistry(),
+				$this->extensionRegistry,
 				$parentData['data-search-box']
 			),
 			'data-site-stats' => new CitizenComponentSiteStats(
 				$config,
 				$localizer,
-				$pageLang
+				$lang,
+				$this->languageNameUtils
 			),
 			'data-user-info' => new CitizenComponentUserInfo(
-				$isRegistered,
-				$isTemp,
-				$services,
+				$this->userGroupManager,
+				$lang,
 				$localizer,
 				$title,
 				$user,
 				$parentData['data-portlets']['data-user-page']
-			)
+			),
+			'data-sticky-header' => new CitizenComponentStickyHeader(
+				$this->isVisualEditorTabPositionFirst( $parentData['data-portlets']['data-views'] )
+			),
+			'data-body-content' => new CitizenComponentBodyContent(
+				$parentData['html-body-content'],
+				$this->shouldMakeSections( $config, $title )
+			),
+			'data-toc' => new CitizenComponentTableOfContents(
+				$parentData['data-toc'] ?? [],
+				$localizer,
+				$config
+			),
 		];
 
 		foreach ( $components as $key => $component ) {
-			// Array of components or null values.
-			if ( $component ) {
-				$parentData[$key] = $component->getTemplateData();
-			}
+			$parentData[$key] = $component->getTemplateData();
 		}
 
-		// HACK: So that we can use Icon.mustache in Header__logo.mustache
+		// TODO: Pass tagline through the component instead of reaching across template data
+		$parentData['data-sticky-header']['html-sticky-header-tagline'] =
+			$this->prepareStickyHeaderTagline( $parentData['data-page-heading']['html-tagline'] );
+
+		// TODO: Pass the home icon through the component instead of injecting into logos data
 		$parentData['data-logos']['icon-home'] = 'home';
 
-		return array_merge( $parentData, [
-			// Booleans
-			'toc-enabled' => !empty( $parentData['data-toc'] ),
-			'html-body-content--formatted' => $bodycontent->decorateBodyContent( $parentData['html-body-content'] )
-		] );
+		$parentData['toc-enabled'] = !empty( $parentData['data-toc'][ 'array-sections' ] );
+		if ( $parentData['toc-enabled'] ) {
+			// This body class depends on template data so it can't move to
+			// getHtmlElementAttributes(). Safe here because getTemplateData()
+			// only runs for the active rendering skin.
+			$out->addBodyClasses( 'citizen-toc-enabled' );
+		}
+
+		return $parentData;
 	}
 
 	/**
-	 * @inheritDoc
+	 * Extracts the page tools menu from the sidebar and returns both.
+	 * From Vector 2022
 	 *
-	 * Manually disable some site-wide tools in TOOLBOX
-	 * They are re-added in the drawer
-	 *
-	 * TODO: Remove this hack when Desktop Improvements separate page and site tools
+	 * @return array [ $sidebar, $pageToolsMenu ]
 	 */
-	protected function buildNavUrls(): array {
-		$urls = parent::buildNavUrls();
+	private function extractPageToolsFromSidebar( array $sidebar ): array {
+		$restPortlets = $sidebar[ 'array-portlets-rest' ] ?? [];
+		$pageToolsMenu = [];
+		$toolboxMenuIndex = array_search(
+			CitizenComponentPageTools::TOOLBOX_ID,
+			array_column(
+				$restPortlets,
+				'id'
+			)
+		);
 
-		$urls['upload'] = false;
-		$urls['specialpages'] = false;
+		if ( $toolboxMenuIndex !== false ) {
+			$pageToolsMenu = array_splice( $restPortlets, $toolboxMenuIndex, 1 );
+			$sidebar['array-portlets-rest'] = $restPortlets;
+		}
 
-		return $urls;
+		return [ $sidebar, $pageToolsMenu ];
 	}
 
 	/**
-	 * Add client preferences features
-	 * Did not add the citizen-feature- prefix because there might be features from core MW or extensions
-	 *
-	 * @param string $feature
-	 * @param string $value
+	 * Check whether Visual Editor Tab Position is first
+	 * From Vector 2022
 	 */
-	private function addClientPrefFeature( string $feature, string $value = 'standard' ): void {
-		$this->getOutput()->addHtmlClasses( $feature . '-clientpref-' . $value );
+	private function isVisualEditorTabPositionFirst( array $dataViews ): bool {
+		foreach ( $dataViews[ 'array-items' ] as $item ) {
+			if ( $item[ 'name' ] === 've-edit' ) {
+				return true;
+			}
+			if ( $item[ 'name' ] === 'edit' ) {
+				return false;
+			}
+		}
+		return false;
 	}
 
 	/**
-	 * Set up optional skin features
+	 * Check if collapsible sections should be made
+	 */
+	private function shouldMakeSections( Config $config, Title $title ): bool {
+		if (
+			$config->get( 'CitizenEnableCollapsibleSections' ) === false ||
+			!$title->canExist() ||
+			$title->isMainPage() ||
+			!$title->isContentPage() ||
+			$title->getContentModel() !== CONTENT_MODEL_WIKITEXT
+		) {
+			return false;
+		}
+
+		// If MF is installed, check if page is in mobile view and let MF do the formatting
+		// @phan-suppress-next-line PhanUndeclaredClassMethod MobileFrontend is an optional dependency
+		return $this->mfContext === null || !$this->mfContext->shouldDisplayMobileView();
+	}
+
+	/**
+	 * Prepare the tagline for the sticky header
+	 * Replace <a> elements with <span> elements because
+	 * you can't nest <a> elements in <a> elements
+	 */
+	private static function prepareStickyHeaderTagline( string $tagline ): string {
+		return preg_replace( '/<a\s+href="([^"]+)"[^>]*>(.*?)<\/a>/', '<span>$2</span>', $tagline ) ?? $tagline;
+	}
+
+	/**
+	 * Set up skin features that modify the constructor $options array.
+	 * Only bodyClasses and styles belong here — OutputPage modifications
+	 * are handled by initPage() and getHtmlElementAttributes().
 	 */
 	private function buildSkinFeatures( array &$options ): void {
 		$config = $this->getConfig();
 		$title = $this->getOutput()->getTitle();
-
-		$metadata = new Metadata( $this );
-		$skinTheme = new Theme( $this );
-
-		// Add metadata
-		$metadata->addMetadata();
-
-		// Add theme handler
-		$skinTheme->setSkinTheme( $options );
-
-		// Clientprefs feature handling
-		$this->addClientPrefFeature( 'citizen-feature-autohide-navigation', '1' );
-		$this->addClientPrefFeature( 'citizen-feature-pure-black', '0' );
-		$this->addClientPrefFeature( 'citizen-feature-custom-font-size' );
-		$this->addClientPrefFeature( 'citizen-feature-custom-width' );
 
 		if ( $title !== null ) {
 			// Collapsible sections
@@ -240,14 +355,37 @@ class SkinCitizen extends SkinMustache {
 			}
 		}
 
-		// CJK fonts
-		if ( $config->get( 'CitizenEnableCJKFonts' ) === true ) {
-			$options['styles'][] = 'skins.citizen.styles.fonts.cjk';
-		}
-
-		// AR fonts
-		if ( $config->get( 'CitizenEnableARFonts' ) === true ) {
-			$options['styles'][] = 'skins.citizen.styles.fonts.ar';
+		foreach ( self::OPTIONAL_FONT_MODULES as $configKey => $module ) {
+			if ( $config->get( $configKey ) === true ) {
+				$options['styles'][] = $module;
+			}
 		}
 	}
+
+	/**
+	 * Adds metadata to the output page (theme-color and manifest)
+	 */
+	private function addMetadata( OutputPage $out, Config $config ): void {
+		$out->addMeta( 'theme-color', $config->get( 'CitizenThemeColor' ) );
+
+		if (
+			$config->get( 'CitizenEnableManifest' ) !== true ||
+			$config->get( MainConfigNames::GroupPermissions )['*']['read'] !== true
+		) {
+			return;
+		}
+
+		try {
+			$href = $this->urlUtils->expand( wfAppendQuery( wfScript( 'api' ),
+					[ 'action' => 'appmanifest' ] ), PROTO_RELATIVE );
+		} catch ( BadMethodCallException ) {
+			$href = '';
+		}
+
+		$out->addLink( [
+			'rel' => 'manifest',
+			'href' => $href,
+		] );
+	}
+
 }

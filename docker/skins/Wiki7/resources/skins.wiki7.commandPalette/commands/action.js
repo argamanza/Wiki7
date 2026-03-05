@@ -4,6 +4,7 @@
 const { CommandPaletteItem, CommandPaletteCommand, CommandPaletteActionResult } = require( '../types.js' );
 const { cdxIconSpecialPages, cdxIconPlay } = require( '../icons.json' );
 const config = require( '../config.json' );
+const { getNavigationAction } = require( '../utils/providerActions.js' );
 
 /**
  * Cache for special page results to avoid repeated API calls.
@@ -106,7 +107,7 @@ function fetchMenuItems() {
 
 		links.forEach( ( link ) => {
 			const listItem = link.closest( 'li' );
-			const id = listItem ? listItem.id : ''; // e.g., 't-whatlinkshere'
+			const id = listItem ? `${ listItem.id }-command-palette-item` : ''; // e.g., 't-whatlinkshere-command-palette-item'
 			const url = link.getAttribute( 'href' ) || '#';
 			const labelElement = link.querySelector( 'span:not([class*="icon"])' ); // Get the text span, excluding icon spans
 
@@ -207,14 +208,9 @@ module.exports = {
 	 * Handles selection of an action item result (Special Page or Menu Item).
 	 *
 	 * @param {CommandPaletteItem} item The selected result item.
-	 * @return {CommandPaletteActionResult}
+	 * @return {Promise<CommandPaletteActionResult>}
 	 */
-	onResultSelect( item ) {
-		if ( item.url ) {
-			return { action: 'navigate', payload: item.url };
-		}
-
-		// Fallback
-		return { action: 'none' };
+	async onResultSelect( item ) {
+		return getNavigationAction( item );
 	}
 };

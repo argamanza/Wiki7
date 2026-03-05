@@ -1,9 +1,9 @@
 .wiki7-dropdown {
 	.wiki7-menu__card {
 		z-index: @z-index-dropdown;
-		content-visibility: hidden;
 		min-width: 16rem;
 		max-width: 80vw;
+		content-visibility: hidden;
 		transition-timing-function: var( --transition-timing-function-ease-in );
 		transition-duration: var( --transition-duration-base );
 		transition-property: transform, content-visibility;
@@ -52,12 +52,16 @@
 	}
 
 	&-details {
+		+ .wiki7-menu__card {
+			position: absolute;
+		}
+
 		&[ open ] {
 			+ .wiki7-menu__card {
+				content-visibility: visible;
 				transform: none;
 				transition-timing-function: var( --transition-timing-function-ease-out );
 				transition-duration: var( --transition-duration-medium );
-				content-visibility: visible;
 
 				.wiki7-menu__card-content {
 					opacity: 1;
@@ -67,20 +71,11 @@
 				}
 			}
 
-			> .wiki7-dropdown-summary {
+			// Match cdx-button--is-active styles for quiet buttons
+			// Extra .cdx-button class needed to beat Codex quiet base specificity
+			> .wiki7-dropdown-summary.cdx-button {
+				color: var( --color-emphasized );
 				background-color: var( --background-color-button-quiet--active );
-
-				&:hover {
-					background-color: var( --background-color-button-quiet--hover );
-				}
-
-				&:active {
-					background-color: var( --background-color-button-quiet--active );
-				}
-
-				.wiki7-ui-icon {
-					color: var( --color-progressive);
-				}
 			}
 		}
 	}
@@ -90,7 +85,33 @@
 		transform-origin: var( --transform-origin-offset-end ) var( --transform-origin-offset-end );
 
 		@media ( min-width: @min-width-breakpoint-desktop ) {
-			transform-origin: var( --transform-origin-offset-start ) var( --transform-origin-offset-end );
+			.wiki7-header-position-left & {
+				right: unset;
+				left: 100%;
+				transform-origin: var( --transform-origin-offset-start ) var( --transform-origin-offset-end );
+			}
+
+			.wiki7-header-position-right & {
+				right: 100%;
+				left: unset;
+				transform-origin: var( --transform-origin-offset-end ) var( --transform-origin-offset-end );
+			}
+
+			.wiki7-header-position-top & {
+				top: 100%;
+				right: 0;
+				bottom: unset;
+				left: unset;
+				transform-origin: var( --transform-origin-offset-end ) var( --transform-origin-offset-start );
+			}
+
+			.wiki7-header-position-bottom & {
+				top: unset;
+				right: 0;
+				bottom: 100%;
+				left: unset;
+				transform-origin: var( --transform-origin-offset-end ) var( --transform-origin-offset-end );
+			}
 		}
 	}
 
@@ -136,17 +157,8 @@
 }
 
 @media ( max-width: @max-width-breakpoint-tablet ) {
-	/* HACK: Disable page from scolling when a dropdown menu is opened */
+	// HACK: Disable page from scolling when a dropdown menu is opened
 	body:has( .wiki7-dropdown-details[ open ] ) {
 		overflow: hidden;
-	}
-}
-
-// Flip transform origin in RTL for top and bottom dropdowns separately
-.rtl {
-	// Default RTL case: open from bottom right (used by preferences/settings)
-	.wiki7-menu__card {
-		--transform-origin-offset-start: calc(100% - var(--space-xs));
-		--transform-origin-offset-end: 100%;
 	}
 }
