@@ -1,6 +1,7 @@
 /* Some of the functions are based on Vector */
 /* ESLint does not like having class names as const */
 
+const config = require( './config.json' );
 const SEARCH_LOADING_CLASS = 'citizen-loading';
 
 /**
@@ -10,11 +11,13 @@ const SEARCH_LOADING_CLASS = 'citizen-loading';
  * After the search module is loaded, executes a function to remove
  * the loading indicator.
  *
+ * @param {Document} document
+ * @param {Object} mw
  * @param {HTMLElement} element search input.
  * @param {string} moduleName resourceLoader module to load.
  * @param {function(): void} afterLoadFn function to execute after search module loads.
  */
-function loadSearchModule( element, moduleName, afterLoadFn ) {
+function loadSearchModule( document, mw, element, moduleName, afterLoadFn ) {
 	const requestSearchModule = () => {
 		mw.loader.using( moduleName, afterLoadFn );
 		element.removeEventListener( 'focus', requestSearchModule );
@@ -119,18 +122,19 @@ function isFormField( element ) {
  *
  * @param {Window} window
  * @param {HTMLDetailsElement} details
- * @param {HTMLInputElement} input
  * @return {void}
  */
-function bindOpenOnSlash( window, details, input ) {
+function bindOpenOnSlash( window, details ) {
 	const onExpandOnSlash = ( /** @type {KeyboardEvent} */ event ) => {
 		const isKeyPressed = () => {
 			// "/" key is standard on many sites
-			if ( event.key === '/' ) {
+			if ( event.code === 'Slash' ) {
+				return true;
+			// "Ctrl" + "K" (or "Command" + "K" on Mac)
+			} else if ( ( event.ctrlKey || event.metaKey ) && event.code === 'KeyK' ) {
 				return true;
 			// "Alt" + "Shift" + "F" is the MW standard key
-			// Shift key might makes F key goes capital, so we need to make it lowercase
-			} else if ( event.altKey && event.shiftKey && event.key.toLowerCase() === 'f' ) {
+			} else if ( event.altKey && event.shiftKey && event.code === 'KeyF' ) {
 				return true;
 			} else {
 				return false;
@@ -139,8 +143,7 @@ function bindOpenOnSlash( window, details, input ) {
 		if ( isKeyPressed() && !isFormField( event.target ) ) {
 			// Since Firefox quickfind interfere with this
 			event.preventDefault();
-			details.open = true;
-			focusOnOpened( details, input );
+			openSearch( details );
 		}
 	};
 
@@ -150,10 +153,12 @@ function bindOpenOnSlash( window, details, input ) {
 /**
  * Add clear button to search field when there are input value
  *
+ * @param {Document} document
+ * @param {Window} window
  * @param {HTMLInputElement} input
  * @return {void}
  */
-function renderSearchClearButton( input ) {
+function renderSearchClearButton( document, window, input ) {
 	const
 		clearButton = document.createElement( 'span' ),
 		clearIcon = document.createElement( 'span' );
@@ -171,7 +176,7 @@ function renderSearchClearButton( input ) {
 		clearButton.classList.add( 'hidden' );
 		input.value = '';
 		input.dispatchEvent( new Event( 'input' ) );
-		requestAnimationFrame( () => {
+		window.requestAnimationFrame( () => {
 			input.focus();
 		} );
 	} );
@@ -188,13 +193,68 @@ function renderSearchClearButton( input ) {
 }
 
 /**
- * Initializes the search functionality for the Citizen search boxes.
+ * Bind the search trigger to open the search UI
  *
- * @param {Window} window
+ * @param {Document} document
+ * @param {Object} mw
+ * @param {HTMLDetailsElement} details
  * @return {void}
  */
-function initSearch( window ) {
-	const config = require( './config.json' );
+function bindSearchTrigger( document, mw, details ) {
+	document.querySelectorAll( '.citizen-search-trigger' ).forEach( ( trigger ) => {
+		trigger.addEventListener( 'click', ( event ) => {
+			openSearch( details );
+			if ( event.target.dataset.citizenSearchPrefill ) {
+				// Add a delay to ensure the search UI is open
+				setTimeout( () => {
+					const input = config.wgCitizenEnableCommandPalette ?
+						document.querySelector(
+							'.citizen-command-palette__input > .cdx-text-input__input'
+						) :
+						document.getElementById( 'searchInput' );
+
+					if ( input === null ) {
+						return;
+					}
+
+					// Escape just to be safe
+					input.value = mw.html.escape(
+						event.target.dataset.citizenSearchPrefill
+					);
+				}, 0 );
+			}
+		} );
+	} );
+}
+
+/**
+ * Open the search UI
+ *
+ * @param {HTMLDetailsElement} details
+ * @return {void}
+ */
+function openSearch( details ) {
+	if ( config.wgCitizenEnableCommandPalette ) {
+		details.click();
+	} else {
+		details.open = true;
+	}
+}
+
+/**
+ * Initializes the search functionality for the Citizen search boxes.
+ *
+ * @param {Object} deps
+ * @param {Window} deps.window
+ * @param {Document} deps.document
+ * @param {Object} deps.mw
+ * @return {void}
+ */
+function initSearch( { window, document, mw } ) {
+	const details = document.getElementById( 'citizen-search-details' );
+
+	bindOpenOnSlash( window, details );
+	bindSearchTrigger( document, mw, details );
 
 	if ( config.wgCitizenEnableCommandPalette ) {
 		// Short-circuit the search module initialization,
@@ -220,17 +280,15 @@ function initSearch( window ) {
 
 		// Set up primary search box interactions
 		if ( isPrimarySearch ) {
-			const details = document.getElementById( 'citizen-search-details' );
-			bindOpenOnSlash( window, details, input );
 			// Focus when toggled
 			details.addEventListener( 'toggle', () => {
 				focusOnOpened( details, input );
 			} );
 		}
 
-		renderSearchClearButton( input );
+		renderSearchClearButton( document, window, input );
 		setLoadingIndicatorListeners( searchBox, true, renderSearchLoadingIndicator );
-		loadSearchModule( input, config.wgCitizenSearchModule, () => {
+		loadSearchModule( document, mw, input, config.wgCitizenSearchModule, () => {
 			setLoadingIndicatorListeners( searchBox, false, renderSearchLoadingIndicator );
 		} );
 	} );

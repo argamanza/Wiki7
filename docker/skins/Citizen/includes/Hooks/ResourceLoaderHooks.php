@@ -1,25 +1,4 @@
 <?php
-/**
- * Citizen - A responsive skin developed for the Star Citizen Wiki
- *
- * This file is part of Citizen.
- *
- * Citizen is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Citizen is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Citizen.  If not, see <https://www.gnu.org/licenses/>.
- *
- * @file
- * @ingroup Skins
- */
 
 declare( strict_types=1 );
 
@@ -27,8 +6,10 @@ namespace MediaWiki\Skins\Citizen\Hooks;
 
 use MediaWiki\Config\Config;
 use MediaWiki\MainConfigNames;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader as RL;
+use MediaWiki\Skins\Citizen\PreferencesConfigProvider;
 
 /**
  * Hooks to run relating to the resource loader
@@ -79,9 +60,11 @@ class ResourceLoaderHooks {
 		RL\Context $context,
 		Config $config
 	) {
+		$extensionRegistry = ExtensionRegistry::getInstance();
+
 		return [
-			'isAdvancedSearchExtensionEnabled' => ExtensionRegistry::getInstance()->isLoaded( 'AdvancedSearch' ),
-			'isMediaSearchExtensionEnabled' => ExtensionRegistry::getInstance()->isLoaded( 'MediaSearch' ),
+			'isAdvancedSearchExtensionEnabled' => $extensionRegistry->isLoaded( 'AdvancedSearch' ),
+			'isMediaSearchExtensionEnabled' => $extensionRegistry->isLoaded( 'MediaSearch' ),
 			'wgCitizenSearchGateway' => $config->get( 'CitizenSearchGateway' ),
 			'wgCitizenSearchDescriptionSource' => $config->get( 'CitizenSearchDescriptionSource' ),
 			'wgCitizenMaxSearchResults' => $config->get( 'CitizenMaxSearchResults' ),
@@ -100,8 +83,31 @@ class ResourceLoaderHooks {
 		RL\Context $context,
 		Config $config
 	) {
+		$extensionRegistry = ExtensionRegistry::getInstance();
+
 		return [
+			'isMediaSearchExtensionEnabled' => $extensionRegistry->isLoaded( 'MediaSearch' ),
 			'wgSearchSuggestCacheExpiry' => $config->get( MainConfigNames::SearchSuggestCacheExpiry )
 		];
+	}
+
+	/**
+	 * Return on-wiki preferences overrides with pre-resolved message texts.
+	 *
+	 * @param RL\Context $context
+	 * @param Config $config
+	 * @return array{overrides: ?array, messages: \stdClass|array<string, string>}
+	 */
+	public static function getCitizenPreferencesOverrides(
+		RL\Context $context,
+		Config $config
+	): array {
+		$services = MediaWikiServices::getInstance();
+		$provider = new PreferencesConfigProvider(
+			$services->getRevisionLookup(),
+			$services->getTitleFactory(),
+			$context
+		);
+		return $provider->getOverrides( $context->getLanguage() );
 	}
 }

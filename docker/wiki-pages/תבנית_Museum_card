@@ -1,0 +1,6 @@
+<includeonly><div class="wiki7-museum-card">
+<div class="wiki7-museum-card__body">
+<div class="wiki7-museum-card__title">[[{{{page|}}}|{{{name|}}}]]</div>
+<div class="wiki7-museum-card__meta">{{{item_type|}}}{{#if:{{{year|}}}| &middot; {{{year|}}}}}</div>
+</div>
+</div></includeonly>

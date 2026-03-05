@@ -1,12 +1,12 @@
 {
 	"name": "Wiki7",
-	"version": "3.1.0",
+	"version": "3.14.0",
 	"author": [
 		"[https://www.mediawiki.org/wiki/User:Alistair3149 Alistair3149]",
 		"[https://www.mediawiki.org/wiki/User:Octfx Octfx]",
 		"..."
 	],
-	"url": "https://www.mediawiki.org/wiki/Skin:Wiki7",
+	"url": "https://wiki7.co.il",
 	"descriptionmsg": "wiki7-skin-desc",
 	"namemsg": "skinname-wiki7",
 	"license-name": "GPL-3.0-or-later",
@@ -29,11 +29,26 @@
 	"ValidSkinNames": {
 		"wiki7": {
 			"class": "MediaWiki\\Skins\\Wiki7\\SkinWiki7",
+			"services": [
+				"UserFactory",
+				"GenderCache",
+				"UserIdentityLookup",
+				"LanguageConverterFactory",
+				"LanguageNameUtils",
+				"PermissionManager",
+				"ExtensionRegistry",
+				"UserGroupManager",
+				"UrlUtils"
+			],
+			"optional_services": [
+				"MobileFrontend.Context"
+			],
 			"args": [
 				{
 					"name": "wiki7",
 					"responsive": true,
 					"supportsMwHeading": true,
+					"templateSectionLinks": "SectionLinks",
 					"toc": false,
 					"wrapSiteNotice": true,
 					"link": {
@@ -55,6 +70,7 @@
 					],
 					"styles": [
 						"skins.wiki7.styles",
+						"skins.wiki7.codex.styles",
 						"skins.wiki7.icons"
 					],
 					"messages": [
@@ -91,8 +107,13 @@
 		"MediaWiki\\Skins\\Wiki7\\Tests\\": "tests/phpunit/"
 	},
 	"APIModules": {
-		"webapp-manifest": {
-			"class": "MediaWiki\\Skins\\Wiki7\\Api\\ApiWebappManifest"
+		"appmanifest": {
+			"class": "MediaWiki\\Skins\\Wiki7\\Api\\ApiWebappManifest",
+			"services": [
+				"ContentLanguage",
+				"HttpRequestFactory",
+				"UrlUtils"
+			]
 		}
 	},
 	"HookHandlers": {
@@ -105,7 +126,6 @@
 		"OutputPageAfterGetHeadLinksArray": "SkinHooks",
 		"SidebarBeforeOutput": "SkinHooks",
 		"SkinBuildSidebar": "SkinHooks",
-		"SkinEditSectionLinks": "SkinHooks",
 		"SkinPageReadyConfig": "SkinHooks"
 	},
 	"ResourceModules": {
@@ -113,7 +133,7 @@
 			"class": "MediaWiki\\ResourceLoader\\SkinModule",
 			"features": {
 				"normalize": true,
-				"content-links": true,
+				"content-links": false,
 				"content-links-external": false,
 				"i18n-ordered-lists": true,
 				"i18n-headings": true,
@@ -121,6 +141,17 @@
 			},
 			"styles": [
 				"resources/skins.wiki7.styles/skin.less"
+			]
+		},
+		"skins.wiki7.codex.styles": {
+			"class": "MediaWiki\\ResourceLoader\\CodexModule",
+			"codexStyleOnly": true,
+			"codexComponents": [
+				"CdxButton"
+			],
+			"styles": [
+				"resources/skins.wiki7.codex.styles/CdxButton.less",
+				"resources/skins.wiki7.codex.styles/CdxCheckbox.less"
 			]
 		},
 		"skins.wiki7.styles.fonts.cjk": {
@@ -133,11 +164,6 @@
 				"resources/skins.wiki7.styles.fonts.ar/index.less"
 			]
 		},
-		"skins.wiki7.styles.fonts.he": {
-			"styles": [
-				"resources/skins.wiki7.styles.fonts.he/index.less"
-			]
-		},
 		"skins.wiki7.scripts": {
 			"packageFiles": [
 				"resources/skins.wiki7.scripts/skin.js",
@@ -145,21 +171,28 @@
 					"name": "resources/skins.wiki7.scripts/config.json",
 					"callback": "MediaWiki\\Skins\\Wiki7\\Hooks\\ResourceLoaderHooks::getWiki7ResourceLoaderConfig"
 				},
+				"resources/skins.wiki7.scripts/contentEnhancements.js",
 				"resources/skins.wiki7.scripts/deferUntilFrame.js",
 				"resources/skins.wiki7.scripts/dropdown.js",
 				"resources/skins.wiki7.scripts/echo.js",
 				"resources/skins.wiki7.scripts/lastModified.js",
-				"resources/skins.wiki7.scripts/overflowElements.js",
+				"resources/skins.wiki7.scripts/overflowElements/index.js",
+				"resources/skins.wiki7.scripts/overflowElements/wrapper.js",
+				"resources/skins.wiki7.scripts/overflowElements/state.js",
+				"resources/skins.wiki7.scripts/overflowElements/stickyHeader.js",
+				"resources/skins.wiki7.scripts/performance.js",
 				"resources/skins.wiki7.scripts/resizeObserver.js",
 				"resources/skins.wiki7.scripts/scrollObserver.js",
 				"resources/skins.wiki7.scripts/sectionObserver.js",
 				"resources/skins.wiki7.scripts/search.js",
 				"resources/skins.wiki7.scripts/sections.js",
+				"resources/skins.wiki7.scripts/serviceWorker.js",
 				"resources/skins.wiki7.scripts/setupObservers.js",
 				"resources/skins.wiki7.scripts/share.js",
 				"resources/skins.wiki7.scripts/speculationRules.js",
 				"resources/skins.wiki7.scripts/stickyHeader.js",
 				"resources/skins.wiki7.scripts/tableOfContents.js",
+				"resources/skins.wiki7.scripts/tableOfContentsSections.js",
 				{
 					"name": "resources/skins.wiki7.scripts/tableOfContentsConfig.json",
 					"config": [
@@ -182,8 +215,9 @@
 				"wiki7-share-copied"
 			],
 			"dependencies": [
-				"mediawiki.util",
-				"mediawiki.page.ready"
+				"mediawiki.storage",
+				"mediawiki.page.ready",
+				"mediawiki.util"
 			]
 		},
 		"skins.wiki7.search": {
@@ -236,12 +270,12 @@
 			],
 			"messages": [
 				"wiki7-search-advancedsearch",
-				"wiki7-search-fulltext",
-				"wiki7-search-editpage",
-				"wiki7-search-mediasearch",
 				"wiki7-search-empty-desc",
-				"wiki7-search-noresults-title",
+				"wiki7-search-editpage",
+				"wiki7-search-fulltext",
+				"wiki7-search-mediasearch",
 				"wiki7-search-noresults-desc",
+				"wiki7-search-noresults-title",
 				"search-redirect",
 				"searchsuggest-search"
 			],
@@ -252,47 +286,84 @@
 				"mediawiki.util"
 			]
 		},
+		"skins.wiki7.preferences.codex": {
+			"class": "MediaWiki\\ResourceLoader\\CodexModule",
+			"codexComponents": [
+				"CdxField",
+				"CdxIcon",
+				"CdxRadio",
+				"CdxSelect",
+				"CdxToggleSwitch"
+			]
+		},
 		"skins.wiki7.preferences": {
-			"styles": [
-				"resources/skins.wiki7.preferences/skins.wiki7.preferences.less"
-			],
 			"packageFiles": [
-				"resources/skins.wiki7.preferences/skins.wiki7.preferences.js",
+				"resources/skins.wiki7.preferences/init.js",
+				"resources/skins.wiki7.preferences/App.vue",
+				"resources/skins.wiki7.preferences/RadioGroup.vue",
+				"resources/skins.wiki7.preferences/useVisibility.js",
+				"resources/skins.wiki7.preferences/defaultConfig.js",
+				"resources/skins.wiki7.preferences/configRegistry.js",
+				"resources/skins.wiki7.preferences/types.js",
+				"resources/skins.wiki7.preferences/clientPrefs.polyfill.js",
+				{
+					"name": "resources/skins.wiki7.preferences/icons.json",
+					"callback": "MediaWiki\\ResourceLoader\\CodexModule::getIcons",
+					"callbackParam": [
+						"cdxIconAlignRight"
+					]
+				},
 				{
 					"name": "resources/skins.wiki7.preferences/config.json",
 					"callback": "MediaWiki\\Skins\\Wiki7\\Hooks\\ResourceLoaderHooks::getWiki7PreferencesResourceLoaderConfig"
 				},
-				"resources/skins.wiki7.preferences/addPortlet.polyfill.js",
-				"resources/skins.wiki7.preferences/clientPreferences.js",
-				"resources/skins.wiki7.preferences/clientPreferences.json",
-				"resources/skins.wiki7.preferences/clientPrefs.polyfill.js"
+				{
+					"name": "resources/skins.wiki7.preferences/overrides.json",
+					"callback": "MediaWiki\\Skins\\Wiki7\\Hooks\\ResourceLoaderHooks::getWiki7PreferencesOverrides"
+				}
 			],
 			"messages": [
-				"preferences",
-				"wiki7-theme-name",
-				"wiki7-theme-description",
-				"wiki7-theme-day-label",
-				"wiki7-theme-night-label",
-				"wiki7-theme-os-label",
-				"wiki7-theme-exclusion-notice",
-				"wiki7-feature-autohide-navigation-name",
 				"wiki7-feature-autohide-navigation-0-label",
 				"wiki7-feature-autohide-navigation-1-label",
-				"wiki7-feature-pure-black-name",
-				"wiki7-feature-pure-black-0-label",
-				"wiki7-feature-pure-black-1-label",
+				"wiki7-feature-autohide-navigation-description",
+				"wiki7-feature-autohide-navigation-name",
+				"wiki7-feature-custom-font-size-description",
 				"wiki7-feature-custom-font-size-name",
 				"wiki7-feature-custom-font-size-small-label",
 				"wiki7-feature-custom-font-size-standard-label",
 				"wiki7-feature-custom-font-size-large-label",
+				"wiki7-feature-custom-font-size-xlarge-label",
+				"wiki7-feature-custom-width-description",
+				"wiki7-feature-custom-width-full-label",
 				"wiki7-feature-custom-width-name",
 				"wiki7-feature-custom-width-standard-label",
 				"wiki7-feature-custom-width-wide-label",
-				"wiki7-feature-custom-width-full-label"
+				"wiki7-feature-performance-mode-0-label",
+				"wiki7-feature-performance-mode-1-label",
+				"wiki7-feature-performance-mode-description",
+				"wiki7-feature-performance-mode-name",
+				"wiki7-feature-image-dimming-0-label",
+				"wiki7-feature-image-dimming-1-label",
+				"wiki7-feature-image-dimming-description",
+				"wiki7-feature-image-dimming-name",
+				"wiki7-feature-pure-black-0-label",
+				"wiki7-feature-pure-black-1-label",
+				"wiki7-feature-pure-black-description",
+				"wiki7-feature-pure-black-name",
+				"wiki7-preferences-section-appearance",
+				"wiki7-preferences-section-behavior",
+				"wiki7-theme-description",
+				"wiki7-theme-day-label",
+				"wiki7-theme-name",
+				"wiki7-theme-night-label",
+				"wiki7-theme-os-label",
+				"preferences"
 			],
 			"dependencies": [
+				"skins.wiki7.preferences.codex",
 				"mediawiki.storage",
-				"mediawiki.util"
+				"mediawiki.util",
+				"vue"
 			]
 		},
 		"skins.wiki7.serviceWorker": {
@@ -303,6 +374,9 @@
 		"skins.wiki7.commandPalette": {
 			"class": "MediaWiki\\ResourceLoader\\CodexModule",
 			"dependencies": [
+				"mediawiki.api",
+				"mediawiki.jqueryMsg",
+				"mediawiki.language",
 				"mediawiki.page.ready",
 				"mediawiki.storage",
 				"mediawiki.util",
@@ -316,17 +390,19 @@
 				"resources/skins.wiki7.commandPalette/composables/useListNavigation.js",
 				"resources/skins.wiki7.commandPalette/composables/useActionNavigation.js",
 				"resources/skins.wiki7.commandPalette/utils/fetch.js",
-				"resources/skins.wiki7.commandPalette/utils/urlGenerator.js",
+				"resources/skins.wiki7.commandPalette/utils/providerActions.js",
 				"resources/skins.wiki7.commandPalette/stores/searchStore.js",
 				"resources/skins.wiki7.commandPalette/services/recentItems.js",
 				"resources/skins.wiki7.commandPalette/searchClients/SearchClientFactory.js",
 				"resources/skins.wiki7.commandPalette/searchClients/MwRestSearchClient.js",
+				"resources/skins.wiki7.commandPalette/providers/CommandProvider.js",
 				"resources/skins.wiki7.commandPalette/providers/RecentItemsProvider.js",
 				"resources/skins.wiki7.commandPalette/providers/RelatedArticlesProvider.js",
 				"resources/skins.wiki7.commandPalette/providers/SearchProvider.js",
-				"resources/skins.wiki7.commandPalette/providers/CommandProvider.js",
+				"resources/skins.wiki7.commandPalette/providers/QueryActionProvider.js",
 				"resources/skins.wiki7.commandPalette/commands/namespace.js",
 				"resources/skins.wiki7.commandPalette/commands/action.js",
+				"resources/skins.wiki7.commandPalette/commands/user.js",
 				"resources/skins.wiki7.commandPalette/components/App.vue",
 				"resources/skins.wiki7.commandPalette/components/CommandPaletteEmptyState.vue",
 				"resources/skins.wiki7.commandPalette/components/CommandPaletteFooter.vue",
@@ -349,10 +425,14 @@
 						"cdxIconArticlesSearch",
 						"cdxIconCode",
 						"cdxIconEdit",
+						"cdxIconImageGallery",
 						"cdxIconSearch",
 						"cdxIconTrash",
 						"cdxIconSpecialPages",
-						"cdxIconPlay"
+						"cdxIconPlay",
+						"cdxIconUserAvatar",
+						"cdxIconUserContributions",
+						"cdxIconUserTalk"
 					]
 				},
 				{
@@ -361,32 +441,44 @@
 				}
 			],
 			"messages": [
-				"wiki7-search-empty-desc",
-				"wiki7-search-noresults-title",
-				"wiki7-search-noresults-desc",
 				"action-edit",
-				"search-nonefound",
-				"searchsuggest-search",
+				"wiki7-command-palette-command-action-description",
+				"wiki7-command-palette-command-action-label",
+				"wiki7-command-palette-command-ns-description",
+				"wiki7-command-palette-command-ns-label",
+				"wiki7-command-palette-command-user-description",
+				"wiki7-command-palette-command-user-label",
 				"wiki7-command-palette-heading-recent",
 				"wiki7-command-palette-heading-related",
 				"wiki7-command-palette-keyhint-actions",
-				"wiki7-command-palette-keyhint-enter-select",
 				"wiki7-command-palette-keyhint-enter-open",
 				"wiki7-command-palette-keyhint-enter-search",
-				"wiki7-command-palette-keyhint-navigate",
+				"wiki7-command-palette-keyhint-enter-select",
 				"wiki7-command-palette-keyhint-exit",
+				"wiki7-command-palette-keyhint-navigate",
 				"wiki7-command-palette-keyhint-return",
-				"wiki7-command-palette-type-page",
-				"wiki7-command-palette-type-fulltext-search",
-				"wiki7-command-palette-type-namespace",
+				"wiki7-command-palette-queryaction-fulltext-search-description",
+				"wiki7-command-palette-queryaction-media-search-description",
+				"wiki7-command-palette-queryaction-page-edit-description",
+				"wiki7-command-palette-tip-commands",
+				"wiki7-command-palette-tip-users",
+				"wiki7-command-palette-tip-namespace",
+				"wiki7-command-palette-tip-templates",
+				"wiki7-command-palette-tip-actions",
+				"wiki7-command-palette-type-action",
 				"wiki7-command-palette-type-command",
-				"wiki7-command-palette-type-fulltext-search-description",
-				"wiki7-command-palette-command-ns-label",
-				"wiki7-command-palette-command-ns-description",
+				"wiki7-command-palette-type-menu-item",
+				"wiki7-command-palette-type-namespace",
+				"wiki7-command-palette-type-page",
 				"wiki7-command-palette-type-special-page",
-				"wiki7-command-palette-command-action-label",
-				"wiki7-command-palette-command-action-description",
-				"wiki7-command-palette-type-menu-item"
+				"wiki7-command-palette-type-user",
+				"wiki7-search-empty-desc",
+				"wiki7-search-noresults-desc",
+				"wiki7-search-noresults-title",
+				"contributions",
+				"search-nonefound",
+				"searchsuggest-search",
+				"talk"
 			]
 		},
 		"skins.wiki7.commandPalette.codex": {
@@ -416,12 +508,11 @@
 				"bell",
 				"block",
 				"collapse",
-				"database",
 				"die",
 				"edit",
 				"editLock",
 				"ellipsis",
-				"first",
+				"eye",
 				"help",
 				"history",
 				"home",
@@ -453,6 +544,8 @@
 				"speechBubbleAdd",
 				"speechBubbles",
 				"star",
+				"table",
+				"tableAddRowBefore",
 				"trash",
 				"tray",
 				"unBlock",
@@ -480,7 +573,6 @@
 			"+ext.advancedSearch.styles": "skinStyles/extensions/AdvancedSearch/ext.advancedSearch.styles.less",
 			"+ext.ajaxpoll": "skinStyles/extensions/AJAXPoll/ext.ajaxpoll.less",
 			"+ext.ApprovedRevs": "skinStyles/extensions/ApprovedRevs/ext.ApprovedRevs.less",
-			"+ext.babel": "skinStyles/extensions/Babel/ext.babel.less",
 			"+capiunto.infobox.main": "skinStyles/extensions/Capiunto/capiunto.infobox.main.less",
 			"+ext.cargo.main": "skinStyles/extensions/Cargo/ext.cargo.main.less",
 			"+ext.cargo.pagevalues": "skinStyles/extensions/Cargo/ext.cargo.pagevalues.less",
@@ -534,9 +626,7 @@
 			"+ext.interwiki.specialpage": "skinStyles/extensions/Interwiki/ext.interwiki.specialpage.less",
 			"+ext.kartographer.style": "skinStyles/lib/leaflet/leaflet.less",
 			"+ext.Lingo": "skinStyles/extensions/Lingo/ext.Lingo.less",
-			"+ext.managewiki.oouiform.styles": "skinStyles/extensions/ManageWiki/ext.managewiki.oouiform.styles.less",
 			"+ext.maps.leaflet.library": "skinStyles/lib/leaflet/leaflet.less",
-			"+ext.math.styles": "skinStyles/extensions/Math/ext.math.styles.less",
 			"+mediasearch.styles": "skinStyles/extensions/MediaSearch/mediasearch.styles.less",
 			"+mmv": "skinStyles/extensions/MultimediaViewer/mmv.less",
 			"+ext.MsUpload": "skinStyles/extensions/MsUpload/ext.MsUpload.less",
@@ -547,16 +637,14 @@
 			"+ext.RevisionSlider.init": "skinStyles/extensions/RevisionSlider/ext.RevisionSlider.init.less",
 			"+ext.score.popup": "skinStyles/extensions/Score/ext.score.popup.less",
 			"+ext.scribunto.edit": "skinStyles/extensions/Scribunto/ext.scribunto.edit.less",
-			"+ext.jquery.atwho": "skinStyles/extensions/SemanticMediaWiki/ext.jquery.atwho.less",
 			"+ext.libs.tippy": "skinStyles/lib/tippy/tippy.less",
 			"+ext.smw.ask.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.ask.styles.less",
-			"+ext.smw.browse.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.browse.styles.less",
 			"+ext.smw.modal.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.modal.styles.less",
 			"+ext.smw.page.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.page.styles.less",
-			"+ext.smw.special.style": "skinStyles/extensions/SemanticMediaWiki/ext.smw.special.style.less",
+			"+ext.smw.special": "skinStyles/extensions/SemanticMediaWiki/ext.smw.special.less",
 			"+ext.smw.special.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.special.styles.less",
-			"+ext.smw.style": "skinStyles/extensions/SemanticMediaWiki/ext.smw.style.less",
-			"+ext.smw.table.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.table.styles.less",
+			"+ext.smw.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.styles.less",
+			"+ext.smw.suggester": "skinStyles/extensions/SemanticMediaWiki/ext.smw.suggester.less",
 			"+ext.smw.vtabs.styles": "skinStyles/extensions/SemanticMediaWiki/ext.smw.vtabs.styles.less",
 			"+smw.content.schema": "skinStyles/extensions/SemanticMediaWiki/smw.content.schema.less",
 			"+smw.jsonview": "skinStyles/extensions/SemanticMediaWiki/smw.jsonview.less",
@@ -601,6 +689,7 @@
 			"+onoi.dataTables.styles": "skinStyles/extensions/SemanticResultFormats/jquery/jquery.dataTables.less",
 			"+ext.SimpleTooltip": "skinStyles/extensions/SimpleTooltip/ext.SimpleTooltip.less",
 			"+ext.SmiteSpam.retriever": "skinStyles/extensions/SmiteSpam/ext.SmiteSpam.retriever.less",
+			"+ext.spoilers.styles": "skinStyles/extensions/Spoilers/ext.Spoilers.less",
 			"+ext.structuredNav.NavigationView.styles": "skinStyles/extensions/StructuredNavigation/ext.structuredNav.NavigationView.less",
 			"+ext.pygments": "skinStyles/extensions/SyntaxHighlight_GeSHi/ext.pygments.less",
 			"+ext.searchdigest.styles": "skinStyles/extensions/SearchDigest/ext.searchdigest.styles.less",
@@ -666,7 +755,6 @@
 			"+wikibase.view.ControllerViewFactory": "skinStyles/extensions/Wikibase/wikibase.view.ControllerViewFactory.less",
 			"+ext.wikiEditor": "skinStyles/extensions/WikiEditor/ext.wikiEditor.less",
 			"+ext.wikiEditor.realtimepreview": "skinStyles/extensions/WikiEditor/ext.wikiEditor.realtimepreview.less",
-			"+ext.wikihiero": "skinStyles/extensions/WikiHiero/ext.wikihiero.less",
 			"+ext.WSSearchFront.module": "skinStyles/extensions/WSSearchFront/ext.WSSearchFront.module.less",
 			"mobile.init.styles": "skinStyles/extensions/MobileFrontend/mobile.init.styles.less",
 			"+mediawiki.action.edit.styles": "skinStyles/mediawiki/action/mediawiki.action.edit.styles.less",
@@ -700,7 +788,6 @@
 			"+mediawiki.ui.icon": "skinStyles/mediawiki/ui/mediawiki.ui.icon.less",
 			"+mediawiki.diff.styles": "skinStyles/mediawiki/mediawiki.diff.styles.less",
 			"+mediawiki.filewarning": "skinStyles/mediawiki/mediawiki.filewarning.less",
-			"+mediawiki.htmlform.styles": "skinStyles/mediawiki/mediawiki.htmlform.styles.less",
 			"+mediawiki.htmlform.ooui.styles": "skinStyles/mediawiki/mediawiki.htmlform.ooui.styles.less",
 			"+mediawiki.legacy.shared": "skinStyles/mediawiki/mediawiki.legacy.shared.less",
 			"+mediawiki.page.gallery.styles": "skinStyles/mediawiki/mediawiki.page.gallery.styles.less",
@@ -798,12 +885,6 @@
 			"descriptionmsg": "wiki7-config-enabledrawersitestats",
 			"public": true
 		},
-		"UseNumberFormatter": {
-			"value": true,
-			"description": "Use NumberFormatter for site statistics",
-			"descriptionmsg": "wiki7-config-usenumberformatter",
-			"public": true
-		},
 		"EnableCJKFonts": {
 			"value": false,
 			"description": "Enable included Noto Sans CJK for wikis that serves CJK languages",
@@ -814,12 +895,6 @@
 			"value": false,
 			"description": "Enable included Noto Naskh Arabic for wikis that serve Arabic",
 			"descriptionmsg": "wiki7-config-enablearfonts",
-			"public": true
-		},
-		"EnableHEFonts": {
-			"value": false,
-			"description": "Enable included Hebrew fonts for wikis that serve Hebrew",
-			"descriptionmsg": "wiki7-config-enablehefonts",
 			"public": true
 		},
 		"EnablePreferences": {
@@ -855,9 +930,15 @@
 			"description": "@var The minimum number of headings required to collapse all headings in the sticky table of contents by default."
 		},
 		"EnableCommandPalette": {
-			"value": false,
-			"description": "[EXPERIMENTAL] Enables or disable the command palette. Command palette is in active development and may not work as expected.",
+			"value": true,
+			"description": "Enables or disable the command palette. Disable to use the old search module.",
 			"descriptionmsg": "wiki7-config-enablecommandpalette",
+			"public": true
+		},
+		"HeaderPosition": {
+			"value": "left",
+			"description": "Position of the header on the desktop layout. Possible values: 'left', 'right', 'top' and 'bottom'",
+			"descriptionmsg": "wiki7-config-headerposition",
 			"public": true
 		}
 	},

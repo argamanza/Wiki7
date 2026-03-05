@@ -8,19 +8,15 @@ use MessageLocalizer;
 
 /**
  * Wiki7ComponentPageFooter component
- * FIXME: Need unit test
  */
 class Wiki7ComponentPageFooter implements Wiki7Component {
 
 	public function __construct(
-		private MessageLocalizer $localizer,
-		private array $footerData
+		private readonly MessageLocalizer $localizer,
+		private readonly array $footerData
 	) {
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function getTemplateData(): array {
 		$footerData = $this->footerData;
 

@@ -10,10 +10,11 @@
 			"Sadrettin",
 			"SaldırganSincap",
 			"Sayginer",
+			"Sümeyye",
 			"Toghrul Rahimli"
 		]
 	},
-	"citizen-skin-desc": "Star Citizen Viki için geliştirilmiş duyarlı bir görünüm",
+	"citizen-skin-desc": "Uzantıları bütünleşik deneyimin bir parçası hâline getiren, güzel, kullanışlı ve duyarlı bir MediaWiki görünümü. Başlangıçta [https://starcitizen.tools/ Star Citizen Wiki] için oluşturuldu.",
 	"citizen-prefs-talkpage": "[[mw:Skin_talk:Citizen|Tartışma]]",
 	"citizen.css": "/* Buradaki tüm CSS'ler Citizen görünüm  kullanıcıları için yüklenecek */",
 	"citizen.js": "/* Buradaki tüm JavaScript Citizen  görünümü kullanıcıları için yüklenecek */",
@@ -28,7 +29,7 @@
 	"citizen-footer-tagline": "Bu metni [[MediaWiki:Citizen-footer-tagline]] üzerinde düzenleyin",
 	"citizen-action-addsection": "Konu ekle",
 	"citizen-jumptotop": "Başa dön",
-	"citizen-search-fulltext": "Sayfaların içindeki metni arayın",
+	"citizen-search-fulltext": "Metin ara",
 	"citizen-search-mediasearch": "Ortam ara",
 	"citizen-search-editpage": "Sayfayı düzenleyin veya oluşturun",
 	"citizen-search-empty-desc": "Aramaya başlamak için yazın",
@@ -38,5 +39,8 @@
 	"citizen-tagline-ns-mediawiki": "MediaWiki arayüz sayfası",
 	"citizen-tagline-ns-template": "Şablon sayfası",
 	"citizen-tagline-ns-help": "Yardım sayfası",
-	"citizen-tagline-ns-category": "Kategori sayfası"
+	"citizen-tagline-ns-category": "Kategori sayfası",
+	"citizen-command-palette-heading-related": "İlgili",
+	"citizen-command-palette-type-special-page": "Özel sayfa",
+	"citizen-command-palette-queryaction-fulltext-search-description": "Tüm sayfaların tam metnini arayın"
 }

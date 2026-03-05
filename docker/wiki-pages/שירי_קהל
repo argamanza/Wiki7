@@ -1,0 +1,78 @@
+<div class="wiki7-home__header">
+<div class="wiki7-home__header-pretitle">הפועל באר שבע</div>
+<h1 class="wiki7-home__header-title">שירי קהל</h1>
+<div class="wiki7-home__header-subtitle">האוסף המלא של שירי הקהל של הפועל באר שבע — מהשירים הוותיקים ועד הלהיטים החדשים</div>
+</div>
+
+== שירי טרום-משחק ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName=page,title
+|where=category='טרום-משחק'
+|order by=title
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+== שירי שער ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName=page,title
+|where=category='שער'
+|order by=title
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+== שירים כלליים ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName=page,title
+|where=category='כללי'
+|order by=title
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+== שירי דרבי ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName=page,title
+|where=category='דרבי'
+|order by=title
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+== שירים היסטוריים ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName=page,title
+|where=category='היסטורי'
+|order by=title
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+<div style="text-align:center; margin-top:2rem;">
+<div class="wiki7-link-button wiki7-link-button--red" style="display:inline-block;">
+[{{fullurl:Special:FormEdit/Fan Anthem}} הוסף שיר קהל חדש]
+</div>
+</div>
+
+[[קטגוריה:שירי קהל]]

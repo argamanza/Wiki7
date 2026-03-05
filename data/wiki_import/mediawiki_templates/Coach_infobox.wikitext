@@ -1,0 +1,26 @@
+<includeonly>
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+{{{name|}}}
+</div>
+{{#if:{{{image|}}}|
+<div class="wiki7-infobox__image">[[File:{{{image|}}}|300px]]</div>
+}}
+<div class="wiki7-infobox__section">
+{{#if:{{{tenure_start|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תחילת כהונה</span><span class="wiki7-infobox__value">{{{tenure_start|}}}</span></div>}}
+{{#if:{{{tenure_end|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">סיום כהונה</span><span class="wiki7-infobox__value">{{{tenure_end|}}}</span></div>}}
+{{#if:{{{trophies|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תארים</span><span class="wiki7-infobox__value">{{{trophies|}}}</span></div>}}
+</div>
+{{#if:{{{matches|}}}{{{wins|}}}|
+<div class="wiki7-infobox__stats-grid">
+{{#if:{{{matches|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{matches|}}}</span><span class="wiki7-infobox__stat-label">משחקים</span></div>}}
+{{#if:{{{wins|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{wins|}}}</span><span class="wiki7-infobox__stat-label">ניצחונות</span></div>}}
+{{#if:{{{draws|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{draws|}}}</span><span class="wiki7-infobox__stat-label">תיקו</span></div>}}
+{{#if:{{{losses|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{losses|}}}</span><span class="wiki7-infobox__stat-label">הפסדים</span></div>}}
+</div>
+}}
+{{#if:{{{ppm|}}}|
+<div class="wiki7-infobox__footer">ממוצע נקודות למשחק: {{{ppm|}}}</div>
+}}
+</div>
+</includeonly>

@@ -1,18 +1,15 @@
 const { CommandPaletteItem, CommandPaletteActionResult, CommandPaletteProvider } = require( '../types.js' );
 const { defineStore } = require( 'pinia' );
 const createRecentItems = require( '../services/recentItems.js' );
-const urlGenerator = require( '../utils/urlGenerator.js' )();
+const { getNavigationAction } = require( '../utils/providerActions.js' );
 
 const RecentItemsProvider = require( '../providers/RecentItemsProvider.js' );
 const CommandProvider = require( '../providers/CommandProvider.js' );
 const SearchProvider = require( '../providers/SearchProvider.js' );
 const RelatedArticlesProvider = require( '../providers/RelatedArticlesProvider.js' );
-const { cdxIconArticleSearch } = require( '../icons.json' );
+const QueryActionProvider = require( '../providers/QueryActionProvider.js' );
 
 const recentItemsService = createRecentItems();
-
-// Cache the localized description for full-text search
-const FULLTEXT_SEARCH_DESCRIPTION = mw.message( 'citizen-command-palette-type-fulltext-search-description' ).text();
 
 // Delay for showing the pending indicator, in milliseconds.
 const SHOW_PENDING_DELAY_MS = 300;
@@ -23,7 +20,8 @@ const providers = [
 	RecentItemsProvider,
 	CommandProvider,
 	SearchProvider,
-	RelatedArticlesProvider
+	RelatedArticlesProvider,
+	QueryActionProvider
 ];
 
 /**
@@ -80,7 +78,7 @@ exports.useSearchStore = defineStore( 'search', {
 		 * @param {Object} state The store state.
 		 * @return {string}
 		 */
-		searchUrl: ( state ) => urlGenerator.generateUrl( 'Special:Search', {
+		searchUrl: ( state ) => mw.util.getUrl( 'Special:Search', {
 			search: state.searchQuery
 		} )
 	},
@@ -114,47 +112,16 @@ exports.useSearchStore = defineStore( 'search', {
 		},
 
 		/**
-		 * Creates the command palette item for initiating a full-text search.
+		 * Sets the results, combining items from a content provider with items from QueryActionProvider.
 		 *
-		 * @param {string} query The search query to use.
-		 * @return {CommandPaletteItem} The full-text search item.
+		 * @param {Array<CommandPaletteItem>} contentItems Items from the main content provider (e.g., SearchProvider, CommandProvider).
 		 * @private
 		 */
-		createFulltextSearchItem( query ) {
-			return {
-				label: query,
-				description: FULLTEXT_SEARCH_DESCRIPTION,
-				type: 'fulltext-search',
-				url: urlGenerator.generateUrl( 'Special:Search', { search: query } ), // Generate URL directly
-				thumbnailIcon: cdxIconArticleSearch,
-				actions: [],
-				source: 'fulltext-search' // Add source property
-			};
-		},
+		setProviderResults( contentItems ) {
+			const currentContentItems = Array.isArray( contentItems ) ? contentItems : [];
+			const queryActionItems = QueryActionProvider.getResults( this.searchQuery );
 
-		/**
-		 * Sets the results from a provider, combining them with the fulltext search item if necessary.
-		 *
-		 * @param {Array<CommandPaletteItem>} providerItems Items returned by the provider.
-		 * @private
-		 */
-		setProviderResults( providerItems ) {
-			// Source is now added by providers themselves
-			const items = Array.isArray( providerItems ) ? providerItems : [];
-			let finalItems = items;
-
-			// Add fulltext search item if applicable
-			if (
-				this.searchQuery &&
-				!CommandProvider.canProvide( this.searchQuery )
-			) {
-				const fulltextSearchItem = this.createFulltextSearchItem( this.searchQuery );
-				// Ensure fulltext item is always at the end
-				finalItems = [ ...items, fulltextSearchItem ];
-			}
-
-			// Update the single displayedItems list
-			this.displayedItems = finalItems;
+			this.displayedItems = [ ...currentContentItems, ...queryActionItems ];
 		},
 
 		/**
@@ -168,13 +135,12 @@ exports.useSearchStore = defineStore( 'search', {
 			try {
 				const results = typeof provider.getResults === 'function' ? provider.getResults( query ) : [];
 				if ( this.searchQuery === query ) {
-					// Pass a source hint based on whether it's a command
-					this.setProviderResults( results, provider === CommandProvider ? 'command' : 'search' );
+					this.setProviderResults( results );
 				}
 			} catch ( error ) {
 				mw.log.error( `[skins.citizen.commandPalette] Sync Provider failed for query "${ query }":`, error );
 				if ( this.searchQuery === query ) {
-					this.setProviderResults( [], 'error' ); // Clear results on error
+					this.setProviderResults( [] );
 				}
 			}
 		},
@@ -201,7 +167,6 @@ exports.useSearchStore = defineStore( 'search', {
 			this.debounceTimeout = null;
 			this.debounceTimeout = setTimeout( async () => {
 				if ( this.searchQuery !== query ) {
-					// Query changed before timeout completed, reset pending state and bail.
 					this.resetPendingState();
 					return;
 				}
@@ -209,12 +174,12 @@ exports.useSearchStore = defineStore( 'search', {
 				try {
 					const results = typeof provider.getResults === 'function' ? await provider.getResults( query ) : [];
 					if ( this.searchQuery === query ) {
-						this.setProviderResults( results, provider === CommandProvider ? 'command' : 'search' );
+						this.setProviderResults( results );
 					}
 				} catch ( error ) {
 					mw.log.error( `[skins.citizen.commandPalette] Async Provider failed for query "${ query }":`, error );
 					if ( this.searchQuery === query ) {
-						this.setProviderResults( [], 'error' ); // Clear results on error
+						this.setProviderResults( [] );
 					}
 				} finally {
 					if ( this.searchQuery === query ) {
@@ -231,49 +196,42 @@ exports.useSearchStore = defineStore( 'search', {
 		 * @return {void}
 		 */
 		updateQuery( query ) {
+			const previousSearchQuery = this.searchQuery;
 			this.searchQuery = query;
 
-			// If query is empty, switch to presults mode via clearSearch
+			this.resetOperationState();
+
 			if ( !query ) {
 				this.clearSearch();
 				return;
 			}
 
-			this.resetOperationState();
+			const contentProvider = providers.find( ( p ) => p.id !== QueryActionProvider.id && p.canProvide( query ) );
+			let initialContentItems = [];
 
-			// Immediately update or add the fulltext search item if applicable
-			// Use CommandProvider.canProvide to check if it's NOT a command query
-			if ( query && !CommandProvider.canProvide( query ) ) {
-				const newFulltextItem = this.createFulltextSearchItem( query );
-				const existingFulltextIndex = this.displayedItems.findIndex( ( item ) => item.type === 'fulltext-search' );
+			// Determine initial content items: stale items from the contentProvider if applicable, otherwise empty.
+			if ( contentProvider && previousSearchQuery && contentProvider.keepStaleResultsOnQueryChange !== false ) {
+				// Filter displayedItems to keep only those from the *current contentProvider* that is about to be re-queried.
+				// This avoids keeping stale items from a different previous content provider.
+				initialContentItems = this.displayedItems.filter(
+					( item ) => item.source && ( item.source.startsWith( contentProvider.id + ':' ) || item.source === contentProvider.id )
+				);
+			}
+			// If conditions above aren't met (no contentProvider, not keeping stale, or no previous query),
+			// initialContentItems remains [].
 
-				if ( existingFulltextIndex !== -1 ) {
-					const newItems = [ ...this.displayedItems ];
-					newItems.splice( existingFulltextIndex, 1, newFulltextItem );
-					this.displayedItems = newItems;
+			// Set the initial display. This combines initialContentItems (stale or empty)
+			// with fresh items from QueryActionProvider (e.g., the full-text search link).
+			this.setProviderResults( initialContentItems );
+
+			// If a content provider was found, invoke its handler to fetch new data.
+			if ( contentProvider ) {
+				if ( contentProvider.isAsync ) {
+					this.handleAsyncProvider( contentProvider, query );
 				} else {
-					this.displayedItems = [ ...this.displayedItems, newFulltextItem ];
+					this.handleSyncProvider( contentProvider, query );
 				}
-			} else {
-				// If it's a command query or became one, remove any existing fulltext item immediately
-				const existingFulltextIndex = this.displayedItems.findIndex( ( item ) => item.type === 'fulltext-search' );
-				if ( existingFulltextIndex !== -1 ) {
-					this.displayedItems = this.displayedItems.filter( ( _, index ) => index !== existingFulltextIndex );
-				}
-			}
-
-			const provider = providers.find( ( p ) => p.canProvide( query ) );
-
-			if ( !provider ) {
-				// No specific provider, displayedItems might just contain the fulltext item
-				return;
-			}
-
-			if ( provider.isAsync ) {
-				this.handleAsyncProvider( provider, query );
-			} else {
-				this.handleSyncProvider( provider, query );
-			}
+			} // If no contentProvider, displayedItems is already set (likely with only QueryActionProvider items).
 		},
 
 		/**
@@ -324,21 +282,18 @@ exports.useSearchStore = defineStore( 'search', {
 			this.searchQuery = '';
 			this.resetOperationState();
 
-			// Fetch recent items synchronously and display them immediately
 			const fetchedRecentItems = this.fetchRecentItems();
-			this.displayedItems = [ ...fetchedRecentItems ]; // Show recent items first
+			// For presults, QueryActionProvider won't return items if its canProvide is query-dependent.
+			// So, setProviderResults will just display recent items.
+			this.setProviderResults( [ ...fetchedRecentItems ] );
 
-			// Asynchronously fetch related articles
 			const fetchedRelatedArticles = await this.fetchRelatedArticles();
-
-			// Filter recent items to remove duplicates already present in related articles (based on URL)
 			const relatedUrls = new Set( fetchedRelatedArticles.map( ( item ) => item.url ).filter( Boolean ) );
-			// Use the originally fetched recent items for filtering, not the potentially modified displayedItems
 			const filteredRecentItems = fetchedRecentItems.filter( ( item ) => !item.url || !relatedUrls.has( item.url ) );
 
-			// Only update when we are still in presults
-			if ( this.searchQuery === '' ) {
-				this.displayedItems = [ ...fetchedRelatedArticles, ...filteredRecentItems ];
+			if ( this.searchQuery === '' ) { // Only update if still in presults
+				// For presults, QueryActionProvider results will be empty.
+				this.setProviderResults( [ ...fetchedRelatedArticles, ...filteredRecentItems ] );
 			}
 		},
 
@@ -347,73 +302,73 @@ exports.useSearchStore = defineStore( 'search', {
 		 * Determines the appropriate action based on the item type and returns instructions
 		 * for the UI component.
 		 *
-		 * @param {CommandPaletteItem|null} result The selected item, or null if Enter was pressed with no selection.
-		 * @return {CommandPaletteActionResult} An object describing the next UI action.
+		 * @param {CommandPaletteItem|null} result The selected item or null if Enter was pressed with no selection.
+		 * @return {Promise<CommandPaletteActionResult>} An object describing the next UI action.
 		 */
 		async handleSelection( result ) {
-			// Case 1: Enter pressed with no selection (handle fulltext search)
 			if ( !result ) {
-				if ( this.searchQuery && !this.searchQuery.startsWith( '/' ) ) {
-					// Save the fulltext search query as a recent item
-					recentItemsService.saveSearchQuery( this.searchQuery, this.searchUrl );
-					return { action: 'navigate', payload: this.searchUrl };
-				}
-				return { action: 'none' }; // Nothing to do if query is empty or a command stub
-			}
-
-			// Case 2: An item was selected
-
-			// Handle the special fulltext-search item type directly
-			if ( result.type === 'fulltext-search' ) {
-				recentItemsService.saveSearchQuery( this.searchQuery, result.url );
-				return { action: 'navigate', payload: result.url };
+				return { action: 'none' };
 			}
 
 			// Find the provider responsible for the item based on its source
-			// Handle structured source 'provider:handlerId' by taking the first part
-			const providerId = result.source?.match( /^([^:]+)(?::.*)?$/ )?.[ 1 ] || result.source;
+			const providerId = ( /^([^:]+)(?::.*)?$/ ).exec( result.source ?? '' )?.[ 1 ] || result.source;
 			const sourceProvider = providerId ? providerMap.get( providerId ) : null;
-
-			let actionResult = { action: 'none' }; // Default action
 
 			if ( sourceProvider && typeof sourceProvider.onResultSelect === 'function' ) {
 				try {
 					// Delegate selection handling to the provider
-					actionResult = await sourceProvider.onResultSelect( result );
-					if ( !actionResult ) {
-						return { action: 'none' };
-					}
-
-					switch ( actionResult.action ) {
-						case 'navigate':
-							recentItemsService.saveRecentItem( result );
-							break;
-						case 'updateQuery':
-							if ( actionResult.payload !== undefined ) {
-								this.updateQuery( actionResult.payload );
-							}
-							this.triggerFocusSearchInput();
-							break;
-					}
-
-					// Return the provider's result
-					return actionResult;
+					const actionResult = await sourceProvider.onResultSelect( result );
+					return this.processProviderAction( actionResult, result );
 				} catch ( error ) {
 					mw.log.error( `[skins.citizen.commandPalette|searchStore] Error handling selection for source: ${ result.source }`, error );
 					return { action: 'none' };
 				}
 			} else {
-				mw.log.warn( `[skins.citizen.commandPalette|searchStore] No provider or onResultSelect found for source: ${ result.source }`, result );
-				// Default fallback: navigate if URL exists
-				if ( result.url ) {
-					// Save generic non-command items before navigating
-					if ( result.source !== 'command' ) {
-						recentItemsService.saveRecentItem( result );
-					}
-					return { action: 'navigate', payload: result.url };
-				}
+				return this.handleFallbackSelection( result );
+			}
+		},
+
+		/**
+		 * Processes the action result from a provider after a selection.
+		 * Saves the item if it's a navigation action and handles query updates.
+		 *
+		 * @param {CommandPaletteActionResult|null} actionResult The result from the provider.
+		 * @param {CommandPaletteItem} result The originally selected item.
+		 * @return {CommandPaletteActionResult} The final action result for the UI.
+		 */
+		processProviderAction( actionResult, result ) {
+			if ( !actionResult ) {
 				return { action: 'none' };
 			}
+
+			// Save item on navigation, unless it's a command
+			if ( actionResult.action === 'navigate' && result.type !== 'command' ) {
+				recentItemsService.saveRecentItem( result );
+			}
+
+			// Handle query updates
+			if ( actionResult.action === 'updateQuery' ) {
+				if ( actionResult.payload !== undefined ) {
+					this.updateQuery( actionResult.payload );
+				}
+				this.triggerFocusSearchInput();
+			}
+
+			return actionResult;
+		},
+
+		/**
+		 * Handles selection when no specific provider is found.
+		 * Generates a default navigation action and saves the item if applicable.
+		 *
+		 * @param {CommandPaletteItem} result The selected item.
+		 * @return {CommandPaletteActionResult} An object describing the next UI action.
+		 */
+		handleFallbackSelection( result ) {
+			mw.log.warn( `[skins.citizen.commandPalette|searchStore] No provider or onResultSelect found for source: ${ result.source }`, result );
+			const actionResult = getNavigationAction( result );
+			// Process the fallback action (e.g., to save recent item)
+			return this.processProviderAction( actionResult, result );
 		},
 
 		/**

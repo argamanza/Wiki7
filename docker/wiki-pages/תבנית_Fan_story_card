@@ -1,0 +1,7 @@
+<includeonly><div class="wiki7-anthem-card">
+<div class="wiki7-anthem-card__icon">&#128214;</div>
+<div class="wiki7-anthem-card__info">
+<div class="wiki7-anthem-card__title">[[{{{page|}}}|{{{title|}}}]]</div>
+<div class="wiki7-anthem-card__meta">{{#if:{{{author|}}}|מאת: {{{author|}}} &middot; }}{{{story_category|}}}</div>
+</div>
+</div></includeonly>

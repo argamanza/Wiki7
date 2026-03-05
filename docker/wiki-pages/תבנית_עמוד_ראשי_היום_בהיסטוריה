@@ -1,0 +1,23 @@
+<div class="wiki7-home__card">
+<h3 class="wiki7-home__card-title">&#128197; היום בהיסטוריה</h3>
+<div class="wiki7-otd">
+{{#cargo_query:
+tables=matches
+|fields=match_date,opponent,result,competition,season
+|where=SUBSTRING(match_date,6,5)='{{CURRENTMONTH2}}-{{CURRENTDAY2}}'
+|order by=match_date DESC
+|limit=3
+|format=template
+|template=On this day item
+|named args=yes
+}}
+{{#cargo_query:
+tables=matches
+|fields=match_date,opponent,result,competition,season
+|where=SUBSTRING(match_date,6,5)='{{CURRENTMONTH2}}-{{CURRENTDAY2}}'
+|format=count
+}} אירועים ביום הזה בהיסטוריה
+</div>
+</div><noinclude>
+[[קטגוריה:תבניות עמוד ראשי]]
+</noinclude>

@@ -79,7 +79,7 @@ module.exports = exports = defineComponent( {
 				...listItem,
 				active: listItem.id === activeItemId.value,
 				highlighted: index === props.highlightedItemIndex,
-				searchQuery: highlightQuery, // Use the determined query for highlighting
+				searchQuery: highlightQuery.trim(),
 				id: String( listItem.id )
 			};
 		}
@@ -104,15 +104,16 @@ module.exports = exports = defineComponent( {
 </script>
 
 <style lang="less">
+@import '../../mixins.less';
+
 .wiki7-command-palette-list {
 	padding-block: var( --space-xs );
 
 	&__heading {
 		padding-block: var( --space-xs ) var( --space-xxs );
 		padding-inline: var( --wiki7-command-palette-side-padding );
-		font-size: var( --font-size-x-small );
-		font-weight: var( --font-weight-medium );
 		color: var( --color-subtle );
+		.mixin-wiki7-font-styles( 'overline' );
 	}
 
 	&__listbox {

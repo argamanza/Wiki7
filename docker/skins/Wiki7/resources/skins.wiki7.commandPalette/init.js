@@ -25,7 +25,6 @@ function initApp() {
 	const commandPalette = app.mount( overlay );
 
 	registerButton( commandPalette );
-	bindKeyboardShortcuts( commandPalette );
 }
 
 /**
@@ -37,8 +36,7 @@ function initApp() {
  */
 function registerButton( commandPalette ) {
 	const details = document.getElementById( 'wiki7-search-details' );
-	// Remove the search card from the DOM so it won't be triggered by the button
-	document.getElementById( 'wiki7-search__card' )?.remove();
+	removeSearchCard();
 
 	details.open = false;
 	details.addEventListener( 'click', () => {
@@ -46,56 +44,12 @@ function registerButton( commandPalette ) {
 	} );
 }
 
-/**
- * Manually toggle the details state when the keyboard button is SLASH is pressed.
- *
- * @param {Vue} commandPalette
- * @return {void}
- */
-function bindKeyboardShortcuts( commandPalette ) {
-	const onExpandOnSlash = ( event ) => {
-		const isKeyPressed = () => {
-			// "/"
-			if ( event.key === '/' ) {
-				return true;
-			// "Ctrl" + "K" (or "Command" + "K" on Mac)
-			} else if ( ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'k' ) {
-				return true;
-			// "Alt" + "Shift" + "F" is the MW standard key
-			// Shift key might makes F key goes capital, so we need to make it lowercase
-			} else if ( event.altKey && event.shiftKey && event.key.toLowerCase() === 'f' ) {
-				return true;
-			} else {
-				return false;
-			}
-		};
-		if ( isKeyPressed() && !isFormField( event.target ) ) {
-			// Since Firefox quickfind interfere with this
-			event.preventDefault();
-			commandPalette.open();
-		}
-	};
+function removeSearchCard() {
+	// Remove the search card from the DOM so it won't be triggered by the button
+	document.getElementById( 'wiki7-search__card' )?.remove();
 
-	document.addEventListener( 'keydown', onExpandOnSlash, true );
-}
-
-/**
- * Check if the element is a HTML form element or content editable
- * This is to prevent trigger search box when user is typing on a textfield, input, etc.
- *
- * @param {HTMLElement} element
- * @return {boolean}
- */
-function isFormField( element ) {
-	if ( !( element instanceof HTMLElement ) ) {
-		return false;
-	}
-	const name = element.nodeName.toLowerCase();
-	const type = ( element.getAttribute( 'type' ) || '' ).toLowerCase();
-	return ( name === 'select' ||
-        name === 'textarea' ||
-        ( name === 'input' && type !== 'submit' && type !== 'reset' && type !== 'checkbox' && type !== 'radio' ) ||
-        element.isContentEditable );
+	// Remove aria-details since wiki7-search__card no longer exists
+	document.getElementById( 'wiki7-search-summary' )?.removeAttribute( 'aria-details' );
 }
 
 initApp();

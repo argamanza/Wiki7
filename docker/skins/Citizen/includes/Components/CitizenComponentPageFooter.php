@@ -8,19 +8,15 @@ use MessageLocalizer;
 
 /**
  * CitizenComponentPageFooter component
- * FIXME: Need unit test
  */
 class CitizenComponentPageFooter implements CitizenComponent {
 
 	public function __construct(
-		private MessageLocalizer $localizer,
-		private array $footerData
+		private readonly MessageLocalizer $localizer,
+		private readonly array $footerData
 	) {
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function getTemplateData(): array {
 		$footerData = $this->footerData;
 

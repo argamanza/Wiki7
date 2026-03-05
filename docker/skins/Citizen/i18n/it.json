@@ -51,13 +51,20 @@
 	"citizen-tagline-ns-help": "Pagina d'aiuto",
 	"citizen-tagline-ns-category": "Pagina delle categorie",
 	"citizen-tagline-user-regdate": "Iscritto $1",
+	"citizen-feature-performance-mode-0-label": "Disattivato",
+	"citizen-feature-performance-mode-1-label": "Attivo",
 	"citizen-user-info-text-anon": "Il tuo indirizzo IP sarà visibile pubblicamente se effettuerai modifiche.",
 	"citizen-user-info-text-temp": "Questa utenza temporanea è stata creata dopo che è stata apportata una modifica senza un'utenza su questo browser e dispositivo.",
+	"citizen-user-info-edits-label": "Modifiche",
 	"citizen-command-palette-heading-recent": "Recenti",
 	"citizen-command-palette-heading-related": "Risultati correlati",
 	"citizen-command-palette-keyhint-enter-select": "Seleziona",
 	"citizen-command-palette-type-page": "Pagina",
-	"citizen-command-palette-type-fulltext-search": "Ricerca nell'intero testo",
 	"citizen-command-palette-type-namespace": "Namespace",
-	"citizen-command-palette-type-special-page": "Pagina speciale"
+	"citizen-command-palette-type-special-page": "Pagina speciale",
+	"citizen-command-palette-tip-commands": "Digita <code>/</code> per tutti i comandi",
+	"citizen-command-palette-tip-users": "Digita <code>@</code> per cercare gli utenti",
+	"citizen-command-palette-tip-namespace": "Digita <code>:</code> per cercare i namespace",
+	"citizen-command-palette-tip-templates": "Digita <code><nowiki>{{</nowiki></code> per cercare i template",
+	"citizen-command-palette-tip-actions": "Digita <code>></code> per un elenco di azioni"
 }

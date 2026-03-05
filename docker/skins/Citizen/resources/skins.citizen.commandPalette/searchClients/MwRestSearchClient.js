@@ -6,7 +6,6 @@
 
 const { CitizenCommandPaletteSearchClient, CommandPaletteSearchResponse, AbortableSearchFetch } = require( '../types.js' );
 const fetchJson = require( '../utils/fetch.js' );
-const urlGenerator = require( '../utils/urlGenerator.js' );
 const { cdxIconArticle, cdxIconArticleRedirect, cdxIconEdit } = require( '../icons.json' );
 
 /**
@@ -38,7 +37,6 @@ const { cdxIconArticle, cdxIconArticleRedirect, cdxIconEdit } = require( '../ico
 class MwRestSearchClient {
 
 	constructor() {
-		this.urlGenerator = urlGenerator();
 		this.editMessage = mw.msg( 'action-edit' );
 		this.searchApiUrl = mw.config.get( 'wgScriptPath' ) + '/rest.php';
 	}
@@ -51,13 +49,13 @@ class MwRestSearchClient {
 	 */
 	processQuery( query ) {
 		// Template syntax: {{Template}} -> Template:Template
-		const templateMatch = query.match( /^{{(.*?)(}})?$/ );
+		const templateMatch = /^{{(.*?)(}})?$/.exec( query );
 		if ( templateMatch ) {
 			return `Template:${ templateMatch[ 1 ] }`;
 		}
 
 		// Wikilink syntax: [[Article]] -> Article
-		const wikilinkMatch = query.match( /^\[\[(.*?)(]]?)?$/ );
+		const wikilinkMatch = /^\[\[(.*?)(]]?)?$/.exec( query );
 		if ( wikilinkMatch ) {
 			return wikilinkMatch[ 1 ];
 		}
@@ -80,11 +78,11 @@ class MwRestSearchClient {
 			results: response.pages.map( ( page ) => {
 				const thumbnail = page.thumbnail;
 				return {
-					id: `citizen-command-palette-item-page-${ page.id }`,
+					id: `citizen-command-palette-item-page-${ page.key }`,
 					type: 'page',
 					label: page.title,
 					description: showDescription ? page.description : undefined,
-					url: this.urlGenerator.generateUrl( page ),
+					url: mw.util.getUrl( page.matched_title ?? page.title ), // #1065, revisit when REST API has anchor field (T306150)
 					thumbnail: thumbnail ? {
 						url: thumbnail.url,
 						width: thumbnail.width ?? undefined,
@@ -103,7 +101,7 @@ class MwRestSearchClient {
 							id: 'edit',
 							label: this.editMessage,
 							icon: cdxIconEdit,
-							url: this.urlGenerator.generateUrl( page, { action: 'edit' } )
+							url: mw.util.getUrl( page.title, { action: 'edit' } )
 						}
 					],
 					highlightQuery: true

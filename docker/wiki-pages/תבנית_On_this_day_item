@@ -1,0 +1,4 @@
+<includeonly><div class="wiki7-otd__item">
+<span class="wiki7-otd__year">{{#expr:{{#time:Y|{{{match_date|}}}}}}}</span>
+<span class="wiki7-otd__desc">'''הפועל באר שבע''' {{{result|}}} נגד '''{{{opponent|}}}''' ({{{competition|}}}){{#if:{{{season|}}}| — עונת {{{season|}}}}}</span>
+</div></includeonly>

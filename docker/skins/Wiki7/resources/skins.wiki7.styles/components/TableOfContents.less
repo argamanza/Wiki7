@@ -1,13 +1,6 @@
 .wiki7-toc {
-	--wiki7-toc-toggle-size: ~'calc( var( --font-size-small ) * var( --line-height-xx-small ) + var( --space-xs ) * 2 )';
-	font-size: var( --font-size-small );
-	line-height: var( --line-height-xx-small );
-
-	&-top {
-		.wiki7-ui-icon {
-			transform: rotate( 90deg );
-		}
-	}
+	--wiki7-toc-toggle-size: ~'calc( var( --line-height-small ) + var( --space-xs ) * 2 )';
+	.mixin-wiki7-font-styles( 'small' );
 
 	&-contents,
 	&-list {
@@ -25,21 +18,24 @@
 		position: relative;
 		display: flex;
 		gap: var( --space-xs );
+		align-items: center;
 		padding: var( --space-xs );
 		font-weight: var( --font-weight-medium );
 		color: var( --color-base );
+		text-decoration: none;
 		border-radius: var( --border-radius-base );
 
 		.wiki7-toc &.wiki7-toc-top {
 			height: 0;
 			padding-block: 0;
 			opacity: 0;
+			transition-timing-function: var( --transition-timing-function-ease-out );
+			transition-duration: var( --transition-duration-medium );
 			transition-property: opacity, height;
 		}
 
 		&:has( + .wiki7-toc-toggle ) {
-			/* Make space for toggle */
-			margin-right: var( --wiki7-toc-toggle-size );
+			margin-right: var( --wiki7-toc-toggle-size ); // Make space for toggle
 		}
 
 		&:hover {
@@ -64,7 +60,6 @@
 		width: var( --wiki7-toc-toggle-size );
 		height: var( --wiki7-toc-toggle-size );
 		padding: 0;
-		background: transparent;
 	}
 
 	&-indicator {
@@ -89,7 +84,6 @@
 	}
 
 	&-summary {
-		font-size: var( --font-size-x-small );
 		color: var( --color-subtle );
 	}
 
@@ -122,8 +116,6 @@
 		--size-icon: var( --font-size-x-small );
 		display: grid;
 		place-content: center;
-		cursor: pointer;
-		border-radius: var( --border-radius-base );
 
 		.wiki7-ui-icon {
 			&::before {
@@ -131,14 +123,6 @@
 				transition: var( --transition-hover );
 				transition-property: transform;
 			}
-		}
-
-		&:hover {
-			background-color: var( --background-color-button-quiet--hover );
-		}
-
-		&:active {
-			background-color: var( --background-color-button-quiet--active );
 		}
 	}
 
@@ -159,13 +143,12 @@
 @media ( max-width: ( @max-width-breakpoint-tablet ) ) {
 	.wiki7-toc {
 		position: fixed;
-		bottom: ~'calc( var( --header-size ) + max( env( safe-area-inset-bottom ), var( --space-xs ) ) )';
+		bottom: ~'calc( var( --header-size-block-end ) + max( env( safe-area-inset-bottom ), var( --space-xs ) ) )';
 		left: 0;
 		z-index: @z-index-sticky; // Keep ToC above sticky header and page action, but below site header
 		pointer-events: none; // HACK: Make background clickable
 
 		&-card {
-			position: absolute;
 			// Get consistent margin
 			bottom: ~'calc( 100% - var( --space-xs ) )';
 			width: max-content;
@@ -188,7 +171,7 @@
 				background-color: var( --color-surface-1 );
 				border: 1px solid var( --border-color-base );
 				border-radius: var( --border-radius-medium );
-				box-shadow: var( --box-shadow-drop-xx-large );
+				box-shadow: var( --box-shadow-large );
 
 				// The hover state colors are not great but it will do for now
 				&:hover {
@@ -217,25 +200,22 @@
 	.wiki7-toc {
 		position: -webkit-sticky;
 		position: sticky;
-		top: var( --height-sticky-header );
-		max-height: ~'calc( 100vh - var( --height-sticky-header ) )';
+		top: var( --header-offset-block-start );
+		max-height: ~'calc( 100vh - var( --header-offset-block-start ) )';
 		padding: var( --space-xs ) 0;
 		overflow-y: auto;
 		overscroll-behavior: contain;
 
 		.wiki7-menu__card {
+			position: relative;
 			min-width: auto;
 			margin: 0;
+			content-visibility: visible;
 			background: transparent;
 			border: 0;
 			border-radius: 0;
 			box-shadow: none;
 			transform: none;
-			content-visibility: visible;
-
-			.wiki7-menu__card-backdrop {
-				display: none;
-			}
 
 			.wiki7-menu__card-content {
 				opacity: 1;

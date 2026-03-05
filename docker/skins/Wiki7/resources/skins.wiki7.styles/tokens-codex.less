@@ -1,16 +1,18 @@
 /**
  * Codex Design Tokens overrides
  * @see https://github.com/wikimedia/mediawiki/blob/master/resources/lib/codex-design-tokens/theme-wikimedia-ui-root.css
+ *
+ * Changelog: https://github.com/wikimedia/design-codex/blob/main/CHANGELOG.md
 */
 :root {
-	/* @since Codex Design Tokens v1.14.0 (MediaWiki 1.43) */
+	// @since Codex Design Tokens v1.14.0 (MediaWiki 1.43)
 	--color-base: ~'oklch( var( --color-base-oklch__l ) var( --color-base-oklch__c ) var( --color-progressive-oklch__h ) )';
 	--color-base-fixed: #202122;
 	--color-base--hover: ~'oklch( calc( var( --color-base-oklch__l ) + var( --delta-lightness-hover-state ) ) var( --color-base-oklch__c ) var( --color-progressive-oklch__h ) )';
 	--color-emphasized: ~'oklch( var( --color-emphasized-oklch__l ) var( --color-emphasized-oklch__c ) var( --color-progressive-oklch__h ) )';
 	--color-subtle: ~'oklch( var( --color-subtle-oklch__l ) var( --color-subtle-oklch__c ) var( --color-progressive-oklch__h ) )';
 	--color-placeholder: ~'oklch( var( --color-placeholder-oklch__l ) var( --color-placeholder-oklch__c ) var( --color-progressive-oklch__h ) )';
-	--color-disabled: var( --color-placeholder );
+	--color-disabled: ~'oklch( var( --color-disabled-oklch__l ) var( --color-disabled-oklch__c ) var( --color-progressive-oklch__h ) )';
 	--color-inverted: #fff;
 	--color-inverted-fixed: #fff;
 	--color-progressive: ~'oklch( var( --color-progressive-oklch__l ) var( --color-progressive-oklch__c ) var( --color-progressive-oklch__h ) )';
@@ -31,7 +33,9 @@
 	--color-content-removed: var( --color-destructive );
 	--filter-invert-icon: 0;
 	--filter-invert-primary-button-icon: 1;
-	--box-shadow-color-base: ~'hsla( var( --shadow-color ), var( --shadow-opacity ) )';
+	// This is not correct since Codex 2.0 since it becomes a solid color
+	// But we keep it for now for compatibility with Codex 1.x
+	--box-shadow-color-base: var( --box-shadow-color-alpha-base );
 	--box-shadow-color-progressive--active: var( --color-progressive--active );
 	--box-shadow-color-progressive--focus: var( --color-progressive );
 	--box-shadow-color-progressive-selected: var( --color-progressive );
@@ -71,10 +75,8 @@
 	--background-color-transparent: transparent;
 	--background-color-backdrop-light: ~'oklch( var( --color-surface-0-oklch__l ) var( --color-surface-0-oklch__c ) var( --color-progressive-oklch__h ) / var( --backdrop-opacity ) )';
 	--background-color-backdrop-dark: ~'rgba( 0, 0, 0, var( --backdrop-opacity ) )';
-	--background-color-button-quiet--hover: ~'oklch( 92% 0.04 var( --color-progressive-oklch__h ) / 0.9 )';
-	--background-color-button-quiet--active: ~'oklch( 96% 0.02 var( --color-progressive-oklch__h ) / 0.95 )';
-	--background-color-button-quiet-menu--hover: ~'oklch( 92% 0.04 var( --color-progressive-oklch__h ) / 0.9 )';
-	--background-color-button-quiet-menu--active: ~'oklch( 96% 0.02 var( --color-progressive-oklch__h ) / 0.95 )';
+	--background-color-button-quiet--hover: rgba( 0, 24, 73, 0.027 );
+	--background-color-button-quiet--active: rgba( 0, 24, 73, 0.082 );
 	--background-color-input-binary--checked: var( --color-progressive );
 	--background-color-tab-list-item-framed--hover: rgba( 255, 255, 255, 0.3 );
 	--background-color-tab-list-item-framed--active: rgba( 255, 255, 255, 0.65 );
@@ -84,10 +86,10 @@
 	--opacity-icon-base--disabled: 0.51;
 	--opacity-icon-placeholder: 0.51;
 	--opacity-icon-subtle: 0.67;
-	--border-color-base: rgba( 0, 0, 0, 0.08 );
-	--border-color-subtle: rgba( 0, 0, 0, 0.05 );
-	--border-color-muted: rgba( 0, 0, 0, 0.03 );
-	--border-color-interactive: rgba( 0, 0, 0, 0.11 );
+	--border-color-base: ~'rgb( 0 0 0 / 0.1 )';
+	--border-color-subtle: ~'rgb( 0 0 0 / 0.05 )';
+	--border-color-muted: ~'rgb( 0 0 0 / 0.03 )';
+	--border-color-interactive: ~'rgb( 0 0 0 / 0.1 )';
 	--border-color-disabled: var( --border-color-subtle );
 	--border-color-inverted: #fff;
 	--border-color-progressive: var( --color-progressive );
@@ -120,7 +122,7 @@
 	--border-color-input-binary--focus: var( --border-color-progressive--focus );
 	--border-color-input-binary--checked: var( --border-color-progressive );
 
-	/* @since Codex Design Tokens v1.20.1 (MediaWiki master) */
+	// @since Codex Design Tokens v1.20.1 (MediaWiki master)
 	//--color-disabled-emphasized: #a2a9b1;
 	--color-visited--hover: var( --color-progressive--hover );
 	--color-visited--active: var( --color-progressive--active );
@@ -151,13 +153,21 @@
 	--background-color-interactive-subtle--hover: var( --color-surface-1--hover );
 	--background-color-interactive-subtle--active: var( --color-surface-1--active );
 
-	/* Fallback for browsers that do not support OKLCH */
+	--accent-color-base: var( --color-progressive );
+
+	--box-shadow-color-alpha-base: ~'oklch( var( --shadow-color-oklch__l ) var( --shadow-color-oklch__c ) var( --color-progressive-oklch__h ) / var( --shadow-opacity ) )';
+
+	// Font tokens
+	.cdx-mode-medium();
+
+	// Fallback for browsers that do not support OKLCH
 	@supports not ( color: oklch( 100% 0 0 ) ) {
 		--color-base: ~'hsl( var( --color-progressive-hsl__h ), var( --color-base-hsl__s ), var( --color-base-hsl__l ) )';
 		--color-base--hover: ~'hsl( var( --color-progressive-hsl__h ), var( --color-base-hsl__s ), calc( var( --color-base-hsl__l ) + var( --delta-lightness-hover-state ) ) )';
 		--color-emphasized: ~'hsl( var( --color-progressive-hsl__h ), var( --color-emphasized-hsl__s ), var( --color-emphasized-hsl__l ) )';
 		--color-subtle: ~'hsl( var( --color-progressive-hsl__h ), var( --color-subtle-hsl__s ), var( --color-subtle-hsl__l ) )';
 		--color-placeholder: ~'hsl( var( --color-progressive-hsl__h ), var( --color-placeholder-hsl__s ), var( --color-placeholder-hsl__l ) )';
+		--color-disabled: ~'hsl( var( --color-progressive-hsl__h ), var( --color-disabled-hsl__s ), var( --color-disabled-hsl__l ) )';
 		--color-progressive: ~'hsl( var( --color-progressive-hsl__h ), var( --color-progressive-hsl__s ), var( --color-progressive-hsl__l ) )';
 		--color-progressive--hover: ~'hsl( var( --color-progressive-hsl__h ), var( --color-progressive-hsl__s ), calc( var( --color-progressive-hsl__l ) + var( --delta-lightness-hover-state ) ) )';
 		--color-progressive--active: ~'hsl( var( --color-progressive-hsl__h ), var( --color-progressive-hsl__s ), calc( var( --color-progressive-hsl__l ) + var( --delta-lightness-active-state ) ) )';
@@ -169,9 +179,85 @@
 		//--background-color-warning-subtle: ~'hsl( var( --color-warning__h ), var( --background-color-subtle__s ), var( --background-color-subtle__l ) )';
 		//--background-color-success-subtle: ~'hsl( var( --color-success__h ), var( --background-color-subtle__s ), var( --background-color-subtle__l ) )';
 		--background-color-backdrop-light: ~'hsl( var( --color-progressive-hsl__h ), var( --color-surface-0-hsl__s ), var( --color-surface-0-hsl__l ) / var( --backdrop-opacity ) )';
-		--background-color-button-quiet--hover: ~'hsla( var( --color-progressive-hsl__h ), 85%, 93%, 0.9 )';
-		--background-color-button-quiet--active: ~'hsla( var( --color-progressive-hsl__h ), 85%, 97%, 0.95 )';
-		--background-color-button-quiet-menu--hover: ~'hsla( var( --color-progressive-hsl__h ), 85%, 93%, 0.9 )';
-		--background-color-button-quiet-menu--active: ~'hsla( var( --color-progressive-hsl__h ), 85%, 97%, 0.95 )';
+		//--background-color-button-quiet--hover: rgba( 0, 24, 73, 0.027 );
+		//--background-color-button-quiet--active: rgba( 0, 24, 73, 0.082 );
+		//--background-color-tab-list-item-framed--hover: rgba( 255, 255, 255, 0.3 );
+		//--background-color-tab-list-item-framed--active: rgba( 255, 255, 255, 0.65 );
+
+		--box-shadow-color-alpha-base: ~'hsl( var( --color-progressive-hsl__h ) var( --shadow-color-hsl__s ) var( --shadow-color-hsl__l ) / var( --shadow-opacity ) )';
 	}
+}
+
+// Backported Codex 2.0 font tokens
+// TODO: Remove this when LTS MW has Codex 2.0
+.cdx-mode-small() {
+	--font-size-x-small: 0.625rem;
+	--font-size-small: 0.75rem;
+	--font-size-medium: 0.875rem;
+	--font-size-large: 1rem;
+	--font-size-x-large: 1.125rem;
+	--font-size-xx-large: 1.375rem;
+	--font-size-xxx-large: 1.625rem;
+	--line-height-x-small: 1.125rem;
+	--line-height-small: 1.25rem;
+	--line-height-medium: 1.375rem;
+	--line-height-large: 1.625rem;
+	--line-height-x-large: 1.75rem;
+	--line-height-xx-large: 2rem;
+	--line-height-xxx-large: 2.25rem;
+	--line-height-content: 1.5714285;
+}
+
+.cdx-mode-medium() {
+	--font-size-x-small: 0.75rem;
+	--font-size-small: 0.875rem;
+	--font-size-medium: 1rem;
+	--font-size-large: 1.125rem;
+	--font-size-x-large: 1.25rem;
+	--font-size-xx-large: 1.5rem;
+	--font-size-xxx-large: 1.75rem;
+	--line-height-x-small: 1.25rem;
+	--line-height-small: 1.375rem;
+	--line-height-medium: 1.625rem;
+	--line-height-large: 1.75rem;
+	--line-height-x-large: 1.875rem;
+	--line-height-xx-large: 2.125rem;
+	--line-height-xxx-large: 2.375rem;
+	--line-height-content: 1.625;
+}
+
+.cdx-mode-large() {
+	--font-size-x-small: 0.875rem;
+	--font-size-small: 1rem;
+	--font-size-medium: 1.125rem;
+	--font-size-large: 1.25rem;
+	--font-size-x-large: 1.375rem;
+	--font-size-xx-large: 1.625rem;
+	--font-size-xxx-large: 1.875rem;
+	--line-height-x-small: 1.375rem;
+	--line-height-small: 1.625rem;
+	--line-height-medium: 1.75rem;
+	--line-height-large: 1.875rem;
+	--line-height-x-large: 2rem;
+	--line-height-xx-large: 2.25rem;
+	--line-height-xxx-large: 2.5rem;
+	--line-height-content: 1.55;
+}
+
+.cdx-mode-x-large() {
+	--font-size-x-small: 1rem;
+	--font-size-small: 1.125rem;
+	--font-size-medium: 1.25rem;
+	--font-size-large: 1.375rem;
+	--font-size-x-large: 1.5rem;
+	--font-size-xx-large: 1.75rem;
+	--font-size-xxx-large: 2rem;
+	--line-height-x-small: 1.625rem;
+	--line-height-small: 1.75rem;
+	--line-height-medium: 1.875rem;
+	--line-height-large: 2rem;
+	--line-height-x-large: 2.125rem;
+	--line-height-xx-large: 2.375rem;
+	--line-height-xxx-large: 2.625rem;
+	--line-height-content: 1.5;
 }

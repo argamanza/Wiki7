@@ -1,7 +1,6 @@
 const { CommandPaletteItem, CommandPaletteProvider, CommandPaletteActionResult } = require( '../types.js' );
 const { cdxIconArticle } = require( '../icons.json' );
-const urlGeneratorFactory = require( '../utils/urlGenerator.js' );
-const urlGenerator = urlGeneratorFactory();
+const { getNavigationAction } = require( '../utils/providerActions.js' );
 
 // Cache variables
 let cachedResults = null;
@@ -17,6 +16,7 @@ const RelatedArticlesProvider = {
 	id: 'related',
 	// Assuming this message key will be added to i18n/en.json etc.
 	label: mw.message( 'citizen-command-palette-heading-related' ).text(),
+	keepStaleResultsOnQueryChange: false,
 
 	/**
 	 * Determines if this provider can supply results for the given query.
@@ -33,14 +33,14 @@ const RelatedArticlesProvider = {
 	 * Gets the placeholder related article results.
 	 *
 	 * @param {string} query The search query (unused here).
-	 * @return {Array<CommandPaletteItem>}
+	 * @return {Promise<Array<CommandPaletteItem>>}
 	 */
-	getResults() {
+	async getResults() {
 		const currentArticleId = mw.config.get( 'wgArticleId' );
 
 		// Return cached results if available and for the current article
 		if ( cachedResults !== null && cachedArticleId === currentArticleId ) {
-			return Promise.resolve( cachedResults );
+			return cachedResults;
 		}
 
 		// Return existing promise if a fetch is already in progress for the current article
@@ -74,7 +74,7 @@ const RelatedArticlesProvider = {
 						label: page.title,
 						description: page.description || page.extract,
 						type: 'page',
-						url: urlGenerator.generateUrl( page ),
+						url: mw.util.getUrl( page.title ),
 						thumbnail: page.thumbnail ? {
 							url: page.thumbnail.source
 						} : null,
@@ -115,21 +115,17 @@ const RelatedArticlesProvider = {
 	},
 
 	isAsync: true,
-	debounceMs: 0, // Results can come from a local cache
+	debounceMs: 0, // The request is only called once and then cached
 
 	/**
 	 * Handles the selection of a related article item.
 	 * Default action is to navigate to the item's URL.
 	 *
 	 * @param {CommandPaletteItem} item The selected item.
-	 * @return {CommandPaletteActionResult} Action result for the UI.
+	 * @return {Promise<CommandPaletteActionResult>} Action result for the UI.
 	 */
 	async onResultSelect( item ) {
-		// Default behavior for related articles is navigation
-		if ( item.url ) {
-			return { action: 'navigate', payload: item.url };
-		}
-		return { action: 'none' }; // Fallback if no URL
+		return getNavigationAction( item );
 	}
 };
 

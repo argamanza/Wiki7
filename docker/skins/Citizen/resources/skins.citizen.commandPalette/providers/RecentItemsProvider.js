@@ -1,5 +1,6 @@
 const { CommandPaletteItem, CommandPaletteProvider, CommandPaletteActionResult } = require( '../types.js' );
 const createRecentItems = require( '../services/recentItems.js' );
+const { getNavigationAction } = require( '../utils/providerActions.js' );
 
 const recentItemsService = createRecentItems();
 
@@ -8,6 +9,7 @@ module.exports = {
 	id: 'recent',
 	isAsync: false, // We load from localStorage, so no need to debounce
 	debounceMs: 0,
+	keepStaleResultsOnQueryChange: false,
 
 	/**
 	 * Determines if this provider should handle the current query.
@@ -38,14 +40,9 @@ module.exports = {
 	 * Default action is to navigate to the item's URL.
 	 *
 	 * @param {CommandPaletteItem} item The selected item.
-	 * @return {CommandPaletteActionResult} Action result for the UI.
+	 * @return {Promise<CommandPaletteActionResult>} Action result for the UI.
 	 */
 	async onResultSelect( item ) {
-		// Default behavior for recent items is navigation
-		if ( item.url ) {
-			return { action: 'navigate', payload: item.url };
-		}
-		// If no URL, do nothing (should ideally not happen for saved items)
-		return { action: 'none' };
+		return getNavigationAction( item );
 	}
 };
