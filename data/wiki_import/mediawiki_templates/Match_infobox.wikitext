@@ -1,39 +1,17 @@
 <includeonly>
-{| class="infobox" style="width:22em; font-size:88%; direction:rtl; text-align:right;"
-|-
-! colspan="2" style="background:#cc0000; color:white; font-size:120%; text-align:center;" | vs {{{opponent|}}}
-|-
-! colspan="2" style="text-align:center; font-size:150%; font-weight:bold;" | {{{result|}}}
-|-
-! style="width:35%;" | מסגרת
-| {{{competition|}}}
-{{#if:{{{matchday|}}}|
-{{!}}-
-! מחזור
-{{!}} {{{matchday|}}}
-}}
-|-
-! תאריך
-| {{{date|}}}
-{{#if:{{{time|}}}|
-{{!}}-
-! שעה
-{{!}} {{{time|}}}
-}}
-{{#if:{{{venue|}}}|
-{{!}}-
-! אצטדיון
-{{!}} {{{venue|}}}
-}}
-{{#if:{{{attendance|}}}|
-{{!}}-
-! צופים
-{{!}} {{{attendance|}}}
-}}
-{{#if:{{{system_of_play|}}}|
-{{!}}-
-! שיטת משחק
-{{!}} {{{system_of_play|}}}
-}}
-|}
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+vs {{{opponent|}}}
+<div class="wiki7-infobox__header-sub" style="font-size:1.5rem;font-weight:700;margin-top:4px;">{{{result|}}}</div>
+</div>
+<div class="wiki7-infobox__section">
+<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מסגרת</span><span class="wiki7-infobox__value">{{{competition|}}}</span></div>
+{{#if:{{{matchday|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מחזור</span><span class="wiki7-infobox__value">{{{matchday|}}}</span></div>}}
+<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תאריך</span><span class="wiki7-infobox__value">{{{date|}}}</span></div>
+{{#if:{{{time|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">שעה</span><span class="wiki7-infobox__value">{{{time|}}}</span></div>}}
+{{#if:{{{venue|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">אצטדיון</span><span class="wiki7-infobox__value">{{{venue|}}}</span></div>}}
+{{#if:{{{attendance|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">צופים</span><span class="wiki7-infobox__value">{{{attendance|}}}</span></div>}}
+{{#if:{{{system_of_play|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">שיטת משחק</span><span class="wiki7-infobox__value">{{{system_of_play|}}}</span></div>}}
+</div>
+</div>
 </includeonly>

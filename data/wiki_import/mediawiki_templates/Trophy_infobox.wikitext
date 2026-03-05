@@ -1,0 +1,14 @@
+<includeonly>
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+{{{competition|}}}
+</div>
+<div class="wiki7-infobox__section">
+{{#if:{{{year|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">שנה</span><span class="wiki7-infobox__value">{{{year|}}}</span></div>}}
+{{#if:{{{final_opponent|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">יריבה בגמר</span><span class="wiki7-infobox__value">{{{final_opponent|}}}</span></div>}}
+{{#if:{{{result|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תוצאה</span><span class="wiki7-infobox__value">{{{result|}}}</span></div>}}
+{{#if:{{{venue|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">אצטדיון</span><span class="wiki7-infobox__value">{{{venue|}}}</span></div>}}
+{{#if:{{{manager|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מאמן</span><span class="wiki7-infobox__value">{{{manager|}}}</span></div>}}
+</div>
+</div>
+</includeonly>

@@ -1,0 +1,27 @@
+<includeonly>
+<div class="wiki7-home__header" style="background: linear-gradient(135deg, {{{color|var(--wiki7-red)}}} 0%, #1a1a2e 100%);">
+<h1 class="wiki7-home__header-title">הפועל באר שבע נגד {{{opponent|}}}</h1>
+<div class="wiki7-home__header-subtitle">{{{description|היסטוריית העימותים}}}</div>
+</div>
+
+== סטטיסטיקות מול {{{opponent|}}} ==
+<div class="wiki7-home__stats">
+<div class="wiki7-stat">
+<span class="wiki7-stat__number">{{#cargo_query:tables=matches|fields=_pageName|where=opponent LIKE '%{{{opponent|}}}%'|format=count}}</span>
+<span class="wiki7-stat__label">סה"כ משחקים</span>
+</div>
+</div>
+
+== כל המשחקים ==
+{{#cargo_query:
+tables=matches
+|fields=match_date,opponent,result,competition,venue,season
+|where=opponent LIKE '%{{{opponent|}}}%'
+|order by=match_date DESC
+|limit=50
+|format=table
+|default=אין עדיין נתונים
+}}
+
+[[קטגוריה:יריבויות]]
+</includeonly>

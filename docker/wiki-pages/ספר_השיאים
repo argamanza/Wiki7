@@ -1,0 +1,82 @@
+<div class="wiki7-home__header">
+<div class="wiki7-home__header-pretitle">הפועל באר שבע</div>
+<h1 class="wiki7-home__header-title">ספר השיאים</h1>
+<div class="wiki7-home__header-subtitle">שיאי המועדון לאורך כל ההיסטוריה</div>
+</div>
+
+== מלכי השערים ==
+<div class="wiki7-records__section">
+{| class="wiki7-records__table"
+! #
+! שחקן
+! שערים
+|-
+{{#cargo_query:
+tables=player_stats
+|fields=player_id,SUM(goals)=total_goals
+|group by=player_id
+|having=SUM(goals) > 0
+|order by=total_goals DESC
+|limit=20
+|format=template
+|template=Record row
+|named args=yes
+}}
+|}
+</div>
+
+== בעלי ההופעות ==
+<div class="wiki7-records__section">
+{| class="wiki7-records__table"
+! #
+! שחקן
+! הופעות
+|-
+{{#cargo_query:
+tables=player_stats
+|fields=player_id,SUM(appearances)=total_appearances
+|group by=player_id
+|having=SUM(appearances) > 0
+|order by=total_appearances DESC
+|limit=20
+|format=template
+|template=Record row
+|named args=yes
+}}
+|}
+</div>
+
+== מלכי הבישולים ==
+<div class="wiki7-records__section">
+{| class="wiki7-records__table"
+! #
+! שחקן
+! בישולים
+|-
+{{#cargo_query:
+tables=player_stats
+|fields=player_id,SUM(assists)=total_assists
+|group by=player_id
+|having=SUM(assists) > 0
+|order by=total_assists DESC
+|limit=20
+|format=template
+|template=Record row
+|named args=yes
+}}
+|}
+</div>
+
+== הניצחונות הגדולים ==
+<div class="wiki7-records__section">
+{{#cargo_query:
+tables=matches
+|fields=match_date,opponent,result,competition,season
+|order by=result DESC
+|limit=10
+|format=table
+|default=אין עדיין נתונים
+}}
+</div>
+
+[[קטגוריה:סטטיסטיקות]]

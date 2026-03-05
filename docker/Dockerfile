@@ -18,6 +18,10 @@ echo '{"extra":{"merge-plugin":{"include":["extensions/AWS/composer.json"]}}}' >
 composer config --global audit.block-insecure false && \
 composer update --no-dev --no-audit
 
+# Clone TabberNeue extension (tabbed content for stats, lyrics, galleries)
+RUN cd /var/www/html && \
+    git clone --depth 1 -b main https://github.com/StarCitizenTools/mediawiki-extensions-TabberNeue.git extensions/TabberNeue
+
 # Set working directory
 WORKDIR /var/www/html
 

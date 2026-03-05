@@ -14,8 +14,12 @@
 {{עמוד ראשי/ערך מומלץ}}
 </div>
 
-<div class="wiki7-home__grid wiki7-home__grid--three">
+<div class="wiki7-home__grid">
+{{עמוד ראשי/היום בהיסטוריה}}
 {{עמוד ראשי/תמונה}}
+</div>
+
+<div class="wiki7-home__grid wiki7-home__grid--three">
 {{עמוד ראשי/קישורים}}
 {{עמוד ראשי/צור קשר}}
 </div>

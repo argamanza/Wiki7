@@ -9,12 +9,45 @@
 	}
 
 	&__header {
+		position: relative;
 		display: flex;
 		gap: var( --space-md );
 		align-items: center;
 		justify-content: center;
 		padding: var( --space-md );
 		border-bottom: var( --border-width-base ) solid var( --border-color-base );
+	}
+
+	// Close button
+	&__close {
+		position: absolute;
+		top: var( --space-xs );
+		inset-inline-end: var( --space-xs );
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		padding: 0;
+		border: none;
+		border-radius: var( --border-radius-base );
+		background: transparent;
+		color: var( --color-subtle );
+		cursor: pointer;
+		transition: background-color 0.15s ease, color 0.15s ease;
+
+		&:hover {
+			background-color: var( --background-color-button-quiet--hover );
+			color: var( --color-emphasized );
+		}
+
+		&:active {
+			background-color: var( --background-color-button-quiet--active );
+		}
+
+		.wiki7-ui-icon {
+			--size-icon: 1rem;
+		}
 	}
 
 	// Keep aspect ratio
@@ -38,11 +71,30 @@
 		max-width: inherit;
 		padding: var( --space-xs );
 		margin-bottom: var( --space-xs );
-		font-size: var( --font-size-small ); // TODO: Make this a variable
+		font-size: var( --font-size-small );
 
 		.mw-list-item a {
 			border-radius: var( --border-radius-base );
 		}
+
+		// Section heading separators
+		.mw-portlet {
+			&:not( :first-child ) {
+				border-top: var( --border-width-base ) solid var( --border-color-base );
+				padding-top: var( --space-xs );
+			}
+		}
+	}
+}
+
+// Mobile: slide-in from the side and full height
+@media ( max-width: @max-width-breakpoint-tablet ) {
+	.wiki7-drawer .wiki7-drawer__card {
+		max-height: 90vh;
+	}
+
+	.wiki7-drawer .wiki7-menu__card-content {
+		max-height: 90vh;
 	}
 }
 

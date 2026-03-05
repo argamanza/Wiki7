@@ -1,0 +1,69 @@
+<div class="wiki7-home__header">
+<div class="wiki7-home__header-pretitle">הפועל באר שבע</div>
+<h1 class="wiki7-home__header-title">סיפורי אוהדים</h1>
+<div class="wiki7-home__header-subtitle">סיפורים וזיכרונות מהאוהדים — כי הקבוצה זה אנחנו</div>
+</div>
+
+== משחקים בלתי נשכחים ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_stories
+|fields=_pageName=page,title,author,story_category
+|where=story_category='משחק בלתי נשכח'
+|order by=_pageName
+|format=template
+|template=Fan story card
+|named args=yes
+|default=''
+}}
+</div>
+
+== יציאות חוץ ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_stories
+|fields=_pageName=page,title,author,story_category
+|where=story_category='יציאת חוץ'
+|order by=_pageName
+|format=template
+|template=Fan story card
+|named args=yes
+|default=''
+}}
+</div>
+
+== מסורות משפחתיות ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_stories
+|fields=_pageName=page,title,author,story_category
+|where=story_category='מסורת משפחתית'
+|order by=_pageName
+|format=template
+|template=Fan story card
+|named args=yes
+|default=''
+}}
+</div>
+
+== הפעם הראשונה באצטדיון ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_stories
+|fields=_pageName=page,title,author,story_category
+|where=story_category='פעם ראשונה'
+|order by=_pageName
+|format=template
+|template=Fan story card
+|named args=yes
+|default=''
+}}
+</div>
+
+<div style="text-align:center; margin-top:2rem;">
+<div class="wiki7-link-button wiki7-link-button--red" style="display:inline-block;">
+[{{fullurl:Special:FormEdit/Fan Story}} שתף את הסיפור שלך]
+</div>
+</div>
+
+[[קטגוריה:סיפורי אוהדים]]

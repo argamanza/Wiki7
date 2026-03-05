@@ -32,6 +32,7 @@ class ImportDefaultPages extends Maintenance {
             'MediaWiki_Common.css'       => 'MediaWiki:Common.css',
             'MediaWiki_Common.js'        => 'MediaWiki:Common.js',
             'MediaWiki_Mainpage'         => 'MediaWiki:Mainpage',
+            'MediaWiki_Sidebar'          => 'MediaWiki:Sidebar',
 
             // Main page
             'עמוד_ראשי'                  => 'עמוד ראשי',
@@ -48,6 +49,24 @@ class ImportDefaultPages extends Maintenance {
             'תבנית_עמוד_ראשי_תארים'      => 'תבנית:עמוד ראשי/תארים',
             'תבנית_עמוד_ראשי_קישורים'    => 'תבנית:עמוד ראשי/קישורים',
             'תבנית_עמוד_ראשי_צור_קשר'    => 'תבנית:עמוד ראשי/צור קשר',
+
+            // Feature pages
+            'שירי_קהל'                    => 'שירי קהל',
+            'המוזיאון_הווירטואלי'          => 'המוזיאון הווירטואלי',
+            'תבנית_Anthem_card'           => 'תבנית:Anthem card',
+            'תבנית_Museum_card'           => 'תבנית:Museum card',
+
+            // On This Day template
+            'תבנית_עמוד_ראשי_היום_בהיסטוריה' => 'תבנית:עמוד ראשי/היום בהיסטוריה',
+            'תבנית_On_this_day_item'      => 'תבנית:On this day item',
+
+            // Feature content pages
+            'ספר_השיאים'                  => 'ספר השיאים',
+            'גלריית_מדים'                 => 'גלריית מדים',
+            'תבנית_Kit_card'              => 'תבנית:Kit card',
+            'תבנית_Rivalry'               => 'תבנית:Rivalry',
+            'תבנית_Fan_story_card'        => 'תבנית:Fan story card',
+            'סיפורי_אוהדים'               => 'סיפורי אוהדים',
         ];
     }
 
