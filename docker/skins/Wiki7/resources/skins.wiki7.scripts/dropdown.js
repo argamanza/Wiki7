@@ -128,6 +128,12 @@ class Dropdown {
 		// from being open when navigating back to a page.
 		window.addEventListener( 'beforeunload', this.dismiss.bind( this ) );
 		this.addKeyhint();
+
+		// Bind close button inside the drawer/menu card
+		const closeButton = this.target.querySelector( '.wiki7-drawer__close' );
+		if ( closeButton ) {
+			closeButton.addEventListener( 'click', () => this.dismiss() );
+		}
 	}
 }
 

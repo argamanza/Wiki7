@@ -1,49 +1,33 @@
 <includeonly>
-{| class="infobox" style="width:22em; font-size:88%; direction:rtl; text-align:right;"
-|-
-! colspan="2" style="background:#cc0000; color:white; font-size:120%; text-align:center;" | {{{name_english|}}}
-{{#if:{{{name_hebrew|}}}|
-{{!}}-
-! colspan="2" style="background:#cc0000; color:white; font-size:110%; text-align:center;" {{!}} {{{name_hebrew|}}}
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+{{{name_english|}}}
+{{#if:{{{name_hebrew|}}}|<div class="wiki7-infobox__header-sub">{{{name_hebrew|}}}</div>}}
+</div>
+{{#if:{{{image|}}}|
+<div class="wiki7-infobox__image">[[File:{{{image|}}}|300px]]</div>
 }}
-|-
-! style="width:35%;" | עמדה
-| {{{position|}}}
-|-
-! מספר חולצה
-| {{{jersey_number|}}}
-{{#if:{{{birth_date|}}}|
-{{!}}-
-! תאריך לידה
-{{!}} {{{birth_date|}}}
-}}
-{{#if:{{{birth_place|}}}|
-{{!}}-
-! מקום לידה
-{{!}} {{{birth_place|}}}
-}}
-{{#if:{{{nationality|}}}|
-{{!}}-
-! אזרחות
-{{!}} {{{nationality|}}}
-}}
-|-
-! בסגל הנוכחי
-| {{#ifeq:{{{current_squad|}}}|Yes|&#x2705;|&#x274C;}}
-{{#ifeq:{{{homegrown|}}}|Yes|
-{{!}}-
-! חניך המועדון
-{{!}} &#x2705;
-}}
-{{#ifeq:{{{retired|}}}|Yes|
-{{!}}-
-! פרש
-{{!}} &#x2705;
+<div class="wiki7-infobox__section">
+<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">עמדה</span><span class="wiki7-infobox__value">{{{position|}}}</span></div>
+{{#if:{{{jersey_number|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מספר חולצה</span><span class="wiki7-infobox__value">{{{jersey_number|}}}</span></div>}}
+{{#if:{{{birth_date|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">תאריך לידה</span><span class="wiki7-infobox__value">{{{birth_date|}}}</span></div>}}
+{{#if:{{{birth_place|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מקום לידה</span><span class="wiki7-infobox__value">{{{birth_place|}}}</span></div>}}
+{{#if:{{{nationality|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">אזרחות</span><span class="wiki7-infobox__value">{{{nationality|}}}</span></div>}}
+</div>
+<div class="wiki7-infobox__section">
+<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">בסגל הנוכחי</span><span class="wiki7-infobox__value">{{#ifeq:{{{current_squad|}}}|Yes|<span class="wiki7-infobox__badge wiki7-infobox__badge--active">פעיל</span>|<span class="wiki7-infobox__badge wiki7-infobox__badge--retired">לא</span>}}</span></div>
+{{#ifeq:{{{homegrown|}}}|Yes|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">חניך המועדון</span><span class="wiki7-infobox__value"><span class="wiki7-infobox__badge wiki7-infobox__badge--active">חניך</span></span></div>}}
+{{#ifeq:{{{retired|}}}|Yes|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">פרש</span><span class="wiki7-infobox__value"><span class="wiki7-infobox__badge wiki7-infobox__badge--retired">פרש</span></span></div>}}
+</div>
+{{#if:{{{appearances|}}}{{{goals|}}}|
+<div class="wiki7-infobox__stats-grid">
+{{#if:{{{appearances|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{appearances|}}}</span><span class="wiki7-infobox__stat-label">הופעות</span></div>}}
+{{#if:{{{goals|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{goals|}}}</span><span class="wiki7-infobox__stat-label">שערים</span></div>}}
+{{#if:{{{assists|}}}|<div class="wiki7-infobox__stat"><span class="wiki7-infobox__stat-value">{{{assists|}}}</span><span class="wiki7-infobox__stat-label">בישולים</span></div>}}
+</div>
 }}
 {{#if:{{{tmk_id|}}}|
-{{!}}-
-! קישור חיצוני
-{{!}} [https://www.transfermarkt.com/player/profil/spieler/{{{tmk_id|}}} Transfermarkt]
+<div class="wiki7-infobox__footer">[https://www.transfermarkt.com/player/profil/spieler/{{{tmk_id|}}} Transfermarkt]</div>
 }}
-|}
+</div>
 </includeonly>

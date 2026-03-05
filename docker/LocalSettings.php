@@ -109,6 +109,7 @@ wfLoadExtension( 'WikiEditor' );
 
 wfLoadExtension( 'Cargo' );
 wfLoadExtension( 'PageForms' );
+wfLoadExtension( 'TabberNeue' );
 
 ##
 ## Logo

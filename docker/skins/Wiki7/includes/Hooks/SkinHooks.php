@@ -147,6 +147,24 @@ class SkinHooks implements
 			'id'    => 't-specialpages',
 		];
 
+		// Add icons to sidebar navigation items
+		$sidebarIconMap = [
+			'n-mainpage-description' => 'home',
+			'n-recentchanges'        => 'recentChanges',
+			'n-randompage'           => 'die',
+			'n-specialpages'         => 'specialPages',
+		];
+		foreach ( $bar as $sectionKey => &$sectionItems ) {
+			if ( is_array( $sectionItems ) ) {
+				foreach ( $sectionItems as $itemKey => &$item ) {
+					if ( isset( $sidebarIconMap[$itemKey] ) && is_array( $item ) ) {
+						$item['icon'] = $sidebarIconMap[$itemKey];
+					}
+				}
+			}
+		}
+		unset( $sectionItems, $item );
+
 		if ( $this->getConfigValue( 'EnableUploads', $out ) === true ) {
 			$isUploadWizardEnabled = ExtensionRegistry::getInstance()->isLoaded( 'Upload Wizard' );
 			$bar[$name]['upload'] = [

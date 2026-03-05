@@ -1,0 +1,65 @@
+<div class="wiki7-home__header">
+<div class="wiki7-home__header-pretitle">הפועל באר שבע</div>
+<h1 class="wiki7-home__header-title">גלריית מדים</h1>
+<div class="wiki7-home__header-subtitle">ההיסטוריה החזותית של מדי הפועל באר שבע לאורך השנים</div>
+</div>
+
+<tabber>
+מדי בית=
+== מדי בית ==
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName=page,season,kit_type,manufacturer
+|where=kit_type='בית'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+|-|
+מדי חוץ=
+== מדי חוץ ==
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName=page,season,kit_type,manufacturer
+|where=kit_type='חוץ'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+|-|
+מדי שלישי=
+== מדי שלישי ==
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName=page,season,kit_type,manufacturer
+|where=kit_type='שלישי'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+|-|
+מדי שוער=
+== מדי שוער ==
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName=page,season,kit_type,manufacturer
+|where=kit_type='שוער'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+</tabber>
+
+[[קטגוריה:מדים]]

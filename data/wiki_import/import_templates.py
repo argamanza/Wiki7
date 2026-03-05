@@ -32,6 +32,12 @@ MEDIAWIKI_TEMPLATES = {
     "Template:Player infobox": "Player_infobox.wikitext",
     "Template:Match infobox": "Match_infobox.wikitext",
     "Template:Stadium infobox": "Stadium_infobox.wikitext",
+    "Template:Fan anthem infobox": "Fan_anthem_infobox.wikitext",
+    "Template:Museum item infobox": "Museum_item_infobox.wikitext",
+    "Template:Season infobox": "Season_infobox.wikitext",
+    "Template:Coach infobox": "Coach_infobox.wikitext",
+    "Template:Trophy infobox": "Trophy_infobox.wikitext",
+    "Template:Kit infobox": "Kit_infobox.wikitext",
 }
 
 
@@ -122,6 +128,56 @@ CARGO_TABLES = {
             "competition": "String",
             "achievement": "String",
             "seasons": "List (,) of String",
+        },
+    },
+    "Template:Cargo/FanAnthem": {
+        "table": "fan_anthems",
+        "fields": {
+            "title": "String",
+            "origin_year": "String",
+            "melody_source": "String",
+            "category": "String",
+            "when_used": "String",
+        },
+    },
+    "Template:Cargo/MuseumItem": {
+        "table": "museum_items",
+        "fields": {
+            "name": "String",
+            "item_type": "String",
+            "era": "String",
+            "year": "String",
+            "donor": "String",
+            "description": "String",
+        },
+    },
+    "Template:Cargo/Season": {
+        "table": "seasons",
+        "fields": {
+            "year": "String",
+            "league_position": "String",
+            "cup_result": "String",
+            "top_scorer": "String",
+            "top_scorer_goals": "Integer",
+            "manager": "String",
+        },
+    },
+    "Template:Cargo/Kit": {
+        "table": "kits",
+        "fields": {
+            "season": "String",
+            "kit_type": "String",
+            "manufacturer": "String",
+            "sponsor": "String",
+        },
+    },
+    "Template:Cargo/FanStory": {
+        "table": "fan_stories",
+        "fields": {
+            "title": "String",
+            "author": "String",
+            "story_category": "String",
+            "year": "String",
         },
     },
 }

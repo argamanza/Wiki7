@@ -1,0 +1,78 @@
+<div class="wiki7-home__header">
+<div class="wiki7-home__header-pretitle">הפועל באר שבע</div>
+<h1 class="wiki7-home__header-title">המוזיאון הווירטואלי</h1>
+<div class="wiki7-home__header-subtitle">אוסף דיגיטלי של מזכרות, חולצות, כרטיסים והיסטוריה של הפועל באר שבע</div>
+</div>
+
+== חולצות משחק ==
+<div class="wiki7-museum__grid">
+{{#cargo_query:
+tables=museum_items
+|fields=_pageName=page,name,item_type,year
+|where=item_type='חולצת משחק'
+|order by=year DESC
+|format=template
+|template=Museum card
+|named args=yes
+}}
+</div>
+
+== כרטיסים היסטוריים ==
+<div class="wiki7-museum__grid">
+{{#cargo_query:
+tables=museum_items
+|fields=_pageName=page,name,item_type,year
+|where=item_type='כרטיס'
+|order by=year DESC
+|format=template
+|template=Museum card
+|named args=yes
+}}
+</div>
+
+== גביעים ומדליות ==
+<div class="wiki7-museum__grid">
+{{#cargo_query:
+tables=museum_items
+|fields=_pageName=page,name,item_type,year
+|where=item_type='גביע' OR item_type='מדליה'
+|order by=year DESC
+|format=template
+|template=Museum card
+|named args=yes
+}}
+</div>
+
+== צעיפים ותגים ==
+<div class="wiki7-museum__grid">
+{{#cargo_query:
+tables=museum_items
+|fields=_pageName=page,name,item_type,year
+|where=item_type='צעיף' OR item_type='תג'
+|order by=year DESC
+|format=template
+|template=Museum card
+|named args=yes
+}}
+</div>
+
+== פריטים נוספים ==
+<div class="wiki7-museum__grid">
+{{#cargo_query:
+tables=museum_items
+|fields=_pageName=page,name,item_type,year
+|where=item_type NOT IN ('חולצת משחק','כרטיס','גביע','מדליה','צעיף','תג')
+|order by=year DESC
+|format=template
+|template=Museum card
+|named args=yes
+}}
+</div>
+
+<div style="text-align:center; margin-top:2rem;">
+<div class="wiki7-link-button wiki7-link-button--red" style="display:inline-block;">
+[{{fullurl:Special:FormEdit/Museum Item}} הוסף פריט למוזיאון]
+</div>
+</div>
+
+[[קטגוריה:מוזיאון]]
