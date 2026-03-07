@@ -53,7 +53,27 @@ php maintenance/run.php update --quick
 echo "=== Importing default wiki pages... ==="
 php maintenance/run.php /var/www/html/import-pages.php
 
+# 5. Create ALL Cargo SQL tables from declaration templates.
+#    Query page_props for CargoTableName entries set by #cargo_declare.
+echo "=== Creating Cargo tables... ==="
+CARGO_TABLES=$(mysql -h "$MEDIAWIKI_DB_HOST" -u "$MEDIAWIKI_DB_USER" \
+  -p"$MEDIAWIKI_DB_PASSWORD" --skip-ssl "$MEDIAWIKI_DB_NAME" \
+  -N -e "SELECT DISTINCT pp_value FROM page_props WHERE pp_propname='CargoTableName';" 2>/dev/null || echo "")
+
+if [ -z "$CARGO_TABLES" ]; then
+  echo "  No Cargo declaration templates found. Skipping table creation."
+else
+  for tbl in $CARGO_TABLES; do
+    echo "  Creating Cargo table: $tbl"
+    php extensions/Cargo/maintenance/cargoRecreateData.php --table="$tbl" --quiet 2>&1 || true
+  done
+fi
+
+# 6. Re-parse sample data pages so #cargo_store fires (tables now exist)
+echo "=== Populating Cargo data from sample pages... ==="
+php maintenance/run.php /var/www/html/cargo-repopulate.php
+
 echo "=== Database initialization complete. Starting Apache... ==="
 
-# 5. Hand off to Apache
+# 7. Hand off to Apache
 exec docker-php-entrypoint apache2-foreground

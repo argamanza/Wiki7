@@ -120,6 +120,29 @@ class Dropdown {
 				.replace( 'option', '⌥' );
 			link.append( keyhint );
 		} );
+
+		// Add "/" keyhint to search menu item and wire up click to open search overlay
+		const searchLink = this.target.querySelector( '#n-search > a, a#n-search' );
+		if ( searchLink ) {
+			const keyhint = document.createElement( 'kbd' );
+			keyhint.classList.add( 'wiki7-keyboard-hint-key' );
+			keyhint.innerText = '/';
+			searchLink.append( keyhint );
+
+			searchLink.addEventListener( 'click', ( event ) => {
+				event.preventDefault();
+				// Close the drawer
+				const details = searchLink.closest( '.wiki7-dropdown-details' );
+				if ( details ) {
+					details.open = false;
+				}
+				// Open search overlay
+				const searchDetails = document.getElementById( 'wiki7-search-details' );
+				if ( searchDetails ) {
+					searchDetails.open = true;
+				}
+			} );
+		}
 	}
 
 	init() {

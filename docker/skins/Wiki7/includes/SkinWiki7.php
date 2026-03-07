@@ -170,6 +170,13 @@ class SkinWiki7 extends SkinMustache {
 			}
 		}
 
+		// Drawer footer links
+		$footerLinks = $config->get( 'Wiki7DrawerFooterLinks' );
+		if ( is_array( $footerLinks ) && count( $footerLinks ) > 0 ) {
+			$parentData['has-drawer-footer-items'] = true;
+			$parentData['array-drawer-footer-items'] = $footerLinks;
+		}
+
 		// HACK: So that we can use Icon.mustache in Header__logo.mustache
 		$parentData['data-logos']['icon-home'] = 'home';
 

@@ -1,0 +1,20 @@
+<noinclude>
+This template defines the Cargo table '''fan_stories'''.
+
+{{#cargo_declare:
+_table=fan_stories
+|title=String
+|author=String
+|story_category=String
+|year=String
+}}
+</noinclude>
+<includeonly>
+{{#cargo_store:
+_table=fan_stories
+|title={{{title|}}}
+|author={{{author|}}}
+|story_category={{{story_category|}}}
+|year={{{year|}}}
+}}
+</includeonly>

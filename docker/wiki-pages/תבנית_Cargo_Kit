@@ -1,0 +1,20 @@
+<noinclude>
+This template defines the Cargo table '''kits'''.
+
+{{#cargo_declare:
+_table=kits
+|season=String
+|kit_type=String
+|manufacturer=String
+|sponsor=String
+}}
+</noinclude>
+<includeonly>
+{{#cargo_store:
+_table=kits
+|season={{{season|}}}
+|kit_type={{{kit_type|}}}
+|manufacturer={{{manufacturer|}}}
+|sponsor={{{sponsor|}}}
+}}
+</includeonly>

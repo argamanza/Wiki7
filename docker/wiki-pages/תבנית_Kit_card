@@ -1,0 +1,7 @@
+<includeonly><div class="wiki7-kit-card">
+<div class="wiki7-kit-card__title">[[{{{_pageName|}}}|מדי {{{kit_type|}}} {{{season|}}}]]</div>
+<div class="wiki7-kit-card__meta">
+{{#if:{{{manufacturer|}}}|<span class="wiki7-kit-card__manufacturer">{{{manufacturer|}}}</span>}}
+{{#if:{{{sponsor|}}}|<span class="wiki7-kit-card__sponsor">{{{sponsor|}}}</span>}}
+</div>
+</div></includeonly>

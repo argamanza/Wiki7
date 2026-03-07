@@ -11,6 +11,19 @@
 | homegrown = {{ 'Yes' if player.homegrown else 'No' }}
 | retired = {{ 'Yes' if player.retired else 'No' }}
 {{"}}"}}
+{{"{{"}}Cargo/Player
+| tmk_id = {{ player.id }}
+| name_english = {{ player.name_english }}
+| name_hebrew = {{ player.name_hebrew or '' }}
+| birth_date = {{ player.birth_date or '' }}
+| birth_place = {{ player.birth_place or '' }}
+| nationality = {{ player.nationality | join(', ') if player.nationality else '' }}
+| main_position = {{ player.main_position or '' }}
+| current_squad = {{ 'Yes' if player.current_squad else 'No' }}
+| current_jersey_number = {{ player.current_jersey_number or '' }}
+| homegrown = {{ 'Yes' if player.homegrown else 'No' }}
+| retired = {{ 'Yes' if player.retired else 'No' }}
+{{"}}"}}
 
 == קריירה ==
 {% if transfers %}
@@ -19,6 +32,7 @@
 {% for t in transfers %}
 |-
 | {{ t.season }} || {{ t.transfer_date }} || {{ t.from_club }} || {{ t.to_club }} || {{ t.fee }} || {{ '&#x2705;' if t.loan else '' }}
+{{"{{"}}Cargo/Transfer|player_id={{ player.id }}|season={{ t.season }}|transfer_date={{ t.transfer_date }}|from_club={{ t.from_club }}|to_club={{ t.to_club }}|fee={{ t.fee }}|loan={{ 'Yes' if t.loan else 'No' }}{{"}}"}}
 {% endfor %}
 
 |}
@@ -34,6 +48,7 @@
 {% set season_display = season_int ~ "/" ~ next_year[-2:] %}
 |-
 | [[עונת {{ season_display }}|{{ s.season }}]] || {{ s.appearances }} || {{ s.goals }} || {{ s.assists }} || {{ s.yellow_cards }} || {{ s.get('second_yellow_cards', 0) }} || {{ s.red_cards }} || {{ s.minutes_played }}
+{{"{{"}}Cargo/PlayerStats|player_id={{ player.id }}|season={{ s.season }}|appearances={{ s.appearances }}|goals={{ s.goals }}|assists={{ s.assists }}|yellow_cards={{ s.yellow_cards }}|second_yellow_cards={{ s.get('second_yellow_cards', 0) }}|red_cards={{ s.red_cards }}|minutes_played={{ s.minutes_played }}{{"}}"}}
 {% endfor %}
 
 |-
@@ -48,6 +63,7 @@
 {% for mv in market_values %}
 |-
 | {{ mv.value_date }} || {{ mv.value }} || {{ mv.team }}
+{{"{{"}}Cargo/MarketValue|player_id={{ player.id }}|value_date={{ mv.value_date }}|value={{ mv.value }}|team={{ mv.team }}{{"}}"}}
 {% endfor %}
 
 |}

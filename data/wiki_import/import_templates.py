@@ -32,6 +32,12 @@ MEDIAWIKI_TEMPLATES = {
     "Template:Player infobox": "Player_infobox.wikitext",
     "Template:Match infobox": "Match_infobox.wikitext",
     "Template:Stadium infobox": "Stadium_infobox.wikitext",
+    "Template:Fan anthem infobox": "Fan_anthem_infobox.wikitext",
+    "Template:Museum item infobox": "Museum_item_infobox.wikitext",
+    "Template:Season infobox": "Season_infobox.wikitext",
+    "Template:Coach infobox": "Coach_infobox.wikitext",
+    "Template:Trophy infobox": "Trophy_infobox.wikitext",
+    "Template:Kit infobox": "Kit_infobox.wikitext",
 }
 
 
@@ -122,6 +128,56 @@ CARGO_TABLES = {
             "competition": "String",
             "achievement": "String",
             "seasons": "List (,) of String",
+        },
+    },
+    "Template:Cargo/FanAnthem": {
+        "table": "fan_anthems",
+        "fields": {
+            "title": "String",
+            "origin_year": "String",
+            "melody_source": "String",
+            "category": "String",
+            "when_used": "String",
+        },
+    },
+    "Template:Cargo/MuseumItem": {
+        "table": "museum_items",
+        "fields": {
+            "name": "String",
+            "item_type": "String",
+            "era": "String",
+            "year": "String",
+            "donor": "String",
+            "description": "String",
+        },
+    },
+    "Template:Cargo/Season": {
+        "table": "seasons",
+        "fields": {
+            "year": "String",
+            "league_position": "String",
+            "cup_result": "String",
+            "top_scorer": "String",
+            "top_scorer_goals": "Integer",
+            "manager": "String",
+        },
+    },
+    "Template:Cargo/Kit": {
+        "table": "kits",
+        "fields": {
+            "season": "String",
+            "kit_type": "String",
+            "manufacturer": "String",
+            "sponsor": "String",
+        },
+    },
+    "Template:Cargo/FanStory": {
+        "table": "fan_stories",
+        "fields": {
+            "title": "String",
+            "author": "String",
+            "story_category": "String",
+            "year": "String",
         },
     },
 }
@@ -270,6 +326,77 @@ def import_cargo_templates(
     logger.info(
         "Cargo template import: %d created, %d updated, %d skipped, %d failed",
         summary["created"], summary["updated"], summary["skipped"], summary["failed"],
+    )
+    return summary
+
+
+def _get_existing_cargo_tables(site: mwclient.Site) -> set:
+    """Return the set of Cargo SQL table names that already exist."""
+    try:
+        result = site.api('cargotables')
+        return set(result.get('cargotables', []))
+    except (mwclient.errors.APIError, KeyError):
+        return set()
+
+
+def create_cargo_tables(
+    site: Optional[mwclient.Site] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Create Cargo SQL tables via the API for all declaration templates.
+
+    Must be called after Cargo templates are imported but before data pages
+    are imported, so that #cargo_store calls can write to existing tables.
+
+    Tables that already exist are skipped to avoid dropping data that was
+    populated by other means (e.g. Docker entrypoint seed pages).
+    """
+    summary = {"created": 0, "updated": 0, "skipped": 0, "failed": 0, "errors": []}
+
+    if dry_run:
+        for title, config in CARGO_TABLES.items():
+            logger.info("[DRY RUN] Would create Cargo table: %s", config["table"])
+            summary["created"] += 1
+        return summary
+
+    if site is None:
+        raise RuntimeError("site is required when dry_run=False")
+
+    existing = _get_existing_cargo_tables(site)
+    if existing:
+        logger.debug("Existing Cargo tables: %s", existing)
+
+    # Get CSRF token once for all table creations
+    token_result = site.api('query', meta='tokens', type='csrf')
+    csrf_token = token_result['query']['tokens']['csrftoken']
+
+    for title, config in CARGO_TABLES.items():
+        template_name = title.replace("Template:", "")
+        table_name = config["table"]
+
+        if table_name in existing:
+            logger.info("Cargo table '%s' already exists, skipping", table_name)
+            summary["skipped"] += 1
+            continue
+
+        try:
+            logger.info("Creating Cargo table '%s' from template '%s'...", table_name, template_name)
+            site.api('cargorecreatetables', template=template_name, token=csrf_token)
+            logger.info("Created Cargo table: %s", table_name)
+            summary["created"] += 1
+        except mwclient.errors.APIError as exc:
+            error_msg = str(exc)
+            logger.error("Failed to create Cargo table '%s': %s", table_name, exc)
+            summary["failed"] += 1
+            summary["errors"].append({"table": table_name, "error": error_msg})
+        except ConnectionError as exc:
+            logger.error("Failed to create Cargo table '%s': %s", table_name, exc)
+            summary["failed"] += 1
+            summary["errors"].append({"table": table_name, "error": str(exc)})
+
+    logger.info(
+        "Cargo table creation: %d created, %d skipped, %d failed",
+        summary["created"], summary["skipped"], summary["failed"],
     )
     return summary
 

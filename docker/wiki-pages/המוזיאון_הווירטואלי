@@ -1,0 +1,17 @@
+<div class="wiki7-page-header">
+<h1>המוזיאון הווירטואלי</h1>
+<p>אוסף פריטים היסטוריים של הפועל באר שבע — חולצות, מדליות, כרטיסים ומזכרות מרגעי השיא של המועדון.</p>
+</div>
+
+<div class="wiki7-museum__grid">
+{{#cargo_query:
+tables=museum_items
+|fields=_pageName, name, item_type, era, year
+|order by=year DESC
+|format=template
+|template=Museum card
+|named args=yes
+}}
+</div>
+
+[[קטגוריה:תרבות אוהדים]]

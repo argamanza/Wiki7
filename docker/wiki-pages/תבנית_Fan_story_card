@@ -1,0 +1,8 @@
+<includeonly><div class="wiki7-story-card">
+<div class="wiki7-story-card__title">[[{{{_pageName|}}}|{{{title|}}}]]</div>
+<div class="wiki7-story-card__meta">
+{{#if:{{{author|}}}|<span class="wiki7-story-card__author">{{{author|}}}</span>}}
+{{#if:{{{year|}}}|<span class="wiki7-story-card__year">{{{year|}}}</span>}}
+{{#if:{{{story_category|}}}|<span class="wiki7-story-card__category">{{{story_category|}}}</span>}}
+</div>
+</div></includeonly>

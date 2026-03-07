@@ -1,0 +1,8 @@
+<includeonly><div class="wiki7-museum-card">
+<div class="wiki7-museum-card__title">[[{{{_pageName|}}}|{{{name|}}}]]</div>
+<div class="wiki7-museum-card__meta">
+{{#if:{{{item_type|}}}|<span class="wiki7-museum-card__type">{{{item_type|}}}</span>}}
+{{#if:{{{year|}}}|<span class="wiki7-museum-card__year">{{{year|}}}</span>}}
+{{#if:{{{era|}}}|<span class="wiki7-museum-card__era">{{{era|}}}</span>}}
+</div>
+</div></includeonly>

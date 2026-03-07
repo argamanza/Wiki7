@@ -1,0 +1,72 @@
+<div class="wiki7-page-header">
+<h1>ספר השיאים</h1>
+<p>שיאי הפועל באר שבע — מלכי השערים, בעלי ההופעות, ניצחונות גדולים ורגעים היסטוריים.</p>
+</div>
+
+== מלכי השערים — כל הזמנים ==
+<div class="wiki7-records__section">
+{| class="wiki7-records__table wikitable sortable"
+! #
+! שחקן
+! שערים
+|-
+{{#cargo_query:
+tables=player_stats, players
+|join on=player_stats.player_id=players.tmk_id
+|fields=players._pageName=page, players.name_hebrew=name, SUM(player_stats.goals)=total
+|group by=players._pageName, players.name_hebrew
+|having=SUM(player_stats.goals) > 0
+|order by=SUM(player_stats.goals) DESC
+|limit=20
+|format=template
+|template=Record row
+|named args=yes
+}}
+|}
+</div>
+
+== בעלי ההופעות — כל הזמנים ==
+<div class="wiki7-records__section">
+{| class="wiki7-records__table wikitable sortable"
+! #
+! שחקן
+! הופעות
+|-
+{{#cargo_query:
+tables=player_stats, players
+|join on=player_stats.player_id=players.tmk_id
+|fields=players._pageName=page, players.name_hebrew=name, SUM(player_stats.appearances)=total
+|group by=players._pageName, players.name_hebrew
+|having=SUM(player_stats.appearances) > 0
+|order by=SUM(player_stats.appearances) DESC
+|limit=20
+|format=template
+|template=Record row
+|named args=yes
+}}
+|}
+</div>
+
+== מלכי הבישולים — כל הזמנים ==
+<div class="wiki7-records__section">
+{| class="wiki7-records__table wikitable sortable"
+! #
+! שחקן
+! בישולים
+|-
+{{#cargo_query:
+tables=player_stats, players
+|join on=player_stats.player_id=players.tmk_id
+|fields=players._pageName=page, players.name_hebrew=name, SUM(player_stats.assists)=total
+|group by=players._pageName, players.name_hebrew
+|having=SUM(player_stats.assists) > 0
+|order by=SUM(player_stats.assists) DESC
+|limit=20
+|format=template
+|template=Record row
+|named args=yes
+}}
+|}
+</div>
+
+[[קטגוריה:סטטיסטיקות]]

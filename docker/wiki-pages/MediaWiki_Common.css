@@ -309,7 +309,7 @@
  * =================================================================== */
 .wiki7-home__nav {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: var(--space-xs, 0.5rem);
     margin-bottom: var(--space-md, 1rem);
 }
@@ -411,6 +411,21 @@
 .wiki7-nav-pill--stats a::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V10'/%3E%3Cpath d='M18 20V4'/%3E%3Cpath d='M6 20v-4'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V10'/%3E%3Cpath d='M18 20V4'/%3E%3Cpath d='M6 20v-4'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--anthems a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='16' r='3'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='16' r='3'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--museum a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 22h18'/%3E%3Cpath d='M6 18v-7'/%3E%3Cpath d='M10 18v-7'/%3E%3Cpath d='M14 18v-7'/%3E%3Cpath d='M18 18v-7'/%3E%3Cpath d='M12 2 3 7h18z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 22h18'/%3E%3Cpath d='M6 18v-7'/%3E%3Cpath d='M10 18v-7'/%3E%3Cpath d='M14 18v-7'/%3E%3Cpath d='M18 18v-7'/%3E%3Cpath d='M12 2 3 7h18z'/%3E%3C/svg%3E");
+}
+
+.wiki7-nav-pill--records a::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='6'/%3E%3Cpath d='M15.477 12.89 17 22l-5-3-5 3 1.523-9.11'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='6'/%3E%3Cpath d='M15.477 12.89 17 22l-5-3-5 3 1.523-9.11'/%3E%3C/svg%3E");
 }
 
 /* ===================================================================
@@ -824,7 +839,7 @@
  * =================================================================== */
 @media (max-width: 720px) {
     .wiki7-home__nav {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
 
     .wiki7-home__stats {
@@ -872,6 +887,7 @@
 @media (max-width: 480px) {
     .wiki7-home__nav {
         grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
     }
 
     .wiki7-home__header {
@@ -888,4 +904,339 @@
         height: 20px;
         min-width: 20px;
     }
+}
+
+/* ===================================================================
+ * INFOBOX FRAMEWORK
+ * =================================================================== */
+.wiki7-infobox {
+    float: left;
+    clear: left;
+    margin: 0 var(--space-md, 1rem) var(--space-md, 1rem) 0;
+    width: 280px;
+    max-width: 100%;
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    overflow: hidden;
+    font-size: var(--font-size-small, 0.875rem);
+}
+
+[dir="rtl"] .wiki7-infobox {
+    float: right;
+    margin: 0 0 var(--space-md, 1rem) var(--space-md, 1rem);
+}
+
+.wiki7-infobox__header {
+    padding: var(--space-sm, 0.75rem) var(--space-md, 1rem);
+    background: linear-gradient(135deg, var(--wiki7-red) 0%, var(--wiki7-red-dark) 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.wiki7-infobox__image {
+    text-align: center;
+    padding: var(--space-sm, 0.75rem);
+    background: var(--color-surface-2, #f5f5f5);
+}
+
+.wiki7-infobox__image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-base, 4px);
+}
+
+.wiki7-infobox__section {
+    padding: var(--space-xs, 0.5rem) 0;
+}
+
+.wiki7-infobox__row {
+    display: flex;
+    padding: var(--space-xxs, 0.25rem) var(--space-md, 1rem);
+    border-bottom: 1px solid var(--border-color-base, #eee);
+}
+
+.wiki7-infobox__row:last-child {
+    border-bottom: none;
+}
+
+.wiki7-infobox__label {
+    flex: 0 0 40%;
+    font-weight: 600;
+    color: var(--color-subtle, #666);
+}
+
+.wiki7-infobox__value {
+    flex: 1;
+    color: var(--color-emphasized, #000);
+}
+
+@media (max-width: 720px) {
+    .wiki7-infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 var(--space-md, 1rem) 0;
+    }
+
+    [dir="rtl"] .wiki7-infobox {
+        margin: 0 0 var(--space-md, 1rem) 0;
+    }
+}
+
+/* ===================================================================
+ * FAN ANTHEMS
+ * =================================================================== */
+.wiki7-anthems__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs, 0.5rem);
+    margin-bottom: var(--space-md, 1rem);
+}
+
+.wiki7-anthem-card {
+    padding: var(--space-sm, 0.75rem) var(--space-md, 1rem);
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    border-inline-start: 3px solid var(--wiki7-red);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wiki7-anthem-card:hover {
+    border-color: var(--wiki7-red);
+    box-shadow: 0 2px 8px rgba(200, 16, 46, 0.1);
+}
+
+.wiki7-anthem-card__title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: var(--space-xxs, 0.25rem);
+}
+
+.wiki7-anthem-card__title a {
+    color: var(--color-emphasized, #000);
+    text-decoration: none;
+}
+
+.wiki7-anthem-card__title a:hover {
+    color: var(--wiki7-red);
+}
+
+.wiki7-anthem-card__meta {
+    display: flex;
+    gap: var(--space-sm, 0.75rem);
+    font-size: var(--font-size-x-small, 0.75rem);
+    color: var(--color-subtle, #666);
+}
+
+.wiki7-anthem__lyrics {
+    margin: var(--space-md, 1rem) 0;
+    padding: var(--space-md, 1rem);
+    background: var(--color-surface-2, #f5f5f5);
+    border-inline-start: 3px solid var(--wiki7-gold);
+    border-radius: var(--border-radius-base, 4px);
+    font-style: italic;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* ===================================================================
+ * VIRTUAL MUSEUM
+ * =================================================================== */
+.wiki7-museum__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-md, 1rem);
+    margin-bottom: var(--space-md, 1rem);
+}
+
+.wiki7-museum-card {
+    padding: var(--space-md, 1rem);
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.wiki7-museum-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wiki7-museum-card__title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: var(--space-xs, 0.5rem);
+}
+
+.wiki7-museum-card__title a {
+    color: var(--color-emphasized, #000);
+    text-decoration: none;
+}
+
+.wiki7-museum-card__title a:hover {
+    color: var(--wiki7-red);
+}
+
+.wiki7-museum-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs, 0.5rem);
+    font-size: var(--font-size-x-small, 0.75rem);
+}
+
+.wiki7-museum-card__type,
+.wiki7-museum-card__year,
+.wiki7-museum-card__era {
+    padding: 2px 8px;
+    background: var(--color-surface-2, #f5f5f5);
+    border-radius: var(--border-radius-base, 4px);
+    color: var(--color-subtle, #666);
+}
+
+/* ===================================================================
+ * RECORD BOOK
+ * =================================================================== */
+.wiki7-records__section {
+    margin-bottom: var(--space-lg, 1.5rem);
+}
+
+.wiki7-records__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.wiki7-records__table th {
+    background: var(--wiki7-red);
+    color: #fff;
+    padding: var(--space-xs, 0.5rem) var(--space-sm, 0.75rem);
+    font-weight: 600;
+    text-align: start;
+}
+
+.wiki7-records__table td {
+    padding: var(--space-xs, 0.5rem) var(--space-sm, 0.75rem);
+    border-bottom: 1px solid var(--border-color-base, #eee);
+}
+
+.wiki7-records__table tr:hover td {
+    background: var(--color-surface-2, #f5f5f5);
+}
+
+/* ===================================================================
+ * KIT GALLERY
+ * =================================================================== */
+.wiki7-kits__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-md, 1rem);
+    padding: var(--space-md, 1rem) 0;
+}
+
+.wiki7-kit-card {
+    padding: var(--space-md, 1rem);
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.wiki7-kit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wiki7-kit-card__title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: var(--space-xs, 0.5rem);
+}
+
+.wiki7-kit-card__title a {
+    color: var(--color-emphasized, #000);
+    text-decoration: none;
+}
+
+.wiki7-kit-card__title a:hover {
+    color: var(--wiki7-red);
+}
+
+.wiki7-kit-card__meta {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm, 0.75rem);
+    font-size: var(--font-size-x-small, 0.75rem);
+    color: var(--color-subtle, #666);
+}
+
+/* ===================================================================
+ * FAN STORIES
+ * =================================================================== */
+.wiki7-stories__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md, 1rem);
+    margin-bottom: var(--space-md, 1rem);
+}
+
+.wiki7-story-card {
+    padding: var(--space-md, 1rem);
+    background: var(--color-surface-1, #fff);
+    border: 1px solid var(--border-color-base, #ddd);
+    border-radius: var(--border-radius-medium, 8px);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.wiki7-story-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wiki7-story-card__title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: var(--space-xs, 0.5rem);
+}
+
+.wiki7-story-card__title a {
+    color: var(--color-emphasized, #000);
+    text-decoration: none;
+}
+
+.wiki7-story-card__title a:hover {
+    color: var(--wiki7-red);
+}
+
+.wiki7-story-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs, 0.5rem);
+    font-size: var(--font-size-x-small, 0.75rem);
+    color: var(--color-subtle, #666);
+}
+
+/* ===================================================================
+ * PAGE HEADER (collection pages)
+ * =================================================================== */
+.wiki7-page-header {
+    margin-bottom: var(--space-lg, 1.5rem);
+}
+
+.wiki7-page-header h1 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--color-emphasized, #000);
+    margin: 0 0 var(--space-xs, 0.5rem) 0;
+    border-bottom: 3px solid var(--wiki7-red);
+    padding-bottom: var(--space-xs, 0.5rem);
+}
+
+.wiki7-page-header p {
+    color: var(--color-subtle, #666);
+    font-size: var(--font-size-small, 0.875rem);
+    line-height: 1.6;
+    margin: 0;
 }

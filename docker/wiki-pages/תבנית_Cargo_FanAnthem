@@ -1,0 +1,22 @@
+<noinclude>
+This template defines the Cargo table '''fan_anthems'''.
+
+{{#cargo_declare:
+_table=fan_anthems
+|title=String
+|origin_year=String
+|melody_source=String
+|category=String
+|when_used=String
+}}
+</noinclude>
+<includeonly>
+{{#cargo_store:
+_table=fan_anthems
+|title={{{title|}}}
+|origin_year={{{origin_year|}}}
+|melody_source={{{melody_source|}}}
+|category={{{category|}}}
+|when_used={{{when_used|}}}
+}}
+</includeonly>
