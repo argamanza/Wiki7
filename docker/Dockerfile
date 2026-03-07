@@ -18,6 +18,9 @@ echo '{"extra":{"merge-plugin":{"include":["extensions/AWS/composer.json"]}}}' >
 composer config --global audit.block-insecure false && \
 composer update --no-dev --no-audit
 
+# Install TabberNeue extension (tabbed content for galleries, stats)
+RUN git clone --depth 1 https://github.com/StarCitizenTools/mediawiki-extensions-TabberNeue.git extensions/TabberNeue
+
 # Set working directory
 WORKDIR /var/www/html
 
@@ -38,6 +41,7 @@ COPY skins/Wiki7/ /var/www/html/skins/Wiki7/
 # Copy wiki page seed files and import script
 COPY wiki-pages/ /var/www/html/wiki-pages/
 COPY import-pages.php /var/www/html/import-pages.php
+COPY cargo-repopulate.php /var/www/html/cargo-repopulate.php
 
 # Back up custom LocalSettings.php so entrypoint can restore it after install.php
 RUN cp /var/www/html/LocalSettings.php /var/www/html/LocalSettings.php.custom

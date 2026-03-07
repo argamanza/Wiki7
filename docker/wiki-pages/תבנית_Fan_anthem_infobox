@@ -1,0 +1,21 @@
+<includeonly>
+<div class="wiki7-infobox">
+<div class="wiki7-infobox__header">
+{{{title|}}}
+</div>
+<div class="wiki7-infobox__section">
+{{#if:{{{origin_year|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">שנת יצירה</span><span class="wiki7-infobox__value">{{{origin_year|}}}</span></div>}}
+{{#if:{{{melody_source|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מקור המנגינה</span><span class="wiki7-infobox__value">{{{melody_source|}}}</span></div>}}
+{{#if:{{{category|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">קטגוריה</span><span class="wiki7-infobox__value">{{{category|}}}</span></div>}}
+{{#if:{{{when_used|}}}|<div class="wiki7-infobox__row"><span class="wiki7-infobox__label">מתי שרים</span><span class="wiki7-infobox__value">{{{when_used|}}}</span></div>}}
+</div>
+</div>
+{{#cargo_store:
+_table=fan_anthems
+|title={{{title|}}}
+|origin_year={{{origin_year|}}}
+|melody_source={{{melody_source|}}}
+|category={{{category|}}}
+|when_used={{{when_used|}}}
+}}
+</includeonly>

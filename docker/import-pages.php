@@ -32,6 +32,7 @@ class ImportDefaultPages extends Maintenance {
             'MediaWiki_Common.css'       => 'MediaWiki:Common.css',
             'MediaWiki_Common.js'        => 'MediaWiki:Common.js',
             'MediaWiki_Mainpage'         => 'MediaWiki:Mainpage',
+            'MediaWiki_Sidebar'          => 'MediaWiki:Sidebar',
 
             // Main page
             'עמוד_ראשי'                  => 'עמוד ראשי',
@@ -48,6 +49,45 @@ class ImportDefaultPages extends Maintenance {
             'תבנית_עמוד_ראשי_תארים'      => 'תבנית:עמוד ראשי/תארים',
             'תבנית_עמוד_ראשי_קישורים'    => 'תבנית:עמוד ראשי/קישורים',
             'תבנית_עמוד_ראשי_צור_קשר'    => 'תבנית:עמוד ראשי/צור קשר',
+
+            // Cargo declaration templates
+            'תבנית_Cargo_FanAnthem'       => 'תבנית:Cargo/FanAnthem',
+            'תבנית_Cargo_MuseumItem'      => 'תבנית:Cargo/MuseumItem',
+            'תבנית_Cargo_Kit'             => 'תבנית:Cargo/Kit',
+            'תבנית_Cargo_FanStory'        => 'תבנית:Cargo/FanStory',
+            'תבנית_Cargo_Season'          => 'תבנית:Cargo/Season',
+
+            // Infobox templates (used by sample data pages for #cargo_store)
+            'תבנית_Fan_anthem_infobox'    => 'תבנית:Fan anthem infobox',
+            'תבנית_Museum_item_infobox'   => 'תבנית:Museum item infobox',
+            'תבנית_Kit_infobox'           => 'תבנית:Kit infobox',
+
+            // Collection pages
+            'שירי_קהל'                    => 'שירי קהל',
+            'המוזיאון_הווירטואלי'          => 'המוזיאון הווירטואלי',
+            'גלריית_מדים'                 => 'גלריית מדים',
+            'סיפורי_אוהדים'               => 'סיפורי אוהדים',
+            'ספר_השיאים'                  => 'ספר השיאים',
+
+            // Card templates
+            'תבנית_Anthem_card'           => 'תבנית:Anthem card',
+            'תבנית_Museum_card'           => 'תבנית:Museum card',
+            'תבנית_Kit_card'              => 'תבנית:Kit card',
+            'תבנית_Fan_story_card'        => 'תבנית:Fan story card',
+
+            // Sample data: Fan anthems
+            'הנה_באנו'                    => 'הנה באנו',
+            'אדום_זה_הצבע'               => 'אדום זה הצבע',
+            'שער_שער_שער'                 => 'שער שער שער',
+
+            // Sample data: Museum items
+            'חולצת_אליפות_2016'           => 'חולצת אליפות 2016',
+            'כרטיס_גמר_גביע_1997'        => 'כרטיס גמר גביע 1997',
+            'מדליית_אליפות_2017'          => 'מדליית אליפות 2017',
+
+            // Sample data: Kits
+            'מדי_בית_2024'                => 'מדי בית 2024/25',
+            'מדי_חוץ_2024'                => 'מדי חוץ 2024/25',
         ];
     }
 

@@ -319,7 +319,7 @@ def run_import(
     from wiki_import.import_players import import_players
     from wiki_import.import_matches import import_matches
     from wiki_import.import_templates import (
-        import_mediawiki_templates, import_cargo_templates,
+        import_mediawiki_templates, import_cargo_templates, create_cargo_tables,
         import_squad_page, import_transfer_page,
         import_coaches_page, import_honours_page, import_stadium_page,
         import_records_page, import_season_overview, import_leaderboards,
@@ -346,6 +346,14 @@ def run_import(
         results["cargo"] = import_cargo_templates(site=site, dry_run=dry_run)
     except FileNotFoundError as exc:
         logger.error("Cargo template import failed: %s", exc)
+        all_ok = False
+
+    # Create Cargo SQL tables (must happen after templates exist, before data pages)
+    try:
+        logger.info("Creating Cargo SQL tables...")
+        results["cargo_tables"] = create_cargo_tables(site=site, dry_run=dry_run)
+    except Exception as exc:
+        logger.error("Cargo table creation failed: %s", exc)
         all_ok = False
 
     # Player pages (from merged/single data dir, prefer Hebrew-enriched versions)

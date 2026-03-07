@@ -1,0 +1,42 @@
+<div class="wiki7-page-header">
+<h1>שירי קהל</h1>
+<p>שירי הקהל של הפועל באר שבע — המנונים, שירי טרום-משחק, שירי שער ושירים כלליים שמלווים את הקבוצה בכל משחק.</p>
+</div>
+
+== שירי טרום-משחק ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName, title, origin_year, when_used
+|where=category='טרום-משחק'
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+== שירי שער ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName, title, origin_year, when_used
+|where=category='שער'
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+== שירים כלליים ==
+<div class="wiki7-anthems__list">
+{{#cargo_query:
+tables=fan_anthems
+|fields=_pageName, title, origin_year, when_used
+|where=category='כללי'
+|format=template
+|template=Anthem card
+|named args=yes
+}}
+</div>
+
+[[קטגוריה:תרבות אוהדים]]

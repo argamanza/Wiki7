@@ -1,0 +1,24 @@
+<noinclude>
+This template defines the Cargo table '''seasons'''.
+
+{{#cargo_declare:
+_table=seasons
+|year=String
+|league_position=String
+|cup_result=String
+|top_scorer=String
+|top_scorer_goals=Integer
+|manager=String
+}}
+</noinclude>
+<includeonly>
+{{#cargo_store:
+_table=seasons
+|year={{{year|}}}
+|league_position={{{league_position|}}}
+|cup_result={{{cup_result|}}}
+|top_scorer={{{top_scorer|}}}
+|top_scorer_goals={{{top_scorer_goals|}}}
+|manager={{{manager|}}}
+}}
+</includeonly>

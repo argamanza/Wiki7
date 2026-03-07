@@ -1,0 +1,7 @@
+<includeonly><div class="wiki7-anthem-card">
+<div class="wiki7-anthem-card__title">[[{{{_pageName|}}}|{{{title|}}}]]</div>
+<div class="wiki7-anthem-card__meta">
+{{#if:{{{origin_year|}}}|<span class="wiki7-anthem-card__year">{{{origin_year|}}}</span>}}
+{{#if:{{{when_used|}}}|<span class="wiki7-anthem-card__usage">{{{when_used|}}}</span>}}
+</div>
+</div></includeonly>

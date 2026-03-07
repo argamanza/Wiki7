@@ -1,0 +1,24 @@
+<noinclude>
+This template defines the Cargo table '''museum_items'''.
+
+{{#cargo_declare:
+_table=museum_items
+|name=String
+|item_type=String
+|era=String
+|year=String
+|donor=String
+|description=String
+}}
+</noinclude>
+<includeonly>
+{{#cargo_store:
+_table=museum_items
+|name={{{name|}}}
+|item_type={{{item_type|}}}
+|era={{{era|}}}
+|year={{{year|}}}
+|donor={{{donor|}}}
+|description={{{description|}}}
+}}
+</includeonly>

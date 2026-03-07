@@ -1,0 +1,17 @@
+<div class="wiki7-page-header">
+<h1>סיפורי אוהדים</h1>
+<p>סיפורים אישיים של אוהדי הפועל באר שבע — רגעים בלתי נשכחים, זיכרונות מהיציע וחוויות שאי אפשר לשכוח.</p>
+</div>
+
+<div class="wiki7-stories__grid">
+{{#cargo_query:
+tables=fan_stories
+|fields=_pageName, title, author, story_category, year
+|order by=year DESC
+|format=template
+|template=Fan story card
+|named args=yes
+}}
+</div>
+
+[[קטגוריה:תרבות אוהדים]]

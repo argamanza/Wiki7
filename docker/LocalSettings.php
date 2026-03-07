@@ -109,6 +109,7 @@ wfLoadExtension( 'WikiEditor' );
 
 wfLoadExtension( 'Cargo' );
 wfLoadExtension( 'PageForms' );
+wfLoadExtension( 'TabberNeue' );
 
 ##
 ## Logo
@@ -214,5 +215,16 @@ if ( getenv('WIKI_ENV') === 'production' ) {
     // Resource loader debug
     $wgResourceLoaderDebug = true;
 }
+
+##
+## Drawer Footer Social Links
+##
+$wgWiki7DrawerFooterLinks = [
+    [ 'label' => 'פייסבוק', 'href' => 'https://www.facebook.com/HapoelBeerSheva', 'icon' => 'facebook', 'external' => true ],
+    [ 'label' => 'טוויטר / X', 'href' => 'https://twitter.com/HapoelBeerSheva', 'icon' => 'x', 'external' => true ],
+    [ 'label' => 'אינסטגרם', 'href' => 'https://www.instagram.com/hapoelbeersheva/', 'icon' => 'instagram', 'external' => true ],
+    [ 'label' => 'יוטיוב', 'href' => 'https://www.youtube.com/@HapoelBeerSheva', 'icon' => 'youtube', 'external' => true ],
+    [ 'label' => 'האתר הרשמי', 'href' => 'https://www.hapoelbs.co.il', 'icon' => 'website', 'external' => true ],
+];
 
 # --- End of environment-specific settings ---

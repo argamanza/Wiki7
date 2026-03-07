@@ -1,0 +1,60 @@
+<div class="wiki7-page-header">
+<h1>גלריית מדים</h1>
+<p>מדי הפועל באר שבע לאורך השנים — בית, חוץ, שלישי ושוער.</p>
+</div>
+
+<tabber>
+בית=
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName, season, kit_type, manufacturer, sponsor
+|where=kit_type='בית'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+|-|
+חוץ=
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName, season, kit_type, manufacturer, sponsor
+|where=kit_type='חוץ'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+|-|
+שלישי=
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName, season, kit_type, manufacturer, sponsor
+|where=kit_type='שלישי'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+|-|
+שוער=
+<div class="wiki7-kits__grid">
+{{#cargo_query:
+tables=kits
+|fields=_pageName, season, kit_type, manufacturer, sponsor
+|where=kit_type='שוער'
+|order by=season DESC
+|format=template
+|template=Kit card
+|named args=yes
+}}
+</div>
+</tabber>
+
+[[קטגוריה:תרבות אוהדים]]

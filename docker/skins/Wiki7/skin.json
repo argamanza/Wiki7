@@ -859,6 +859,11 @@
 			"description": "[EXPERIMENTAL] Enables or disable the command palette. Command palette is in active development and may not work as expected.",
 			"descriptionmsg": "wiki7-config-enablecommandpalette",
 			"public": true
+		},
+		"DrawerFooterLinks": {
+			"value": [],
+			"description": "Array of footer link objects for the drawer menu.",
+			"public": true
 		}
 	},
 	"manifest_version": 2

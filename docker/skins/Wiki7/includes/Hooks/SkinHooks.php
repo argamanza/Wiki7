@@ -138,7 +138,11 @@ class SkinHooks implements
 		$out = $skin->getOutput();
 		$globalToolsId = $this->getConfigValue( 'Wiki7GlobalToolsPortlet', $out );
 		// remove initial p- for backward compatibility
-		$name = empty( $globalToolsId ) ? 'navigation' : preg_replace( '/^p-/', '', $globalToolsId );
+		if ( empty( $globalToolsId ) ) {
+			$name = array_key_first( $bar ) ?? 'navigation';
+		} else {
+			$name = preg_replace( '/^p-/', '', $globalToolsId );
+		}
 		$bar[$name]['specialpages'] = [
 			'text'  => $skin->msg( 'specialpages' ),
 			'href'  => SkinComponentUtils::makeSpecialUrl( 'Specialpages' ),
@@ -160,6 +164,14 @@ class SkinHooks implements
 				'id'    => 't-upload',
 			];
 		}
+
+		$bar[$name]['search'] = [
+			'text'  => $skin->msg( 'search' ),
+			'href'  => SkinComponentUtils::makeSpecialUrl( 'Search' ),
+			'title' => $skin->msg( 'search' ),
+			'icon'  => 'search',
+			'id'    => 'n-search',
+		];
 
 		foreach ( $bar as $key => $item ) {
 			self::addIconsToMenuItems( $bar, $key );
